@@ -4,7 +4,7 @@
     "basePath" : "/app",
     "keycloak": {
       "clientId": "getok-frontend",
-      "realm": "vehizw2t",
+      "realm": "cp1qly2d",
       "serverUrl": "https://sso-dev.pathfinder.gov.bc.ca/auth"
     }
   },
@@ -14,7 +14,7 @@
     "bodyLimit": "30mb",
     "keycloak": {
       "clientId": "getok",
-      "realm": "vehizw2t",
+      "realm": "cp1qly2d",
       "serverUrl": "https://sso-dev.pathfinder.gov.bc.ca/auth"
     },
     "logLevel": "debug",

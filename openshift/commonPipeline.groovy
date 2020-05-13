@@ -54,50 +54,52 @@ def runStageBuild() {
         echo "DEBUG - Using project: ${openshift.project()}"
       }
 
-      parallel(
-        App: {
-          try {
-            notifyStageStatus('Build App', 'PENDING')
+      // parallel(
+      //   App: {
 
-            echo "Processing BuildConfig ${REPO_NAME}-app-${JOB_NAME}..."
-            def bcApp = openshift.process('-f',
-              'openshift/app.bc.yaml',
-              "REPO_NAME=${REPO_NAME}",
-              "JOB_NAME=${JOB_NAME}",
-              "SOURCE_REPO_URL=${SOURCE_REPO_URL}",
-              "SOURCE_REPO_REF=${SOURCE_REPO_REF}"
-            )
+      try {
+        notifyStageStatus('Build App', 'PENDING')
 
-            echo "Building ImageStream..."
-            openshift.apply(bcApp).narrow('bc').startBuild('-w').logs('-f')
+        echo "Processing BuildConfig ${REPO_NAME}-app-${JOB_NAME}..."
+        def bcApp = openshift.process('-f',
+          'openshift/app.bc.yaml',
+          "REPO_NAME=${REPO_NAME}",
+          "JOB_NAME=${JOB_NAME}",
+          "SOURCE_REPO_URL=${SOURCE_REPO_URL}",
+          "SOURCE_REPO_REF=${SOURCE_REPO_REF}"
+        )
 
-            echo "Tagging Image ${REPO_NAME}-app:latest..."
-            openshift.tag("${REPO_NAME}-app:latest",
-              "${REPO_NAME}-app:${JOB_NAME}"
-            )
+        echo "Building ImageStream..."
+        openshift.apply(bcApp).narrow('bc').startBuild('-w').logs('-f')
 
-            echo 'App build successful'
-            notifyStageStatus('Build App', 'SUCCESS')
-          } catch (e) {
-            echo 'App build failed'
-            notifyStageStatus('Build App', 'FAILURE')
-            throw e
-          }
-        },
+        echo "Tagging Image ${REPO_NAME}-app:latest..."
+        openshift.tag("${REPO_NAME}-app:latest",
+          "${REPO_NAME}-app:${JOB_NAME}"
+        )
 
-        SonarQube: {
-          unstash APP_COV_STASH
-          unstash FE_COV_STASH
+        echo 'App build successful'
+        notifyStageStatus('Build App', 'SUCCESS')
+      } catch (e) {
+        echo 'App build failed'
+        notifyStageStatus('Build App', 'FAILURE')
+        throw e
+      }
 
-          echo 'Performing SonarQube static code analysis...'
-          sh """
-          sonar-scanner \
-            -Dsonar.host.url='${SONARQUBE_URL_INT}' \
-            -Dsonar.projectKey='${REPO_NAME}-${JOB_NAME}' \
-            -Dsonar.projectName='${APP_NAME} (${JOB_NAME.toUpperCase()})'
-          """
-        }
-      )
+      //   },
+
+      //   SonarQube: {
+      //     unstash APP_COV_STASH
+      //     unstash FE_COV_STASH
+
+      //     echo 'Performing SonarQube static code analysis...'
+      //     sh """
+      //     sonar-scanner \
+      //       -Dsonar.host.url='${SONARQUBE_URL_INT}' \
+      //       -Dsonar.projectKey='${REPO_NAME}-${JOB_NAME}' \
+      //       -Dsonar.projectName='${APP_NAME} (${JOB_NAME.toUpperCase()})'
+      //     """
+      //   }
+      // )
     }
   }
 }
@@ -125,6 +127,45 @@ def runStageDeploy(String stageEnv, String projectEnv, String hostEnv, String pa
       openshift.selector('secret', "${APP_NAME}-sc-cs-secret").exists())) {
         echo 'Some ConfigMaps and/or Secrets are missing. Please consult the openshift readme for details.'
         throw new Exception('Missing ConfigMaps and/or Secrets')
+      }
+
+      if(openshift.selector('secret', "patroni-${JOB_NAME}-secret").exists()) {
+        echo "Patroni Secret already exists. Skipping..."
+      } else {
+        echo "Processing Patroni Secret..."
+        def dcPatroniSecretTemplate = openshift.process('-f',
+          'openshift/patroni.secret.yaml',
+          "APP_DB_NAME=${APP_NAME}",
+          "INSTANCE=${JOB_NAME}"
+        )
+
+        echo "Creating Patroni Secret..."
+        openshift.create(dcPatroniSecretTemplate)
+      }
+
+      // Apply Patroni Database
+      timeout(time: 10, unit: 'MINUTES') {
+        def dcPatroniTemplate
+        if(JOB_BASE_NAME.startsWith('PR-')) {
+          echo "Processing Patroni StatefulSet (Ephemeral)..."
+          dcPatroniTemplate = openshift.process('-f',
+            'openshift/patroni-ephemeral.dc.yaml',
+            "APP_NAME=${APP_NAME}",
+            "INSTANCE=${JOB_NAME}",
+            "NAMESPACE=${projectEnv}"
+          )
+        } else {
+          echo "Processing Patroni StatefulSet (Persistent)..."
+          dcPatroniTemplate = openshift.process('-f',
+            'openshift/patroni.dc.yaml',
+            "INSTANCE=${JOB_NAME}",
+            "NAMESPACE=${projectEnv}"
+          )
+        }
+
+        echo "Applying Patroni StatefulSet..."
+        def dcPatroni = openshift.apply(dcPatroniTemplate).narrow('statefulset')
+        dcPatroni.rollout().status('--watch=true')
       }
 
       // Wait for deployments to roll out
