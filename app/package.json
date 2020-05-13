@@ -10,6 +10,8 @@
     "test": "jest --verbose --forceExit --detectOpenHandles --maxWorkers=10",
     "lint": "eslint . **/www --no-fix --ext .js",
     "lint:fix": "eslint . **/www --fix --ext .js",
+    "migrate": "echo 'No migration system defined'",
+    "migrate:undo": "echo 'No migration system defined'",
     "pretest": "npm run lint",
     "posttest": "node ./lcov-fix.js",
     "clean": "rm -rf coverage dist",
