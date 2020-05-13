@@ -1,4 +1,10 @@
 {
+  "db": {
+    "database": "DB_DATABASE",
+    "host": "DB_HOST",
+    "username": "DB_USERNAME",
+    "password": "DB_PASSWORD"
+  },
   "frontend": {
     "apiPath": "FRONTEND_APIPATH",
     "basePath": "FRONTEND_BASEPATH",
