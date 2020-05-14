@@ -171,8 +171,15 @@ objects:
                     name: "${APP_NAME}-sc-config"
                 - configMapRef:
                     name: "${APP_NAME}-server-config"
+              volumeMounts:
+                - mountPath: "${DATA_DIR}"
+                  name: app-data
           restartPolicy: Always
           terminationGracePeriodSeconds: 30
+          volumes:
+            - name: app-data
+              persistentVolumeClaim:
+                claimName: "${APP_NAME}-data-${JOB_NAME}"
       test: false
       triggers:
         - type: ConfigChange
@@ -185,6 +192,17 @@ objects:
               name: "${REPO_NAME}-app:${JOB_NAME}"
               namespace: "${NAMESPACE}"
           type: ImageChange
+  - apiVersion: v1
+    kind: PersistentVolumeClaim
+    metadata:
+      name: "${APP_NAME}-data-${JOB_NAME}"
+    spec:
+      accessModes:
+        - ReadWriteMany
+      storageClassName: "${DATA_PERSISTENT_VOLUME_CLASS}"
+      resources:
+        requests:
+          storage: "${DATA_VOLUME_CAPACITY}"
   - apiVersion: v1
     kind: Service
     metadata:
@@ -258,3 +276,17 @@ parameters:
     description: Requested Memory per pod (in gigabytes Gi or megabytes Mi ex. 500Mi)
     displayName: Memory Request
     value: 256Mi
+  - name: DATA_DIR
+    description: Path to data directory
+    displayName: Directory to mount for data files
+    required: true
+    value: "/mnt/app/data"
+  - name: DATA_VOLUME_CAPACITY
+    description: Volume space available for Data
+    displayName: Data Volume Capacity (use M or G, not Mi or Gi)
+    required: true
+    value: 21M
+  - name: DATA_PERSISTENT_VOLUME_CLASS
+    description: The storage class of the volume
+    displayName: Persistent Volume Class name
+    value: netapp-file-standard
