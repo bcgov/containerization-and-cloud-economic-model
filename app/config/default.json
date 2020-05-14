@@ -1,4 +1,9 @@
 {
+  "db": {
+    "database": "comfort",
+    "host": "localhost",
+    "username": "app"
+  },
   "frontend": {
     "apiPath": "api/v1",
     "basePath" : "/app",
@@ -29,7 +34,8 @@
       "cdogs": {
         "endpoint": "https://cdogs-master-idcqvl-dev.pathfinder.gov.bc.ca/api"
       },
-      "tokenEndpoint": "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token"
+      "tokenEndpoint": "https://sso-dev.pathfinder.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token",
+      "username": "COMFORT_SERVICE_CLIENT"
     }
   }
 }
