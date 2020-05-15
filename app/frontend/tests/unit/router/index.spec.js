@@ -1,10 +1,11 @@
-import router from '@/router';
+import getRouter from '@/router';
 
 describe('Router', () => {
+  const router = getRouter();
   const routes = router.options.routes;
 
   it('has the correct number of routes', () => {
-    expect(routes).toHaveLength(3);
+    expect(routes).toHaveLength(5);
   });
 
   it('has the expected routes', () => {

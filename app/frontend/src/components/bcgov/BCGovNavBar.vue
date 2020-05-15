@@ -6,6 +6,9 @@
           <router-link :to="{ name: 'Home' }">Home</router-link>
         </li>
         <li>
+          <router-link :to="{ name: 'MinesAttestationsForm' }">Mines Attestations</router-link>
+        </li>
+        <li>
           <router-link :to="{ name: 'Secure' }">Secure</router-link>
         </li>
       </ul>
