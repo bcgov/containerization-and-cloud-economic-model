@@ -5,6 +5,7 @@ const log = require('npmlog');
 const morgan = require('morgan');
 const path = require('path');
 const Problem = require('api-problem');
+const querystring = require('querystring');
 
 const keycloak = require('./src/components/keycloak');
 const v1Router = require('./src/routes/v1');
@@ -84,8 +85,9 @@ app.use((req, res) => {
       detail: req.originalUrl
     }).send(res);
   } else {
-    // Redirect any non-API requests to static frontend
-    res.redirect(staticFilesPath);
+    // Redirect any non-API requests to static frontend with redirect breadcrumb
+    const query = querystring.stringify({ r: req.path });
+    res.redirect(`${staticFilesPath}/?${query}`);
   }
 });
 

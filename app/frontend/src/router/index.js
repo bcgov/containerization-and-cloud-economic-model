@@ -40,7 +40,7 @@ export default function getRouter(basePath = '/') {
     ]
   });
 
-  router.beforeEach((to, _from, next) => {
+  router.beforeEach((to, from, next) => {
     NProgress.start();
     if (to.matched.some(route => route.meta.requiresAuth)
       && router.app.$keycloak
@@ -53,7 +53,8 @@ export default function getRouter(basePath = '/') {
       });
       window.location.replace(loginUrl);
     } else {
-      next();
+      if (to.query.r) next({ path: to.query.r.replace(basePath, '') });
+      else next();
     }
   });
 
