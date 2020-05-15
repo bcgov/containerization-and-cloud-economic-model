@@ -49,7 +49,7 @@ export default function getRouter(basePath = '/') {
     ]
   });
 
-  router.beforeEach((to, from, next) => {
+  router.beforeEach((to, _from, next) => {
     NProgress.start();
     if (to.matched.some(route => route.meta.requiresAuth)
       && router.app.$keycloak
@@ -64,8 +64,9 @@ export default function getRouter(basePath = '/') {
     } else {
       document.title = `${process.env.VUE_APP_TITLE} | ${to.meta.title}`;
       if (to.query.r && isFirstTransition) {
-        next({ path: to.query.r.replace(basePath, '')});
-      } else next();
+        router.replace({ path: to.query.r.replace(basePath, '') });
+      }
+      next();
     }
   });
 
