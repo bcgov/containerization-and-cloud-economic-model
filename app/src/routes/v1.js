@@ -7,6 +7,9 @@ const yaml = require('js-yaml');
 const keycloak = require('../components/keycloak');
 const helloRouter = require('./v1/hello');
 
+const camp = require('../forms/minesattestations');
+const form = require('../forms/form');
+
 const getSpec = () => {
   const rawSpec = fs.readFileSync(path.join(__dirname, '../docs/v1.api-spec.yaml'), 'utf8');
   const spec = yaml.safeLoad(rawSpec);
@@ -14,11 +17,16 @@ const getSpec = () => {
   return spec;
 };
 
+const campPath = camp.mount(router);
+const formPath = form.mount(router);
+
 // Base v1 Responder
 router.get('/', (_req, res) => {
   res.status(200).json({
     endpoints: [
       '/docs',
+      campPath,
+      formPath,
       '/hello'
     ]
   });

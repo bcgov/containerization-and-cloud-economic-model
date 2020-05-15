@@ -10,10 +10,17 @@ const querystring = require('querystring');
 const keycloak = require('./src/components/keycloak');
 const v1Router = require('./src/routes/v1');
 
+const DataConnection = require('./src/db/dataConnection');
+const dataConnection = new DataConnection();
+
 const apiRouter = express.Router();
 const state = {
+  connections: {
+    data: false
+  },
   shutdown: false
 };
+
 
 const app = express();
 app.use(compression());
@@ -28,6 +35,7 @@ log.addLevel('debug', 1500, { fg: 'cyan' });
 if (process.env.NODE_ENV !== 'test') {
   // Add Morgan endpoint logging
   app.use(morgan(config.get('server.morganFormat')));
+  initializeConnections();
 }
 
 // Use Keycloak OIDC Middleware
@@ -47,6 +55,8 @@ apiRouter.use('/config', (_req, res, next) => {
 apiRouter.get('/api', (_req, res) => {
   if (state.shutdown) {
     throw new Error('Server shutting down');
+  } else if (!state.ready) {
+    throw new Error('Server is not ready');
   } else {
     res.status(200).json('ok');
   }
@@ -98,6 +108,9 @@ process.on('unhandledRejection', err => {
   }
 });
 
+process.on('SIGTERM', shutdown);
+process.on('SIGINT', shutdown);
+
 /**
  * @function shutdown
  * Begins shutting down this application. It will hard exit after 3 seconds.
@@ -111,7 +124,65 @@ function shutdown() {
   }
 }
 
-process.on('SIGTERM', shutdown);
-process.on('SIGINT', shutdown);
+/**
+ *  @function initializeConnections
+ *  Initializes the database, queue and email connections
+ *  This will force the application to exit if it fails
+ */
+function initializeConnections() {
+  // Initialize connections and exit if unsuccessful
+  try {
+    const tasks = [
+      dataConnection.checkAll()
+    ];
+
+    Promise.all(tasks)
+      .then(results => {
+        state.connections.data = results[0];
+
+        if (state.connections.data) log.info('DataConnection', 'Connected');
+      })
+      .catch(error => {
+        log.error(error);
+        log.error('initializeConnections', `Initialization failed: Database OK = ${state.connections.data}`);
+      })
+      .finally(() => {
+        state.ready = Object.values(state.connections).every(x => x);
+        if (!state.ready) shutdown();
+      });
+
+  } catch (error) {
+    log.error('initializeConnections', 'Connection initialization failure', error.message);
+    if (!state.ready) shutdown();
+  }
+
+  // Start asynchronous connection probe
+  connectionProbe();
+}
+
+/**
+ *  @function connectionProbe
+ *  Periodically checks the status of the connections at a specific interval
+ *  This will force the application to exit a connection fails
+ *  @param {integer} [interval=10000] Number of milliseconds to wait before
+ */
+function connectionProbe(interval = 10000) {
+  const checkConnections = () => {
+    if (!state.shutdown) {
+      const tasks = [
+        dataConnection.checkConnection()
+      ];
+
+      log.verbose(JSON.stringify(state));
+      Promise.all(tasks).then(results => {
+        state.connections.data = results[0];
+        state.ready = Object.values(state.connections).every(x => x);
+        if (!state.ready) shutdown();
+      });
+    }
+  };
+
+  setInterval(checkConnections, interval);
+}
 
 module.exports = app;

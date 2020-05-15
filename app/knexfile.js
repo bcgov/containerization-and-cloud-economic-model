@@ -21,7 +21,7 @@ module.exports = {
   },
   debug: ['silly', 'verbose'].includes(config.get('server.logLevel')),
   migrations: {
-    directory: __dirname + '/src/services/migrations'
+    directory: __dirname + '/src/db/migrations'
   },
   pool: {
     min: 2,
@@ -30,6 +30,6 @@ module.exports = {
     // propagateCreateError: false
   },
   seeds: {
-    directory: __dirname + '/src/services/seeds'
+    directory: __dirname + '/src/db/seeds'
   }
 };
