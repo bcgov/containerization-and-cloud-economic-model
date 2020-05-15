@@ -8,7 +8,7 @@ let isFirstTransition = true;
 
 /**
  * Constructs and returns a Vue Router object
- * @param {string} [basePath] the base server path
+ * @param {string} [basePath='/'] the base server path
  * @returns {object} a Vue Router object
  */
 export default function getRouter(basePath = '/') {
@@ -24,9 +24,29 @@ export default function getRouter(basePath = '/') {
         path: '/home',
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
-        meta: {
-          title: 'Home'
-        }
+      },
+      {
+        path: '/industrialcamps',
+        component: () => import(/* webpackChunkName: "mines-attestations" */ '@/views/MinesAttestations.vue'),
+        children: [
+          {
+            path: '',
+            name: 'MinesAttestationsForm',
+            component: () => import(/* webpackChunkName: "mines-attestations-form" */ '@/views/minesattestations/Root.vue'),
+            meta: {
+              title: 'Industrial Camps'
+            }
+          },
+          {
+            path: 'admin',
+            name: 'MinesAttestationsAdmin',
+            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/Admin.vue'),
+            meta: {
+              requiresAuth: true,
+              title: 'Industrial Camps Admin'
+            }
+          }
+        ]
       },
       {
         path: '/secure',
@@ -42,9 +62,6 @@ export default function getRouter(basePath = '/') {
         alias: '*',
         name: 'NotFound',
         component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
-        meta: {
-          title: '404'
-        }
       }
     ]
   });
@@ -62,7 +79,7 @@ export default function getRouter(basePath = '/') {
       });
       window.location.replace(loginUrl);
     } else {
-      document.title = `${process.env.VUE_APP_TITLE} | ${to.meta.title}`;
+      document.title = to.meta.title ? to.meta.title : process.env.VUE_APP_TITLE;
       if (to.query.r && isFirstTransition) {
         router.replace({ path: to.query.r.replace(basePath, '') });
       }
