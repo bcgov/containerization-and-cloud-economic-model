@@ -43,5 +43,24 @@ module.exports = {
     } catch (error) {
       next(error);
     }
+  },
+
+  createSubmission: async (req, res, next) => {
+    try {
+      const response = await dataService.createSubmission(req.body);
+      res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  readSubmission: async (req, res, next) => {
+    try {
+      const response = await dataService.readSubmission(req.params.confirmationId);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
   }
+
 };

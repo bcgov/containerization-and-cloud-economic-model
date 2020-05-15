@@ -32,13 +32,13 @@ exports.up = function(knex) {
     .then(() => knex.schema.createTable('camp_submission', table => {
       table.uuid('submissionId').primary();
       table.integer('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
-      table.string('createdBy');
+      table.string('confirmationId').notNullable().unique().index();
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
     .then(() => knex.schema.createTable('camp_submission_status', table => {
-      table.uuid('submissionStatusId').primary();
+      table.increments('submissionStatusId').primary();
       table.uuid('submissionId').references('submissionId').inTable('camp_submission').notNullable().index();
       table.string('code').references('code').inTable('camp_status_code').notNullable().index();
       table.string('assignedTo');
@@ -48,9 +48,9 @@ exports.up = function(knex) {
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
     .then(() => knex.schema.createTable('camp_notes', table => {
-      table.uuid('noteId').primary();
+      table.increments('noteId').primary();
       table.uuid('submissionId').references('submissionId').inTable('camp_submission').index();
-      table.uuid('submissionStatusId').references('submissionStatusId').inTable('camp_submission_status').index();
+      table.integer('submissionStatusId').references('submissionStatusId').inTable('camp_submission_status').index();
       table.string('note', 4000).nullable();
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());

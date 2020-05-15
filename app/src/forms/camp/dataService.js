@@ -77,6 +77,56 @@ const dataService = {
 
     form.versions = [version];
     return form;
+  },
+
+  createSubmission: async (obj) => {
+    if (!obj) {
+      throw Error('Industrial Camp Submission cannot be created without data');
+    }
+    let trx;
+    try {
+      trx = await transaction.start(Models.Submission.knex());
+
+      // all submissions use the current version...
+      const current = await dataService.current();
+      obj.formVersionId = current.versions[0].formVersionId;
+
+      // set up the non-generated ids...
+      const submissionId = uuidv4();
+      const confirmationId = submissionId.substring(0,8);
+      obj.submissionId = submissionId;
+      obj.confirmationId = confirmationId;
+      obj.attestation.attestationId = uuidv4();
+
+      // add the initial submitted status to the graph
+      obj.statuses = [{
+        createdBy: '',
+        code: constants.INITIAL_STATUS_CODE,
+      }];
+
+      await Models.Submission.query(trx).insertGraph(obj);
+      await trx.commit();
+      const result = await dataService.readSubmission(confirmationId);
+      return result;
+    } catch (err) {
+      log.error('create', `Error creating camp submission record: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
+  },
+
+  readSubmission: async (confirmationId) => {
+    return Models.Submission.query()
+      .findOne({confirmationId: confirmationId})
+      .withGraphFetched({
+        attestation: true,
+        business: true,
+        contacts: true,
+        location: true,
+        statuses: true
+      })
+      .throwIfNotFound();
   }
 
 };

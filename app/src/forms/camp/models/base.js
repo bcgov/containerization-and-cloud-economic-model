@@ -75,16 +75,6 @@ class Version extends UpdatedAt(Model) {
   }
 }
 
-class Submission extends UpdatedAt(Model) {
-  static get tableName () {
-    return `${PREFIX}_submission`;
-  }
-
-  static get idColumn () {
-    return 'submissionId';
-  }
-}
-
 class StatusCode extends UpdatedAt(Model) {
   static get tableName () {
     return `${PREFIX}_status_code`;
@@ -92,16 +82,6 @@ class StatusCode extends UpdatedAt(Model) {
 
   static get idColumn () {
     return 'code';
-  }
-}
-
-class SubmissionStatus extends UpdatedAt(Model) {
-  static get tableName () {
-    return `${PREFIX}_submission_status`;
-  }
-
-  static get idColumn () {
-    return 'submissionStatusId';
   }
 }
 
@@ -118,7 +98,5 @@ class Note extends UpdatedAt(Model) {
 module.exports.Metadata = Metadata;
 module.exports.Form = Form;
 module.exports.Version = Version;
-module.exports.Submission = Submission;
 module.exports.StatusCode = StatusCode;
-module.exports.SubmissionStatus = SubmissionStatus;
 module.exports.Note = Note;
