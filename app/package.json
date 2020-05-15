@@ -32,9 +32,6 @@
     "purge": "rm -rf node_modules",
     "rebuild": "npm run clean && npm run build",
     "reinstall": "npm run purge && npm install",
-    "seed": "npm run seed:run",
-    "seed:make": "./node_modules/.bin/knex seed:make",
-    "seed:run": "./node_modules/.bin/knex seed:run",
     "serve": "nodemon ./bin/www",
     "start": "node ./bin/www",
     "test": "jest --verbose --forceExit --detectOpenHandles --maxWorkers=10"
