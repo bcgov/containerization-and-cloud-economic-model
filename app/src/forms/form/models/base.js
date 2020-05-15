@@ -9,7 +9,6 @@ class Form extends UpdatedAt(Model) {
   static get idColumn () {
     return 'formId';
   }
-
 }
 
-module.exports = Form;
+module.exports.Form = Form;

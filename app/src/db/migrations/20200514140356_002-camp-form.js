@@ -22,20 +22,20 @@ exports.up = function(knex) {
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_submission', table => {
-      table.uuid('submissionId').primary();
-      table.uuid('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
-      table.string('createdBy');
-      table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
-      table.string('updatedBy');
-      table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
-    }))
     .then(() => knex.schema.createTable('camp_status_code', table => {
       table.string('code').primary();
       table.uuid('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
       table.string('display').notNullable();
       table.boolean('enabled').notNullable().defaultTo(true);
       table.specificType('transitionCodes', 'text ARRAY').comment('This is an array of codes that this status could transition to next');
+      table.string('createdBy');
+      table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
+      table.string('updatedBy');
+      table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
+    }))
+    .then(() => knex.schema.createTable('camp_submission', table => {
+      table.uuid('submissionId').primary();
+      table.uuid('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');
@@ -67,8 +67,8 @@ exports.down = function(knex) {
   return Promise.resolve()
     .then(() => knex.schema.dropTableIfExists('camp_notes'))
     .then(() => knex.schema.dropTableIfExists('camp_submission_status'))
-    .then(() => knex.schema.dropTableIfExists('camp_status_code'))
     .then(() => knex.schema.dropTableIfExists('camp_submission'))
+    .then(() => knex.schema.dropTableIfExists('camp_status_code'))
     .then(() => knex.schema.dropTableIfExists('camp_form_version'))
     .then(() => knex.schema.dropTableIfExists('camp_form'));
 };
