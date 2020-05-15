@@ -7,7 +7,7 @@ const proxyConfig = {
 };
 
 module.exports = {
-  publicPath: '/app',
+  publicPath: process.env.FRONTEND_BASEPATH ? process.env.FRONTEND_BASEPATH : '/app',
   'transpileDependencies': [
     'vuetify'
   ],
