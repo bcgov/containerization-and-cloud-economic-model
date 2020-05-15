@@ -21,21 +21,28 @@ export default function getRouter(basePath = '/') {
       {
         path: '/home',
         name: 'Home',
-        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue')
+        component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+        meta: {
+          title: 'Home'
+        }
       },
       {
         path: '/secure',
         name: 'Secure',
         component: () => import(/* webpackChunkName: "secure" */ '@/views/Secure.vue'),
         meta: {
-          requiresAuth: true
+          requiresAuth: true,
+          title: 'Secure'
         }
       },
       {
         path: '/404',
         alias: '*',
         name: 'NotFound',
-        component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue')
+        component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
+        meta: {
+          title: '404'
+        }
       }
     ]
   });
@@ -53,6 +60,7 @@ export default function getRouter(basePath = '/') {
       });
       window.location.replace(loginUrl);
     } else {
+      document.title = `${process.env.VUE_APP_TITLE} | ${to.meta.title}`;
       if (to.query.r) next({ path: to.query.r.replace(basePath, '') });
       else next();
     }
