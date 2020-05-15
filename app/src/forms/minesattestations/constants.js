@@ -1,5 +1,5 @@
 module.exports = Object.freeze({
-  SLUG: 'industrialcamps',
-  PREFIX: 'camp',
+  SLUG: 'minesattestations',
+  PREFIX: 'mxattstn',
   INITIAL_STATUS_CODE: 'SUBMITTED'
 });

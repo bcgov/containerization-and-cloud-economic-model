@@ -1,9 +1,10 @@
+const PREFIX = require('../../forms/minesattestations/constants').PREFIX;
 
 exports.up = function(knex) {
   return Promise.resolve()
-    .then(() => knex.schema.createTable('camp_submission_location', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_submission_location`, table => {
       table.increments('locationId').primary();
-      table.uuid('submissionId').references('submissionId').inTable('camp_submission').notNullable().index();
+      table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).notNullable().index();
       table.timestamp('startDate', { useTz: true }).nullable();
       table.timestamp('endDate', { useTz: true }).nullable();
       table.string('city').notNullable();
@@ -27,9 +28,9 @@ exports.up = function(knex) {
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_submission_contact', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_submission_contact`, table => {
       table.increments('contactId').primary();
-      table.uuid('submissionId').references('submissionId').inTable('camp_submission').notNullable().index();
+      table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).notNullable().index();
       table.enu('contactType', ['PRIMARY', 'COVID_COORDINATOR']).notNullable();
       table.string('firstName').notNullable();
       table.string('lastName').notNullable();
@@ -41,9 +42,9 @@ exports.up = function(knex) {
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_submission_business', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_submission_business`, table => {
       table.increments('businessId').primary();
-      table.uuid('submissionId').references('submissionId').inTable('camp_submission').notNullable().index();
+      table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).notNullable().index();
       table.string('name').notNullable();
       table.string('orgBookId');
       table.string('addressLine1').notNullable();
@@ -56,9 +57,9 @@ exports.up = function(knex) {
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_submission_attestation', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_submission_attestation`, table => {
       table.uuid('attestationId').primary();
-      table.uuid('submissionId').references('submissionId').inTable('camp_submission').notNullable().index();
+      table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).notNullable().index();
 
       table.boolean('guidelinesRead').notNullable();
       table.boolean('assessmentCompleted').notNullable();
@@ -114,8 +115,8 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return Promise.resolve()
-    .then(() => knex.schema.dropTableIfExists('camp_submission_location'))
-    .then(() => knex.schema.dropTableIfExists('camp_submission_contact'))
-    .then(() => knex.schema.dropTableIfExists('camp_submission_business'))
-    .then(() => knex.schema.dropTableIfExists('camp_submission_attestation'));
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission_location`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission_contact`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission_business`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission_attestation`));
 };

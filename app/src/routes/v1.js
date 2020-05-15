@@ -7,7 +7,7 @@ const yaml = require('js-yaml');
 const keycloak = require('../components/keycloak');
 const helloRouter = require('./v1/hello');
 
-const camp = require('../forms/camp');
+const camp = require('../forms/minesattestations');
 const form = require('../forms/form');
 
 const getSpec = () => {

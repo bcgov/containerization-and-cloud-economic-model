@@ -1,6 +1,8 @@
+const PREFIX = require('../../forms/minesattestations/constants').PREFIX;
+
 exports.up = function(knex) {
   return Promise.resolve()
-    .then(() => knex.schema.createTable('camp_form', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_form`, table => {
       table.uuid('formId').references('formId').inTable('form').notNullable().primary();
       table.string('description');
       table.string('createdBy');
@@ -9,7 +11,7 @@ exports.up = function(knex) {
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
       table.comment('There should only be one record in this table.  It is the Industrial Camp instance of form');
     }))
-    .then(() => knex.schema.createTable('camp_form_version', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_form_version`, table => {
       table.increments('formVersionId').primary();
       table.uuid('formId').references('formId').inTable('form').notNullable().index();
       table.string('changes').comment('Document the changes in this version');
@@ -18,9 +20,9 @@ exports.up = function(knex) {
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_status_code', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_status_code`, table => {
       table.string('code').primary();
-      table.integer('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
+      table.integer('formVersionId').references('formVersionId').inTable(`${PREFIX}_form_version`).notNullable().index();
       table.string('display').notNullable();
       table.boolean('enabled').notNullable().defaultTo(true);
       table.specificType('nextCodes', 'text ARRAY').comment('This is an array of codes that this status could transition to next');
@@ -29,28 +31,28 @@ exports.up = function(knex) {
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_submission', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_submission`, table => {
       table.uuid('submissionId').primary();
-      table.integer('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
+      table.integer('formVersionId').references('formVersionId').inTable(`${PREFIX}_form_version`).notNullable().index();
       table.string('confirmationId').notNullable().unique().index();
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_submission_status', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_submission_status`, table => {
       table.increments('submissionStatusId').primary();
-      table.uuid('submissionId').references('submissionId').inTable('camp_submission').notNullable().index();
-      table.string('code').references('code').inTable('camp_status_code').notNullable().index();
+      table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).notNullable().index();
+      table.string('code').references('code').inTable(`${PREFIX}_status_code`).notNullable().index();
       table.string('assignedTo');
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable('camp_notes', table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_notes`, table => {
       table.increments('noteId').primary();
-      table.uuid('submissionId').references('submissionId').inTable('camp_submission').index();
-      table.integer('submissionStatusId').references('submissionStatusId').inTable('camp_submission_status').index();
+      table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).index();
+      table.integer('submissionStatusId').references('submissionStatusId').inTable(`${PREFIX}_submission_status`).index();
       table.string('note', 4000).nullable();
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
@@ -61,10 +63,10 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return Promise.resolve()
-    .then(() => knex.schema.dropTableIfExists('camp_notes'))
-    .then(() => knex.schema.dropTableIfExists('camp_submission_status'))
-    .then(() => knex.schema.dropTableIfExists('camp_submission'))
-    .then(() => knex.schema.dropTableIfExists('camp_status_code'))
-    .then(() => knex.schema.dropTableIfExists('camp_form_version'))
-    .then(() => knex.schema.dropTableIfExists('camp_form'));
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_notes`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission_status`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_status_code`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_form_version`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_form`));
 };
