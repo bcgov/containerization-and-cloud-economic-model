@@ -3,7 +3,7 @@
     <v-btn v-if="authenticated" dark outlined @click="logout">
       <span>Logout</span>
     </v-btn>
-    <v-btn v-else dark outlined @click="login">
+    <v-btn v-else-if="hasLogin" dark outlined @click="login">
       <span>Login</span>
     </v-btn>
   </div>
@@ -20,7 +20,10 @@ export default {
       'createLoginUrl',
       'createLogoutUrl',
       'keycloakReady'
-    ])
+    ]),
+    hasLogin() {
+      return this.$route && this.$route.meta && this.$route.meta.hasLogin;
+    }
   },
   methods: {
     login() {
