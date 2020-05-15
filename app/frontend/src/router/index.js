@@ -4,6 +4,8 @@ import VueRouter from 'vue-router';
 
 Vue.use(VueRouter);
 
+let isFirstTransition = true;
+
 /**
  * Constructs and returns a Vue Router object
  * @param {string} [basePath] the base server path
@@ -61,12 +63,14 @@ export default function getRouter(basePath = '/') {
       window.location.replace(loginUrl);
     } else {
       document.title = `${process.env.VUE_APP_TITLE} | ${to.meta.title}`;
-      if (to.query.r) next({ path: to.query.r.replace(basePath, '') });
-      else next();
+      if (to.query.r && isFirstTransition) {
+        next({ path: to.query.r.replace(basePath, '')});
+      } else next();
     }
   });
 
   router.afterEach(() => {
+    isFirstTransition = false;
     NProgress.done();
   });
 

@@ -1,10 +1,6 @@
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
-const proxyConfig = {
-  target: 'http://localhost:8080',
-  ws: true,
-  changeOrigin: true
-};
+const proxyTarget = 'http://localhost:8080';
 
 module.exports = {
   publicPath: process.env.FRONTEND_BASEPATH ? process.env.FRONTEND_BASEPATH : '/app',
@@ -13,8 +9,15 @@ module.exports = {
   ],
   devServer: {
     proxy: {
-      '/api': proxyConfig,
-      '/config': proxyConfig
+      '/api': {
+        target: proxyTarget,
+        ws: true,
+        changeOrigin: true
+      },
+      '/config': {
+        target: proxyTarget,
+        pathRewrite: {'^/app' : ''}
+      }
     }
   }
 };
