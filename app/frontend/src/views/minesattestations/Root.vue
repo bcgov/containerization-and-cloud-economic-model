@@ -6,6 +6,6 @@
 
 <script>
 export default {
-  name: 'IndustrialCampsRoot'
+  name: 'MinesAttestationsRoot'
 };
 </script>

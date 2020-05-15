@@ -26,7 +26,7 @@ export default function getRouter(basePath = '/') {
         component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
       },
       {
-        path: '/industrialcamps',
+        path: '/minesattestations',
         component: () => import(/* webpackChunkName: "mines-attestations" */ '@/views/MinesAttestations.vue'),
         children: [
           {
@@ -53,8 +53,7 @@ export default function getRouter(basePath = '/') {
         name: 'Secure',
         component: () => import(/* webpackChunkName: "secure" */ '@/views/Secure.vue'),
         meta: {
-          requiresAuth: true,
-          title: 'Secure'
+          requiresAuth: true
         }
       },
       {

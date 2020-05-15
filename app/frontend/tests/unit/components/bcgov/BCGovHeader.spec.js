@@ -1,21 +1,20 @@
-import { shallowMount } from '@vue/test-utils';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 
+import getRouter from '@/router';
 import BCGovHeader from '@/components/bcgov/BCGovHeader.vue';
 
+const localVue = createLocalVue();
+localVue.use(getRouter());
+localVue.use(Vuetify);
+
 describe('BCGovHeader.vue', () => {
-  let vuetify;
-
-  beforeEach(() => {
-    vuetify = new Vuetify();
-  });
-
   it('renders', () => {
     const wrapper = shallowMount(BCGovHeader, {
-      vuetify,
+      localVue,
       stubs: ['BaseAuthButton']
     });
 
-    expect(wrapper.text()).toMatch('');
+    expect(wrapper.html()).toMatch('');
   });
 });

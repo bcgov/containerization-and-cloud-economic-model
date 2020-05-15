@@ -8,6 +8,6 @@
 
 <script>
 export default {
-  name: 'IndustrialCampsAdmin'
+  name: 'MinesAttestationsAdmin'
 };
 </script>
