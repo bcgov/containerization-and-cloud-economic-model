@@ -2,10 +2,7 @@ exports.up = function(knex) {
   return Promise.resolve()
     .then(() => knex.schema.createTable('camp_form', table => {
       table.uuid('formId').references('formId').inTable('form').notNullable().primary();
-      table.string('name').unique().notNullable();
       table.string('description');
-      table.timestamp('startDate', { useTz: true }).defaultTo(knex.fn.now());
-      table.timestamp('endDate', { useTz: true }).nullable();
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');
@@ -13,10 +10,9 @@ exports.up = function(knex) {
       table.comment('There should only be one record in this table.  It is the Industrial Camp instance of form');
     }))
     .then(() => knex.schema.createTable('camp_form_version', table => {
-      table.uuid('formVersionId').primary();
+      table.increments('formVersionId').primary();
       table.uuid('formId').references('formId').inTable('form').notNullable().index();
-      table.string('label', 10).defaultTo('1.0.0');
-      table.string('description');
+      table.string('changes').comment('Document the changes in this version');
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');
@@ -24,10 +20,10 @@ exports.up = function(knex) {
     }))
     .then(() => knex.schema.createTable('camp_status_code', table => {
       table.string('code').primary();
-      table.uuid('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
+      table.integer('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
       table.string('display').notNullable();
       table.boolean('enabled').notNullable().defaultTo(true);
-      table.specificType('transitionCodes', 'text ARRAY').comment('This is an array of codes that this status could transition to next');
+      table.specificType('nextCodes', 'text ARRAY').comment('This is an array of codes that this status could transition to next');
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');
@@ -35,7 +31,7 @@ exports.up = function(knex) {
     }))
     .then(() => knex.schema.createTable('camp_submission', table => {
       table.uuid('submissionId').primary();
-      table.uuid('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
+      table.integer('formVersionId').references('formVersionId').inTable('camp_form_version').notNullable().index();
       table.string('createdBy');
       table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
       table.string('updatedBy');

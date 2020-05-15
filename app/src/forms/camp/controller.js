@@ -27,6 +27,15 @@ module.exports = {
     }
   },
 
+  current: async (req, res, next) => {
+    try {
+      const response = await dataService.current();
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
   all:  async (req, res, next) => {
     try {
       const response = await dataService.all();

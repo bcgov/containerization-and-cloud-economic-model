@@ -3,7 +3,7 @@ const { UpdatedAt } = require('../../../db/models/mixins');
 
 const PREFIX = require('../constants').PREFIX;
 
-class Root extends UpdatedAt(Model) {
+class Metadata extends UpdatedAt(Model) {
   static get tableName () {
     return 'form';
   }
@@ -24,6 +24,14 @@ class Form extends UpdatedAt(Model) {
 
   static relationMappings () {
     return {
+      metadata: {
+        relation: Model.BelongsToOneRelation,
+        modelClass: Metadata,
+        join: {
+          from: 'form.formId',
+          to: `${PREFIX}_form.formId`
+        }
+      },
       versions: {
         relation: Model.HasManyRelation,
         modelClass: Version,
@@ -54,6 +62,14 @@ class Version extends UpdatedAt(Model) {
           from: `${PREFIX}_form_version.formVersionId`,
           to: `${PREFIX}_status_code.formVersionId`
         }
+      }
+    };
+  }
+
+  static get modifiers () {
+    return {
+      orderDescending(builder) {
+        builder.orderBy('formVersionId', 'desc');
       }
     };
   }
@@ -99,7 +115,7 @@ class Note extends UpdatedAt(Model) {
   }
 }
 
-module.exports.Root = Root;
+module.exports.Metadata = Metadata;
 module.exports.Form = Form;
 module.exports.Version = Version;
 module.exports.Submission = Submission;

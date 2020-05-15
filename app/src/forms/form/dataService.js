@@ -3,13 +3,18 @@ const Models = require('./models');
 module.exports = {
 
   fetch: async (slug) => {
-    return Models.Form.query()
+    return Models.Metadata.query()
       .where({slug: slug})
       .throwIfNotFound();
   },
 
-  search: async () => {
-    return Models.Form.query();
+  search: async (name, slug, keyword, publicOnly, activeOnly) => {
+    return Models.Metadata.query()
+      .modify('activeOnly', activeOnly)
+      .modify('publicOnly', publicOnly)
+      .modify('filterName', name)
+      .modify('filterSlug', slug)
+      .modify('filterKeyword', keyword);
   }
 
 };

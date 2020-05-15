@@ -5,6 +5,7 @@ exports.up = function(knex) {
       table.string('name').unique().notNullable();
       table.string('slug').unique().notNullable().comment('This will be used for paths and user interactions');
       table.boolean('public').notNullable().defaultTo(true);
+      table.boolean('active').notNullable().defaultTo(true);
       table.specificType('keywords', 'text ARRAY');
       table.string('prefix').unique().notNullable().comment('This is the database table prefix for all the form business tables.');
       table.string('createdBy');

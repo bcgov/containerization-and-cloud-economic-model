@@ -13,43 +13,28 @@ const dataService = {
     }
     let trx;
     try {
-      trx = await transaction.start(Models.Root.knex());
+      trx = await transaction.start(Models.Metadata.knex());
       const formId = uuidv4();
-      const formVersionId = uuidv4();
 
-      await Models.Root.query(trx).insert({
-        formId: formId,
-        createdBy: createdBy,
-        slug: constants.SLUG,
-        prefix: constants.PREFIX,
-        name: obj.name,
-        public: obj.public || false,
-        keywords: obj.keywords || []
+      // set the created by for each object in the graph...
+      const versions = obj.versions.map(v => {
+        v.statusCodes.forEach(s => s.createdBy = createdBy);
+        v.createdBy = createdBy;
+        return v;
       });
 
-      await Models.Form.query(trx).insert({
-        formId: formId,
+      await Models.Form.query(trx).insertGraph({
+        metadata: {
+          formId: formId,
+          createdBy: createdBy,
+          slug: constants.SLUG,
+          prefix: constants.PREFIX,
+          ...obj.metadata
+        },
         createdBy: createdBy,
-        name: obj.name,
         description: obj.description,
-        startDate: obj.startDate,
-        endDate: obj.endDate
+        versions: versions
       });
-
-      await Models.Version.query(trx).insert({
-        formId: formId,
-        formVersionId: formVersionId,
-        createdBy: createdBy
-      });
-
-      if (Array.isArray(obj.statusCodes)) {
-        await Promise.all(obj.statusCodes.map(s => {
-          return Models.StatusCode.query(trx).insert({
-            formVersionId: formVersionId,
-            ...s
-          });
-        }));
-      }
 
       await trx.commit();
 
@@ -71,8 +56,27 @@ const dataService = {
   read: async () => {
     return Models.Form.query()
       .first()
-      .withGraphFetched({versions: { statusCodes: true }})
+      .allowGraph('[versions.statusCodes, metadata]')
+      .withGraphFetched('metadata')
+      .withGraphFetched('versions(orderDescending).statusCodes')
       .throwIfNotFound();
+  },
+
+  current: async () => {
+    const form = await Models.Form.query()
+      .first()
+      .withGraphFetched({ metadata: true})
+      .throwIfNotFound();
+
+    const version = await Models.Version.query()
+      .first()
+      .where('formId', form.formId)
+      .withGraphFetched({ statusCodes: true})
+      .modify('orderDescending')
+      .throwIfNotFound();
+
+    form.versions = [version];
+    return form;
   }
 
 };
