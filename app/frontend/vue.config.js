@@ -7,14 +7,14 @@ const proxyConfig = {
 };
 
 module.exports = {
-  publicPath: './',
+  publicPath: '/app',
   'transpileDependencies': [
     'vuetify'
   ],
   devServer: {
     proxy: {
-      '/config': proxyConfig,
-      '^/app/api': proxyConfig
+      '/api': proxyConfig,
+      '/config': proxyConfig
     }
   }
 };
