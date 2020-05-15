@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <BCGovHeader />
-    <BCGovNavBar />
 
     <v-content>
       <transition name="component-fade" mode="out-in">
@@ -16,14 +15,12 @@
 <script>
 import BCGovHeader from '@/components/bcgov/BCGovHeader.vue';
 import BCGovFooter from '@/components/bcgov/BCGovFooter.vue';
-import BCGovNavBar from '@/components/bcgov/BCGovNavBar.vue';
 
 export default {
   name: 'App',
   components: {
     BCGovHeader,
-    BCGovFooter,
-    BCGovNavBar
+    BCGovFooter
   }
 };
 </script>

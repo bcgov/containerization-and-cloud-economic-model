@@ -39,9 +39,9 @@ pipeline {
     SOURCE_REPO_URL = "https://github.com/${REPO_OWNER}/${REPO_NAME}.git"
 
     // ENV_HOST is the full domain without the path (ie. 'appname-dev.pathfinder.gov.bc.ca')
-    DEV_HOST = "${REPO_NAME}-dev.${APP_DOMAIN}"
-    TEST_HOST = "${REPO_NAME}-test.${APP_DOMAIN}"
-    PROD_HOST = "${REPO_NAME}.${APP_DOMAIN}"
+    DEV_HOST = "${APP_NAME}-dev.${APP_DOMAIN}"
+    TEST_HOST = "${APP_NAME}-test.${APP_DOMAIN}"
+    PROD_HOST = "${APP_NAME}.${APP_DOMAIN}"
     // PATH_ROOT will be appended to ENV_HOST
     PATH_ROOT = "/${JOB_NAME.equalsIgnoreCase('master') ? 'app' : JOB_NAME}"
 
