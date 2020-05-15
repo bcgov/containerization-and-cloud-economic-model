@@ -24,6 +24,9 @@ export default function getRouter(basePath = '/') {
         path: '/home',
         name: 'Home',
         component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
+        meta: {
+          hasLogin: true
+        }
       },
       {
         path: '/minesattestations',
@@ -42,6 +45,7 @@ export default function getRouter(basePath = '/') {
             name: 'MinesAttestationsAdmin',
             component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/Admin.vue'),
             meta: {
+              hasLogin: true,
               requiresAuth: true,
               title: 'Industrial Camps Admin'
             }
@@ -53,6 +57,7 @@ export default function getRouter(basePath = '/') {
         name: 'Secure',
         component: () => import(/* webpackChunkName: "secure" */ '@/views/Secure.vue'),
         meta: {
+          hasLogin: true,
           requiresAuth: true
         }
       },
@@ -61,6 +66,9 @@ export default function getRouter(basePath = '/') {
         alias: '*',
         name: 'NotFound',
         component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
+        meta: {
+          hasLogin: true
+        }
       }
     ]
   });
