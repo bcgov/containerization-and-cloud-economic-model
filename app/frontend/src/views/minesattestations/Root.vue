@@ -1,11 +1,15 @@
 <template>
-  <v-container>
-    <h1 class="my-6 text-center">Industrial Camps Form</h1>
-  </v-container>
+  <div>
+    <Form />
+  </div>
 </template>
 
 <script>
+import Form from '@/components/minesattestations/Form.vue';
 export default {
-  name: 'MinesAttestationsRoot'
+  name: 'MinesAttestationsRoot',
+  components: {
+    Form
+  }
 };
 </script>
