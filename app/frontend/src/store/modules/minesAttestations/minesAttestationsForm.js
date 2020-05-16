@@ -23,8 +23,6 @@ export default {
       postalCode: ''
     },
     primaryContact: {
-      //temp
-      primary: true,
       contactType: 'PRIMARY',
       firstName: '',
       lastName: '',
@@ -44,10 +42,10 @@ export default {
       startDate: '',
       endDate: '',
       city: '',
-      cityLatitude: '',
-      cityLongitude: '',
+      cityLatitude: undefined,
+      cityLongitude: undefined,
       mineNumber: '',
-      minePermit: '',
+      permitNumber: '',
       numberOfWorkers: '',
       accTents: false,
       tentDetails: '',
@@ -61,7 +59,7 @@ export default {
       accWorkersHome: false
     },
     attestation: {
-      sleepingAreaType: 1,
+      sleepingAreaType: 'SINGLE',
       sharedSleepingPerRoom: 1,
       sharedSleepingDistancing: false,
 
@@ -104,8 +102,7 @@ export default {
       infectedWaste: false,
       infectionAccommodation: false,
       certifyAccurateInformation: false,
-      agreeToInspection: false,
-      formVersion: ''
+      agreeToInspection: false
     }
   },
   getters: {
@@ -194,6 +191,8 @@ export default {
       commit('setSubmitting', true);
       commit('setSubmissionError', '');
       try {
+
+        // Transform data (move to function and unit test)
         const contacts = [state.primaryContact, state.covidContact];
         const body = {
           business: state.business,
@@ -201,14 +200,19 @@ export default {
           attestation: state.attestation,
           location: state.location
         };
+        body.location.numberOfWorkers = Number.parseInt(body.location.numberOfWorkers, 10);
+        console.log(JSON.stringify(body));
+        // /transform
+
         const response = await minesAttestationsService.sendSubmission(body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }
         commit('setSubmissionDetails', response.data);
+        console.log(JSON.stringify(response.data));
         commit('setSubmissionComplete');
       } catch (error) {
-        console.error(`Error submitting form: ${error}`); // eslint-disable-line no-console
+        console.error(`Error submitting form: ${error} - ${error.message}`); // eslint-disable-line no-console
         commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
       } finally {
         commit('setSubmitting', false);

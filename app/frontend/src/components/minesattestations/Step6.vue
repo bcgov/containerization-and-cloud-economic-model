@@ -19,7 +19,7 @@
       </ol>
 
       <v-row>
-        <GeneratePdfButton :ipcPlanId="this.submissionDetails.ipcPlan.ipcPlanId">
+        <GeneratePdfButton :ipcPlanId="this.submissionDetails.submissionId">
           <v-btn color="primary" class="mx-5 mb-10" fab large>
             <v-icon>picture_as_pdf</v-icon>
           </v-btn>
@@ -27,7 +27,7 @@
 
         <RequestReceipt
           :email="this.submissionDetails.contacts[0].email"
-          :ipcPlanId="this.submissionDetails.ipcPlan.ipcPlanId"
+          :ipcPlanId="this.submissionDetails.submissionId"
         />
       </v-row>
 
@@ -269,8 +269,8 @@ export default {
       'submitting'
     ]),
     confirmationId() {
-      if (this.submissionDetails && this.submissionDetails.ipcPlan) {
-        return this.submissionDetails.ipcPlan.ipcPlanId
+      if (this.submissionDetails && this.submissionDetails.submissionId) {
+        return this.submissionDetails.submissionId
           .split('-')[0]
           .toUpperCase();
       } else {

@@ -49,8 +49,8 @@
         <p>2) Do you have individual/single beds or shared sleeping areas?</p>
         <div class="pl-4">
           <v-radio-group :readonly="reviewMode" v-model="sleepingAreaType" :mandatory="true">
-            <v-radio label="Individual Beds or Single beds" value="1"></v-radio>
-            <v-radio label="Shared sleeping areas" value="2"></v-radio>
+            <v-radio label="Individual Beds or Single beds" value="SINGLE"></v-radio>
+            <v-radio label="Shared sleeping areas" value="SHARED"></v-radio>
           </v-radio-group>
 
           <div v-if="sleepingAreaType == 2">
