@@ -22,8 +22,13 @@ class Submission extends UpdatedAt(Model) {
       properties: {
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
         confirmationId: { type: 'string', pattern: constants.CONFIRMATION_ID_REGEX },
-        formVersionId: { type: 'integer'}
-      }
+        formVersionId: { type: 'integer'},
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 
@@ -134,8 +139,13 @@ class SubmissionStatus extends UpdatedAt(Model) {
         submissionStatusId: { type: 'integer' },
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
         code: { type: 'string', minLength: 1, maxLength: 255 },
-        assignedTo: { type: 'string', minLength: 1, maxLength: 255 }
-      }
+        assignedTo: { type: ['string', 'null'], maxLength: 255 },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 
@@ -211,8 +221,13 @@ class Attestation extends UpdatedAt(Model) {
         infectedHousekeeping: { type: 'boolean' },
         infectedWaste: { type: 'boolean' },
         certifyAccurateInformation: { type: 'boolean' },
-        agreeToInspection: { type: 'boolean' }
-      }
+        agreeToInspection: { type: 'boolean' },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 }
@@ -234,13 +249,18 @@ class Business extends UpdatedAt(Model) {
         businessId: { type: 'integer'},
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
         name: { type: 'string', minLength: 1, maxLength: 255 },
-        orgBookId: { type: 'string, null' },
+        orgBookId: { type: ['string', 'null'] },
         addressLine1: { type: 'string', minLength: 1, maxLength: 255 },
-        addressLine2: { type: 'string, null' },
+        addressLine2: { type: ['string', 'null'] },
         city: { type: 'string', minLength: 1, maxLength: 255 },
         province: { type: 'string', minLength: 1, maxLength: 30 },
-        postalCode: { type: 'string', minLength: 1, maxLength: 30 }
-      }
+        postalCode: { type: 'string', minLength: 1, maxLength: 30 },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 }
@@ -264,10 +284,15 @@ class Contact extends UpdatedAt(Model) {
         contactType: { type: 'string', enum: ['PRIMARY', 'COVID_COORDINATOR'] },
         firstName: { type: 'string', minLength: 1, maxLength: 255 },
         lastName: { type: 'string', minLength: 1, maxLength: 255 },
-        phone1: { type: 'string, null', maxLength: 30 },
-        phone2: { type: 'string, null', maxLength: 30 },
-        email: { type: 'srting, null', format: 'email' }
-      }
+        phone1: { type: ['string', 'null'], maxLength: 30 },
+        phone2: { type: ['string', 'null'], maxLength: 30 },
+        email: { type: ['string', 'null'], format: 'email' },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 }
@@ -284,27 +309,34 @@ class Location extends UpdatedAt(Model) {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['submissionId', 'city', 'numberOfWorkers', 'accTents', 'accMotel', 'accWorkersHome'],
+      required: ['submissionId', 'city', 'numberOfWorkers', 'accTents', 'accMotel', 'accWorkersHome', 'startDate', 'endDate'],
       properties: {
         locationId: { type: 'integer'},
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
+        startDate: { type: 'string', format: 'date' },
+        endDate: { type: 'string', format: 'date' },
         city: { type: 'string', minLength: 1, maxLength: 255 },
-        cityLatitude: { type: 'number, null' },
-        cityLongitude: { type: 'number, null' },
-        mineNumber: { type: 'string, null', maxLength: 255 },
-        permitNumber: { type: 'string, null', maxLength: 255 },
+        cityLatitude: { type: ['number', 'null'], minimum: -90, maximum: 90 },
+        cityLongitude: { type: ['number', 'null'], minimum: -180, maximum: 180 },
+        mineNumber: { type: ['string', 'null'], maxLength: 255 },
+        permitNumber: { type: ['string', 'null'], maxLength: 255 },
         numberOfWorkers: { type: 'integer', minimum: 1, maximum: 100000 },
         accTents: { type: 'boolean' },
-        tentDetails: { type: 'string, null', maxLength: 255 },
+        tentDetails: { type: ['string', 'null'], maxLength: 255 },
         accMotel: { type: 'boolean' },
-        motelName: { type: 'string, null', maxLength: 255 },
-        motelAddressLine1: { type: 'string, null', maxLength: 255 },
-        motelAddressLine2: { type: 'string, null', maxLength: 255 },
-        motelCity: { type: 'string, null', maxLength: 255 },
-        motelProvince: { type: 'string, null', maxLength: 30 },
-        motelPostalCode: { type: 'string, null', maxLength: 30 },
+        motelName: { type: ['string', 'null'], maxLength: 255 },
+        motelAddressLine1: { type: ['string', 'null'], maxLength: 255 },
+        motelAddressLine2: { type: ['string', 'null'], maxLength: 255 },
+        motelCity: { type: ['string', 'null'], maxLength: 255 },
+        motelProvince: { type: ['string', 'null'], maxLength: 30 },
+        motelPostalCode: { type: ['string', 'null'], maxLength: 30 },
         accWorkersHome: { type: 'boolean' },
-      }
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 }

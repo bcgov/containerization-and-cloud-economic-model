@@ -22,8 +22,13 @@ class Metadata extends UpdatedAt(Model) {
         prefix: { type: 'string', minLength: 1, maxLength: 255 },
         public: { type: 'boolean' },
         active: { type: 'boolean' },
-        keywords: { type: 'array', items: { type: 'string'}}
-      }
+        keywords: { type: 'array', items: { type: 'string'}},
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 
