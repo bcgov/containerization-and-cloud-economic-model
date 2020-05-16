@@ -1,5 +1,5 @@
 import ipcService from '../../services/ipcService';
-import { default as sampleData } from './sampleData.js';
+import { default as sampleData } from './sampleData.js.js.js';
 
 export default {
   namespaced: true,

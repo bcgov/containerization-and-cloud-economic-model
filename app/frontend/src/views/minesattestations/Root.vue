@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import Form from '@/components/minesattestations/Form.vue';
+import Form from '@/components/minesAttestations/Form.vue';
 export default {
   name: 'MinesAttestationsRoot',
   components: {

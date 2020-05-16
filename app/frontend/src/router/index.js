@@ -35,7 +35,7 @@ export default function getRouter(basePath = '/') {
           {
             path: '',
             name: 'MinesAttestationsForm',
-            component: () => import(/* webpackChunkName: "mines-attestations-form" */ '@/views/minesattestations/Root.vue'),
+            component: () => import(/* webpackChunkName: "mines-attestations-form" */ '@/views/minesAttestations/Root.vue'),
             meta: {
               title: 'Industrial Camps'
             }
@@ -43,7 +43,7 @@ export default function getRouter(basePath = '/') {
           {
             path: 'admin',
             name: 'MinesAttestationsAdmin',
-            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/Admin.vue'),
+            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesAttestations/Admin.vue'),
             meta: {
               hasLogin: true,
               requiresAuth: true,

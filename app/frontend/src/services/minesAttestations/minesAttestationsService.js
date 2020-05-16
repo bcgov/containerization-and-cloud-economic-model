@@ -1,5 +1,5 @@
-import { appAxios } from '@/services/interceptors';
-import { ApiRoutes } from '@/utils/constants';
+import { appAxios } from './node_modules/@/services/interceptors';
+import { ApiRoutes } from './node_modules/@/utils/constants';
 
 export default {
   /**
