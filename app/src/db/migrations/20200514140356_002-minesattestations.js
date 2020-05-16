@@ -49,7 +49,7 @@ exports.up = function(knex) {
       table.string('updatedBy');
       table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
     }))
-    .then(() => knex.schema.createTable(`${PREFIX}_notes`, table => {
+    .then(() => knex.schema.createTable(`${PREFIX}_note`, table => {
       table.increments('noteId').primary();
       table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).index();
       table.integer('submissionStatusId').references('submissionStatusId').inTable(`${PREFIX}_submission_status`).index();
@@ -63,7 +63,7 @@ exports.up = function(knex) {
 
 exports.down = function(knex) {
   return Promise.resolve()
-    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_notes`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_note`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission_status`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_status_code`))

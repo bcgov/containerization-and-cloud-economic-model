@@ -1,6 +1,7 @@
 const { Model } = require('objection');
 const { UpdatedAt } = require('../../../db/models/mixins');
 
+const Models = require('./base');
 const PREFIX = require('../constants').PREFIX;
 const SUBMISSION = `${PREFIX}_submission`;
 
@@ -11,6 +12,19 @@ class Submission extends UpdatedAt(Model) {
 
   static get idColumn () {
     return 'submissionId';
+  }
+
+  static get modifiers () {
+    return {
+      orderDescending(builder) {
+        builder.orderBy('updatedAt', 'desc');
+      },
+      filterVersion(query, value) {
+        if (value) {
+          query.where('formVersionId', value);
+        }
+      },
+    };
   }
 
   static relationMappings () {
@@ -47,6 +61,14 @@ class Submission extends UpdatedAt(Model) {
           to: `${SUBMISSION}_location.submissionId`
         }
       },
+      notes: {
+        relation: Model.HasManyRelation,
+        modelClass: Models.Note,
+        join: {
+          from: `${SUBMISSION}.submissionId`,
+          to: `${PREFIX}_note.submissionId`
+        }
+      },
       statuses: {
         relation: Model.HasManyRelation,
         modelClass: SubmissionStatus,
@@ -66,6 +88,27 @@ class SubmissionStatus extends UpdatedAt(Model) {
 
   static get idColumn () {
     return 'submissionStatusId';
+  }
+
+  static get modifiers () {
+    return {
+      orderDescending(builder) {
+        builder.orderBy('submissionStatusId', 'desc');
+      }
+    };
+  }
+
+  static relationMappings () {
+    return {
+      notes: {
+        relation: Model.HasManyRelation,
+        modelClass: Models.Note,
+        join: {
+          from: `${SUBMISSION}_status.submissionStatusId`,
+          to: `${PREFIX}_note.submissionStatusId`
+        }
+      }
+    };
   }
 }
 

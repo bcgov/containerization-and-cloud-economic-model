@@ -119,16 +119,134 @@ const dataService = {
   readSubmission: async (confirmationId) => {
     return Models.Submission.query()
       .findOne({confirmationId: confirmationId})
-      .withGraphFetched({
-        attestation: true,
-        business: true,
-        contacts: true,
-        location: true,
-        statuses: true
-      })
+      .allowGraph('[attestation, business, contacts, location, statuses, statuses.notes, notes]')
+      .withGraphFetched('[attestation, business, contacts, location]')
+      .withGraphFetched('notes(orderDescending)')
+      .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
       .throwIfNotFound();
-  }
+  },
 
+  updateSubmission: async (obj, user) => {
+    return {...obj, ...user};
+  },
+
+  allSubmissions: async () => {
+    const results = Models.Submission.query()
+      .allowGraph('[attestation, business, contacts, location, statuses, statuses.notes, notes]')
+      .withGraphFetched('[attestation, business, contacts, location]')
+      .withGraphFetched('notes(orderDescending)')
+      .withGraphFetched('statuses(orderDescending).notes(orderDescending)');
+    return results || [];
+  },
+
+  createSubmissionStatus: async (obj, confirmationId, user) => {
+    if (!obj) {
+      throw Error('Status cannot be created without data');
+    }
+    let trx;
+    let result;
+    try {
+      trx = await transaction.start(Models.Status.knex());
+
+      // all submissions use the current version...
+      const current = await dataService.readSubmission(confirmationId);
+      obj.submissionId = current.submissionId;
+      obj.createdBy = user;
+
+      if (obj.notes && Array.isArray(obj.notes)) {
+        obj.notes.forEach(n => n.createdBy = user);
+      }
+
+      result = await Models.Status.query(trx).insertGraph(obj).returning('*');
+      await trx.commit();
+      return result;
+    } catch (err) {
+      log.error('createSubmissionStatus', `Error creating status record: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
+  },
+
+  readSubmissionStatuses: async (confirmationId) => {
+    const submission = await dataService.readSubmission(confirmationId);
+    return Models.Status.query()
+      .where({submissionId: submission.submissionId})
+      .allowGraph('[notes]')
+      .withGraphFetched('notes(orderDescending)')
+      .modify('orderDescending')
+      .throwIfNotFound();
+  },
+
+  createSubmissionStatusNote: async (obj, confirmationId, statusId, user) => {
+    if (!obj) {
+      throw Error('Note cannot be created without data');
+    }
+    let trx;
+    let result;
+    try {
+      trx = await transaction.start(Models.Note.knex());
+
+      // make sure submission exists...
+      await dataService.readSubmission(confirmationId);
+      obj.submissionStatusId = statusId;
+      obj.createdBy = user;
+
+      result = await Models.Note.query(trx).insert(obj).returning('*');
+      await trx.commit();
+      return result;
+    } catch (err) {
+      log.error('createSubmissionStatusNote', `Error creating status note record: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
+  },
+
+  readSubmissionStatusNotes: async (confirmationId, statusId) => {
+    // make sure submission exists...
+    await dataService.readSubmission(confirmationId);
+    const results = Models.Note.query()
+      .where({submissionStatusId: statusId})
+      .modify('orderDescending');
+    return results || [];
+  },
+
+  createSubmissionNote: async (obj, confirmationId, user) => {
+    if (!obj) {
+      throw Error('Note cannot be created without data');
+    }
+    let trx;
+    let result;
+    try {
+      trx = await transaction.start(Models.Note.knex());
+
+      // all submissions use the current version...
+      const current = await dataService.readSubmission(confirmationId);
+      obj.submissionId = current.submissionId;
+      obj.createdBy = user;
+
+      result = await Models.Note.query(trx).insert(obj).returning('*');
+      await trx.commit();
+      return result;
+    } catch (err) {
+      log.error('createSubmissionNote', `Error creating note record: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
+  },
+
+  readSubmissionNotes: async (confirmationId) => {
+    const submission = await dataService.readSubmission(confirmationId);
+    let results = Models.Note.query()
+      .where({submissionId: submission.submissionId})
+      .modify('orderDescending');
+    if (!results) {
+      results = [];
+    }
+    return results;
+  }
 };
 
 module.exports = dataService;

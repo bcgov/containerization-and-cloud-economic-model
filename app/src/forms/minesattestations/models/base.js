@@ -87,11 +87,19 @@ class StatusCode extends UpdatedAt(Model) {
 
 class Note extends UpdatedAt(Model) {
   static get tableName () {
-    return `${PREFIX}_notes`;
+    return `${PREFIX}_note`;
   }
 
   static get idColumn () {
     return 'noteId';
+  }
+
+  static get modifiers () {
+    return {
+      orderDescending(builder) {
+        builder.orderBy('noteId', 'desc');
+      }
+    };
   }
 }
 

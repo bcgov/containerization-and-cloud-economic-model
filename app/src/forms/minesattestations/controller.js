@@ -36,9 +36,9 @@ module.exports = {
     }
   },
 
-  all:  async (req, res, next) => {
+  allSubmissions:  async (req, res, next) => {
     try {
-      const response = await dataService.all();
+      const response = await dataService.allSubmissions();
       res.status(200).json(response);
     } catch (error) {
       next(error);
@@ -61,6 +61,74 @@ module.exports = {
     } catch (error) {
       next(error);
     }
+  },
+
+  updateSubmission: async (req, res, next) => {
+    try {
+      const user = 'replace from auth';
+      const response = await dataService.updateSubmission(req.body, user);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  createSubmissionStatus: async (req, res, next) => {
+    try {
+      const user = 'replace from auth';
+      const response = await dataService.createSubmissionStatus(req.body, req.params.confirmationId, user);
+      res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  readSubmissionStatuses: async (req, res, next) => {
+    try {
+      const response = await dataService.readSubmissionStatuses(req.params.confirmationId);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  createSubmissionStatusNote: async (req, res, next) => {
+    try {
+      const user = 'replace from auth';
+      const response = await dataService.createSubmissionStatusNote(req.body, req.params.confirmationId, req.params.statusId, user);
+      res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  readSubmissionStatusNotes: async (req, res, next) => {
+    try {
+      const response = await dataService.readSubmissionStatusNotes(req.params.confirmationId, req.params.statusId);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  createSubmissionNote: async (req, res, next) => {
+    try {
+      const user = 'replace from auth';
+      const response = await dataService.createSubmissionNote(req.body, req.params.confirmationId, user);
+      res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  readSubmissionNotes: async (req, res, next) => {
+    try {
+      const response = await dataService.readSubmissionNotes(req.params.confirmationId);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
   }
+
 
 };

@@ -56,7 +56,28 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-  return knex(`${PREFIX}_status_code`).del()
+  return knex(`${PREFIX}_note`).del()
+    .then(() => {
+      return knex(`${PREFIX}_submission_status`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_submission_location`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_submission_contact`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_submission_business`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_submission_attestation`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_submission`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_status_code`).del();
+    })
     .then(()=> {
       return knex(`${PREFIX}_form_version`).del();
     })
