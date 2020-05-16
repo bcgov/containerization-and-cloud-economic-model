@@ -34,6 +34,16 @@ const verifyInt = (obj, param, result, errors) => {
   }
 };
 
+const verifyBoolean = (obj, param, result, errors) => {
+  if (obj[param]) {
+    if (isString(obj[param]) && ['true','false'].includes(obj[param].toLowerCase())) {
+      result[param] = 'true' === obj[param].toLowerCase();
+    } else {
+      errors.push(`${param} parameter must be a boolean`);
+    }
+  }
+};
+
 const submissionSearch = async (req, res, next) => {
   try {
     const errors = [];
@@ -42,6 +52,7 @@ const submissionSearch = async (req, res, next) => {
     if (req.query) {
       verifyInt(req.query, 'version', result, errors);
       ['confirmationId', 'business', 'city'].forEach(p => verifyString(req.query, p, result, errors));
+      verifyBoolean(req.query, 'tiny', result, errors);
     }
 
     if (errors.length) {

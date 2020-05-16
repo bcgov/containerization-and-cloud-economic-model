@@ -119,9 +119,9 @@ const dataService = {
   readSubmission: async (submissionId) => {
     return Models.Submission.query()
       .findById(submissionId)
-      .allowGraph('[attestation, business, contacts, location, statuses.notes, notes]')
+      .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
       .withGraphFetched('[attestation, business, contacts, location]')
-      .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
+      .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
       .withGraphFetched('notes(orderDescending)')
       .throwIfNotFound();
   },
@@ -131,17 +131,38 @@ const dataService = {
   },
 
   searchSubmissions: async (params) => {
-    return Models.Submission.query()
-      .allowGraph('[attestation, business, contacts, location, statuses.notes, notes]')
+    const tiny = data => {
+      if (!data || !Array.isArray(data) || !data.length) {
+        return [];
+      }
+      // asked for the tiny result set, so shrink it down!
+      return data.map(d => {
+        return {
+          submissionId: d.submissionId,
+          formVersionId: d.formVersionId,
+          confirmationId: d.confirmationId,
+          createdAt: d.createdAt,
+          businessName: d.business.name,
+          city: d.location.city,
+          status: d.statuses[0].statusCode.display
+        };
+      });
+    };
+
+    const submissions = await Models.Submission.query()
+      .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
       .withGraphFetched('[attestation, business, contacts, location]')
-      .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
+      .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
       .withGraphFetched('notes(orderDescending)')
       .joinRelated('business')
       .joinRelated('location')
       .modify('filterVersion', params.version)
       .modify('filterConfirmationId', params.confirmationId)
       .modify('filterBusinessName', params.business)
-      .modify('filterCity', params.city);
+      .modify('filterCity', params.city)
+      .modify('orderDescending');
+
+    return params.tiny ? tiny(submissions) : submissions;
   },
 
   createSubmissionStatus: async (obj, submissionId, user) => {
