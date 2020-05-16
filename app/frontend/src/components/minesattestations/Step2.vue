@@ -539,7 +539,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'contacts', 'covidContact', 'ipcPlan', 'location']),
+    ...mapGetters('form', ['business', 'primaryContact', 'covidContact', 'location']),
 
     // Business
     businessName: {
@@ -569,24 +569,24 @@ export default {
 
     // Contact
     firstName: {
-      get() { return this.contacts.firstName; },
-      set(value) { this.updateContacts({['firstName']: value}); }
+      get() { return this.primaryContact.firstName; },
+      set(value) { this.updatePrimaryContact({['firstName']: value}); }
     },
     lastName: {
-      get() { return this.contacts.lastName; },
-      set(value) { this.updateContacts({['lastName']: value}); }
+      get() { return this.primaryContact.lastName; },
+      set(value) { this.updatePrimaryContact({['lastName']: value}); }
     },
     phone1: {
-      get() { return this.contacts.phone1; },
-      set(value) { this.updateContacts({['phone1']: value}); }
+      get() { return this.primaryContact.phone1; },
+      set(value) { this.updatePrimaryContact({['phone1']: value}); }
     },
     phone2: {
-      get() { return this.contacts.phone2; },
-      set(value) { this.updateContacts({['phone2']: value}); }
+      get() { return this.primaryContact.phone2; },
+      set(value) { this.updatePrimaryContact({['phone2']: value}); }
     },
     email: {
-      get() { return this.contacts.email; },
-      set(value) { this.updateContacts({['email']: value}); }
+      get() { return this.primaryContact.email; },
+      set(value) { this.updatePrimaryContact({['email']: value}); }
     },
 
     // COVID Coordinator
@@ -685,7 +685,7 @@ export default {
   },
   methods: {
     ...mapActions('form', ['sampleData']),
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updateContacts', 'updateCovidContact', 'updateIpcPlan', 'updateLocation']),
+    ...mapMutations('form', ['setStep', 'updateBusiness', 'updatePrimaryContact', 'updateCovidContact', 'updateLocation']),
     async submit() {
       if(this.$refs.form.validate()) {
         this.setStep(3);

@@ -221,107 +221,107 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('form', ['ipcPlan']),
+    ...mapGetters('form', ['attestation']),
 
     // COVID 19 info
     protectionSignage: {
-      get() { return this.ipcPlan.protectionSignage; },
-      set(value) { this.updateIpcPlan({['protectionSignage']: value}); }
+      get() { return this.attestation.protectionSignage; },
+      set(value) { this.updateAttestation({['protectionSignage']: value}); }
     },
     workerContactPersonnel: {
-      get() { return this.ipcPlan.workerContactPersonnel; },
-      set(value) { this.updateIpcPlan({['workerContactPersonnel']: value}); }
+      get() { return this.attestation.workerContactPersonnel; },
+      set(value) { this.updateAttestation({['workerContactPersonnel']: value}); }
     },
 
     // Lodging
     commonAreaDistancing: {
-      get() { return this.ipcPlan.commonAreaDistancing ? 'yes' : 'no'; },
-      set(value) { this.updateIpcPlan({['commonAreaDistancing']: value === 'yes'}); }
+      get() { return this.attestation.commonAreaDistancing ? 'yes' : 'no'; },
+      set(value) { this.updateAttestation({['commonAreaDistancing']: value === 'yes'}); }
     },
     sleepingAreaType: {
-      get() { return this.ipcPlan.sleepingAreaType; },
-      set(value) { this.updateIpcPlan({['sleepingAreaType']: value}); }
+      get() { return this.attestation.sleepingAreaType; },
+      set(value) { this.updateAttestation({['sleepingAreaType']: value}); }
     },
     sharedSleepingPerRoom: {
-      get() { return this.ipcPlan.sharedSleepingPerRoom; },
-      set(value) { this.updateIpcPlan({['sharedSleepingPerRoom']: value}); }
+      get() { return this.attestation.sharedSleepingPerRoom; },
+      set(value) { this.updateAttestation({['sharedSleepingPerRoom']: value}); }
     },
     sharedSleepingDistancing: {
-      get() { return this.ipcPlan.sharedSleepingDistancing; },
-      set(value) { this.updateIpcPlan({['sharedSleepingDistancing']: value}); }
+      get() { return this.attestation.sharedSleepingDistancing; },
+      set(value) { this.updateAttestation({['sharedSleepingDistancing']: value}); }
     },
 
     // Self-isolation
     selfIsolateUnderstood: {
-      get() { return this.ipcPlan.selfIsolateUnderstood; },
-      set(value) { this.updateIpcPlan({['selfIsolateUnderstood']: value}); }
+      get() { return this.attestation.selfIsolateUnderstood; },
+      set(value) { this.updateAttestation({['selfIsolateUnderstood']: value}); }
     },
     selfIsolateAccommodation: {
-      get() { return this.ipcPlan.selfIsolateAccommodation; },
-      set(value) { this.updateIpcPlan({['selfIsolateAccommodation']: value}); }
+      get() { return this.attestation.selfIsolateAccommodation; },
+      set(value) { this.updateAttestation({['selfIsolateAccommodation']: value}); }
     },
 
     // Laundry
     laundryServices: {
-      get() { return this.ipcPlan.laundryServices; },
-      set(value) { this.updateIpcPlan({['laundryServices']: value}); }
+      get() { return this.attestation.laundryServices; },
+      set(value) { this.updateAttestation({['laundryServices']: value}); }
     },
 
     // Waste mgmt
     wasteManagementGloves: {
-      get() { return this.ipcPlan.wasteManagementGloves; },
-      set(value) { this.updateIpcPlan({['wasteManagementGloves']: value}); }
+      get() { return this.attestation.wasteManagementGloves; },
+      set(value) { this.updateAttestation({['wasteManagementGloves']: value}); }
     },
     wasteManagementSchedule: {
-      get() { return this.ipcPlan.wasteManagementSchedule; },
-      set(value) { this.updateIpcPlan({['wasteManagementSchedule']: value}); }
+      get() { return this.attestation.wasteManagementSchedule; },
+      set(value) { this.updateAttestation({['wasteManagementSchedule']: value}); }
     },
     wasteManagementBags: {
-      get() { return this.ipcPlan.wasteManagementBags; },
-      set(value) { this.updateIpcPlan({['wasteManagementBags']: value}); }
+      get() { return this.attestation.wasteManagementBags; },
+      set(value) { this.updateAttestation({['wasteManagementBags']: value}); }
     },
 
     // Hand-washing
     handWashingStations: {
-      get() { return this.ipcPlan.handWashingStations; },
-      set(value) { this.updateIpcPlan({['handWashingStations']: value}); }
+      get() { return this.attestation.handWashingStations; },
+      set(value) { this.updateAttestation({['handWashingStations']: value}); }
     },
     handWashingSoapWater: {
-      get() { return this.ipcPlan.handWashingSoapWater; },
-      set(value) { this.updateIpcPlan({['handWashingSoapWater']: value}); }
+      get() { return this.attestation.handWashingSoapWater; },
+      set(value) { this.updateAttestation({['handWashingSoapWater']: value}); }
     },
     handWashingWaterless: {
-      get() { return this.ipcPlan.handWashingWaterless; },
-      set(value) { this.updateIpcPlan({['handWashingWaterless']: value}); }
+      get() { return this.attestation.handWashingWaterless; },
+      set(value) { this.updateAttestation({['handWashingWaterless']: value}); }
     },
     handWashingPaperTowels: {
-      get() { return this.ipcPlan.handWashingPaperTowels; },
-      set(value) { this.updateIpcPlan({['handWashingPaperTowels']: value}); }
+      get() { return this.attestation.handWashingPaperTowels; },
+      set(value) { this.updateAttestation({['handWashingPaperTowels']: value}); }
     },
     handWashingSignage: {
-      get() { return this.ipcPlan.handWashingSignage; },
-      set(value) { this.updateIpcPlan({['handWashingSignage']: value}); }
+      get() { return this.attestation.handWashingSignage; },
+      set(value) { this.updateAttestation({['handWashingSignage']: value}); }
     },
 
 
     // Phyisical Distancing
     distancingMaintained: {
-      get() { return this.ipcPlan.distancingMaintained; },
-      set(value) { this.updateIpcPlan({['distancingMaintained']: value}); }
+      get() { return this.attestation.distancingMaintained; },
+      set(value) { this.updateAttestation({['distancingMaintained']: value}); }
     },
     distancingFaceShields: {
-      get() { return this.ipcPlan.distancingFaceShields; },
-      set(value) { this.updateIpcPlan({['distancingFaceShields']: value}); }
+      get() { return this.attestation.distancingFaceShields; },
+      set(value) { this.updateAttestation({['distancingFaceShields']: value}); }
     },
 
     // Cleaning/Disinfecting
     disinfectingSchedule: {
-      get() { return this.ipcPlan.disinfectingSchedule; },
-      set(value) { this.updateIpcPlan({['disinfectingSchedule']: value}); }
+      get() { return this.attestation.disinfectingSchedule; },
+      set(value) { this.updateAttestation({['disinfectingSchedule']: value}); }
     }
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
+    ...mapMutations('form', ['setStep', 'updateAttestation']),
   }
 };
 </script>
