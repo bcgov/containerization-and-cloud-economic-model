@@ -237,12 +237,12 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import RequestReceipt from '@/components/minesAttestations/RequestReceipt.vue';
-import Step1 from '@/components/minesAttestations/Step1.vue';
-import Step2 from '@/components/minesAttestations/Step2.vue';
-import Step3 from '@/components/minesAttestations/Step3.vue';
-import Step4 from '@/components/minesAttestations/Step4.vue';
-import Step5 from '@/components/minesAttestations/Step5.vue';
+import RequestReceipt from '@/components/minesattestations/RequestReceipt.vue';
+import Step1 from '@/components/minesattestations/Step1.vue';
+import Step2 from '@/components/minesattestations/Step2.vue';
+import Step3 from '@/components/minesattestations/Step3.vue';
+import Step4 from '@/components/minesattestations/Step4.vue';
+import Step5 from '@/components/minesattestations/Step5.vue';
 
 export default {
   name: 'MinesAttestationStep6',
