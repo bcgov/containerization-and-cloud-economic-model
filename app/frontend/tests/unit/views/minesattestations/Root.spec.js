@@ -1,7 +1,7 @@
-import { createLocalVue, shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
+import { createLocalVue, shallowMount } from './node_modules/@vue/test-utils';
+import Vuetify from './node_modules/vuetify';
 
-import Root from '@/views/minesAttestations/Root.vue';
+import Root from './node_modules/@/views/minesAttestations/Root.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuetify);

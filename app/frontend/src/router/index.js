@@ -35,7 +35,7 @@ export default function getRouter(basePath = '/') {
           {
             path: '',
             name: 'MinesAttestationsForm',
-            component: () => import(/* webpackChunkName: "mines-attestations-form" */ '@/views/minesAttestations/Root.vue'),
+            component: () => import(/* webpackChunkName: "mines-attestations-form" */ '../../tests/unit/views/minesAttestations/node_modules/@/views/minesAttestations/Root.vue'),
             meta: {
               title: 'Industrial Camps'
             }
