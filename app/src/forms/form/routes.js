@@ -1,8 +1,9 @@
 const routes = require('express').Router();
 
 const controller = require('./controller');
+const middleware = require('./middleware');
 
-routes.get('/', async (req, res, next) => {
+routes.get('/', middleware.formSearch, async (req, res, next) => {
   await controller.search(req, res, next);
 });
 

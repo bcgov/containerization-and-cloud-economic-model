@@ -130,7 +130,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/{{path}}/api/v1/forms?slug=mines&public&active&name=indu&keyword=camps",
+					"raw": "{{host}}/{{path}}/api/v1/forms?slug=mines&public=true&active=true&name=indu&keyword=camps",
 					"host": [
 						"{{host}}"
 					],
@@ -147,11 +147,11 @@
 						},
 						{
 							"key": "public",
-							"value": null
+							"value": "true"
 						},
 						{
 							"key": "active",
-							"value": null
+							"value": "true"
 						},
 						{
 							"key": "name",

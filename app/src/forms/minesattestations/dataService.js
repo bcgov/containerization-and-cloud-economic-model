@@ -130,7 +130,7 @@ const dataService = {
     return {...obj, ...user};
   },
 
-  searchSubmissions: async (version, confirmationId, businessName, city) => {
+  searchSubmissions: async (params) => {
     return Models.Submission.query()
       .allowGraph('[attestation, business, covidContact, location, primaryContact, statuses.notes, notes]')
       .withGraphFetched('[attestation, business, covidContact, location, primaryContact]')
@@ -138,10 +138,10 @@ const dataService = {
       .withGraphFetched('notes(orderDescending)')
       .joinRelated('business')
       .joinRelated('location')
-      .modify('filterVersion', version)
-      .modify('filterConfirmationId', confirmationId)
-      .modify('filterBusinessName', businessName)
-      .modify('filterCity', city);
+      .modify('filterVersion', params.version)
+      .modify('filterConfirmationId', params.confirmationId)
+      .modify('filterBusinessName', params.business)
+      .modify('filterCity', params.city);
   },
 
   createSubmissionStatus: async (obj, submissionId, user) => {

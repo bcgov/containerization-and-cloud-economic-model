@@ -12,7 +12,7 @@ module.exports = {
   },
   search:  async (req, res, next) => {
     try {
-      const response = await dataService.search(req.query.name, req.query.slug, req.query.keyword, req.query.public, req.query.active);
+      const response = await dataService.search(req.searchParameters);
       res.status(200).json(response);
     } catch (error) {
       next(error);

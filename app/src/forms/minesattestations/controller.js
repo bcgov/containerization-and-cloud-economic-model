@@ -38,7 +38,7 @@ module.exports = {
 
   searchSubmissions:  async (req, res, next) => {
     try {
-      const response = await dataService.searchSubmissions(req.query.version, req.query.confirmationId, req.query.business, req.query.city);
+      const response = await dataService.searchSubmissions(req.searchParameters);
       res.status(200).json(response);
     } catch (error) {
       next(error);

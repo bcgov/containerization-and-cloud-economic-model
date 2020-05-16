@@ -8,13 +8,13 @@ module.exports = {
       .throwIfNotFound();
   },
 
-  search: async (name, slug, keyword, publicOnly, activeOnly) => {
+  search: async (params) => {
     return Models.Metadata.query()
-      .modify('activeOnly', activeOnly)
-      .modify('publicOnly', publicOnly)
-      .modify('filterName', name)
-      .modify('filterSlug', slug)
-      .modify('filterKeyword', keyword);
+      .modify('filterActive', params.active)
+      .modify('filterPublic', params.public)
+      .modify('filterName', params.name)
+      .modify('filterSlug', params.slug)
+      .modify('filterKeyword', params.keyword);
   }
 
 };
