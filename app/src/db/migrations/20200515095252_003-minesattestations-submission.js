@@ -1,3 +1,5 @@
+const stamps = require('../stamps');
+
 const PREFIX = require('../../forms/minesattestations/constants').PREFIX;
 
 exports.up = function(knex) {
@@ -23,10 +25,7 @@ exports.up = function(knex) {
       table.string('motelProvince', 30).nullable();
       table.string('motelPostalCode', 30).nullable();
       table.boolean('accWorkersHome').notNullable();
-
-      table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
-      table.string('updatedBy');
-      table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
+      stamps(knex, table);
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_submission_contact`, table => {
       table.increments('contactId').primary();
@@ -37,10 +36,7 @@ exports.up = function(knex) {
       table.string('phone1', 30).nullable();
       table.string('phone2', 30).nullable();
       table.string('email').nullable();
-
-      table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
-      table.string('updatedBy');
-      table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
+      stamps(knex, table);
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_submission_business`, table => {
       table.increments('businessId').primary();
@@ -52,10 +48,7 @@ exports.up = function(knex) {
       table.string('city').notNullable();
       table.string('province', 30).notNullable();
       table.string('postalCode', 30).notNullable();
-
-      table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
-      table.string('updatedBy');
-      table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
+      stamps(knex, table);
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_submission_attestation`, table => {
       table.uuid('attestationId').primary();
@@ -106,10 +99,7 @@ exports.up = function(knex) {
       table.boolean('infectedWaste').notNullable();
       table.boolean('certifyAccurateInformation').notNullable();
       table.boolean('agreeToInspection').notNullable();
-
-      table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
-      table.string('updatedBy');
-      table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
+      stamps(knex, table);
     }));
 };
 

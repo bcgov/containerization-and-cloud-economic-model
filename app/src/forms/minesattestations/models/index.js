@@ -1,3 +1,5 @@
 const base = require('./base');
 const subs = require('./submission');
-module.exports = {...base, ...subs};
+const searchParms = require('./searchParameters');
+
+module.exports = {...base, ...subs, ...searchParms};

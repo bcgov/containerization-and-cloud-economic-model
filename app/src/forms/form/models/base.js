@@ -1,5 +1,6 @@
 const { Model } = require('objection');
 const { UpdatedAt } = require('../../../db/models/mixins');
+const constants = require('../constants');
 
 class Metadata extends UpdatedAt(Model) {
   static get tableName () {
@@ -10,16 +11,32 @@ class Metadata extends UpdatedAt(Model) {
     return 'formId';
   }
 
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['name', 'slug', 'public', 'active', 'prefix'],
+      properties: {
+        formId: { type: 'string', pattern: constants.UUID_REGEX },
+        name: { type: 'string', minLength: 1, maxLength: 255 },
+        slug: { type: 'string', minLength: 1, maxLength: 255 },
+        prefix: { type: 'string', minLength: 1, maxLength: 255 },
+        public: { type: 'boolean' },
+        active: { type: 'boolean' },
+        keywords: { type: 'array', items: { type: 'string'}}
+      }
+    };
+  }
+
   static get modifiers () {
     return {
-      activeOnly(query, value) {
+      filterActive(query, value) {
         if (value !== undefined) {
-          query.where('active', true);
+          query.where('active', value);
         }
       },
-      publicOnly(query, value) {
+      filterPublic(query, value) {
         if (value !== undefined) {
-          query.where('public', true);
+          query.where('public', value);
         }
       },
       filterName(query, value) {

@@ -1,7 +1,8 @@
 const { Model } = require('objection');
 const { UpdatedAt } = require('../../../db/models/mixins');
 
-const PREFIX = require('../constants').PREFIX;
+const constants = require('../constants');
+const PREFIX = constants.PREFIX;
 
 class Metadata extends UpdatedAt(Model) {
   static get tableName () {
@@ -10,6 +11,22 @@ class Metadata extends UpdatedAt(Model) {
 
   static get idColumn () {
     return 'formId';
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['name', 'slug', 'public', 'active', 'prefix'],
+      properties: {
+        formId: { type: 'string', pattern: constants.UUID_REGEX },
+        name: { type: 'string', minLength: 1, maxLength: 255 },
+        slug: { type: 'string', minLength: 1, maxLength: 255 },
+        prefix: { type: 'string', minLength: 1, maxLength: 255 },
+        public: { type: 'boolean' },
+        active: { type: 'boolean' },
+        keywords: { type: 'array', items: { type: 'string'}}
+      }
+    };
   }
 }
 
@@ -22,7 +39,18 @@ class Form extends UpdatedAt(Model) {
     return 'formId';
   }
 
-  static relationMappings () {
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: [],
+      properties: {
+        formId: { type: 'string', pattern: constants.UUID_REGEX },
+        description: { type: 'string', maxLength: 255 }
+      }
+    };
+  }
+
+  static get relationMappings () {
     return {
       metadata: {
         relation: Model.BelongsToOneRelation,
@@ -53,7 +81,18 @@ class Version extends UpdatedAt(Model) {
     return 'formVersionId';
   }
 
-  static relationMappings () {
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: [],
+      properties: {
+        formVersionId: { type: 'integer' },
+        changes: { type: 'string', maxLength: 255 }
+      }
+    };
+  }
+
+  static get relationMappings () {
     return {
       statusCodes: {
         relation: Model.HasManyRelation,
@@ -83,6 +122,20 @@ class StatusCode extends UpdatedAt(Model) {
   static get idColumn () {
     return 'code';
   }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['code', 'display', 'enabled', 'formVersionId'],
+      properties: {
+        formVersionId: { type: 'integer' },
+        code: { type: 'string', minLength: 1, maxLength: 255 },
+        display: { type: 'string', minLength: 1, maxLength: 255 },
+        prefix: { type: 'string', minLength: 1, maxLength: 255 },
+        enabled: { type: 'boolean' }
+      }
+    };
+  }
 }
 
 class Note extends UpdatedAt(Model) {
@@ -92,6 +145,18 @@ class Note extends UpdatedAt(Model) {
 
   static get idColumn () {
     return 'noteId';
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['note'],
+      properties: {
+        note: { type: 'string', minLength: 1, maxLength: 4000 },
+        submissionId: { type: 'string', pattern: constants.UUID_REGEX },
+        submissionStatusId: { type: 'integer' }
+      }
+    };
   }
 
   static get modifiers () {

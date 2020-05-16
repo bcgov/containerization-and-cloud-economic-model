@@ -1,3 +1,5 @@
+const stamps = require('../stamps');
+
 exports.up = function(knex) {
   return Promise.resolve()
     .then(() => knex.schema.createTable('form', table => {
@@ -8,10 +10,7 @@ exports.up = function(knex) {
       table.boolean('active').notNullable().defaultTo(true);
       table.specificType('keywords', 'text ARRAY');
       table.string('prefix').unique().notNullable().comment('This is the database table prefix for all the form business tables.');
-      table.string('createdBy');
-      table.timestamp('createdAt', { useTz: true }).defaultTo(knex.fn.now());
-      table.string('updatedBy');
-      table.timestamp('updatedAt', { useTz: true }).defaultTo(knex.fn.now());
+      stamps(knex, table);
     }));
 };
 

@@ -106,7 +106,7 @@ const dataService = {
 
       await Models.Submission.query(trx).insertGraph(obj);
       await trx.commit();
-      const result = await dataService.readSubmission(confirmationId);
+      const result = await dataService.readSubmission(submissionId);
       return result;
     } catch (err) {
       log.error('create', `Error creating camp submission record: ${err.message}. Rolling back...`);
@@ -116,13 +116,13 @@ const dataService = {
     }
   },
 
-  readSubmission: async (confirmationId) => {
+  readSubmission: async (submissionId) => {
     return Models.Submission.query()
-      .findOne({confirmationId: confirmationId})
-      .allowGraph('[attestation, business, contacts, location, statuses, statuses.notes, notes]')
+      .findById(submissionId)
+      .allowGraph('[attestation, business, contacts, location, statuses.notes, notes]')
       .withGraphFetched('[attestation, business, contacts, location]')
-      .withGraphFetched('notes(orderDescending)')
       .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
+      .withGraphFetched('notes(orderDescending)')
       .throwIfNotFound();
   },
 
@@ -130,16 +130,21 @@ const dataService = {
     return {...obj, ...user};
   },
 
-  allSubmissions: async () => {
-    const results = Models.Submission.query()
-      .allowGraph('[attestation, business, contacts, location, statuses, statuses.notes, notes]')
+  searchSubmissions: async (params) => {
+    return Models.Submission.query()
+      .allowGraph('[attestation, business, contacts, location, statuses.notes, notes]')
       .withGraphFetched('[attestation, business, contacts, location]')
+      .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
       .withGraphFetched('notes(orderDescending)')
-      .withGraphFetched('statuses(orderDescending).notes(orderDescending)');
-    return results || [];
+      .joinRelated('business')
+      .joinRelated('location')
+      .modify('filterVersion', params.version)
+      .modify('filterConfirmationId', params.confirmationId)
+      .modify('filterBusinessName', params.business)
+      .modify('filterCity', params.city);
   },
 
-  createSubmissionStatus: async (obj, confirmationId, user) => {
+  createSubmissionStatus: async (obj, submissionId, user) => {
     if (!obj) {
       throw Error('Status cannot be created without data');
     }
@@ -147,9 +152,7 @@ const dataService = {
     try {
       trx = await transaction.start(Models.Status.knex());
 
-      // all submissions use the current version...
-      const current = await dataService.readSubmission(confirmationId);
-      obj.submissionId = current.submissionId;
+      obj.submissionId = submissionId;
       obj.createdBy = user;
 
       if (obj.notes && Array.isArray(obj.notes)) {
@@ -167,17 +170,16 @@ const dataService = {
     }
   },
 
-  readSubmissionStatuses: async (confirmationId) => {
-    const submission = await dataService.readSubmission(confirmationId);
+  readSubmissionStatuses: async (submissionId) => {
     return Models.Status.query()
-      .where({submissionId: submission.submissionId})
+      .where({submissionId: submissionId})
       .allowGraph('[notes]')
       .withGraphFetched('notes(orderDescending)')
       .modify('orderDescending')
       .throwIfNotFound();
   },
 
-  createSubmissionStatusNote: async (obj, confirmationId, statusId, user) => {
+  createSubmissionStatusNote: async (obj, statusId, user) => {
     if (!obj) {
       throw Error('Note cannot be created without data');
     }
@@ -185,9 +187,7 @@ const dataService = {
     try {
       trx = await transaction.start(Models.Note.knex());
 
-      // make sure submission exists...
-      await dataService.readSubmission(confirmationId);
-      obj.submissionStatusId = statusId;
+      obj.submissionStatusId = parseInt(statusId);
       obj.createdBy = user;
 
       const result = await Models.Note.query(trx).insert(obj).returning('*');
@@ -201,16 +201,14 @@ const dataService = {
     }
   },
 
-  readSubmissionStatusNotes: async (confirmationId, statusId) => {
-    // make sure submission exists...
-    await dataService.readSubmission(confirmationId);
+  readSubmissionStatusNotes: async (statusId) => {
     const results = Models.Note.query()
       .where({submissionStatusId: statusId})
       .modify('orderDescending');
     return results || [];
   },
 
-  createSubmissionNote: async (obj, confirmationId, user) => {
+  createSubmissionNote: async (obj, submissionId, user) => {
     if (!obj) {
       throw Error('Note cannot be created without data');
     }
@@ -218,9 +216,7 @@ const dataService = {
     try {
       trx = await transaction.start(Models.Note.knex());
 
-      // all submissions use the current version...
-      const current = await dataService.readSubmission(confirmationId);
-      obj.submissionId = current.submissionId;
+      obj.submissionId = submissionId;
       obj.createdBy = user;
 
       const result = await Models.Note.query(trx).insert(obj).returning('*');
@@ -234,10 +230,9 @@ const dataService = {
     }
   },
 
-  readSubmissionNotes: async (confirmationId) => {
-    const submission = await dataService.readSubmission(confirmationId);
+  readSubmissionNotes: async (submissionId) => {
     let results = Models.Note.query()
-      .where({submissionId: submission.submissionId})
+      .where({submissionId: submissionId})
       .modify('orderDescending');
     if (!results) {
       results = [];
