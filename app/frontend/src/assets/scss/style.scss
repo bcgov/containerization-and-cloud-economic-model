@@ -90,3 +90,41 @@ a, .v-tab {
     }
   }
 }
+
+// Stepper
+.silv-stepper {
+  .header-row{
+    background-color: $bcgov-grey !important;
+  }
+  &.v-stepper--alt-labels {
+    .v-stepper__step {
+      padding-left: 0;
+      padding-right: 0;
+      .v-stepper__label {
+        color: $bcgov-font;
+        font-size: .75em;
+      }
+      &.v-stepper__step--active {
+        .v-stepper__label{
+          color: $bcgov-font;
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}
+
+.question-series {
+  p {
+    font-size: 16px;
+  }
+  .question-head {
+    margin-bottom: 16px;
+    margin-top: 22px;
+  }
+  .questions {
+    @media (min-width: 600px) {
+      padding-left: 1.5em;
+    }
+  }
+}
