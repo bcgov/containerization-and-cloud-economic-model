@@ -144,7 +144,6 @@ const dataService = {
       throw Error('Status cannot be created without data');
     }
     let trx;
-    let result;
     try {
       trx = await transaction.start(Models.Status.knex());
 
@@ -157,7 +156,7 @@ const dataService = {
         obj.notes.forEach(n => n.createdBy = user);
       }
 
-      result = await Models.Status.query(trx).insertGraph(obj).returning('*');
+      const result = await Models.Status.query(trx).insertGraph(obj).returning('*');
       await trx.commit();
       return result;
     } catch (err) {
@@ -183,7 +182,6 @@ const dataService = {
       throw Error('Note cannot be created without data');
     }
     let trx;
-    let result;
     try {
       trx = await transaction.start(Models.Note.knex());
 
@@ -192,7 +190,7 @@ const dataService = {
       obj.submissionStatusId = statusId;
       obj.createdBy = user;
 
-      result = await Models.Note.query(trx).insert(obj).returning('*');
+      const result = await Models.Note.query(trx).insert(obj).returning('*');
       await trx.commit();
       return result;
     } catch (err) {
@@ -217,7 +215,6 @@ const dataService = {
       throw Error('Note cannot be created without data');
     }
     let trx;
-    let result;
     try {
       trx = await transaction.start(Models.Note.knex());
 
@@ -226,7 +223,7 @@ const dataService = {
       obj.submissionId = current.submissionId;
       obj.createdBy = user;
 
-      result = await Models.Note.query(trx).insert(obj).returning('*');
+      const result = await Models.Note.query(trx).insert(obj).returning('*');
       await trx.commit();
       return result;
     } catch (err) {
