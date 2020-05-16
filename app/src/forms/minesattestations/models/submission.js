@@ -35,7 +35,7 @@ class Submission extends UpdatedAt(Model) {
   static get modifiers () {
     return {
       orderDescending(builder) {
-        builder.orderBy('updatedAt', 'desc');
+        builder.orderBy('createdAt', 'desc');
       },
       filterVersion(query, value) {
         if (value) {
@@ -158,7 +158,15 @@ class SubmissionStatus extends UpdatedAt(Model) {
           from: `${SUBMISSION}_status.submissionStatusId`,
           to: `${PREFIX}_note.submissionStatusId`
         }
-      }
+      },
+      statusCode: {
+        relation: Model.HasOneRelation,
+        modelClass: Models.StatusCode,
+        join: {
+          from: `${SUBMISSION}_status.code`,
+          to: `${PREFIX}_status_code.code`
+        }
+      },
     };
   }
 }
