@@ -103,56 +103,56 @@ export default {
     reviewMode: Boolean
   },
   computed: {
-    ...mapGetters('form', ['ipcPlan']),
+    ...mapGetters('form', ['attestation']),
 
     // Education
     educationSignage: {
-      get() { return this.ipcPlan.educationSignage; },
-      set(value) { this.updateIpcPlan({['educationSignage']: value}); }
+      get() { return this.attestation.educationSignage; },
+      set(value) { this.updateAttestation({['educationSignage']: value}); }
     },
     educationContactPersonnel: {
-      get() { return this.ipcPlan.educationContactPersonnel; },
-      set(value) { this.updateIpcPlan({['educationContactPersonnel']: value}); }
+      get() { return this.attestation.educationContactPersonnel; },
+      set(value) { this.updateAttestation({['educationContactPersonnel']: value}); }
     },
 
     // Training
     trainingCovid19: {
-      get() { return this.ipcPlan.trainingCovid19; },
-      set(value) { this.updateIpcPlan({['trainingCovid19']: value}); }
+      get() { return this.attestation.trainingCovid19; },
+      set(value) { this.updateAttestation({['trainingCovid19']: value}); }
     },
     trainingEtiquette: {
-      get() { return this.ipcPlan.trainingEtiquette; },
-      set(value) { this.updateIpcPlan({['trainingEtiquette']: value}); }
+      get() { return this.attestation.trainingEtiquette; },
+      set(value) { this.updateAttestation({['trainingEtiquette']: value}); }
     },
     trainingLocations: {
-      get() { return this.ipcPlan.trainingLocations; },
-      set(value) { this.updateIpcPlan({['trainingLocations']: value}); }
+      get() { return this.attestation.trainingLocations; },
+      set(value) { this.updateAttestation({['trainingLocations']: value}); }
     },
     trainingFirstAid: {
-      get() { return this.ipcPlan.trainingFirstAid; },
-      set(value) { this.updateIpcPlan({['trainingFirstAid']: value}); }
+      get() { return this.attestation.trainingFirstAid; },
+      set(value) { this.updateAttestation({['trainingFirstAid']: value}); }
     },
     trainingReporting: {
-      get() { return this.ipcPlan.trainingReporting; },
-      set(value) { this.updateIpcPlan({['trainingReporting']: value}); }
+      get() { return this.attestation.trainingReporting; },
+      set(value) { this.updateAttestation({['trainingReporting']: value}); }
     },
 
     // Meals
     mealsDistancing: {
-      get() { return this.ipcPlan.mealsDistancing; },
-      set(value) { this.updateIpcPlan({['mealsDistancing']: value}); }
+      get() { return this.attestation.mealsDistancing; },
+      set(value) { this.updateAttestation({['mealsDistancing']: value}); }
     },
     mealsDishware: {
-      get() { return this.ipcPlan.mealsDishware; },
-      set(value) { this.updateIpcPlan({['mealsDishware']: value}); }
+      get() { return this.attestation.mealsDishware; },
+      set(value) { this.updateAttestation({['mealsDishware']: value}); }
     },
     mealsDishwashing: {
-      get() { return this.ipcPlan.mealsDishwashing; },
-      set(value) { this.updateIpcPlan({['mealsDishwashing']: value}); }
+      get() { return this.attestation.mealsDishwashing; },
+      set(value) { this.updateAttestation({['mealsDishwashing']: value}); }
     }
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
+    ...mapMutations('form', ['setStep', 'updateAttestation']),
   }
 };
 </script>

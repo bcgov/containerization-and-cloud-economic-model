@@ -132,53 +132,53 @@ export default {
     reviewMode: Boolean
   },
   computed: {
-    ...mapGetters('form', ['ipcPlan']),
+    ...mapGetters('form', ['attestation']),
 
     // Safe Lodging
     //TBD??
 
     // Infection
     infectionSeparation: {
-      get() { return this.ipcPlan.infectionSeparation; },
-      set(value) { this.updateIpcPlan({['infectionSeparation']: value}); }
+      get() { return this.attestation.infectionSeparation; },
+      set(value) { this.updateAttestation({['infectionSeparation']: value}); }
     },
     infectionSymptoms: {
-      get() { return this.ipcPlan.infectionSymptoms; },
-      set(value) { this.updateIpcPlan({['infectionSymptoms']: value}); }
+      get() { return this.attestation.infectionSymptoms; },
+      set(value) { this.updateAttestation({['infectionSymptoms']: value}); }
     },
     infectionHeathLinkBC: {
-      get() { return this.ipcPlan.infectionHeathLinkBC; },
-      set(value) { this.updateIpcPlan({['infectionHeathLinkBC']: value}); }
+      get() { return this.attestation.infectionHeathLinkBC; },
+      set(value) { this.updateAttestation({['infectionHeathLinkBC']: value}); }
     },
     infectionSanitization: {
-      get() { return this.ipcPlan.infectionSanitization; },
-      set(value) { this.updateIpcPlan({['infectionSanitization']: value}); }
+      get() { return this.attestation.infectionSanitization; },
+      set(value) { this.updateAttestation({['infectionSanitization']: value}); }
     },
     infectionAccommodation: {
-      get() { return this.ipcPlan.infectionAccommodation; },
-      set(value) { this.updateIpcPlan({['infectionAccommodation']: value}); }
+      get() { return this.attestation.infectionAccommodation; },
+      set(value) { this.updateAttestation({['infectionAccommodation']: value}); }
     },
 
     // Food
     infectedFeeding: {
-      get() { return this.ipcPlan.infectedFeeding; },
-      set(value) { this.updateIpcPlan({['infectedFeeding']: value}); }
+      get() { return this.attestation.infectedFeeding; },
+      set(value) { this.updateAttestation({['infectedFeeding']: value}); }
     },
 
     // HouseKeeping
     infectedHousekeeping: {
-      get() { return this.ipcPlan.infectedHousekeeping; },
-      set(value) { this.updateIpcPlan({['infectedHousekeeping']: value}); }
+      get() { return this.attestation.infectedHousekeeping; },
+      set(value) { this.updateAttestation({['infectedHousekeeping']: value}); }
     },
 
     // Waste
     infectedWaste: {
-      get() { return this.ipcPlan.infectedWaste; },
-      set(value) { this.updateIpcPlan({['infectedWaste']: value}); }
+      get() { return this.attestation.infectedWaste; },
+      set(value) { this.updateAttestation({['infectedWaste']: value}); }
     },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateIpcPlan']),
+    ...mapMutations('form', ['setStep', 'updateAttestation']),
   }
 };
 </script>

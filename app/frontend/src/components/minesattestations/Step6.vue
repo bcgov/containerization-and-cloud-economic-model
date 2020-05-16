@@ -262,7 +262,7 @@ export default {
   },
   computed: {
     ...mapGetters('form', [
-      'ipcPlan',
+      'attestation',
       'submissionComplete',
       'submissionDetails',
       'submissionError',
@@ -280,23 +280,23 @@ export default {
     // Certify checkboxes
     certifyAccurateInformation: {
       get() {
-        return this.ipcPlan.certifyAccurateInformation;
+        return this.attestation.certifyAccurateInformation;
       },
       set(value) {
-        this.updateIpcPlan({ ['certifyAccurateInformation']: value });
+        this.updateAttestation({ ['certifyAccurateInformation']: value });
       }
     },
     agreeToInspection: {
       get() {
-        return this.ipcPlan.agreeToInspection;
+        return this.attestation.agreeToInspection;
       },
       set(value) {
-        this.updateIpcPlan({ ['agreeToInspection']: value });
+        this.updateAttestation({ ['agreeToInspection']: value });
       }
     }
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'setSubmissionError', 'updateIpcPlan']),
+    ...mapMutations('form', ['setStep', 'setSubmissionError', 'updateAttestation']),
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();

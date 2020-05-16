@@ -1,5 +1,6 @@
 export const ApiRoutes = Object.freeze({
-  HELLO: '/hello'
+  HELLO: '/hello',
+  MINESATTESTATIONS: 'minesattestations'
 });
 
 export const AppRoles = Object.freeze({

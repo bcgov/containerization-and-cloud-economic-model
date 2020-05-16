@@ -1,5 +1,5 @@
-import ipcService from '../../services/ipcService';
-import { default as sampleData } from './sampleData.js.js.js';
+import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
+import { SampleData, RandomCities } from './sampleData.js';
 
 export default {
   namespaced: true,
@@ -119,9 +119,9 @@ export default {
 
     // Form objects
     business: state => state.business,
-    contacts: state => state.contacts[0],
+    primaryContact: state => state.primaryContact,
     covidContact: state => state.covidContact,
-    ipcPlan: state => state.ipcPlan,
+    attestation: state => state.attestation,
     location: state => state.location
   },
   mutations: {
@@ -153,33 +153,33 @@ export default {
     updateBusiness: (state, obj) => {
       Object.assign(state.business, obj);
     },
-    updateContacts: (state, obj) => {
-      Object.assign(state.contacts[0], obj);
+    updatePrimaryContact: (state, obj) => {
+      Object.assign(state.primaryContact, obj);
     },
     updateCovidContact: (state, obj) => {
       Object.assign(state.covidContact, obj);
     },
-    updateIpcPlan: (state, obj) => {
-      Object.assign(state.ipcPlan, obj);
+    updateAttestation: (state, obj) => {
+      Object.assign(state.attestation, obj);
     },
     updateLocation: (state, obj) => {
       Object.assign(state.location, obj);
     }
   },
   actions: {
-    async getForm({ commit }, ipcPlanId) {
+    async getForm({ commit }, id) {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await ipcService.getIPCContent(ipcPlanId);
+        const response = await minesAttestationsService.getSubmission(id);
         if (!response.data) {
-          throw new Error(`Failed to GET for ${ipcPlanId}`);
+          throw new Error(`Failed to GET for ${id}`);
         }
         const data = response.data;
 
         commit('updateIpcPlan', data.ipcPlan);
         commit('updateBusiness', data.business);
-        commit('updateContacts', data.contacts[0]);
+        commit('updatePrimaryContact', data.primaryContact);
         commit('updateCovidContact', data.covidContact);
         commit('updateLocation', data.location);
         commit('setSubmissionComplete');
@@ -194,15 +194,14 @@ export default {
       commit('setSubmitting', true);
       commit('setSubmissionError', '');
       try {
-        commit('updateIpcPlan', { formVersion: process.env.VUE_APP_VERSION });
+        const contacts = [state.primaryContact, state.covidContact];
         const body = {
           business: state.business,
-          contacts: state.contacts,
-          ipcPlan: state.ipcPlan,
-          covidContact: state.covidContact,
+          contacts: contacts,
+          attestation: state.attestation,
           location: state.location
         };
-        const response = await ipcService.sendIPCContent(body);
+        const response = await minesAttestationsService.sendSubmission(body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }
@@ -216,10 +215,12 @@ export default {
       }
     },
     async sampleData({ commit }) {
-      commit('updateBusiness', sampleData.business);
-      commit('updateContacts', sampleData.contact);
-      commit('updateCovidContact', sampleData.covidContact);
-      commit('updateLocation', sampleData.location);
+      commit('updateBusiness', SampleData.business);
+      commit('updatePrimaryContact', SampleData.primaryContact);
+      commit('updateCovidContact', SampleData.covidContact);
+      const l = SampleData.location;
+      l.city = RandomCities[Math.floor(Math.random() * RandomCities.length)];
+      commit('updateLocation', l);
     }
   }
 };
