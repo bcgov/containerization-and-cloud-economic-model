@@ -53,7 +53,7 @@
             <v-radio label="Shared sleeping areas" value="SHARED"></v-radio>
           </v-radio-group>
 
-          <div v-if="sleepingAreaType == 2">
+          <div v-if="sleepingAreaType === 'SHARED'">
             <v-row no-gutters>
               <v-col cols="12" md="8" lg="3">
                 <v-combobox

@@ -201,7 +201,6 @@ export default {
           location: state.location
         };
         body.location.numberOfWorkers = Number.parseInt(body.location.numberOfWorkers, 10);
-        console.log(JSON.stringify(body));
         // /transform
 
         const response = await minesAttestationsService.sendSubmission(body);
@@ -209,7 +208,6 @@ export default {
           throw new Error('No response data from API while submitting form');
         }
         commit('setSubmissionDetails', response.data);
-        console.log(JSON.stringify(response.data));
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error} - ${error.message}`); // eslint-disable-line no-console
