@@ -14,7 +14,7 @@
 
       <h2>Download and Notify</h2>
       <ol class="my-4">
-        <li>Download or email yourself a copy of your form submission.</li>
+        <li>Download or email yourself a copy of your form submission</li>
         <li>Send a copy of your form submission to the relevant health authority</li>
       </ol>
 
