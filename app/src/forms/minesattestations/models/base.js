@@ -44,7 +44,7 @@ class Form extends UpdatedAt(Model) {
       type: 'object',
       required: [],
       properties: {
-        formId: { type: 'string', pattern: /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i },
+        formId: { type: 'string', pattern: constants.UUID_REGEX },
         description: { type: 'string', maxLength: 255 }
       }
     };
@@ -154,7 +154,7 @@ class Note extends UpdatedAt(Model) {
       properties: {
         note: { type: 'string', minLength: 1, maxLength: 4000 },
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
-        submissionStatusId: { type: 'string', pattern: constants.UUID_REGEX }
+        submissionStatusId: { type: 'integer' }
       }
     };
   }

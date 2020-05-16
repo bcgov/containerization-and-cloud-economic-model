@@ -4,7 +4,7 @@ const Objection = require('objection');
 module.exports = async (err, req, res, next) => {
   let error = err;
   if (err instanceof Objection.NotFoundError) {
-    error = new Problem(422, {
+    error = new Problem(404, {
       detail: 'Not Found',
       errors: err.message
     });

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "336e1cc9-898a-49bd-9e55-c01eefb623cd",
+		"_postman_id": "da7eb277-93e2-4ec9-847b-d8d90e149395",
 		"name": "COMFORT_API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -438,7 +438,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "6438e9a7-7fab-4051-995d-d917fa013fb0",
+				"id": "a5152bff-33ce-4a97-8895-2f36c7bdfee3",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -448,7 +448,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "f43102ad-fb0c-4f3c-8d13-43f1dfa957d2",
+				"id": "78e4f39f-6166-472f-a903-e37e0e182f4c",
 				"type": "text/javascript",
 				"exec": [
 					""

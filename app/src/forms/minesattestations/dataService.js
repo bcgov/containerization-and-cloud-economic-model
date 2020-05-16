@@ -119,8 +119,8 @@ const dataService = {
   readSubmission: async (submissionId) => {
     return Models.Submission.query()
       .findById(submissionId)
-      .allowGraph('[attestation, business, covidContact, location, primaryContact, statuses.notes, notes]')
-      .withGraphFetched('[attestation, business, covidContact, location, primaryContact]')
+      .allowGraph('[attestation, business, contacts, location, statuses.notes, notes]')
+      .withGraphFetched('[attestation, business, contacts, location]')
       .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
       .withGraphFetched('notes(orderDescending)')
       .throwIfNotFound();
@@ -132,8 +132,8 @@ const dataService = {
 
   searchSubmissions: async (params) => {
     return Models.Submission.query()
-      .allowGraph('[attestation, business, covidContact, location, primaryContact, statuses.notes, notes]')
-      .withGraphFetched('[attestation, business, covidContact, location, primaryContact]')
+      .allowGraph('[attestation, business, contacts, location, statuses.notes, notes]')
+      .withGraphFetched('[attestation, business, contacts, location]')
       .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
       .withGraphFetched('notes(orderDescending)')
       .joinRelated('business')
@@ -187,7 +187,7 @@ const dataService = {
     try {
       trx = await transaction.start(Models.Note.knex());
 
-      obj.submissionStatusId = statusId;
+      obj.submissionStatusId = parseInt(statusId);
       obj.createdBy = user;
 
       const result = await Models.Note.query(trx).insert(obj).returning('*');
