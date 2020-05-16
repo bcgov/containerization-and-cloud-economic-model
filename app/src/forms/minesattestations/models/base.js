@@ -24,8 +24,14 @@ class Metadata extends UpdatedAt(Model) {
         prefix: { type: 'string', minLength: 1, maxLength: 255 },
         public: { type: 'boolean' },
         active: { type: 'boolean' },
-        keywords: { type: 'array', items: { type: 'string'}}
-      }
+        keywords: { type: 'array', items: { type: 'string'}},
+        description: { type: 'string', maxLength: 255 },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 }
@@ -45,8 +51,13 @@ class Form extends UpdatedAt(Model) {
       required: [],
       properties: {
         formId: { type: 'string', pattern: constants.UUID_REGEX },
-        description: { type: 'string', maxLength: 255 }
-      }
+        description: { type: ['string', 'null'], maxLength: 255 },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 
@@ -87,8 +98,13 @@ class Version extends UpdatedAt(Model) {
       required: [],
       properties: {
         formVersionId: { type: 'integer' },
-        changes: { type: 'string', maxLength: 255 }
-      }
+        changes: { type: ['string', 'null'], maxLength: 255 },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 
@@ -132,8 +148,13 @@ class StatusCode extends UpdatedAt(Model) {
         code: { type: 'string', minLength: 1, maxLength: 255 },
         display: { type: 'string', minLength: 1, maxLength: 255 },
         prefix: { type: 'string', minLength: 1, maxLength: 255 },
-        enabled: { type: 'boolean' }
-      }
+        enabled: { type: 'boolean' },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 }
@@ -154,8 +175,13 @@ class Note extends UpdatedAt(Model) {
       properties: {
         note: { type: 'string', minLength: 1, maxLength: 4000 },
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
-        submissionStatusId: { type: 'integer' }
-      }
+        submissionStatusId: { type: 'integer' },
+        createdBy: { type: ['string', 'null'] },
+        createdAt: { type: ['string', 'null'], format: 'date-time' },
+        updatedBy: { type: ['string', 'null'] },
+        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+      },
+      additionalProperties: false
     };
   }
 
