@@ -56,7 +56,7 @@ module.exports = {
 
   readSubmission: async (req, res, next) => {
     try {
-      const response = await dataService.readSubmission(req.params.confirmationId);
+      const response = await dataService.readSubmission(req.params.submissionId);
       res.status(200).json(response);
     } catch (error) {
       next(error);
@@ -76,7 +76,7 @@ module.exports = {
   createSubmissionStatus: async (req, res, next) => {
     try {
       const user = 'replace from auth';
-      const response = await dataService.createSubmissionStatus(req.body, req.params.confirmationId, user);
+      const response = await dataService.createSubmissionStatus(req.body, req.params.submissionId, user);
       res.status(201).json(response);
     } catch (error) {
       next(error);
@@ -85,7 +85,7 @@ module.exports = {
 
   readSubmissionStatuses: async (req, res, next) => {
     try {
-      const response = await dataService.readSubmissionStatuses(req.params.confirmationId);
+      const response = await dataService.readSubmissionStatuses(req.params.submissionId);
       res.status(200).json(response);
     } catch (error) {
       next(error);
@@ -95,7 +95,7 @@ module.exports = {
   createSubmissionStatusNote: async (req, res, next) => {
     try {
       const user = 'replace from auth';
-      const response = await dataService.createSubmissionStatusNote(req.body, req.params.confirmationId, req.params.statusId, user);
+      const response = await dataService.createSubmissionStatusNote(req.body, req.params.statusId, user);
       res.status(201).json(response);
     } catch (error) {
       next(error);
@@ -104,7 +104,7 @@ module.exports = {
 
   readSubmissionStatusNotes: async (req, res, next) => {
     try {
-      const response = await dataService.readSubmissionStatusNotes(req.params.confirmationId, req.params.statusId);
+      const response = await dataService.readSubmissionStatusNotes(req.params.statusId);
       res.status(200).json(response);
     } catch (error) {
       next(error);
@@ -114,7 +114,7 @@ module.exports = {
   createSubmissionNote: async (req, res, next) => {
     try {
       const user = 'replace from auth';
-      const response = await dataService.createSubmissionNote(req.body, req.params.confirmationId, user);
+      const response = await dataService.createSubmissionNote(req.body, req.params.submissionId, user);
       res.status(201).json(response);
     } catch (error) {
       next(error);
@@ -123,7 +123,7 @@ module.exports = {
 
   readSubmissionNotes: async (req, res, next) => {
     try {
-      const response = await dataService.readSubmissionNotes(req.params.confirmationId);
+      const response = await dataService.readSubmissionNotes(req.params.submissionId);
       res.status(200).json(response);
     } catch (error) {
       next(error);

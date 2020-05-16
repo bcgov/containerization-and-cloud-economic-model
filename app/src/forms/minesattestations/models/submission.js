@@ -45,13 +45,14 @@ class Submission extends UpdatedAt(Model) {
           to: `${SUBMISSION}_business.submissionId`
         }
       },
-      contacts: {
-        relation: Model.HasManyRelation,
+      covidContact: {
+        relation: Model.HasOneRelation,
         modelClass: Contact,
         join: {
           from: `${SUBMISSION}.submissionId`,
           to: `${SUBMISSION}_contact.submissionId`
-        }
+        },
+        modify: {contactType: 'COVID_COORDINATOR'}
       },
       location: {
         relation: Model.HasOneRelation,
@@ -60,6 +61,15 @@ class Submission extends UpdatedAt(Model) {
           from: `${SUBMISSION}.submissionId`,
           to: `${SUBMISSION}_location.submissionId`
         }
+      },
+      primaryContact: {
+        relation: Model.HasOneRelation,
+        modelClass: Contact,
+        join: {
+          from: `${SUBMISSION}.submissionId`,
+          to: `${SUBMISSION}_contact.submissionId`
+        },
+        modify: {contactType: 'PRIMARY'}
       },
       notes: {
         relation: Model.HasManyRelation,
