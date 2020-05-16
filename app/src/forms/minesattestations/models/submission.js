@@ -24,6 +24,21 @@ class Submission extends UpdatedAt(Model) {
           query.where('formVersionId', value);
         }
       },
+      filterConfirmationId(query, value) {
+        if (value) {
+          query.where('confirmationId', value);
+        }
+      },
+      filterBusinessName(query, value) {
+        if (value) {
+          query.where('business.name', 'ilike', `%${value}%`);
+        }
+      },
+      filterCity(query, value) {
+        if (value) {
+          query.where('location.city', 'ilike', `%${value}%`);
+        }
+      }
     };
   }
 

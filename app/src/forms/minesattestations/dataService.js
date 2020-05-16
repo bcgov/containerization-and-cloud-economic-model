@@ -130,13 +130,18 @@ const dataService = {
     return {...obj, ...user};
   },
 
-  allSubmissions: async () => {
-    const results = Models.Submission.query()
+  searchSubmissions: async (version, confirmationId, businessName, city) => {
+    return Models.Submission.query()
       .allowGraph('[attestation, business, covidContact, location, primaryContact, statuses.notes, notes]')
       .withGraphFetched('[attestation, business, covidContact, location, primaryContact]')
       .withGraphFetched('statuses(orderDescending).notes(orderDescending)')
-      .withGraphFetched('notes(orderDescending)');
-    return results || [];
+      .withGraphFetched('notes(orderDescending)')
+      .joinRelated('business')
+      .joinRelated('location')
+      .modify('filterVersion', version)
+      .modify('filterConfirmationId', confirmationId)
+      .modify('filterBusinessName', businessName)
+      .modify('filterCity', city);
   },
 
   createSubmissionStatus: async (obj, submissionId, user) => {

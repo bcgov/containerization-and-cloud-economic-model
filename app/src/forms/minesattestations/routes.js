@@ -15,7 +15,7 @@ routes.post('/', async (req, res, next) => {
 });
 
 routes.get('/submissions', async (req, res, next) => {
-  await controller.allSubmissions(req, res, next);
+  await controller.searchSubmissions(req, res, next);
 });
 
 routes.post('/submissions', async (req, res, next) => {

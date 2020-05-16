@@ -36,9 +36,9 @@ module.exports = {
     }
   },
 
-  allSubmissions:  async (req, res, next) => {
+  searchSubmissions:  async (req, res, next) => {
     try {
-      const response = await dataService.allSubmissions();
+      const response = await dataService.searchSubmissions(req.query.version, req.query.confirmationId, req.query.business, req.query.city);
       res.status(200).json(response);
     } catch (error) {
       next(error);
