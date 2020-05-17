@@ -1,4 +1,5 @@
 const config = require('config');
+const moment = require('moment');
 
 /** Knex configuration
  *  Set database configuration for application and knex configuration for migrations
@@ -11,6 +12,22 @@ const config = require('config');
  * @see module:knex
  * @see module:config
  */
+
+const types = require('pg').types;
+// To handle JSON Schema validation, we treat dates and timestamps outside of the database as strings.
+// Prevent the automatic conversion of dates/timestamps into Objects, leave as strings.
+types.setTypeParser(1082, (value) => {
+  return moment(value).toISOString();
+});
+// timestamps...
+types.setTypeParser(1114, (value) => {
+  return moment(value).toISOString();
+});
+// timestamps with zone
+types.setTypeParser(1184, (value) => {
+  return moment(value).toISOString();
+});
+
 module.exports = {
   client: 'pg',
   connection: {

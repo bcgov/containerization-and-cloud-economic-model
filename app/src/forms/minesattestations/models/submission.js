@@ -1,12 +1,12 @@
 const { Model } = require('objection');
-const { UpdatedAt } = require('../../../db/models/mixins');
+const { Timestamps } = require('../../../db/models/mixins');
 
 const Models = require('./base');
 const constants = require('../constants');
 const PREFIX = constants.PREFIX;
 const SUBMISSION = `${PREFIX}_submission`;
 
-class Submission extends UpdatedAt(Model) {
+class Submission extends Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}`;
   }
@@ -114,7 +114,7 @@ class Submission extends UpdatedAt(Model) {
   }
 }
 
-class SubmissionStatus extends UpdatedAt(Model) {
+class SubmissionStatus extends Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_status`;
   }
@@ -171,7 +171,7 @@ class SubmissionStatus extends UpdatedAt(Model) {
   }
 }
 
-class Attestation extends UpdatedAt(Model) {
+class Attestation extends Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_attestation`;
   }
@@ -240,7 +240,7 @@ class Attestation extends UpdatedAt(Model) {
   }
 }
 
-class Business extends UpdatedAt(Model) {
+class Business extends Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_business`;
   }
@@ -273,7 +273,7 @@ class Business extends UpdatedAt(Model) {
   }
 }
 
-class Contact extends UpdatedAt(Model) {
+class Contact extends Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_contact`;
   }
@@ -305,7 +305,7 @@ class Contact extends UpdatedAt(Model) {
   }
 }
 
-class Location extends UpdatedAt(Model) {
+class Location extends Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_location`;
   }

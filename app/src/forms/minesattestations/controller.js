@@ -65,8 +65,7 @@ module.exports = {
 
   updateSubmission: async (req, res, next) => {
     try {
-      const user = 'replace from auth';
-      const response = await dataService.updateSubmission(req.body, user);
+      const response = await dataService.updateSubmission(req.body, req.currentUser);
       res.status(200).json(response);
     } catch (error) {
       next(error);
@@ -75,8 +74,7 @@ module.exports = {
 
   createSubmissionStatus: async (req, res, next) => {
     try {
-      const user = 'replace from auth';
-      const response = await dataService.createSubmissionStatus(req.body, req.params.submissionId, user);
+      const response = await dataService.createSubmissionStatus(req.body, req.params.submissionId, req.currentUser);
       res.status(201).json(response);
     } catch (error) {
       next(error);
@@ -94,8 +92,7 @@ module.exports = {
 
   createSubmissionStatusNote: async (req, res, next) => {
     try {
-      const user = 'replace from auth';
-      const response = await dataService.createSubmissionStatusNote(req.body, req.params.statusId, user);
+      const response = await dataService.createSubmissionStatusNote(req.body, req.params.statusId, req.currentUser);
       res.status(201).json(response);
     } catch (error) {
       next(error);
@@ -113,8 +110,7 @@ module.exports = {
 
   createSubmissionNote: async (req, res, next) => {
     try {
-      const user = 'replace from auth';
-      const response = await dataService.createSubmissionNote(req.body, req.params.submissionId, user);
+      const response = await dataService.createSubmissionNote(req.body, req.params.submissionId, req.currentUser);
       res.status(201).json(response);
     } catch (error) {
       next(error);
@@ -128,7 +124,25 @@ module.exports = {
     } catch (error) {
       next(error);
     }
-  }
+  },
 
+  readCurrentStatusCodes: async (req, res, next) => {
+    try {
+      const enabled = ['true','false'].includes(req.query.enabled) ? req.query.enabled === 'true' : undefined;
+      const response = await dataService.readCurrentStatusCodes(enabled);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  updateCurrentStatusCodes: async (req, res, next) => {
+    try {
+      const response = await dataService.updateCurrentStatusCodes(req.body, req.currentUser);
+      res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  }
 
 };

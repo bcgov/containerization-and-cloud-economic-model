@@ -1,16 +1,22 @@
 const { Model } = require('objection');
-const { UpdatedAt } = require('../../../db/models/mixins');
+const { Timestamps } = require('../../../db/models/mixins');
 
 const constants = require('../constants');
 const PREFIX = constants.PREFIX;
 
-class Metadata extends UpdatedAt(Model) {
+class Metadata extends Timestamps(Model) {
   static get tableName () {
     return 'form';
   }
 
   static get idColumn () {
     return 'formId';
+  }
+
+  // exclude keywords array from explicit JSON conversion
+  // encounter malformed array literal
+  static get jsonAttributes() {
+    return ['formId', 'name', 'slug', 'prefix', 'public', 'active', 'createdAt', 'updatedBy', 'updatedAt'];
   }
 
   static get jsonSchema() {
@@ -25,7 +31,6 @@ class Metadata extends UpdatedAt(Model) {
         public: { type: 'boolean' },
         active: { type: 'boolean' },
         keywords: { type: 'array', items: { type: 'string'}},
-        description: { type: 'string', maxLength: 255 },
         createdBy: { type: ['string', 'null'] },
         createdAt: { type: ['string', 'null'], format: 'date-time' },
         updatedBy: { type: ['string', 'null'] },
@@ -36,7 +41,7 @@ class Metadata extends UpdatedAt(Model) {
   }
 }
 
-class Form extends UpdatedAt(Model) {
+class Form extends Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_form`;
   }
@@ -83,7 +88,7 @@ class Form extends UpdatedAt(Model) {
   }
 }
 
-class Version extends UpdatedAt(Model) {
+class Version extends Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_form_version`;
   }
@@ -130,13 +135,19 @@ class Version extends UpdatedAt(Model) {
   }
 }
 
-class StatusCode extends UpdatedAt(Model) {
+class StatusCode extends Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_status_code`;
   }
 
   static get idColumn () {
     return 'code';
+  }
+
+  // exclude nextCodes array from explicit JSON conversion
+  // encounter malformed array literal
+  static get jsonAttributes() {
+    return ['code', 'display', 'enabled', 'formVersionId', 'createdBy', 'createdAt', 'updatedBy', 'updatedAt'];
   }
 
   static get jsonSchema() {
@@ -147,8 +158,8 @@ class StatusCode extends UpdatedAt(Model) {
         formVersionId: { type: 'integer' },
         code: { type: 'string', minLength: 1, maxLength: 255 },
         display: { type: 'string', minLength: 1, maxLength: 255 },
-        prefix: { type: 'string', minLength: 1, maxLength: 255 },
         enabled: { type: 'boolean' },
+        nextCodes: { type: 'array', items: { type: 'string'}},
         createdBy: { type: ['string', 'null'] },
         createdAt: { type: ['string', 'null'], format: 'date-time' },
         updatedBy: { type: ['string', 'null'] },
@@ -157,9 +168,20 @@ class StatusCode extends UpdatedAt(Model) {
       additionalProperties: false
     };
   }
+
+  static get modifiers () {
+    return {
+      filterEnabled(query, value) {
+        if (value !== undefined) {
+          query.where('enabled', value);
+        }
+      }
+    };
+  }
+
 }
 
-class Note extends UpdatedAt(Model) {
+class Note extends Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_note`;
   }
