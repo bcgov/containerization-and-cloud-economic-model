@@ -16,8 +16,8 @@ export default {
    * Fetch only the basic meta data of all attestation submissions
    * @returns {Promise} An axios response
    */
-  getAllSubmissionMetaDatata() {
-    return appAxios().get(ApiRoutes.MINESATTESTATIONS, { params: { meta: true } });
+  getAllSubmissionMetaData() {
+    return appAxios().get(ApiRoutes.MINESATTESTATIONS + '/submissions', { params: { tiny: true } });
   },
 
   /**
@@ -37,7 +37,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getSubmission(submissionId) {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/${submissionId}`);
+    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}`);
   },
 
   /**
