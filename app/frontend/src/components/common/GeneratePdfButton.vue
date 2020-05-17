@@ -15,8 +15,9 @@ export default {
   },
   methods: {
     generatePdf(){
-      const pdf = `${this.$config.basePath}/${this.$config.apiPath}/ipc/pdf/${this.ipcPlanId}`;
-      window.open(pdf, '_blank');
+      alert('TBD');
+      // const pdf = `${this.$config.basePath}/${this.$config.apiPath}/ipc/pdf/${this.ipcPlanId}`;
+      // window.open(pdf, '_blank');
     }
   }
 };

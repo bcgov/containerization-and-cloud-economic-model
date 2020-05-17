@@ -174,10 +174,10 @@ export default {
         }
         const data = response.data;
 
-        commit('updateIpcPlan', data.ipcPlan);
+        commit('updateAttestation', data.attestation);
         commit('updateBusiness', data.business);
-        commit('updatePrimaryContact', data.primaryContact);
-        commit('updateCovidContact', data.covidContact);
+        // commit('updatePrimaryContact', data.primaryContact);
+        // commit('updateCovidContact', data.covidContact);
         commit('updateLocation', data.location);
         commit('setSubmissionComplete');
       } catch (error) {

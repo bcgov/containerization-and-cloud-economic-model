@@ -49,6 +49,17 @@ export default function getRouter(basePath = '/') {
               requiresAuth: true,
               title: 'Industrial Camps Admin'
             }
+          },
+          {
+            path: 'submission/:submissionId',
+            name: 'MinesAttestationsSubmission',
+            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/Submission.vue'),
+            props: true,
+            meta: {
+              hasLogin: true,
+              requiresAuth: true,
+              title: 'Industrial Camps Submission'
+            }
           }
         ]
       },

@@ -4,5 +4,6 @@ export const ApiRoutes = Object.freeze({
 });
 
 export const AppRoles = Object.freeze({
-  TESTROLE: 'testrole'
+  TESTROLE: 'testrole',
+  INSPECTOR: 'inspector'
 });
