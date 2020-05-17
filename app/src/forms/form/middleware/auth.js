@@ -1,6 +1,6 @@
 const keycloak = require('../../../../src/components/keycloak');
 
-const RESOURCE_ACCESS = `comfort-${require('../constants').SLUG}`;
+const RESOURCE_ACCESS = 'comfort';
 
 const DEFAULT_USER = {username: 'public', name: 'public', email: undefined};
 
@@ -38,7 +38,7 @@ const currentUser = async (req, res, next) => {
 /**
  * Return keycloak.protect middleware.
  * Keycloak will authorize if user has ONE of the specified roles in roles parameter.
- * Check against resource_access for comfort-client, where client matches this form's slug.
+ * Check against resource_access for comfort.
  * If user has a role, will add the currentUser to the request.
  *
  * @param roles: role name or array or role names
@@ -58,7 +58,7 @@ const hasRole = (roles) => {
   }
 
   const rolecheck = (token, request) => {
-    let result = roles.some(r => token.hasRole(`${RESOURCE_ACCESS}:${r}`));
+    const result = roles.some(r => token.hasRole(`${RESOURCE_ACCESS}:${r}`));
     if (result) request.currentUser = getCurrentUserFromToken(token);
     return result;
   };
