@@ -1,8 +1,8 @@
 const { Model } = require('objection');
-const { UpdatedAt } = require('../../../db/models/mixins');
+const { Timestamps } = require('../../../db/models/mixins');
 const constants = require('../constants');
 
-class Metadata extends UpdatedAt(Model) {
+class Metadata extends Timestamps(Model) {
   static get tableName () {
     return 'form';
   }

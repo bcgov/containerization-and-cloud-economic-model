@@ -7,7 +7,7 @@ const Models = require('./models');
 
 const dataService = {
 
-  create: async (obj, createdBy) => {
+  create: async (obj, user) => {
     if (!obj) {
       throw Error('Industrial Camp cannot be created without data');
     }
@@ -18,20 +18,20 @@ const dataService = {
 
       // set the created by for each object in the graph...
       const versions = obj.versions.map(v => {
-        v.statusCodes.forEach(s => s.createdBy = createdBy);
-        v.createdBy = createdBy;
+        v.statusCodes.forEach(s => s.createdBy = user.username);
+        v.createdBy = user.username;
         return v;
       });
 
       await Models.Form.query(trx).insertGraph({
         metadata: {
           formId: formId,
-          createdBy: createdBy,
+          createdBy: user.username,
           slug: constants.SLUG,
           prefix: constants.PREFIX,
           ...obj.metadata
         },
-        createdBy: createdBy,
+        createdBy: user.username,
         description: obj.description,
         versions: versions
       });
@@ -62,20 +62,33 @@ const dataService = {
       .throwIfNotFound();
   },
 
-  current: async () => {
-    const form = await Models.Form.query()
-      .first()
-      .withGraphFetched({ metadata: true})
-      .throwIfNotFound();
+  current: async (tiny) => {
+    let form;
+    let version;
 
-    const version = await Models.Version.query()
-      .first()
-      .where('formId', form.formId)
-      .withGraphFetched({ statusCodes: true})
-      .modify('orderDescending')
-      .throwIfNotFound();
-
+    if (tiny) {
+      form = await Models.Form.query()
+        .first()
+        .throwIfNotFound();
+      version = await Models.Version.query()
+        .first()
+        .where('formId', form.formId)
+        .modify('orderDescending')
+        .throwIfNotFound();
+    } else {
+      form = await Models.Form.query()
+        .first()
+        .withGraphFetched({ metadata: true})
+        .throwIfNotFound();
+      version = await Models.Version.query()
+        .first()
+        .where('formId', form.formId)
+        .withGraphFetched({ statusCodes: true})
+        .modify('orderDescending')
+        .throwIfNotFound();
+    }
     form.versions = [version];
+    form.formVersionId = version.formVersionId;
     return form;
   },
 
@@ -88,8 +101,8 @@ const dataService = {
       trx = await transaction.start(Models.Submission.knex());
 
       // all submissions use the current version...
-      const current = await dataService.current();
-      obj.formVersionId = current.versions[0].formVersionId;
+      const current = await dataService.current(true);
+      obj.formVersionId = current.formVersionId;
 
       // set up the non-generated ids...
       const submissionId = uuidv4();
@@ -100,7 +113,6 @@ const dataService = {
 
       // add the initial submitted status to the graph
       obj.statuses = [{
-        createdBy: '',
         code: constants.INITIAL_STATUS_CODE,
       }];
 
@@ -174,10 +186,10 @@ const dataService = {
       trx = await transaction.start(Models.Status.knex());
 
       obj.submissionId = submissionId;
-      obj.createdBy = user;
+      obj.createdBy = user.username;
 
       if (obj.notes && Array.isArray(obj.notes)) {
-        obj.notes.forEach(n => n.createdBy = user);
+        obj.notes.forEach(n => n.createdBy = user.username);
       }
 
       const result = await Models.Status.query(trx).insertGraph(obj).returning('*');
@@ -209,7 +221,7 @@ const dataService = {
       trx = await transaction.start(Models.Note.knex());
 
       obj.submissionStatusId = parseInt(statusId);
-      obj.createdBy = user;
+      obj.createdBy = user.username;
 
       const result = await Models.Note.query(trx).insert(obj).returning('*');
       await trx.commit();
@@ -238,7 +250,7 @@ const dataService = {
       trx = await transaction.start(Models.Note.knex());
 
       obj.submissionId = submissionId;
-      obj.createdBy = user;
+      obj.createdBy = user.username;
 
       const result = await Models.Note.query(trx).insert(obj).returning('*');
       await trx.commit();
@@ -259,6 +271,72 @@ const dataService = {
       results = [];
     }
     return results;
+  },
+
+  readCurrentStatusCodes: async (enabled) => {
+    const current = await dataService.current(true);
+    const allStatuses = await Models.StatusCode.query()
+      .where({ formVersionId: current.formVersionId });
+
+    const statuses = await Models.StatusCode.query()
+      .where({ formVersionId: current.formVersionId })
+      .modify('filterEnabled', enabled);
+
+    // let's flesh out the nextCodes by adding display and enabled...
+    statuses.forEach(s => {
+      s.nextCodes = s.nextCodes.map(n => {
+        const sc = allStatuses.find(x => x.code === n);
+        if (sc) return { code: n, display: sc.display, enabled: sc.enabled };
+      }).filter(f => enabled === undefined || (enabled && f.enabled));
+    });
+    return statuses;
+  },
+
+  updateCurrentStatusCodes: async (obj, user) => {
+    if (!obj || !Array.isArray(obj)) {
+      throw Error('Status Codes cannot be updated without data');
+    }
+    let trx;
+    try {
+      trx = await transaction.start(Models.StatusCode.knex());
+      // this is what we currently have, we cannot delete any status codes...
+      const current = await dataService.current(true);
+      const currentStatusCodes = await dataService.readCurrentStatusCodes();
+      const currentCodes = currentStatusCodes.map(x => x.code);
+      // these are all the codes that were submitted
+      const submittedCodes = obj.map(x => x.code);
+      const allowedNextCodes = Array.from(new Set([...currentCodes, ...submittedCodes]));
+
+      // are we missing any current code from submitted codes?
+      const missingCodes = currentCodes.filter(x => !submittedCodes.includes(x));
+      // add them to our list, but mark disabled...
+      missingCodes.forEach(x => {
+        const sc = currentStatusCodes.find(c => c.code === x);
+        sc.enabled = false;
+        obj.push(sc);
+      });
+
+      // now, we filter out any "bad" next codes...
+      obj.forEach(o => {
+        o.nextCodes = o.nextCodes.filter(x => allowedNextCodes.includes(x));
+        // and set the updated by
+        o.updatedBy = user.username;
+        if (!currentCodes.includes(o.code)) {
+          o.createdBy = user.username;
+        }
+        o.formVersionId = current.formVersionId;
+      });
+
+      // ok, now let's upsert!
+      await Models.StatusCode.query().upsertGraph(obj, { insertMissing: true });
+      await trx.commit();
+      return dataService.readCurrentStatusCodes();
+    } catch (err) {
+      log.error('updateCurrentStatusCodes', `Error updating status codes: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
   }
 };
 
