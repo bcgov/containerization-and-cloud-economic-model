@@ -417,7 +417,7 @@
             <label>Mine Number</label>
             <v-text-field dense flat outlined solo v-model="mineNumber" :rules="mineNumberRules" />
           </v-col>
-          <v-col cols="12" sm="1" class="text-sm-center pb-5 pb-sm-0" >or</v-col>
+          <v-col cols="12" sm="1" class="text-sm-center pb-5 pb-sm-0" ><span class="hide-on-review">or</span></v-col>
           <v-col cols="12" sm="6" md="5">
             <label>Mines Act Permit</label>
             <v-text-field dense flat outlined solo />

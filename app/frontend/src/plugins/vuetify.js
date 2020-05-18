@@ -18,6 +18,7 @@ export default new Vuetify({
     themes: {
       light: {
         primary: '#003366',
+        textLink: '#1A5A96',
         secondary: '#FCBA19',
         anchor: '#1A5A96',
         accent: '#82B1FF',
