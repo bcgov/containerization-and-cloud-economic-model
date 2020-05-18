@@ -19,7 +19,7 @@
             </h4>
             <h4 class="heading-detail">
               Operation Dates:
-              <span>{{ location.startDate }} - {{ location.endDate }}</span>
+              <span>{{ locationDateDisplay(location.startDate) }} - {{ locationDateDisplay(location.endDate) }}</span>
             </h4>
           </v-col>
           <v-col cols="12" sm="4" lg="2" class="text-sm-right">
@@ -87,6 +87,7 @@ export default {
   methods: {
     ...mapMutations('form', ['setGettingForm']),
     ...mapActions('form', ['getForm']),
+    locationDateDisplay(ldate) { return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A'; },
     refreshNotes() {
       this.$refs.notesPanel.getNotes();
     }
