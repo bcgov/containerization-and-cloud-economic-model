@@ -43,7 +43,7 @@ export default {
       {
         linkAdminName: 'MinesAttestationsAdmin',
         linkName: 'MinesAttestationsForm',
-        title: 'Mines Attestations'
+        title: 'Industrial Camps'
       }
     ],
     moduleLoaded: true
