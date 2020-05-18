@@ -23,7 +23,7 @@
             <label>Note</label>
             <v-textarea
               v-model="newNote"
-              :rules="v => v.length <= 4000 || 'Max 4000 characters'"
+              :rules="[v => v.length <= 4000 || 'Max 4000 characters']"
               counter
               auto-grow
               dense
@@ -111,7 +111,7 @@ export default {
           createdBy: this.fullName,
           note: this.newNote
         };
-        const response = await minesAttestationsService.addNote(this.ipcPlanId, body);
+        const response = await minesAttestationsService.addNote(this.submissionId, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

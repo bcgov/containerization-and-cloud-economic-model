@@ -47,7 +47,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getSubmissionStatuses(submissionId) {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/${submissionId}/status`);
+    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses`);
   },
 
   /**
@@ -58,7 +58,7 @@ export default {
    * @returns {Promise} An axios response
    */
   sendSubmissionStatuses(submissionId, content) {
-    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/${submissionId}/status`, content);
+    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses`, content);
   },
 
   /**
@@ -68,7 +68,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getNotes(submissionId) {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/${submissionId}/notes`);
+    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/notes`);
   },
 
   /**
@@ -79,7 +79,7 @@ export default {
    * @returns {Promise} An axios response
    */
   addNote(submissionId, content) {
-    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/${submissionId}/notes`, content);
+    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/notes`, content);
   },
 
 };

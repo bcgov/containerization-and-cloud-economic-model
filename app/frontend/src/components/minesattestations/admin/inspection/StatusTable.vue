@@ -14,17 +14,7 @@
     >
       <template v-slot:item.createdAt="{ item }">{{ formatDate(item.createdAt) }}</template>
 
-      <template v-slot:item.grade="{ item }">
-        <span v-if="item.grade">
-          <v-chip
-            class="ma-2"
-            :color="item.grade.toUpperCase() === 'PASS' ? 'green' : 'red'"
-            text-color="white"
-          >{{ item.grade }}</v-chip>
-        </span>
-      </template>
-
-      <template v-slot:item.inspectorName="{ item }">{{ item.inspectorName }}</template>
+      <template v-slot:item.inspectorName="{ item }">{{ item.assignedTo }}</template>
 
       <template v-slot:item.inspectionDate="{ item }">{{ formatDate(item.inspectionDate) }}</template>
     </v-data-table>
@@ -37,7 +27,7 @@ import minesAttestationsService from '@/services/minesAttestations/minesAttestat
 export default {
   name: 'StatusTable',
   props:{
-    ipcPlanId: {
+    submissionId: {
       required: true,
       type: String
     }
@@ -45,10 +35,9 @@ export default {
   data() {
     return {
       headers: [
-        { text: 'Status', value: 'status' },
+        { text: 'Status', value: 'code' },
         { text: 'Date', align: 'start', value: 'createdAt' },
-        { text: 'Grade', align: 'start', value: 'grade' },
-        { text: 'Assigned Inspector', value: 'inspectorName' },
+        { text: 'Assignee', value: 'inspectorName' },
         { text: 'Inspection Date', value: 'inspectionDate' }
       ],
       statuses: [],
@@ -64,11 +53,11 @@ export default {
     },
     getData() {
       minesAttestationsService
-        .getIPCInspectionStatuses(this.ipcPlanId)
+        .getSubmissionStatuses(this.submissionId)
         .then(response => {
           this.statuses = response.data;
           if (!this.statuses.length) {
-            this.showTableAlert('warning', 'No inspection statuses found');
+            this.showTableAlert('warning', 'No statuses found');
           }
         })
         .catch(error => {

@@ -19,7 +19,7 @@
             </h4>
             <h4 class="heading-detail">
               Operation Dates:
-              <span>{{ location.startDate }} - {{ location.endDate }}</span>
+              <span>{{ locationDateDisplay(location.startDate) }} - {{ locationDateDisplay(location.endDate) }}</span>
             </h4>
           </v-col>
           <v-col cols="12" sm="4" lg="2" class="text-sm-right">
@@ -54,7 +54,7 @@ import AdminReviewSubmission from '@/components/minesattestations/admin/AdminRev
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/minesattestations/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/minesattestations/admin/inspection/NotesPanel.vue';
-import { AppRoles } from '@/utils/constants';
+import { AppRoles, AppClients } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -78,15 +78,16 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['business', 'location', 'gettingForm', 'getFormError', 'attestation']),
-    ...mapGetters('auth', ['hasResourceRoles']),
+    ...mapGetters('auth', ['hasResourceRoles', 'token']),
     createdAtDisplay() { return this.attestation && this.attestation.createdAt ? moment(this.attestation.createdAt).format('MMMM D YYYY, h:mm:ss a') : 'N/A'; },
     showInspection() {
-      return this.hasResourceRoles('comfort', [AppRoles.INSPECTOR]);
+      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [AppRoles.EDITOR]);
     },
   },
   methods: {
     ...mapMutations('form', ['setGettingForm']),
     ...mapActions('form', ['getForm']),
+    locationDateDisplay(ldate) { return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A'; },
     refreshNotes() {
       this.$refs.notesPanel.getNotes();
     }
