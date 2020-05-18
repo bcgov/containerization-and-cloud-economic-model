@@ -56,7 +56,7 @@ const hasRole = (resourceAccess, roles) => {
   }
 
   const rolecheck = (token, request) => {
-    let result = roles.some(r => token.hasRole(`${resourceAccess}:${r}`));
+    const result = roles.some(r => token.hasRole(`${resourceAccess}:${r}`));
     if (result) request.currentUser = getCurrentUserFromToken(token);
     return result;
   };

@@ -18,7 +18,7 @@ const copyAndRemoveStamps = (obj) => {
   });
 };
 
-const areTheseTheSame = (a, b) => {
+const equalTo = (a, b) => {
   const x = copyAndRemoveStamps(a);
   const y = copyAndRemoveStamps(b);
   return equal(x,y);
@@ -169,7 +169,7 @@ const dataService = {
       const currentSubmission = await dataService.readSubmission(obj.submissionId);
 
       // check business... any changes?
-      if (!areTheseTheSame(currentSubmission.business, obj.business)) {
+      if (!equalTo(currentSubmission.business, obj.business)) {
         obj.business.updatedBy = user.username;
         await Models.Business.query(trx).patchAndFetchById(obj.business.businessId, obj.business);
         doTheUpdate = true;
@@ -177,20 +177,20 @@ const dataService = {
 
       // check contacts... any changes?
       const primary = obj.contacts.find(x => x.contactType === constants.CONTACT_TYPE_PRIMARY);
-      if (!areTheseTheSame(currentSubmission.contacts.find(x => x.contactType === constants.CONTACT_TYPE_PRIMARY), primary)) {
+      if (!equalTo(currentSubmission.contacts.find(x => x.contactType === constants.CONTACT_TYPE_PRIMARY), primary)) {
         primary.updatedBy = user.username;
         await Models.Contact.query(trx).patchAndFetchById(primary.contactId, primary);
         doTheUpdate = true;
       }
       const covid = obj.contacts.find(x => x.contactType === constants.CONTACT_TYPE_COVID);
-      if (!areTheseTheSame(currentSubmission.contacts.find(x => x.contactType === constants.CONTACT_TYPE_COVID), covid)) {
+      if (!equalTo(currentSubmission.contacts.find(x => x.contactType === constants.CONTACT_TYPE_COVID), covid)) {
         covid.updatedBy = user.username;
         await Models.Contact.query(trx).patchAndFetchById(covid.contactId, covid);
         doTheUpdate = true;
       }
 
       // check location... any changes?
-      if (!areTheseTheSame(currentSubmission.location, obj.location)) {
+      if (!equalTo(currentSubmission.location, obj.location)) {
         obj.location.updatedBy = user.username;
         await Models.Location.query(trx).patchAndFetchById(obj.location.locationId, obj.location);
         doTheUpdate = true;
