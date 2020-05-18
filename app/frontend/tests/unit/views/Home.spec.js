@@ -13,9 +13,9 @@ describe('Home.vue', () => {
   it('renders', () => {
     const wrapper = shallowMount(Home, {
       vuetify,
-      stubs: ['BCGovNavBar']
+      stubs: ['BCGovNavBar', 'FormList']
     });
 
-    expect(wrapper.html()).toMatch('');
+    expect(wrapper.html()).toMatch('Forms');
   });
 });

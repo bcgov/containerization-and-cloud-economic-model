@@ -5,9 +5,6 @@
         <li>
           <router-link :to="{ name: 'Home' }">Home</router-link>
         </li>
-        <li>
-          <router-link :to="{ name: 'MinesAttestationsForm' }">Mines Attestations</router-link>
-        </li>
       </ul>
     </div>
   </nav>
