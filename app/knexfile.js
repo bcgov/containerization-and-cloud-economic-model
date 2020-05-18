@@ -17,7 +17,8 @@ const types = require('pg').types;
 // To handle JSON Schema validation, we treat dates and timestamps outside of the database as strings.
 // Prevent the automatic conversion of dates/timestamps into Objects, leave as strings.
 types.setTypeParser(1082, (value) => {
-  return moment(value).toISOString();
+  // dates must be in the date only part of 2020-05-16T13:18:27.160Z
+  return moment(value).format('YYYY-MM-DD');
 });
 // timestamps...
 types.setTypeParser(1114, (value) => {

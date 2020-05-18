@@ -52,6 +52,15 @@ class DataConnection {
 
     log.debug('DataConnection.checkAll', `Connect OK: ${connectOk}, Schema OK: ${schemaOk}, Models OK: ${modelsOk}`);
     this._connected = connectOk && schemaOk && modelsOk;
+    if (!connectOk) {
+      log.error('DataConnection.checkAll', 'Could not connect to the database, check configuration and ensure database server is running');
+    }
+    if (!schemaOk) {
+      log.error('DataConnection.checkAll', 'Connected to the database, could not verify the schema. Ensure proper migrations have been run.');
+    }
+    if (!modelsOk) {
+      log.error('DataConnection.checkAll', 'Connected to the database, schema is ok, could not initialize Knex Models.');
+    }
     return this._connected;
   }
 

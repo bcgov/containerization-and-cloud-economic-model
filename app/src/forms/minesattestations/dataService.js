@@ -1,3 +1,4 @@
+const equal = require('fast-deep-equal');
 const log = require('npmlog');
 const { transaction } = require('objection');
 const { v4: uuidv4 } = require('uuid');
@@ -5,11 +6,29 @@ const { v4: uuidv4 } = require('uuid');
 const constants = require('./constants');
 const Models = require('./models');
 
+const copyAndRemoveStamps = (obj) => {
+  let items = obj;
+  if (!Array.isArray(items)) {
+    items = [obj];
+  }
+  return items.map(o => {
+    const x = {...o};
+    ['createdAt','createdBy','updatedAt','updatedBy'].forEach(p => delete x[p]);
+    return x;
+  });
+};
+
+const areTheseTheSame = (a, b) => {
+  const x = copyAndRemoveStamps(a);
+  const y = copyAndRemoveStamps(b);
+  return equal(x,y);
+};
+
 const dataService = {
 
   create: async (obj, user) => {
     if (!obj) {
-      throw Error('Industrial Camp cannot be created without data');
+      throw Error('Mines Attestation cannot be created without data');
     }
     let trx;
     try {
@@ -41,7 +60,7 @@ const dataService = {
       const result = await dataService.read();
       return result;
     } catch (err) {
-      log.error('create', `Error creating camp record: ${err.message}. Rolling back...`);
+      log.error('create', `Error creating Mines Attestation record: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
@@ -94,7 +113,7 @@ const dataService = {
 
   createSubmission: async (obj) => {
     if (!obj) {
-      throw Error('Industrial Camp Submission cannot be created without data');
+      throw Error('Mines Attestation Submission cannot be created without data');
     }
     let trx;
     try {
@@ -121,7 +140,7 @@ const dataService = {
       const result = await dataService.readSubmission(submissionId);
       return result;
     } catch (err) {
-      log.error('create', `Error creating camp submission record: ${err.message}. Rolling back...`);
+      log.error('create', `Error creating Mines Attestation submission record: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
@@ -139,7 +158,57 @@ const dataService = {
   },
 
   updateSubmission: async (obj, user) => {
-    return {...obj, ...user};
+    // update: location, contacts, business
+    if (!obj) {
+      throw Error('Mines Attestation Submission cannot be updated without data');
+    }
+    let trx;
+    try {
+      trx = await transaction.start(Models.Submission.knex());
+      let doTheUpdate = false;
+      const currentSubmission = await dataService.readSubmission(obj.submissionId);
+
+      // check business... any changes?
+      if (!areTheseTheSame(currentSubmission.business, obj.business)) {
+        obj.business.updatedBy = user.username;
+        await Models.Business.query(trx).patchAndFetchById(obj.business.businessId, obj.business);
+        doTheUpdate = true;
+      }
+
+      // check contacts... any changes?
+      const primary = obj.contacts.find(x => x.contactType === constants.CONTACT_TYPE_PRIMARY);
+      if (!areTheseTheSame(currentSubmission.contacts.find(x => x.contactType === constants.CONTACT_TYPE_PRIMARY), primary)) {
+        primary.updatedBy = user.username;
+        await Models.Contact.query(trx).patchAndFetchById(primary.contactId, primary);
+        doTheUpdate = true;
+      }
+      const covid = obj.contacts.find(x => x.contactType === constants.CONTACT_TYPE_COVID);
+      if (!areTheseTheSame(currentSubmission.contacts.find(x => x.contactType === constants.CONTACT_TYPE_COVID), covid)) {
+        covid.updatedBy = user.username;
+        await Models.Contact.query(trx).patchAndFetchById(covid.contactId, covid);
+        doTheUpdate = true;
+      }
+
+      // check location... any changes?
+      if (!areTheseTheSame(currentSubmission.location, obj.location)) {
+        obj.location.updatedBy = user.username;
+        await Models.Location.query(trx).patchAndFetchById(obj.location.locationId, obj.location);
+        doTheUpdate = true;
+      }
+
+      if (doTheUpdate) {
+        // only want to update the who and when...
+        await Models.Submission.query(trx).patchAndFetchById(obj.submissionId, { updatedBy: user.username });
+      }
+      await trx.commit();
+      const result = await dataService.readSubmission(obj.submissionId);
+      return result;
+    } catch (err) {
+      log.error('create', `Error updating Mines Attestation submission: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
   },
 
   searchSubmissions: async (params) => {
