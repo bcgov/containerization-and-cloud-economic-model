@@ -1,5 +1,42 @@
+import moment from 'moment';
+
 import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
 import { SampleData, RandomCities } from './sampleData.js';
+
+// Change the supplied state to the exact format required by the API endpoint
+// Any data guards/sanitation can go in here
+function transformToPost(state) {
+  // TODO: unit test this!
+  const copy = JSON.parse(JSON.stringify(state));
+
+  const contacts = [copy.primaryContact, copy.covidContact];
+  copy.location.numberOfWorkers = Number.parseInt(copy.location.numberOfWorkers, 10);
+  const body = {
+    business: copy.business,
+    contacts: contacts,
+    attestation: copy.attestation,
+    location: copy.location
+  };
+  return body;
+}
+
+// Change the results of the API fetch to the store state format
+function transformToState(data) {
+  // TODO: unit test this!
+  const copy = JSON.parse(JSON.stringify(data));
+
+  const primary = copy.contacts ? copy.contacts.find(({ contactType }) => contactType === 'PRIMARY') : {};
+  const covid = copy.contacts ? copy.contacts.find(({ contactType }) => contactType === 'COVID_COORDINATOR') : {};
+  copy.location.startDate = moment(copy.location.startDate).format('YYYY-MM-DD');
+  copy.location.endDate = moment(copy.location.endDate).format('YYYY-MM-DD');
+  return {
+    business: copy.business,
+    primaryContact: primary,
+    covidContact: covid,
+    attestation: copy.attestation,
+    location: copy.location
+  };
+}
 
 export default {
   namespaced: true,
@@ -172,13 +209,13 @@ export default {
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
-        const data = response.data;
+        const transformed = transformToState(response.data);
 
-        commit('updateAttestation', data.attestation);
-        commit('updateBusiness', data.business);
-        // commit('updatePrimaryContact', data.primaryContact);
-        // commit('updateCovidContact', data.covidContact);
-        commit('updateLocation', data.location);
+        commit('updateAttestation', transformed.attestation);
+        commit('updateBusiness', transformed.business);
+        commit('updatePrimaryContact', transformed.primaryContact);
+        commit('updateCovidContact', transformed.covidContact);
+        commit('updateLocation', transformed.location);
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
@@ -191,17 +228,7 @@ export default {
       commit('setSubmitting', true);
       commit('setSubmissionError', '');
       try {
-
-        // Transform data (move to function and unit test)
-        const contacts = [state.primaryContact, state.covidContact];
-        const body = {
-          business: state.business,
-          contacts: contacts,
-          attestation: state.attestation,
-          location: state.location
-        };
-        body.location.numberOfWorkers = Number.parseInt(body.location.numberOfWorkers, 10);
-        // /transform
+        const body = transformToPost(state);
 
         const response = await minesAttestationsService.sendSubmission(body);
         if (!response.data) {
