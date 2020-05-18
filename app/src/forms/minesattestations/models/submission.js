@@ -1,12 +1,12 @@
 const { Model } = require('objection');
-const { Timestamps } = require('../../../db/models/mixins');
+const Models = require('../../common/models');
 
-const Models = require('./base');
+const BaseModels = require('./base');
 const constants = require('../constants');
 const PREFIX = constants.PREFIX;
 const SUBMISSION = `${PREFIX}_submission`;
 
-class Submission extends Timestamps(Model) {
+class Submission extends Models.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}`;
   }
@@ -23,10 +23,7 @@ class Submission extends Timestamps(Model) {
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
         confirmationId: { type: 'string', pattern: constants.CONFIRMATION_ID_REGEX },
         formVersionId: { type: 'integer'},
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
@@ -96,7 +93,7 @@ class Submission extends Timestamps(Model) {
       },
       notes: {
         relation: Model.HasManyRelation,
-        modelClass: Models.Note,
+        modelClass: BaseModels.Note,
         join: {
           from: `${SUBMISSION}.submissionId`,
           to: `${PREFIX}_note.submissionId`
@@ -114,7 +111,7 @@ class Submission extends Timestamps(Model) {
   }
 }
 
-class SubmissionStatus extends Timestamps(Model) {
+class SubmissionStatus extends Models.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_status`;
   }
@@ -140,10 +137,7 @@ class SubmissionStatus extends Timestamps(Model) {
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
         code: { type: 'string', minLength: 1, maxLength: 255 },
         assignedTo: { type: ['string', 'null'], maxLength: 255 },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
@@ -153,7 +147,7 @@ class SubmissionStatus extends Timestamps(Model) {
     return {
       notes: {
         relation: Model.HasManyRelation,
-        modelClass: Models.Note,
+        modelClass: BaseModels.Note,
         join: {
           from: `${SUBMISSION}_status.submissionStatusId`,
           to: `${PREFIX}_note.submissionStatusId`
@@ -161,7 +155,7 @@ class SubmissionStatus extends Timestamps(Model) {
       },
       statusCode: {
         relation: Model.HasOneRelation,
-        modelClass: Models.StatusCode,
+        modelClass: BaseModels.StatusCode,
         join: {
           from: `${SUBMISSION}_status.code`,
           to: `${PREFIX}_status_code.code`
@@ -171,7 +165,7 @@ class SubmissionStatus extends Timestamps(Model) {
   }
 }
 
-class Attestation extends Timestamps(Model) {
+class Attestation extends Models.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_attestation`;
   }
@@ -187,7 +181,7 @@ class Attestation extends Timestamps(Model) {
       properties: {
         attestationId: { type: 'string', pattern: constants.UUID_REGEX },
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
-        sleepingAreaType: { type: 'string', enum: ['SINGLE', 'SHARED'] },
+        sleepingAreaType: { type: 'string', enum: constants.SLEEPING_AREA_TYPES },
         sharedSleepingPerRoom: { type: 'integer', minimum: 0, maximum: 100000 },
         guidelinesRead: { type: 'boolean' },
         assessmentCompleted: { type: 'boolean' },
@@ -230,17 +224,14 @@ class Attestation extends Timestamps(Model) {
         infectedWaste: { type: 'boolean' },
         certifyAccurateInformation: { type: 'boolean' },
         agreeToInspection: { type: 'boolean' },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
   }
 }
 
-class Business extends Timestamps(Model) {
+class Business extends Models.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_business`;
   }
@@ -263,17 +254,14 @@ class Business extends Timestamps(Model) {
         city: { type: 'string', minLength: 1, maxLength: 255 },
         province: { type: 'string', minLength: 1, maxLength: 30 },
         postalCode: { type: 'string', minLength: 1, maxLength: 30 },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
   }
 }
 
-class Contact extends Timestamps(Model) {
+class Contact extends Models.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_contact`;
   }
@@ -289,23 +277,20 @@ class Contact extends Timestamps(Model) {
       properties: {
         contactId: { type: 'integer'},
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
-        contactType: { type: 'string', enum: ['PRIMARY', 'COVID_COORDINATOR'] },
+        contactType: { type: 'string', enum: constants.CONTACT_TYPES },
         firstName: { type: 'string', minLength: 1, maxLength: 255 },
         lastName: { type: 'string', minLength: 1, maxLength: 255 },
         phone1: { type: ['string', 'null'], maxLength: 30 },
         phone2: { type: ['string', 'null'], maxLength: 30 },
         email: { type: ['string', 'null'], format: 'email' },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
   }
 }
 
-class Location extends Timestamps(Model) {
+class Location extends Models.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_location`;
   }
@@ -339,10 +324,7 @@ class Location extends Timestamps(Model) {
         motelProvince: { type: ['string', 'null'], maxLength: 30 },
         motelPostalCode: { type: ['string', 'null'], maxLength: 30 },
         accWorkersHome: { type: 'boolean' },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };

@@ -7,8 +7,8 @@ exports.up = function(knex) {
     .then(() => knex.schema.createTable(`${PREFIX}_submission_location`, table => {
       table.increments('locationId').primary();
       table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).notNullable().index();
-      table.timestamp('startDate', { useTz: true }).nullable();
-      table.timestamp('endDate', { useTz: true }).nullable();
+      table.date('startDate').nullable();
+      table.date('endDate').nullable();
       table.string('city').notNullable();
       table.decimal('cityLatitude', 10, 7).nullable();
       table.decimal('cityLongitude', 10, 7).nullable();

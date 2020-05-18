@@ -13,7 +13,7 @@ const moment = require('moment');
  * @see module:objection
  */
 
-function Timestamps (Model) {
+const Timestamps = (Model) => {
   return class extends Model {
     async $beforeInsert(queryContext) {
       await super.$beforeInsert(queryContext);
@@ -24,6 +24,6 @@ function Timestamps (Model) {
       this.updatedAt = moment().toISOString();
     }
   };
-}
+};
 
-module.exports = { Timestamps };
+module.exports.Timestamps = Timestamps;

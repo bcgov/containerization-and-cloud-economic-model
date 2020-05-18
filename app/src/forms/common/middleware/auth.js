@@ -1,7 +1,5 @@
 const keycloak = require('../../../../src/components/keycloak');
 
-const RESOURCE_ACCESS = 'comfort';
-
 const DEFAULT_USER = {username: 'public', name: 'public', email: undefined};
 
 const getCurrentUserFromToken = token => {
@@ -21,7 +19,6 @@ const getCurrentUserFromRequest = req => {
   }
 };
 
-
 /**
  * Middleware that adds a currentUser object(name, username, email) to the request.
  *
@@ -38,12 +35,13 @@ const currentUser = async (req, res, next) => {
 /**
  * Return keycloak.protect middleware.
  * Keycloak will authorize if user has ONE of the specified roles in roles parameter.
- * Check against resource_access for comfort.
+ * Check against a specified resource_access (ex. comfort-minesattestations).
  * If user has a role, will add the currentUser to the request.
  *
+ * @param resourceAccess: what resource_access to check roles against
  * @param roles: role name or array or role names
  */
-const hasRole = (roles) => {
+const hasRole = (resourceAccess, roles) => {
   // for local development, set the following environment variables and ignore tokens.
   // useful for non-browser tools
   if (process.env.NODE_ENV === 'development' && process.env.IGNORE_RESOURCE_ACCESS === 'true') {
@@ -58,7 +56,7 @@ const hasRole = (roles) => {
   }
 
   const rolecheck = (token, request) => {
-    const result = roles.some(r => token.hasRole(`${RESOURCE_ACCESS}:${r}`));
+    const result = roles.some(r => token.hasRole(`${resourceAccess}:${r}`));
     if (result) request.currentUser = getCurrentUserFromToken(token);
     return result;
   };

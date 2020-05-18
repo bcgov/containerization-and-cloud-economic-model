@@ -1,10 +1,10 @@
 const { Model } = require('objection');
-const { Timestamps } = require('../../../db/models/mixins');
+const Models = require('../../common/models');
 
 const constants = require('../constants');
 const PREFIX = constants.PREFIX;
 
-class Metadata extends Timestamps(Model) {
+class Metadata extends Models.Timestamps(Model) {
   static get tableName () {
     return 'form';
   }
@@ -31,17 +31,14 @@ class Metadata extends Timestamps(Model) {
         public: { type: 'boolean' },
         active: { type: 'boolean' },
         keywords: { type: 'array', items: { type: 'string'}},
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
   }
 }
 
-class Form extends Timestamps(Model) {
+class Form extends Models.Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_form`;
   }
@@ -57,10 +54,7 @@ class Form extends Timestamps(Model) {
       properties: {
         formId: { type: 'string', pattern: constants.UUID_REGEX },
         description: { type: ['string', 'null'], maxLength: 255 },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
@@ -88,7 +82,7 @@ class Form extends Timestamps(Model) {
   }
 }
 
-class Version extends Timestamps(Model) {
+class Version extends Models.Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_form_version`;
   }
@@ -104,10 +98,7 @@ class Version extends Timestamps(Model) {
       properties: {
         formVersionId: { type: 'integer' },
         changes: { type: ['string', 'null'], maxLength: 255 },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
@@ -135,7 +126,7 @@ class Version extends Timestamps(Model) {
   }
 }
 
-class StatusCode extends Timestamps(Model) {
+class StatusCode extends Models.Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_status_code`;
   }
@@ -160,10 +151,7 @@ class StatusCode extends Timestamps(Model) {
         display: { type: 'string', minLength: 1, maxLength: 255 },
         enabled: { type: 'boolean' },
         nextCodes: { type: 'array', items: { type: 'string'}},
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };
@@ -181,7 +169,7 @@ class StatusCode extends Timestamps(Model) {
 
 }
 
-class Note extends Timestamps(Model) {
+class Note extends Models.Timestamps(Model) {
   static get tableName () {
     return `${PREFIX}_note`;
   }
@@ -198,10 +186,7 @@ class Note extends Timestamps(Model) {
         note: { type: 'string', minLength: 1, maxLength: 4000 },
         submissionId: { type: 'string', pattern: constants.UUID_REGEX },
         submissionStatusId: { type: 'integer' },
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };

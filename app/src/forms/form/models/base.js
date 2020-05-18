@@ -1,8 +1,8 @@
 const { Model } = require('objection');
-const { Timestamps } = require('../../../db/models/mixins');
+const Models = require('../../common/models');
 const constants = require('../constants');
 
-class Metadata extends Timestamps(Model) {
+class Metadata extends Models.Timestamps(Model) {
   static get tableName () {
     return 'form';
   }
@@ -23,10 +23,7 @@ class Metadata extends Timestamps(Model) {
         public: { type: 'boolean' },
         active: { type: 'boolean' },
         keywords: { type: 'array', items: { type: 'string'}},
-        createdBy: { type: ['string', 'null'] },
-        createdAt: { type: ['string', 'null'], format: 'date-time' },
-        updatedBy: { type: ['string', 'null'] },
-        updatedAt: { type: ['string', 'null'], format: 'date-time' }
+        ...Models.stamps
       },
       additionalProperties: false
     };

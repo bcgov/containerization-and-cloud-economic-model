@@ -1,5 +1,5 @@
 module.exports = {
-  dataErrors: require('./dataErrors'),
-  ...require('./searchParameters'),
-  ...require('./auth')
+  ...require('../../common/middleware'),
+  ...require('./checkRole'),
+  ...require('./searchParameters')
 };
