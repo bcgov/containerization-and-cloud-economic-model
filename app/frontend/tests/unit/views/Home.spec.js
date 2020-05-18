@@ -13,9 +13,9 @@ describe('Home.vue', () => {
   it('renders', () => {
     const wrapper = shallowMount(Home, {
       vuetify,
-      stubs: ['BCGovNavBar', 'HelloWorld']
+      stubs: ['BCGovNavBar']
     });
 
-    expect(wrapper.html()).toMatch('Welcome to Vuetify');
+    expect(wrapper.html()).toMatch('');
   });
 });
