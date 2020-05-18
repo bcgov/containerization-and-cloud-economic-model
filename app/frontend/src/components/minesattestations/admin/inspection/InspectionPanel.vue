@@ -7,7 +7,7 @@
     <div v-if="!loading">
       <p>
         <strong>Current Status:</strong>
-        {{ currentStatus.status }}
+        {{ currentStatus.code }}
         <span v-if="currentStatus.grade">
           <v-chip
             class="ma-2"
@@ -122,7 +122,7 @@
               <label>Note (Optional)</label>
               <v-textarea
                 v-model="note"
-                :rules="v => v.length <= 4000 || 'Max 4000 characters'"
+                :rules="[v => v.length <= 4000 || 'Max 4000 characters']"
                 rows="1"
                 counter
                 auto-grow
@@ -145,7 +145,7 @@
               <v-card v-if="historyDialog">
                 <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
 
-                <StatusTable :ipcPlanId="ipcPlanId" class="my-4" />
+                <StatusTable :submissionId="submissionId" class="my-4" />
 
                 <v-divider></v-divider>
                 <v-card-actions>
@@ -170,7 +170,7 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
-import StatusTable from '@/components/minesattestations/admin/StatusTable.vue';
+import StatusTable from '@/components/minesattestations/admin/inspection/StatusTable.vue';
 import { Statuses } from '@/utils/constants';
 
 export default {
@@ -219,7 +219,7 @@ export default {
 
     // State machine
     items() {
-      switch(this.currentStatus.status) {
+      switch(this.currentStatus.code) {
         case this.statuses.SUBMITTED:
           return [{
             label: 'Assign',
@@ -344,7 +344,7 @@ export default {
           if(this.note) {
             statusBody.note = this.note;
           }
-          const response = await minesAttestationsService.sendIPCInspectionStatuses(this.ipcPlanId, statusBody);
+          const response = await minesAttestationsService.sendIPCInspectionStatuses(this.submissionId, statusBody);
           if (!response.data) {
             throw new Error('No response data from API while submitting form');
           }

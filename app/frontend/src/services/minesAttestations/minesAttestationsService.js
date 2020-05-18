@@ -47,7 +47,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getSubmissionStatuses(submissionId) {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/status`);
+    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses`);
   },
 
   /**
@@ -58,7 +58,7 @@ export default {
    * @returns {Promise} An axios response
    */
   sendSubmissionStatuses(submissionId, content) {
-    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/status`, content);
+    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses`, content);
   },
 
   /**

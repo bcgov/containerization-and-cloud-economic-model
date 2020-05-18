@@ -54,7 +54,7 @@ import AdminReviewSubmission from '@/components/minesattestations/admin/AdminRev
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/minesattestations/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/minesattestations/admin/inspection/NotesPanel.vue';
-import { AppRoles } from '@/utils/constants';
+import { AppRoles, AppClients } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -78,10 +78,10 @@ export default {
   },
   computed: {
     ...mapGetters('form', ['business', 'location', 'gettingForm', 'getFormError', 'attestation']),
-    ...mapGetters('auth', ['hasResourceRoles']),
+    ...mapGetters('auth', ['hasResourceRoles', 'token']),
     createdAtDisplay() { return this.attestation && this.attestation.createdAt ? moment(this.attestation.createdAt).format('MMMM D YYYY, h:mm:ss a') : 'N/A'; },
     showInspection() {
-      return this.hasResourceRoles('comfort', [AppRoles.INSPECTOR]);
+      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [AppRoles.EDITOR]);
     },
   },
   methods: {
