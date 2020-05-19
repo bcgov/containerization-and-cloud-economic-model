@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure>
+    <BaseSecure :resource="resource" viewer>
       <Dashboard :url="dashboardUrl" />
     </BaseSecure>
   </v-container>
@@ -8,6 +8,7 @@
 
 <script>
 import Dashboard from '@/components/common/Dashboard.vue';
+import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'PublicDashboard',
@@ -16,7 +17,12 @@ export default {
   },
   computed: {
     dashboardUrl() {
-      return this.$config ? this.$config.dashboards.publicUrl : undefined;
+      return this.$config
+        ? this.$config.dashboards.minesattestations.publicUrl
+        : undefined;
+    },
+    resource() {
+      return AppClients.MINESATTESTATIONS;
     }
   }
 };

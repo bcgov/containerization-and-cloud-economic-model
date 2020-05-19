@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure>
+    <BaseSecure :resource="resource" viewer>
       <h1>Submissions</h1>
       <SubmissionsTable />
     </BaseSecure>
@@ -9,11 +9,17 @@
 
 <script>
 import SubmissionsTable from '@/components/minesattestations/admin/SubmissionsTable.vue';
+import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'MinesAttestationsAdmin',
   components: {
     SubmissionsTable
+  },
+  computed: {
+    resource() {
+      return AppClients.MINESATTESTATIONS;
+    }
   }
 };
 </script>
