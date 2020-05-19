@@ -6,7 +6,7 @@
     </v-card>
 
     <v-card outlined class="review-form">
-      <h2 class="review-heading">Before Workers Arrive</h2>
+      <h2 class="review-heading">Before Operations Begin</h2>
       <Step3 :reviewMode="true" />
     </v-card>
 
