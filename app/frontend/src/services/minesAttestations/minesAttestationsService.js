@@ -82,4 +82,24 @@ export default {
     return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/notes`, content);
   },
 
+  /**
+   * @function addNoteToStatus
+   * Add a note of a specific form submission on a specific status update
+   * @param {string} submissionId The guid of a submitted form from the database
+   * @param {string} statusId The guid of a status record from the database
+   * @param {object} content An object representing the note
+   * @returns {Promise} An axios response
+   */
+  addNoteToStatus(submissionId, statusId, content) {
+    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses/${statusId}/notes`, content);
+  },
+
+  /**
+   * @function getStatusCodes
+   * Fetch the contents of the Status Codes lookup table
+   * @returns {Promise} An axios response
+   */
+  getStatusCodes() {
+    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/current/statusCodes`);
+  },
 };
