@@ -4,9 +4,6 @@ const path = require('path');
 const router = require('express').Router();
 const yaml = require('js-yaml');
 
-const keycloak = require('../components/keycloak');
-const helloRouter = require('./v1/hello');
-
 const camp = require('../forms/minesattestations');
 const form = require('../forms/form');
 
@@ -26,8 +23,7 @@ router.get('/', (_req, res) => {
     endpoints: [
       '/docs',
       campPath,
-      formPath,
-      '/hello'
+      formPath
     ]
   });
 });
@@ -47,8 +43,5 @@ router.get('/api-spec.yaml', (_req, res) => {
 router.get('/api-spec.json', (_req, res) => {
   res.status(200).json(getSpec());
 });
-
-/** Hello Router */
-router.use('/hello', keycloak.protect(), helloRouter);
 
 module.exports = router;

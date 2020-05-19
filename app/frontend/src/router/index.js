@@ -64,15 +64,6 @@ export default function getRouter(basePath = '/') {
         ]
       },
       {
-        path: '/secure',
-        name: 'Secure',
-        component: () => import(/* webpackChunkName: "secure" */ '@/views/Secure.vue'),
-        meta: {
-          hasLogin: true,
-          requiresAuth: true
-        }
-      },
-      {
         path: '/404',
         alias: '*',
         name: 'NotFound',

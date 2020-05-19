@@ -5,6 +5,9 @@
         <li>
           <router-link :to="{ name: 'Home' }">Home</router-link>
         </li>
+        <li>
+          <router-link :to="{ name: 'MinesAttestationsAdmin' }">Admin</router-link>
+        </li>
       </ul>
     </div>
   </nav>
@@ -12,7 +15,8 @@
 
 <script>
 export default {
-  name: 'BCGovNavBar'
+  // TODO: Consider better way to construct navbar based on current route
+  name: 'AdminNavBar'
 };
 </script>
 
