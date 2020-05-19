@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">Before you begin operations, please check all that apply</h2>
+      <h2 class="pb-8">Before operations begin, please check all that apply</h2>
       <hr class="orange" />
     </div>
 

@@ -87,7 +87,7 @@
 
         <v-card outlined class="review-form">
           <h2 class="review-heading">
-            3. Before Workers Arrive
+            3. Before Operations Begin
             <v-btn
               v-if="!submissionComplete"
               color="primary"
