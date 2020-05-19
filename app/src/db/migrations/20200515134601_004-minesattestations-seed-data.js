@@ -4,8 +4,17 @@ const PREFIX = require('../../forms/minesattestations/constants').PREFIX;
 const SLUG = require('../../forms/minesattestations/constants').SLUG;
 const CREATED_BY = 'migration-004';
 
+const statusCodes = [
+  {code:'SUBMITTED', display: 'Submitted', enabled: true, nextCodes: ['ASSIGNED', 'COMPLETED'], createdBy: CREATED_BY},
+  {code:'ASSIGNED', display: 'Assigned', enabled: true, nextCodes: ['ASSIGNED', 'COMPLETED'], createdBy: CREATED_BY},
+  {code:'COMPLETED', display: 'Completed', enabled: true, nextCodes: ['ASSIGNED'], createdBy: CREATED_BY}
+];
+
 exports.up = function(knex) {
-  return knex(`${PREFIX}_status_code`).del()
+  return knex(`${PREFIX}_version_status_code`).del()
+    .then(() => {
+      return knex(`${PREFIX}_status_code`).del();
+    })
     .then(()=> {
       return knex(`${PREFIX}_form_version`).del();
     })
@@ -14,6 +23,9 @@ exports.up = function(knex) {
     })
     .then(()=> {
       return knex('form').del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_status_code`).insert(statusCodes);
     })
     .then(() => {
       const form = {
@@ -44,15 +56,9 @@ exports.up = function(knex) {
       return knex(`${PREFIX}_form_version`).insert(version).returning('formVersionId');
     })
     .then(formVersionIds => {
-      const formVersionId = formVersionIds[0];
-      const statusCodes = [
-        {formVersionId: formVersionId, code:'SUBMITTED', display: 'Submitted', enabled: true, nextCodes: ['ASSIGNED', 'COMPLETED'], createdBy: CREATED_BY},
-        {formVersionId: formVersionId, code:'ASSIGNED', display: 'Assigned', enabled: true, nextCodes: ['COMPLETED'], createdBy: CREATED_BY},
-        {formVersionId: formVersionId, code:'COMPLETED', display: 'Completed', enabled: true, nextCodes: [], createdBy: CREATED_BY}
-      ];
-      return knex(`${PREFIX}_status_code`).insert(statusCodes);
+      const versionCodes = statusCodes.map(c => { return {code: c.code, formVersionId: formVersionIds[0]}; });
+      return knex(`${PREFIX}_version_status_code`).insert(versionCodes);
     });
-
 };
 
 exports.down = function(knex) {
@@ -74,6 +80,9 @@ exports.down = function(knex) {
     })
     .then(() => {
       return knex(`${PREFIX}_submission`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_version_status_code`).del();
     })
     .then(() => {
       return knex(`${PREFIX}_status_code`).del();

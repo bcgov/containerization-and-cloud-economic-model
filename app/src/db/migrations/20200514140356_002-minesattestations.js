@@ -18,10 +18,15 @@ exports.up = function(knex) {
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_status_code`, table => {
       table.string('code').primary();
-      table.integer('formVersionId').references('formVersionId').inTable(`${PREFIX}_form_version`).notNullable().index();
       table.string('display').notNullable();
       table.boolean('enabled').notNullable().defaultTo(true);
       table.specificType('nextCodes', 'text ARRAY').comment('This is an array of codes that this status could transition to next');
+      stamps(knex, table);
+    }))
+    .then(() => knex.schema.createTable(`${PREFIX}_version_status_code`, table => {
+      table.increments('versionStatusCodeId').primary();
+      table.integer('formVersionId').references('formVersionId').inTable(`${PREFIX}_form_version`).notNullable().index();
+      table.string('code').references('code').inTable(`${PREFIX}_status_code`).notNullable().index();
       stamps(knex, table);
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_submission`, table => {

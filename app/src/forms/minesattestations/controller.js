@@ -9,10 +9,18 @@ module.exports = {
         response = await dataService.read();
         res.status(302).json(response);
       } else {
-        const createdBy ='this gets replaced with token value';
-        response = await dataService.create(req.body, createdBy);
+        response = await dataService.create(req.body, req.currentUser);
         res.status(201).json(response);
       }
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  update: async (req, res, next) => {
+    try {
+      const response = await dataService.update(req.body, req.currentUser);
+      res.status(200).json(response);
     } catch (error) {
       next(error);
     }
@@ -65,7 +73,7 @@ module.exports = {
 
   updateSubmission: async (req, res, next) => {
     try {
-      const response = await dataService.updateSubmission(req.body, req.currentUser);
+      const response = await dataService.updateSubmission(req.params.submissionId, req.body, req.currentUser);
       res.status(200).json(response);
     } catch (error) {
       next(error);
