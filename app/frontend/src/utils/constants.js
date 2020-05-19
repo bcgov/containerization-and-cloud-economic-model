@@ -15,13 +15,3 @@ export const AppRoles = Object.freeze({
 export const AppClients = Object.freeze({
   MINESATTESTATIONS: 'comfort-minesattestations',
 });
-
-// TODO: I think these will be dynamic from the DB form definition. For now get it working with constants
-export const Statuses = Object.freeze({
-  SUBMITTED: 'Submitted',
-  ASSIGNED: 'Assigned',
-  SCHEDULED: 'Scheduled',
-  FOLLOWUP: 'Follow-up',
-  COMPLETED: 'Completed',
-  CANCELLED: 'Cancelled'
-});

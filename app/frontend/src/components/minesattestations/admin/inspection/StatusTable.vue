@@ -14,9 +14,7 @@
     >
       <template v-slot:item.createdAt="{ item }">{{ formatDate(item.createdAt) }}</template>
 
-      <template v-slot:item.inspectorName="{ item }">{{ item.assignedTo }}</template>
-
-      <template v-slot:item.inspectionDate="{ item }">{{ formatDate(item.inspectionDate) }}</template>
+      <template v-slot:item.assignedTo="{ item }">{{ item.assignedTo }}</template>
     </v-data-table>
   </v-container>
 </template>
@@ -37,8 +35,7 @@ export default {
       headers: [
         { text: 'Status', value: 'code' },
         { text: 'Date', align: 'start', value: 'createdAt' },
-        { text: 'Assignee', value: 'inspectorName' },
-        { text: 'Inspection Date', value: 'inspectionDate' }
+        { text: 'Assignee', value: 'assignedTo' }
       ],
       statuses: [],
       loading: true,
