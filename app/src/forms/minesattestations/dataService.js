@@ -217,6 +217,7 @@ const dataService = {
   },
 
   readSubmission: async (submissionId) => {
+    // put a tiny switch in here too, probably needed for public consumption (no notes, statuses etc).
     return Models.Submission.query()
       .findById(submissionId)
       .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
