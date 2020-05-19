@@ -15,6 +15,10 @@ routes.get('/current', async (req, res, next) => {
   await controller.current(req, res, next);
 });
 
+routes.put('/current', middleware.checkRole(['admin']), async (req, res, next) => {
+  await controller.update(req, res, next);
+});
+
 routes.get('/current/statusCodes', async (req, res, next) => {
   await controller.readCurrentStatusCodes(req, res, next);
 });

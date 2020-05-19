@@ -33,10 +33,18 @@ const dataService = {
     let trx;
     try {
       trx = await transaction.start(Models.Metadata.knex());
-      const formId = uuidv4();
 
-      // set the created by for each object in the graph...
+      const formId = uuidv4();
+      // set the metadata
+      const metadata = {
+        formId: formId,
+        slug: constants.SLUG,
+        prefix: constants.PREFIX,
+        ...obj.metadata
+      };
+      // set the versions
       const versions = obj.versions.map(v => {
+        // this is a new version, set the user stamp
         v.statusCodes.forEach(s => s.createdBy = user.username);
         v.createdBy = user.username;
         return v;
@@ -44,11 +52,8 @@ const dataService = {
 
       await Models.Form.query(trx).insertGraph({
         metadata: {
-          formId: formId,
           createdBy: user.username,
-          slug: constants.SLUG,
-          prefix: constants.PREFIX,
-          ...obj.metadata
+          ...metadata
         },
         createdBy: user.username,
         description: obj.description,
@@ -61,6 +66,70 @@ const dataService = {
       return result;
     } catch (err) {
       log.error('create', `Error creating Mines Attestation record: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
+  },
+
+  update: async (obj, user) => {
+    if (!obj) {
+      throw Error('Mines Attestation cannot be updated without data');
+    }
+    let trx;
+    try {
+      trx = await transaction.start(Models.Metadata.knex());
+
+      // this property could come in from a /current query...
+      // it's an additional helper field we don't want here.
+      delete obj.formVersionId;
+
+      // if exists, then we update with a new version...
+      const current = await Models.Form.query()
+        .first()
+        .throwIfNotFound();
+
+      // set the metadata (ensure nothing critical has changed...)
+      const metadata = {
+        formId: current.formId,
+        slug: constants.SLUG,
+        prefix: constants.PREFIX,
+        ...obj.metadata
+      };
+
+      // set the versions (only add the new one(s))
+      const version = obj.versions.find(f => !f.formVersionId);
+      version.formId = current.formId;
+      version.statusCodes.forEach(s => {
+        s.createdBy = user.username;
+        s.updatedBy = user.username;
+      });
+      version.createdBy = user.username;
+
+      // update the form metadata...
+      await Models.Metadata.query(trx).patchAndFetchById(current.formId, metadata);
+
+      // update the form...
+      await Models.Form.query(trx).patchAndFetchById(current.formId, {
+        updatedBy: user.username,
+        description: obj.description
+      });
+
+      // add/update status codes
+      await Models.StatusCode.query(trx).upsertGraph(version.statusCodes, { insertMissing: true });
+
+      // add new version
+      const versionRec = await Models.Version.query(trx).insert(version);
+
+      // add the relationships for version/codes
+      await versionRec.$relatedQuery('statusCodes', trx).relate(version.statusCodes);
+
+      await trx.commit();
+
+      const result = await dataService.read();
+      return result;
+    } catch (err) {
+      log.error('create', `Error updating Mines Attestation record: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
@@ -157,7 +226,7 @@ const dataService = {
       .throwIfNotFound();
   },
 
-  updateSubmission: async (obj, user) => {
+  updateSubmission: async (submissionId, obj, user) => {
     // update: location, contacts, business
     if (!obj) {
       throw Error('Mines Attestation Submission cannot be updated without data');
@@ -166,7 +235,12 @@ const dataService = {
     try {
       trx = await transaction.start(Models.Submission.knex());
       let doTheUpdate = false;
-      const currentSubmission = await dataService.readSubmission(obj.submissionId);
+      const currentSubmission = await Models.Submission.query()
+        .first()
+        .where({ submissionId: submissionId })
+        .where({ submissionId: obj.submissionId })
+        .withGraphFetched('[business, contacts, location]')
+        .throwIfNotFound();
 
       // check business... any changes?
       if (!equalTo(currentSubmission.business, obj.business)) {
@@ -345,10 +419,10 @@ const dataService = {
   readCurrentStatusCodes: async (enabled) => {
     const current = await dataService.current(true);
     const allStatuses = await Models.StatusCode.query()
-      .where({ formVersionId: current.formVersionId });
+      .joinRelated('versions', { formVersionId: current.formVersionId });
 
     const statuses = await Models.StatusCode.query()
-      .where({ formVersionId: current.formVersionId })
+      .joinRelated('versions', { formVersionId: current.formVersionId })
       .modify('filterEnabled', enabled);
 
     // let's flesh out the nextCodes by adding display and enabled...
@@ -369,7 +443,6 @@ const dataService = {
     try {
       trx = await transaction.start(Models.StatusCode.knex());
       // this is what we currently have, we cannot delete any status codes...
-      const current = await dataService.current(true);
       const currentStatusCodes = await dataService.readCurrentStatusCodes();
       const currentCodes = currentStatusCodes.map(x => x.code);
       // these are all the codes that were submitted
@@ -393,7 +466,6 @@ const dataService = {
         if (!currentCodes.includes(o.code)) {
           o.createdBy = user.username;
         }
-        o.formVersionId = current.formVersionId;
       });
 
       // ok, now let's upsert!

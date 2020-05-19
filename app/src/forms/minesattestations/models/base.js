@@ -97,6 +97,7 @@ class Version extends Models.Timestamps(Model) {
       required: [],
       properties: {
         formVersionId: { type: 'integer' },
+        formId: { type: 'string', pattern: constants.UUID_REGEX },
         changes: { type: ['string', 'null'], maxLength: 255 },
         ...Models.stamps
       },
@@ -107,11 +108,15 @@ class Version extends Models.Timestamps(Model) {
   static get relationMappings () {
     return {
       statusCodes: {
-        relation: Model.HasManyRelation,
+        relation: Model.ManyToManyRelation,
         modelClass: StatusCode,
         join: {
           from: `${PREFIX}_form_version.formVersionId`,
-          to: `${PREFIX}_status_code.formVersionId`
+          through: {
+            from: `${PREFIX}_version_status_code.formVersionId`,
+            to: `${PREFIX}_version_status_code.code`
+          },
+          to: `${PREFIX}_status_code.code`
         }
       }
     };
@@ -144,9 +149,8 @@ class StatusCode extends Models.Timestamps(Model) {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['code', 'display', 'enabled', 'formVersionId'],
+      required: ['code', 'display', 'enabled'],
       properties: {
-        formVersionId: { type: 'integer' },
         code: { type: 'string', minLength: 1, maxLength: 255 },
         display: { type: 'string', minLength: 1, maxLength: 255 },
         enabled: { type: 'boolean' },
@@ -154,6 +158,23 @@ class StatusCode extends Models.Timestamps(Model) {
         ...Models.stamps
       },
       additionalProperties: false
+    };
+  }
+
+  static get relationMappings () {
+    return {
+      versions: {
+        relation: Model.ManyToManyRelation,
+        modelClass: Version,
+        join: {
+          from: `${PREFIX}_status_code.code`,
+          through: {
+            from: `${PREFIX}_version_status_code.code`,
+            to: `${PREFIX}_version_status_code.formVersionId`
+          },
+          to: `${PREFIX}_form_version.formVersionId`
+        }
+      }
     };
   }
 
