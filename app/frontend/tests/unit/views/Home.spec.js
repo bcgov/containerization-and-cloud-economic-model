@@ -13,7 +13,7 @@ describe('Home.vue', () => {
   it('renders', () => {
     const wrapper = shallowMount(Home, {
       vuetify,
-      stubs: ['BCGovNavBar', 'FormList']
+      stubs: ['BaseSecure', 'FormList']
     });
 
     expect(wrapper.html()).toMatch('Forms');

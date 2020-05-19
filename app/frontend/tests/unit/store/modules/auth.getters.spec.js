@@ -4,7 +4,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 
 import authStore from '@/store/modules/auth';
-import { AppRoles } from '@/utils/constants';
+import { AppClients, AppRoles } from '@/utils/constants';
 
 const localVue = createLocalVue();
 localVue.use(Vuex);
@@ -35,7 +35,7 @@ describe('auth getters', () => {
           tokenParsed: {
             realm_access: {},
             resource_access: {
-              app: {
+              [AppClients.APP]: {
                 roles: roles
               }
             }
@@ -77,7 +77,7 @@ describe('auth getters', () => {
     authenticated = false;
 
     expect(store.getters.authenticated).toBeFalsy();
-    expect(store.getters.hasResourceRoles('app', roles)).toBeFalsy();
+    expect(store.getters.hasResourceRoles(AppClients.APP, roles)).toBeFalsy();
   });
 
   it('hasResourceRoles should return true when checking no roles', () => {
@@ -85,20 +85,20 @@ describe('auth getters', () => {
     roles = [];
 
     expect(store.getters.authenticated).toBeTruthy();
-    expect(store.getters.hasResourceRoles('app', roles)).toBeTruthy();
+    expect(store.getters.hasResourceRoles(AppClients.APP, roles)).toBeTruthy();
   });
 
   it('hasResourceRoles should return true when role exists', () => {
     authenticated = true;
-    roles = [AppRoles.TESTROLE];
+    roles = [AppRoles.ADMIN];
 
     expect(store.getters.authenticated).toBeTruthy();
-    expect(store.getters.hasResourceRoles('app', roles)).toBeTruthy();
+    expect(store.getters.hasResourceRoles(AppClients.APP, roles)).toBeTruthy();
   });
 
   it('hasResourceRoles should return false when resource does not exist', () => {
     authenticated = true;
-    roles = [AppRoles.TESTROLE];
+    roles = [AppRoles.ADMIN];
 
     // TODO: Find better way to set up keycloak object mock without deleting first
     delete Vue.prototype.$keycloak;
@@ -116,7 +116,7 @@ describe('auth getters', () => {
     });
 
     expect(store.getters.authenticated).toBeTruthy();
-    expect(store.getters.hasResourceRoles('app', roles)).toBeFalsy();
+    expect(store.getters.hasResourceRoles(AppClients.APP, roles)).toBeFalsy();
   });
 
   it('keycloakReady should return a boolean', () => {

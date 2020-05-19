@@ -54,7 +54,7 @@ import AdminReviewSubmission from '@/components/minesattestations/admin/AdminRev
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/minesattestations/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/minesattestations/admin/inspection/NotesPanel.vue';
-import { AppRoles, AppClients } from '@/utils/constants';
+import { AppClients, AppRoles } from '@/utils/constants';
 
 export default {
   name: 'Submission',

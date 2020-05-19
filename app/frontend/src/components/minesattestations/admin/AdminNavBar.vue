@@ -3,10 +3,13 @@
     <div class="container">
       <ul>
         <li>
-          <router-link :to="{ name: 'Home' }">Home</router-link>
+          <router-link :to="{ name: 'MinesAttestationsAdmin' }">Submissions</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'MinesAttestationsAdmin' }">Admin</router-link>
+          <router-link :to="{ name: 'MinesAttestationsDashboard' }">Dashboard</router-link>
+        </li>
+        <li>
+          <router-link :to="{ name: 'MinesAttestationsInspectionDashboard' }">Inspection Dashboard</router-link>
         </li>
       </ul>
     </div>
