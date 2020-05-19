@@ -1,12 +1,20 @@
 <template>
-  <transition name="component-fade" mode="out-in">
-    <router-view />
-  </transition>
+  <div>
+    <AdminNavBar />
+    <transition name="component-fade" mode="out-in">
+      <router-view />
+    </transition>
+  </div>
 </template>
 
 <script>
+import AdminNavBar from '@/components/minesattestations/admin/AdminNavBar.vue';
+
 export default {
-  name: 'MinesAttestations'
+  name: 'MinesAttestations',
+  components: {
+    AdminNavBar
+  }
 };
 </script>
 

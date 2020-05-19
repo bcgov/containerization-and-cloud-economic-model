@@ -1,5 +1,5 @@
 <template>
-  <nav class="navigation-main">
+  <nav v-if="!isForm" class="navigation-main">
     <div class="container">
       <ul>
         <li>
@@ -18,6 +18,11 @@
 
 <script>
 export default {
-  name: 'AdminNavBar'
+  name: 'AdminNavBar',
+  computed: {
+    isForm() {
+      return this.$route.name === 'MinesAttestationsForm';
+    }
+  }
 };
 </script>
