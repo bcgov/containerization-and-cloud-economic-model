@@ -33,56 +33,6 @@
 
       <hr />
 
-      <div class="my-10">
-        <h3 class="mb-8">
-          AS PART OF THE PRECAUTIONS TO PREVENT/CONTROL COVID-19,
-          CAMP OPERATORS MUST NOTIFY RHA THAT THEY ARE OPERATING IN THE REGION.
-          PLEASE FORWARD THE PDF COPY OF YOUR SUBMISSION TO THE RELEVANT HEALTH AUTHORITY.
-        </h3>
-
-        <a
-          href="https://www2.gov.bc.ca/gov/content/health/keeping-bc-healthy-safe/industrial-camps"
-          target="_blank"
-        >
-          Health Authority Contacts for Industrial Camps
-          <v-icon small color="primary">open_in_new</v-icon>
-        </a>
-        <!--
-        <p>
-          <strong>Fraser Health Authority</strong>
-          <br />Phone: (604) 870-7903
-          <br />Email: HPLand@fraserhealth.ca
-        </p>
-        <p>
-          <strong>Interior Health Authority</strong>
-          <br />Phone: (250) 851-7305
-          <br />Email: workcamps@interiorhealth.ca
-        </p>
-
-        <p>
-          <strong>Island Health Authority</strong>
-          <br />Phone: (250) 740-6988
-          <br />Fax: (250) 755-3372.
-          <br />Email: Cole.diplock@viha.ca
-          <br />Website: http://www.viha.ca/mho/Forms.htm
-        </p>
-
-        <p>
-          <strong>Northern Health Authority</strong>
-          <br />Phone: (250) 565-7322
-          <br />Fax: (250) 565-2144
-          <br />Email: php@northernhealth.ca
-        </p>
-        <p>
-          <strong>Vancouver Coastal Health Authority</strong>
-          <br />Phone: (604) 675-3800 Manager on call
-          <br />Fax: (604) 736-8651
-          <br />Email: EHVC@vch.ca
-        </p>-->
-      </div>
-
-      <hr />
-
       <p class="my-10">
         To start again and submit another form you can refresh this page (or
         <a
