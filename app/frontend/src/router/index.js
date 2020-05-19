@@ -51,9 +51,29 @@ export default function getRouter(basePath = '/') {
             }
           },
           {
-            path: 'submission/:submissionId',
+            path: 'admin/dashboard/public',
+            name: 'MinesAttestationsDashboard',
+            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/PublicDashboard.vue'),
+            meta: {
+              hasLogin: true,
+              requiresAuth: true,
+              title: 'Industrial Camps Admin'
+            }
+          },
+          {
+            path: 'admin/dashboard/inspection',
+            name: 'MinesAttestationsInspectionDashboard',
+            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/InspectionDashboard.vue'),
+            meta: {
+              hasLogin: true,
+              requiresAuth: true,
+              title: 'Industrial Camps Admin'
+            }
+          },
+          {
+            path: 'admin/submission/:submissionId',
             name: 'MinesAttestationsSubmission',
-            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/Submission.vue'),
+            component: () => import(/* webpackChunkName: "mines-attestations-submission" */ '@/views/minesattestations/Submission.vue'),
             props: true,
             meta: {
               hasLogin: true,
