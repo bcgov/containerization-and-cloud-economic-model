@@ -6,8 +6,8 @@ const CREATED_BY = 'migration-004';
 
 const statusCodes = [
   {code:'SUBMITTED', display: 'Submitted', enabled: true, nextCodes: ['ASSIGNED', 'COMPLETED'], createdBy: CREATED_BY},
-  {code:'ASSIGNED', display: 'Assigned', enabled: true, nextCodes: ['COMPLETED'], createdBy: CREATED_BY},
-  {code:'COMPLETED', display: 'Completed', enabled: true, nextCodes: [], createdBy: CREATED_BY}
+  {code:'ASSIGNED', display: 'Assigned', enabled: true, nextCodes: ['ASSIGNED', 'COMPLETED'], createdBy: CREATED_BY},
+  {code:'COMPLETED', display: 'Completed', enabled: true, nextCodes: ['ASSIGNED'], createdBy: CREATED_BY}
 ];
 
 exports.up = function(knex) {
@@ -80,6 +80,9 @@ exports.down = function(knex) {
     })
     .then(() => {
       return knex(`${PREFIX}_submission`).del();
+    })
+    .then(() => {
+      return knex(`${PREFIX}_version_status_code`).del();
     })
     .then(() => {
       return knex(`${PREFIX}_status_code`).del();
