@@ -51,9 +51,9 @@ export default function getRouter(basePath = '/') {
             }
           },
           {
-            path: 'submission/:submissionId',
+            path: 'admin/submission/:submissionId',
             name: 'MinesAttestationsSubmission',
-            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/Submission.vue'),
+            component: () => import(/* webpackChunkName: "mines-attestations-submission" */ '@/views/minesattestations/Submission.vue'),
             props: true,
             meta: {
               hasLogin: true,
