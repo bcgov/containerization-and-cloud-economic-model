@@ -7,6 +7,7 @@
   "frontend": {
     "apiPath": "api/v1",
     "basePath" : "/app",
+    "dashboards": {},
     "geocoder": {
       "endpoint": "https://apps.gov.bc.ca/pub/geocoder"
     },
