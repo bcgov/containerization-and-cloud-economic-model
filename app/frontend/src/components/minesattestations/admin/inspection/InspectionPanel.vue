@@ -10,7 +10,7 @@
         {{ currentStatus.statusCodeDetail.display }}
         <br />
         <strong>Assigned To:</strong>
-        {{ currentStatus.inspectorName ? currentStatus.inspectorName : 'N/A' }}
+        {{ currentStatus.assignedTo ? currentStatus.assignedTo : 'N/A' }}
       </p>
 
       <v-form v-if="!error" ref="form" v-model="valid" lazy-validation>
