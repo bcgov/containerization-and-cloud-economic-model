@@ -1,5 +1,6 @@
 const dataService = require('./dataService');
 const emailService = require('./emailService');
+const pdfService = require('./pdfService');
 
 module.exports = {
   create: async (req, res, next) => {
@@ -71,6 +72,19 @@ module.exports = {
       res.status(200).json(response);
     } catch (error) {
       next(error);
+    }
+  },
+
+  generateSubmissionPdf: async (req, res, next) => {
+    try {
+      const submission = await dataService.readSubmission(req.params.submissionId);
+      const result = await pdfService.generateSubmissionPdf(submission);
+      ['Content-Disposition','Content-Type','Content-Length','Content-Transfer-Encoding'].forEach(h => {
+        res.setHeader(h, result.headers[h.toLowerCase()]);
+      });
+      return res.send(result.data);
+    } catch (err) {
+      next(err);
     }
   },
 

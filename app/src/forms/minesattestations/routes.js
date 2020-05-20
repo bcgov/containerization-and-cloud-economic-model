@@ -43,6 +43,10 @@ routes.get('/submissions/:submissionId', async (req, res, next) => {
   await controller.readSubmission(req, res, next);
 });
 
+routes.get('/submissions/:submissionId/pdf', async (req, res, next) => {
+  await controller.generateSubmissionPdf(req, res, next);
+});
+
 routes.post('/submissions/email', async (req, res, next) => {
   await controller.sendSubmissionEmail(req, res, next);
 });

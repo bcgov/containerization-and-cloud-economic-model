@@ -4,7 +4,7 @@ const log = require('npmlog');
 const ClientConnection = require('./clientConnection');
 const errorToProblem = require('./errorToProblem');
 
-const SERVICE = 'CDOGS';
+const SERVICE = 'CHES';
 
 class ChesService {
   constructor({tokenUrl, clientId, clientSecret, apiUrl}) {
