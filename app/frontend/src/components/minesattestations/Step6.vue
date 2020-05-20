@@ -18,7 +18,7 @@
         <h3 class="my-4">Print this page or email yourself a copy of your form submission</h3>
 
         <v-row class="mb-6">
-          <PrintScreenButton :ipcPlanId="this.submissionDetails.submissionId">
+          <GeneratePdfButton :submissionId="this.submissionDetails.submissionId">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" color="primary" class="ml-5 mr-10" fab large>
@@ -27,7 +27,7 @@
               </template>
               <span>Print Screen</span>
             </v-tooltip>
-          </PrintScreenButton>
+          </GeneratePdfButton>
 
           <RequestReceipt
             :email="this.submissionDetails.contacts[0].email"
@@ -191,7 +191,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import PrintScreenButton from '@/components/common/PrintScreenButton.vue';
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import RequestReceipt from '@/components/minesattestations/RequestReceipt.vue';
 import Step1 from '@/components/minesattestations/Step1.vue';
 import Step2 from '@/components/minesattestations/Step2.vue';
@@ -202,7 +202,7 @@ import Step5 from '@/components/minesattestations/Step5.vue';
 export default {
   name: 'MinesAttestationStep6',
   components: {
-    PrintScreenButton,
+    GeneratePdfButton,
     RequestReceipt,
     Step1,
     Step2,
