@@ -31,7 +31,7 @@
 
           <RequestReceipt
             :email="this.submissionDetails.contacts[0].email"
-            :ipcPlanId="this.submissionDetails.submissionId"
+            :submissionId="this.submissionDetails.submissionId"
           />
         </v-row>
 
