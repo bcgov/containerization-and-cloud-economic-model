@@ -27,6 +27,11 @@
       sortBy="created"
       update: sort-desc
     >
+      <template v-slot:item.download="{ item }">
+        <GeneratePdfButton :submissionId="item.submissionId">
+          <v-btn text small color="textLink"><v-icon class="mr-1">picture_as_pdf</v-icon> PDF</v-btn>
+        </GeneratePdfButton>
+      </template>
       <template v-slot:item.details="{ item }">
         <router-link :to="{ name: 'MinesAttestationsSubmission', params: { submissionId: item.submissionId } }">
           <v-btn text small color="textLink"><v-icon class="mr-1">remove_red_eye</v-icon> VIEW</v-btn>
@@ -37,10 +42,14 @@
 </template>
 
 <script>
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
 
 export default {
   name: 'MinesSubmissionsTable',
+  components: {
+    GeneratePdfButton
+  },
   computed: {
     responsiveCell () {
       return (this.$vuetify.breakpoint.name == 'xs') ? 'v-data-table__mobile-table-row' : '';
@@ -55,6 +64,7 @@ export default {
         { text: 'Status', align: 'start', value: 'inspectionStatus' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
+        { text: 'Download', value: 'download', sortable: false },
         { text: 'Details', value: 'details', sortable: false }
       ],
       submissions: [],

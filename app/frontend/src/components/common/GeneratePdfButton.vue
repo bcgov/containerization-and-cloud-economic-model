@@ -7,17 +7,21 @@
 <script>
 export default {
   name: 'GeneratePdfButton',
-  props: {
-    ipcPlanId: {
-      type: String,
-      required: true
+  computed: {
+    formName() {
+      return this.$route.path.split('/')[1];
     }
   },
   methods: {
-    generatePdf(){
-      alert('TBD');
-      // const pdf = `${this.$config.basePath}/${this.$config.apiPath}/ipc/pdf/${this.ipcPlanId}`;
-      // window.open(pdf, '_blank');
+    generatePdf() {
+      const pdf = `${this.$config.basePath}/${this.$config.apiPath}/${this.formName}/submissions/${this.submissionId}/pdf`;
+      window.open(pdf, '_blank');
+    }
+  },
+  props: {
+    submissionId: {
+      type: String,
+      required: true
     }
   }
 };
