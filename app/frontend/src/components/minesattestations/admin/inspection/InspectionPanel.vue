@@ -30,6 +30,7 @@
               item-value="code"
               v-model="statusToSet"
               :rules="[v => !!v || 'Status is required']"
+              :disabled="!hasReviewer"
               @change="statusFields = true"
             />
 
@@ -96,7 +97,13 @@
           </v-col>
 
           <v-col cols="12" sm="6" xl="4" order="first" order-sm="last">
-            <v-btn block color="primary" v-on="on" @click="updateStatus">UPDATE</v-btn>
+            <v-btn
+              block
+              color="primary"
+              v-on="on"
+              @click="updateStatus"
+              :disabled="!hasReviewer"
+            >UPDATE</v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -107,6 +114,7 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import { AppClients, AppRoles } from '@/utils/constants';
 import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
 import StatusTable from '@/components/minesattestations/admin/inspection/StatusTable.vue';
 
@@ -140,7 +148,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['email', 'fullName']),
+    ...mapGetters('auth', ['hasResourceRoles', 'email', 'fullName']),
 
     // State machine
     items() {
@@ -151,6 +159,11 @@ export default {
       }
     },
     showInspector() { return ['ASSIGNED'].includes(this.statusToSet); },
+    hasReviewer() {
+      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
+        AppRoles.REVIEWER
+      ]);
+    }
   },
   methods: {
     async getInspectionData() {
