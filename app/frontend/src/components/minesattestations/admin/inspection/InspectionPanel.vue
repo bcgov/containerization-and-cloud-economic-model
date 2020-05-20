@@ -3,7 +3,7 @@
     <v-progress-linear indeterminate v-if="loading" color="primary" class="mb-2" />
     <v-alert v-if="error" type="error" tile dense>{{ error }}</v-alert>
 
-    <h2 class="inspection-heading">Inspection Status</h2>
+    <h2 class="inspection-heading">Status</h2>
     <div v-if="!loading">
       <p>
         <strong>Current Status:</strong>
