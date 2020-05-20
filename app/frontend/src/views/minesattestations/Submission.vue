@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure admin>
+    <BaseSecure :resource="resource" reviewer>
       <v-progress-linear indeterminate v-if="gettingForm" color="primary" class="mb-2" />
 
       <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
@@ -88,9 +88,12 @@ export default {
         ? moment(this.attestation.createdAt).format('MMMM D YYYY, h:mm:ss a')
         : 'N/A';
     },
+    resource() {
+      return AppClients.MINESATTESTATIONS;
+    },
     showInspection() {
       return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
-        AppRoles.EDITOR
+        AppRoles.REVIEWER
       ]);
     }
   },

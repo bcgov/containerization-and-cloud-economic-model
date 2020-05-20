@@ -13,7 +13,7 @@ describe('Secure.vue', () => {
   it('renders', () => {
     const wrapper = shallowMount(Secure, {
       vuetify,
-      stubs: ['BaseSecure', 'BCGovFooter', 'BCGovHeader', 'BCGovNavBar', 'router-view']
+      stubs: ['BaseSecure', 'BCGovFooter', 'BCGovHeader', 'router-view']
     });
 
     expect(wrapper.text()).toMatch('');

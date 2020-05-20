@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure editor :resource="resource">
+    <BaseSecure :resource="resource" reviewer>
       <Dashboard :url="dashboardUrl" />
     </BaseSecure>
   </v-container>
@@ -17,7 +17,9 @@ export default {
   },
   computed: {
     dashboardUrl() {
-      return this.$config ? this.$config.dashboards.inspectionUrl : undefined;
+      return this.$config
+        ? this.$config.dashboards.minesattestations.inspectionUrl
+        : undefined;
     },
     resource() {
       return AppClients.MINESATTESTATIONS;
