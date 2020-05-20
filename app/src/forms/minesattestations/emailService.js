@@ -26,6 +26,7 @@ const emailService = {
             {
               context: {
                 confirmationNumber: submission.confirmationId,
+                title: settings.config.title,
                 messageLinkText: settings.config.messageLinkText,
                 messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
               },
@@ -60,6 +61,7 @@ const emailService = {
             {
               context: {
                 confirmationNumber: submission.confirmationId,
+                title: settings.config.title,
                 messageLinkText: settings.config.messageLinkText,
                 messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
               },
@@ -101,6 +103,7 @@ const emailService = {
                 business: submission.business.name,
                 status: statusCode.display,
                 message: settings.config.message,
+                title: settings.config.title,
                 messageLinkText: settings.config.messageLinkText,
                 messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
               },
