@@ -57,6 +57,7 @@ exports.down = function(knex) {
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_note`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission_status`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_submission`))
+    .then(() => knex.schema.dropTableIfExists(`${PREFIX}_version_status_code`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_status_code`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_form_version`))
     .then(() => knex.schema.dropTableIfExists(`${PREFIX}_form`));
