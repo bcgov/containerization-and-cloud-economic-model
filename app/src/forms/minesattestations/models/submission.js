@@ -41,7 +41,7 @@ class Submission extends Models.Timestamps(Model) {
       },
       filterConfirmationId(query, value) {
         if (value) {
-          query.where('confirmationId', value);
+          query.where('confirmationId', 'ilike', `%${value}%`);
         }
       },
       filterBusinessName(query, value) {

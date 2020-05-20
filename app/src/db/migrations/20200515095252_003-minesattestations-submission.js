@@ -81,6 +81,12 @@ exports.up = function(knex) {
       table.boolean('disinfectingSchedule').notNullable();
       table.boolean('educationSignage').notNullable();
       table.boolean('educationContactPersonnel').notNullable();
+      table.boolean('transportationSingleOccupant').notNullable();
+      table.boolean('transportationBusesVans').notNullable();
+      table.boolean('transportationTrucksCars').notNullable();
+      table.boolean('transportationHelicopter').notNullable();
+      table.boolean('transportationTravelPod').notNullable();
+      table.boolean('transportationCleaningDistancing').notNullable();
       table.boolean('trainingCovid19').notNullable();
       table.boolean('trainingEtiquette').notNullable();
       table.boolean('trainingLocations').notNullable();
