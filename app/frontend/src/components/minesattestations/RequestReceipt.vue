@@ -24,7 +24,7 @@
             <v-icon large color="primary">email</v-icon>
           </template>
           <template v-slot:text>
-            <v-form ref="form" v-model="valid">
+            <v-form ref="form" v-model="valid" @submit="requestReceipt()" @submit.prevent>
               <label>Send to E-mail Address</label>
               <v-text-field
                 dense
@@ -84,7 +84,7 @@ export default {
       if (this.valid) {
         emailService
           .requestReceiptEmail({
-            ipcPlanId: this.ipcPlanId,
+            submissionId: this.submissionId,
             to: this.to
           })
           .then(() => {
@@ -117,7 +117,7 @@ export default {
       type: String,
       required: true
     },
-    ipcPlanId: {
+    submissionId: {
       type: String,
       required: true
     }
