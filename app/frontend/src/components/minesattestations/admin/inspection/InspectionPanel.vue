@@ -11,6 +11,9 @@
         <br />
         <strong>Assigned To:</strong>
         {{ currentStatus.assignedTo ? currentStatus.assignedTo : 'N/A' }}
+        <span
+          v-if="currentStatus.assignedToEmail"
+        >({{ currentStatus.assignedToEmail }})</span>
       </p>
 
       <v-form v-if="!error" ref="form" v-model="valid" lazy-validation>
@@ -36,15 +39,18 @@
 
             <div v-show="statusFields">
               <div v-if="showInspector">
-                <label>Inspector Name</label>
+                <label>Assignee Name</label>
                 <v-text-field
-                  v-model="inspectorName"
+                  v-model="assignedTo"
                   :rules="[v => !!v || 'Name is required']"
                   dense
                   flat
                   outlined
                   solo
                 />
+
+                <label>Assignee Email (Optional)</label>
+                <v-text-field v-model="assignedToEmail" dense flat outlined solo />
 
                 <div class="text-right">
                   <v-btn
@@ -143,12 +149,13 @@ export default {
       valid: false,
 
       // Fields
-      inspectorName: this.currentStatus ? this.currentStatus.inspectorName : '',
+      assignedTo: this.currentStatus ? this.currentStatus.assignedTo : '',
+      assignedToEmail: this.currentStatus ? this.currentStatus.assignedToEmail : '',
       note: ''
     };
   },
   computed: {
-    ...mapGetters('auth', ['hasResourceRoles', 'email', 'fullName']),
+    ...mapGetters('auth', ['hasResourceRoles', 'email', 'token', 'fullName']),
 
     // State machine
     items() {
@@ -191,7 +198,8 @@ export default {
       }
     },
     assignToCurrentUser() {
-      this.inspectorName = this.fullName;
+      this.assignedTo = this.fullName;
+      this.assignedToEmail = this.email;
     },
     resetForm() {
       this.statusFields = false;
@@ -212,8 +220,11 @@ export default {
             code: this.statusToSet
           };
           if(this.showInspector) {
-            if(this.inspectorName) {
-              statusBody.assignedTo = this.inspectorName;
+            if(this.assignedTo) {
+              statusBody.assignedTo = this.assignedTo;
+            }
+            if(this.assignedToEmail) {
+              statusBody.assignedToEmail = this.assignedToEmail;
             }
           }
           const statusResponse = await minesAttestationsService.sendSubmissionStatuses(this.submissionId, statusBody);
