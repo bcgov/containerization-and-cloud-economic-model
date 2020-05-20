@@ -41,6 +41,15 @@ export default function getRouter(basePath = '/') {
             }
           },
           {
+            path: 'review/:submissionId',
+            name: 'MinesAttestationsReview',
+            component: () => import(/* webpackChunkName: "mines-attestations-review" */ '@/views/minesattestations/Review.vue'),
+            props: true,
+            meta: {
+              title: 'Industrial Camps Submission Review'
+            }
+          },
+          {
             path: 'admin',
             name: 'MinesAttestationsAdmin',
             component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesattestations/Admin.vue'),
