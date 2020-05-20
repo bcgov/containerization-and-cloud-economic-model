@@ -71,8 +71,7 @@ export default {
     }
   },
   data: () => ({
-    error: false,
-    showFv: false
+    error: false
   }),
   computed: {
     ...mapGetters('form', [
