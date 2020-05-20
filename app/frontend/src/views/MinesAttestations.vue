@@ -9,11 +9,21 @@
 
 <script>
 import AdminNavBar from '@/components/minesattestations/admin/AdminNavBar.vue';
+import minesattestations from '@/store/modules/minesAttestations/minesAttestationsForm.js';
 
 export default {
   name: 'MinesAttestations',
   components: {
     AdminNavBar
+  },
+  beforeDestroy() {
+    this.$store.unregisterModule('form');
+  },
+  created() {
+    if(this.$store.hasModule('form')) {
+      this.$store.unregisterModule('form');
+    }
+    this.$store.registerModule('form', minesattestations);
   }
 };
 </script>
