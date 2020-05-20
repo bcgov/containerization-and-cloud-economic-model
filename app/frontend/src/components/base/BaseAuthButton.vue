@@ -36,7 +36,10 @@ export default {
     logout() {
       if (this.keycloakReady) {
         window.location.replace(
-          this.createLogoutUrl({ idpHint: 'idir' })
+          this.createLogoutUrl({
+            idpHint: 'idir',
+            redirectUri: `${location.origin}/${this.$config.basePath}`
+          })
         );
       }
     }

@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure admin>
+    <BaseSecure :resource="resource" reviewer>
       <v-progress-linear indeterminate v-if="gettingForm" color="primary" class="mb-2" />
 
       <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
@@ -54,7 +54,7 @@ import AdminReviewSubmission from '@/components/minesattestations/admin/AdminRev
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/minesattestations/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/minesattestations/admin/inspection/NotesPanel.vue';
-import { AppRoles, AppClients } from '@/utils/constants';
+import { AppClients, AppRoles } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -70,24 +70,39 @@ export default {
       required: true
     }
   },
-  data() {
-    return {
-      error: false,
-      showFv: false
-    };
-  },
+  data: () => ({
+    error: false,
+    showFv: false
+  }),
   computed: {
-    ...mapGetters('form', ['business', 'location', 'gettingForm', 'getFormError', 'attestation']),
+    ...mapGetters('form', [
+      'business',
+      'location',
+      'gettingForm',
+      'getFormError',
+      'attestation'
+    ]),
     ...mapGetters('auth', ['hasResourceRoles', 'token']),
-    createdAtDisplay() { return this.attestation && this.attestation.createdAt ? moment(this.attestation.createdAt).format('MMMM D YYYY, h:mm:ss a') : 'N/A'; },
-    showInspection() {
-      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [AppRoles.EDITOR]);
+    createdAtDisplay() {
+      return this.attestation && this.attestation.createdAt
+        ? moment(this.attestation.createdAt).format('MMMM D YYYY, h:mm:ss a')
+        : 'N/A';
     },
+    resource() {
+      return AppClients.MINESATTESTATIONS;
+    },
+    showInspection() {
+      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
+        AppRoles.REVIEWER
+      ]);
+    }
   },
   methods: {
     ...mapMutations('form', ['setGettingForm']),
     ...mapActions('form', ['getForm']),
-    locationDateDisplay(ldate) { return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A'; },
+    locationDateDisplay(ldate) {
+      return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A';
+    },
     refreshNotes() {
       this.$refs.notesPanel.getNotes();
     }
@@ -103,6 +118,7 @@ export default {
 .heading-detail {
   margin-top: 0.5em;
 }
+
 .heading-detail span {
   font-weight: lighter;
 }

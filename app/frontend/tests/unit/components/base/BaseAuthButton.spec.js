@@ -116,7 +116,13 @@ describe('BaseAuthButton.vue', () => {
       }
     });
 
-    const wrapper = shallowMount(BaseAuthButton, { localVue, router, store });
+    const wrapper = shallowMount(BaseAuthButton, {
+      localVue, router, store, mocks: {
+        $config: {
+          basePath: 'test'
+        }
+      }
+    });
     wrapper.vm.logout();
 
     expect(wrapper.text()).toMatch('Logout');

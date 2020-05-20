@@ -3,15 +3,15 @@ export const ApiRoutes = Object.freeze({
   MINESATTESTATIONS: '/minesattestations'
 });
 
-
-// TODO: Separate these by client (ie form type?), separate constants files into silos?
-export const AppRoles = Object.freeze({
-  TESTROLE: 'testrole',
-  EDITOR: 'editor',
-  VIEWER: 'viewer',
-  ADMIN: 'admin',
-  REVIEWER: 'reviewer'
-});
 export const AppClients = Object.freeze({
-  MINESATTESTATIONS: 'comfort-minesattestations',
+  APP: 'comfort',
+  MINESATTESTATIONS: 'comfort-minesattestations'
+});
+
+export const AppRoles = Object.freeze({
+  ADMIN: 'admin',
+  EDITOR: 'editor',
+  REVIEWER: 'reviewer',
+  USER: 'user',
+  VIEWER: 'viewer'
 });

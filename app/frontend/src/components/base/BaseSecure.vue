@@ -23,7 +23,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { AppRoles } from '@/utils/constants';
+import { AppClients, AppRoles } from '@/utils/constants';
 
 export default {
   name: 'BaseSecure',
@@ -38,8 +38,12 @@ export default {
   methods: {
     authorized() {
       const roles = [];
-      if (this.testrole) roles.push(AppRoles.TESTROLE);
-      return this.hasResourceRoles('app', roles);
+      if (this.admin) roles.push(AppRoles.ADMIN);
+      if (this.editor) roles.push(AppRoles.EDITOR);
+      if (this.reviewer) roles.push(AppRoles.REVIEWER);
+      if (this.user) roles.push(AppRoles.USER);
+      if (this.viewer) roles.push(AppRoles.VIEWER);
+      return this.hasResourceRoles(this.resource, roles);
     },
     login() {
       if (this.keycloakReady) {
@@ -48,7 +52,27 @@ export default {
     }
   },
   props: {
-    testrole: {
+    admin: {
+      default: false,
+      type: Boolean
+    },
+    editor: {
+      default: false,
+      type: Boolean
+    },
+    resource: {
+      default: AppClients.APP,
+      type: String
+    },
+    reviewer: {
+      default: false,
+      type: Boolean
+    },
+    user: {
+      default: false,
+      type: Boolean
+    },
+    viewer: {
       default: false,
       type: Boolean
     }

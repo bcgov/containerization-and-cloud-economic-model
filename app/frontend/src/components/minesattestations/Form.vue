@@ -28,7 +28,7 @@
                 edit-icon="check"
                 :editable="step > 3"
                 step="3"
-              >Before Workers Arrive</v-stepper-step>
+              >Before Operations Begin</v-stepper-step>
 
               <v-divider></v-divider>
 
