@@ -23,7 +23,7 @@ routes.get('/current/statusCodes', async (req, res, next) => {
   await controller.readCurrentStatusCodes(req, res, next);
 });
 
-routes.put('/current/statusCodes', middleware.checkRole(['editor']), async (req, res, next) => {
+routes.put('/current/statusCodes', middleware.checkRole(['reviewer']), async (req, res, next) => {
   await controller.updateCurrentStatusCodes(req, res, next);
 });
 
@@ -43,15 +43,19 @@ routes.get('/submissions/:submissionId', async (req, res, next) => {
   await controller.readSubmission(req, res, next);
 });
 
-routes.post('/submissions/:submissionId/statuses', middleware.checkRole(['editor']), async (req, res, next) => {
+routes.post('/submissions/email', async (req, res, next) => {
+  await controller.sendSubmissionEmail(req, res, next);
+});
+
+routes.post('/submissions/:submissionId/statuses', middleware.checkRole(['reviewer']), async (req, res, next) => {
   await controller.createSubmissionStatus(req, res, next);
 });
 
-routes.get('/submissions/:submissionId/statuses', middleware.checkRole(['editor']), async (req, res, next) => {
+routes.get('/submissions/:submissionId/statuses', middleware.checkRole(['viewer']), async (req, res, next) => {
   await controller.readSubmissionStatuses(req, res, next);
 });
 
-routes.post('/submissions/:submissionId/statuses/:statusId/notes', middleware.checkRole(['editor', 'reviewer']), async (req, res, next) => {
+routes.post('/submissions/:submissionId/statuses/:statusId/notes', middleware.checkRole(['reviewer']), async (req, res, next) => {
   await controller.createSubmissionStatusNote(req, res, next);
 });
 
@@ -59,7 +63,7 @@ routes.get('/submissions/:submissionId/statuses/:statusId/notes', middleware.che
   await controller.readSubmissionStatusNotes(req, res, next);
 });
 
-routes.post('/submissions/:submissionId/notes', middleware.checkRole(['editor', 'reviewer']), async (req, res, next) => {
+routes.post('/submissions/:submissionId/notes', middleware.checkRole(['reviewer']), async (req, res, next) => {
   await controller.createSubmissionNote(req, res, next);
 });
 
@@ -67,5 +71,20 @@ routes.get('/submissions/:submissionId/notes', middleware.checkRole(['viewer']),
   await controller.readSubmissionNotes(req, res, next);
 });
 
+routes.get('/settings', middleware.checkRole(['viewer']), async (req, res, next) => {
+  await controller.allSettings(req, res, next);
+});
+
+routes.post('/settings', middleware.checkRole(['editor']), async (req, res, next) => {
+  await controller.createSettings(req, res, next);
+});
+
+routes.get('/settings/:name', middleware.checkRole(['editor']), async (req, res, next) => {
+  await controller.readSettings(req, res, next);
+});
+
+routes.put('/settings/:name', middleware.checkRole(['editor']), async (req, res, next) => {
+  await controller.updateSettings(req, res, next);
+});
 
 module.exports = routes;

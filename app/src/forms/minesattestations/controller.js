@@ -1,4 +1,5 @@
 const dataService = require('./dataService');
+const emailService = require('./emailService');
 
 module.exports = {
   create: async (req, res, next) => {
@@ -56,6 +57,8 @@ module.exports = {
   createSubmission: async (req, res, next) => {
     try {
       const response = await dataService.createSubmission(req.body);
+      // don't await here...
+      emailService.sendNotificationEmail(response);
       res.status(201).json(response);
     } catch (error) {
       next(error);
@@ -151,6 +154,53 @@ module.exports = {
     } catch (error) {
       next(error);
     }
-  }
+  },
+
+  createSettings: async (req, res, next) => {
+    try {
+      const response = await dataService.createSettings(req.body, req.currentUser);
+      res.status(201).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  updateSettings: async (req, res, next) => {
+    try {
+      const response = await dataService.updateSettings(req.params.name, req.body, req.currentUser);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  readSettings: async (req, res, next) => {
+    try {
+      const response = await dataService.readSettings(req.params.name);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  allSettings: async (req, res, next) => {
+    try {
+      const enabled = ['true','false'].includes(req.query.enabled) ? req.query.enabled === 'true' : undefined;
+      const response = await dataService.allSettings(enabled);
+      res.status(200).json(response);
+    } catch (error) {
+      next(error);
+    }
+  },
+
+  sendSubmissionEmail: async (req, res, next) => {
+    try {
+      const submission = await dataService.readSubmission(req.body.submissionId);
+      const result = await emailService.sendSubmissionEmail(submission, req.body.to);
+      res.status(200).json(result);
+    } catch (error) {
+      next(error);
+    }
+  },
 
 };

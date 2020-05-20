@@ -222,8 +222,45 @@ class Note extends Models.Timestamps(Model) {
   }
 }
 
+class Settings extends Models.Timestamps(Model) {
+  static get tableName () {
+    return `${PREFIX}_settings`;
+  }
+  static get idColumn () {
+    return 'name';
+  }
+
+  static get jsonSchema() {
+    return {
+      type: 'object',
+      required: ['name', 'enabled', 'config'],
+      properties: {
+        name: { type: 'string', minLength: 1, maxLength: 255 },
+        enabled: { type: 'boolean' },
+        config: { type: 'jsonb' },
+        ...Models.stamps
+      },
+      additionalProperties: false
+    };
+  }
+
+  static get modifiers () {
+    return {
+      filterEnabled(query, value) {
+        if (value !== undefined) {
+          query.where('enabled', value);
+        }
+      },
+      orderDescending(builder) {
+        builder.orderBy('updatedAt', 'desc');
+      }
+    };
+  }
+}
+
 module.exports.Metadata = Metadata;
 module.exports.Form = Form;
 module.exports.Version = Version;
 module.exports.StatusCode = StatusCode;
 module.exports.Note = Note;
+module.exports.Settings = Settings;
