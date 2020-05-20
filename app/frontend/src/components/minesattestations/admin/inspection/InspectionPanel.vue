@@ -11,6 +11,12 @@
         <br />
         <strong>Assigned To:</strong>
         {{ currentStatus.assignedTo ? currentStatus.assignedTo : 'N/A' }}
+        <span
+          v-if="currentStatus.assignedToEmail"
+        >({{ currentStatus.assignedToEmail }})</span>
+        <br />
+        <strong>Effective Date:</strong>
+        {{ actionDateDisplay }}
       </p>
 
       <v-form v-if="!error" ref="form" v-model="valid" lazy-validation>
@@ -35,16 +41,48 @@
             />
 
             <div v-show="statusFields">
+              <div v-if="showActionDate">
+                <label>Effective Date (Optional)</label>
+                <v-menu
+                  v-model="actionDateMenu"
+                  :close-on-content-click="true"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="actionDate"
+                      :rules="[v => !!v || 'Date is required']"
+                      placeholder="yyyy-mm-dd"
+                      append-icon="event"
+                      v-on:click:append="actionDateMenu=true"
+                      readonly
+                      v-on="on"
+                      dense
+                      flat
+                      outlined
+                      solo
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="actionDate" @input="actionDateMenu = false"></v-date-picker>
+                </v-menu>
+              </div>
+
               <div v-if="showInspector">
-                <label>Inspector Name</label>
+                <label>Assignee Name</label>
                 <v-text-field
-                  v-model="inspectorName"
+                  v-model="assignedTo"
                   :rules="[v => !!v || 'Name is required']"
                   dense
                   flat
                   outlined
                   solo
                 />
+
+                <label>Assignee Email (Optional)</label>
+                <v-text-field v-model="assignedToEmail" dense flat outlined solo />
 
                 <div class="text-right">
                   <v-btn
@@ -112,6 +150,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import { AppClients, AppRoles } from '@/utils/constants';
@@ -135,7 +174,7 @@ export default {
       error: '',
       currentStatus: {},
       historyDialog: false,
-      inspectionDateMenu: false,
+      actionDateMenu: false,
       loading: true,
       statusHistory: {},
       statusFields: false,
@@ -143,12 +182,14 @@ export default {
       valid: false,
 
       // Fields
-      inspectorName: this.currentStatus ? this.currentStatus.inspectorName : '',
+      assignedTo: this.currentStatus ? this.currentStatus.assignedTo : '',
+      assignedToEmail: this.currentStatus ? this.currentStatus.assignedToEmail : '',
+      actionDate: '',
       note: ''
     };
   },
   computed: {
-    ...mapGetters('auth', ['hasResourceRoles', 'email', 'fullName']),
+    ...mapGetters('auth', ['hasResourceRoles', 'email', 'token', 'fullName']),
 
     // State machine
     items() {
@@ -159,6 +200,8 @@ export default {
       }
     },
     showInspector() { return ['ASSIGNED'].includes(this.statusToSet); },
+    showActionDate() { return ['ASSIGNED', 'COMPLETED'].includes(this.statusToSet); },
+    actionDateDisplay() { return this.currentStatus.actionDate ? moment(this.currentStatus.actionDate).format('MMMM D YYYY') : 'N/A'; },
     hasReviewer() {
       return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
         AppRoles.REVIEWER
@@ -191,7 +234,8 @@ export default {
       }
     },
     assignToCurrentUser() {
-      this.inspectorName = this.fullName;
+      this.assignedTo = this.fullName;
+      this.assignedToEmail = this.email;
     },
     resetForm() {
       this.statusFields = false;
@@ -212,9 +256,15 @@ export default {
             code: this.statusToSet
           };
           if(this.showInspector) {
-            if(this.inspectorName) {
-              statusBody.assignedTo = this.inspectorName;
+            if(this.assignedTo) {
+              statusBody.assignedTo = this.assignedTo;
             }
+            if(this.assignedToEmail) {
+              statusBody.assignedToEmail = this.assignedToEmail;
+            }
+          }
+          if(this.actionDate && this.showActionDate) {
+            statusBody.actionDate = this.actionDate;
           }
           const statusResponse = await minesAttestationsService.sendSubmissionStatuses(this.submissionId, statusBody);
           if (!statusResponse.data) {
