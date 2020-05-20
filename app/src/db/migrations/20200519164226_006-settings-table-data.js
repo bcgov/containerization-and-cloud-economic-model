@@ -36,6 +36,24 @@ exports.up = function(knex) {
         createdBy: 'migration-007'
       };
       return knex(`${PREFIX}_settings`).insert(data);
+    })
+    .then(() => {
+      const data = {
+        name: 'statusAssignmentEmail',
+        enabled: true,
+        config: {
+          template: 'status-assignment-email.html',
+          from: 'MCAD.RegionalOps@gov.bc.ca',
+          subject: 'Industrial Camps',
+          title: 'Industrial Camps Assignment',
+          priority: 'normal',
+          message: 'The status of the above attestation has changed. You have been assigned to review this attestation.',
+          messageLinkText: 'Please login to view the details of this Industrial Camps Attestation',
+          messageLinkUrl: 'https://comfort-dev.pathfinder.gov.bc.ca/app/minesattestations/admin/submission'
+        },
+        createdBy: 'migration-007'
+      };
+      return knex(`${PREFIX}_settings`).insert(data);
     });
 };
 

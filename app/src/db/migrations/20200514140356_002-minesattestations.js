@@ -40,6 +40,7 @@ exports.up = function(knex) {
       table.uuid('submissionId').references('submissionId').inTable(`${PREFIX}_submission`).notNullable().index();
       table.string('code').references('code').inTable(`${PREFIX}_status_code`).notNullable().index();
       table.string('assignedTo');
+      table.string('assignedToEmail');
       stamps(knex, table);
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_note`, table => {

@@ -1,0 +1,1240 @@
+{
+	"info": {
+		"_postman_id": "da7eb277-93e2-4ec9-847b-d8d90e149395",
+		"name": "MinesAttestationsV1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search Forms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6bbdb08e-7adf-4c31-9857-e2434ca2bfea",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/forms?slug=mines&public=true&active=true&name=indu&keyword=camps",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"forms"
+					],
+					"query": [
+						{
+							"key": "slug",
+							"value": "mines"
+						},
+						{
+							"key": "public",
+							"value": "true"
+						},
+						{
+							"key": "active",
+							"value": "true"
+						},
+						{
+							"key": "name",
+							"value": "indu"
+						},
+						{
+							"key": "keyword",
+							"value": "camps"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current Mines Form Definition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2525a52a-e14d-4b7f-8579-3253ad7543df",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('metadata');",
+							"    pm.expect(jsonData.metadata).to.have.property('slug');",
+							"    pm.expect(jsonData.metadata.slug).to.equal('minesattestations');",
+							"    pm.collectionVariables.set('formVersionId',jsonData.versions[0].formVersionId);",
+							"    pm.collectionVariables.set('formDefinition', JSON.stringify(jsonData));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/current",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Submission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "dc0024a7-ec6d-4217-aa31-d42c36ed6f74",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('confirmationId');",
+							"    pm.collectionVariables.set('submissionId', jsonData.submissionId);",
+							"    pm.collectionVariables.set('confirmationId', jsonData.confirmationId);",
+							"    pm.collectionVariables.set('submission', JSON.stringify(jsonData));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"attestation\": {\n\t\t\"guidelinesRead\": true,\n\t\t\"assessmentCompleted\": true,\n\t\t\"developedPlan\": true,\n\t\t\"protectionSignage\": true,\n\t\t\"workerContactPersonnel\": true,\n\t\t\"commonAreaDistancing\": true,\n\t\t\"sleepingAreaType\": \"SHARED\",\n\t\t\"sharedSleepingPerRoom\": 7,\n\t\t\"sharedSleepingDistancing\": true,\n\t\t\"selfIsolateUnderstood\": true,\n\t\t\"selfIsolateAccommodation\": true,\n\t\t\"laundryServices\": true,\n\t\t\"wasteManagementGloves\": true,\n\t\t\"wasteManagementSchedule\": true,\n\t\t\"wasteManagementBags\": true,\n\t\t\"handWashingStations\": true,\n\t\t\"handWashingSoapWater\": true,\n\t\t\"handWashingWaterless\": true,\n\t\t\"handWashingPaperTowels\": true,\n\t\t\"handWashingSignage\": true,\n\t\t\"distancingMaintained\": true,\n\t\t\"distancingFaceShields\": true,\n\t\t\"disinfectingSchedule\": true,\n\t\t\"educationSignage\": true,\n\t\t\"educationContactPersonnel\": true,\n\t\t\"trainingCovid19\": true,\n\t\t\"trainingEtiquette\": true,\n\t\t\"trainingLocations\": true,\n\t\t\"trainingFirstAid\": true,\n\t\t\"trainingReporting\": true,\n\t\t\"mealsDistancing\": true,\n\t\t\"mealsDishware\": true,\n\t\t\"mealsDishwashing\": true,\n\t\t\"infectionSeparation\": true,\n\t\t\"infectionSymptoms\": true,\n\t\t\"infectionHeathLinkBC\": true,\n\t\t\"infectionSanitization\": true,\n\t\t\"infectionAccommodation\": true,\n\t\t\"infectedFeeding\": true,\n\t\t\"infectedHousekeeping\": true,\n\t\t\"infectedWaste\": true,\n\t\t\"certifyAccurateInformation\": true,\n\t\t\"agreeToInspection\": true,\n\t\t\"transportationSingleOccupant\": true,\n\t\t\"transportationBusesVans\": true,\n\t\t\"transportationTrucksCars\": true,\n\t\t\"transportationHelicopter\": true,\n\t\t\"transportationTravelPod\": true,\n\t\t\"transportationCleaningDistancing\": true\n\t},\n\t\"business\": {\n\t\t\"name\": \"Rad Biz\",\n\t\t\"orgBookId\": null,\n\t\t\"addressLine1\": \"1234 Here St\",\n\t\t\"addressLine2\": null,\n\t\t\"city\": \"Saanich\",\n\t\t\"province\": \"BC\",\n\t\t\"postalCode\": \"ABCDEF\"\t\n\t},\n\t\"contacts\":[\n\t\t{\n\t\t\t\"contactType\": \"PRIMARY\",\n\t\t\t\"firstName\": \"Jane\",\n\t\t\t\"lastName\": \"Doe\",\n\t\t\t\"phone1\": \"1234567890\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"jane@doe.com\"\n\t\t},\n\t    {\t\t\t\n\t\t\t\"contactType\": \"COVID_COORDINATOR\",\n\t\t\t\"firstName\": \"John\",\n\t\t\t\"lastName\": \"D'oh\",\n\t\t\t\"phone1\": \"0987654321\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"john@doh.com\"\n\t\t}\n\t],\n\t\"location\": {\n\t\t\"startDate\": \"2020-05-10\",\n\t\t\"endDate\": \"2020-07-30\",\n\t\t\"city\": \"Victoria, BC\",\n\t\t\"cityLatitude\": null,\n\t\t\"cityLongitude\": null,\n\t\t\"mineNumber\": \"\",\n\t\t\"permitNumber\": \"\",\n\t\t\"numberOfWorkers\": 10,\n\t\t\"accTents\": false,\n\t\t\"tentDetails\": \"\",\n\t\t\"accMotel\": false,\n\t\t\"motelName\": \"\",\n\t\t\"motelAddressLine1\": \"\",\n\t\t\"motelAddressLine2\": \"\",\n\t\t\"motelCity\": \"\",\n\t\t\"motelProvince\": \"\",\n\t\t\"motelPostalCode\": \"\",\n\t\t\"accWorkersHome\": false\n\t}\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Submission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "042c21e7-ecde-4e8b-b372-7e5dff70a11d",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('confirmationId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.confirmationId).to.equal(pm.collectionVariables.get('confirmationId'));",
+							"    pm.collectionVariables.set('formVersionId', jsonData.formVersionId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Submissions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6265a759-a053-4c4c-8058-954ac82bd28d",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(1);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('confirmationId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.confirmationId).to.equal(pm.collectionVariables.get('confirmationId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions?version={{formVersionId}}&city=Vic&business=Rad&confirmationId={{confirmationId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions"
+					],
+					"query": [
+						{
+							"key": "version",
+							"value": "{{formVersionId}}"
+						},
+						{
+							"key": "city",
+							"value": "Vic"
+						},
+						{
+							"key": "business",
+							"value": "Rad"
+						},
+						{
+							"key": "confirmationId",
+							"value": "{{confirmationId}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Status (with notes)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "127ebb3f-119e-4d6a-8833-d5378b601f46",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('code');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.submissionStatusId).to.not.be.null;",
+							"    pm.expect(jsonData.code).to.equal('ASSIGNED');",
+							"    pm.expect(jsonData.notes).to.be.an('array');",
+							"    pm.expect(jsonData.notes).to.have.lengthOf(1);",
+							"    pm.expect(jsonData.notes[0].note).to.equal('a note added to status in one call')",
+							"    pm.collectionVariables.set('submissionStatusId', jsonData.submissionStatusId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"Jason Sherman\",\n\t\"assignedToEmail\": \"jsherman@parcsystems.ca\",\n\t\"notes\": [\n\t\t{\n\t\t\t\"note\": \"a note added to status in one call\"\n\t\t}\n\t]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Statuses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f11c046b-1b1e-472a-ab9d-f0fed62515eb",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Added status is first in list\", function () {",
+							"    // assumes this is run after Add Status (with notes)",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.submissionStatusId).to.equal(pm.collectionVariables.get('submissionStatusId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"ME!\",\n\t\"notes\": [{\"note\": \"voila!\"}]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Submission Note",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3703936f-c796-46da-90c8-2bc92540b183",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('note');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.submissionStatusId).to.be.null;",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData.note).to.equal('this note is for the submission');",
+							"    pm.collectionVariables.set('submissionNoteId', jsonData.noteId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"this note is for the submission\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Submission Notes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae1b7c13-9129-4ab5-b1d6-e05cfec0094e",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Added note is first in list\", function () {",
+							"    // assumes this is run after Add Submission Note",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData).to.have.property('noteId');",
+							"    pm.expect(jsonData.submissionId).to.not.be.null;",
+							"    pm.expect(jsonData.submissionStatusId).to.be.null;",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.noteId).to.equal(pm.collectionVariables.get('submissionNoteId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"this note is for the submission\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Status Note",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5e0c47c1-40a9-49e8-8bd8-2b8312e4d726",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData).to.have.property('noteId');",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData).to.have.property('note');",
+							"    pm.expect(jsonData.submissionStatusId).to.equal(pm.collectionVariables.get('submissionStatusId'));",
+							"    pm.expect(jsonData.submissionId).to.be.null;",
+							"    pm.expect(jsonData.note).to.equal('adding note to submission status');",
+							"    pm.collectionVariables.set('statusNoteId', jsonData.noteId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "3018d5dc-da42-44e5-8782-6e70abfe2a78",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"adding note to submission status\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}/statuses/{{submissionStatusId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}",
+						"statuses",
+						"{{submissionStatusId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Status Notes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "62fb2a96-59cc-47d5-b287-a80b56e753a5",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Note belongs to status\", function () {",
+							"    // assumes this is run after Add Status Note",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData).to.have.property('noteId');",
+							"    pm.expect(jsonData.submissionId).to.be.null;",
+							"    pm.expect(jsonData.submissionStatusId).to.not.be.null;",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData.submissionStatusId).to.equal(pm.collectionVariables.get('submissionStatusId'));",
+							"    pm.expect(jsonData.noteId).to.equal(pm.collectionVariables.get('statusNoteId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"ME!\",\n\t\"notes\": [{\"note\": \"voila!\"}]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}/statuses/{{submissionStatusId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}",
+						"statuses",
+						"{{submissionStatusId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Status Codes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "50bad69d-b11b-4ec1-a275-324a7e4de41f",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Items are status codes\", function () {",
+							"    // assumes this is run after Add Status Note",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('code');",
+							"    pm.expect(jsonData).to.have.property('display');",
+							"    pm.expect(jsonData).to.have.property('enabled');",
+							"    pm.expect(jsonData).to.have.property('nextCodes');",
+							"    pm.expect(jsonData.code).to.not.be.null;",
+							"    pm.expect(jsonData.display).to.not.be.null;",
+							"    pm.expect(jsonData.enabled).to.not.be.null;",
+							"    pm.expect(jsonData.nextCodes).to.not.be.null;",
+							"    pm.expect(jsonData.enabled).to.be.an('boolean');",
+							"    pm.expect(jsonData.nextCodes).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/current/statusCodes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"current",
+						"statusCodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Status Codes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "87cd50e3-d627-4c3a-bbb8-207828b8209c",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "a7b6cfed-0396-4822-939b-3c217ecd637c",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"code\": \"SUBMITTED\",\n        \"display\": \"Submitted\",\n        \"enabled\": true,\n        \"nextCodes\": [\"ASSIGNED\",\"COMPLETED\"]\n    },\n    {\n        \"code\": \"ASSIGNED\",\n        \"display\": \"Assigned\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\"]\n    },\n    {\n        \"code\": \"COMPLETED\",\n        \"display\": \"Completed\",\n        \"enabled\": true,\n        \"nextCodes\": []\n    },\n    {\n        \"code\": \"NEW_STATUS\",\n        \"display\": \"New status added in Postman test\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\",\"NEW_DISABLED_STATUS\"]\n    },\n    {\n        \"code\": \"NEW_DISABLED_STATUS\",\n        \"display\": \"New status added in Postman test - not enabled\",\n        \"enabled\": false,\n        \"nextCodes\": [\"COMPLETED\",\"ONLY_REAL_CODES_ARE_ADDED\"]\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/current/statusCodes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"current",
+						"statusCodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Submission",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "8591c2fc-8b49-47c8-9003-f668c54e2dfe",
+						"exec": [
+							"var submission = pm.collectionVariables.get('submission');",
+							"console.log(submission);",
+							"var data = JSON.parse(submission);",
+							"data.location.city='Victoria, TX';",
+							"data.business.name='Radical Business';",
+							"data.contacts[0].email='first@contact.ca';",
+							"data.contacts[1].email='second@contact.ca';",
+							"console.log(data);",
+							"pm.collectionVariables.set(\"changedSubmission\", JSON.stringify(data));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6ea7f9f5-a237-43a1-837b-f22b89127162",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the updated item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData).to.have.property('confirmationId');",
+							"    pm.expect(jsonData.confirmationId).to.equal(pm.collectionVariables.get('confirmationId'));",
+							"    ",
+							"    pm.expect(jsonData.location.city).to.equal('Victoria, TX');",
+							"    pm.expect(jsonData.business.name).to.equal('Radical Business');",
+							"    pm.expect(jsonData.contacts[0].email).to.equal('first@contact.ca');",
+							"    pm.expect(jsonData.contacts[1].email).to.equal('second@contact.ca');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{changedSubmission}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/submissions/{{submissionId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"submissions",
+						"{{submissionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Current Mines Form Definition",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "5ce54aa9-74d1-4316-8fa0-a7734965ed9a",
+						"exec": [
+							"var formDefinition = pm.collectionVariables.get('formDefinition');",
+							"console.log(formDefinition);",
+							"var data = JSON.parse(formDefinition);",
+							"data.description = 'Description updated';",
+							"data.metadata.name = 'Industrial Camps v2';",
+							"data.versions = [",
+							"    {",
+							"        changes: 'this is a new version', ",
+							"        statusCodes: [",
+							"            {code: 'A', display: 'Aa', enabled: true, nextCodes: ['B']},",
+							"            {code: 'B', display: 'Bb', enabled: true, nextCodes: ['A']}",
+							"            ]",
+							"    }];",
+							"console.log(data);",
+							"pm.collectionVariables.set(\"changedFormDefinition\", JSON.stringify(data));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "293f784f-8e7b-4001-90ea-0b79cbd20f37",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.description).to.equal('Description updated');",
+							"    pm.expect(jsonData.metadata.name).to.equal('Industrial Camps v2');",
+							"    pm.expect(jsonData.metadata.slug).to.equal('minesattestations');",
+							"    pm.expect(jsonData.versions[0].formVersionId).to.be.above(pm.collectionVariables.get('formVersionId'));",
+							"    pm.expect(jsonData.versions[0].statusCodes[0].code).to.equal('A');",
+							"    ",
+							"    pm.collectionVariables.set('formVersionId',jsonData.versions[0].formVersionId);",
+							"    pm.collectionVariables.set('formDefinition', JSON.stringify(jsonData));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{changedFormDefinition}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/current",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Settings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e4527d5f-93f5-4ab8-866f-5b5702e9fe30",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf.at.least(2);",
+							"});",
+							"pm.test(\"Returns the correct items\", function () {",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('name');",
+							"    pm.expect(jsonData).to.have.property('enabled');",
+							"    pm.expect(jsonData).to.have.property('config');",
+							"    pm.expect(jsonData.config).to.be.an('object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/settings",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Setting notificationEmail",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "18297e86-b459-4476-aded-22a3924c346d",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property('name');",
+							"    pm.expect(jsonData).to.have.property('enabled');",
+							"    pm.expect(jsonData).to.have.property('config');",
+							"    pm.expect(jsonData.config).to.be.an('object');",
+							"    pm.expect(jsonData.name).to.equal('notificationEmail');",
+							"    pm.collectionVariables.set('notificationEmail', JSON.stringify(jsonData));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/settings/notificationEmail",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"settings",
+						"notificationEmail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Setting notificationEmail",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d7997758-8686-4421-b803-064283950c5a",
+						"exec": [
+							"var notificationEmail = pm.collectionVariables.get('notificationEmail');",
+							"console.log(notificationEmail);",
+							"var data = JSON.parse(notificationEmail);",
+							"data.enabled = false;",
+							"data.config.to = 'newem@il.com';",
+							"data.config.subject ='Ignore this please';",
+							"console.log(data);",
+							"pm.collectionVariables.set(\"changedNotificationEmail\", JSON.stringify(data));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "3010c8ee-081a-4118-bbea-418dc8c039c2",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.equal('notificationEmail');",
+							"    pm.expect(jsonData.enabled).to.equal(false);",
+							"    pm.expect(jsonData.config.to).to.equal('newem@il.com');",
+							"    pm.expect(jsonData.config.subject).to.equal('Ignore this please');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{changedNotificationEmail}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesattestations/settings/notificationEmail",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesattestations",
+						"settings",
+						"notificationEmail"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrdFJRN3VLZ3hYVU91cjdiaDRseGl1TGlUdVhzM3FyZEpzZFBnLTdvY1FnIn0.eyJqdGkiOiJlMzM3YTY5YS1kODRjLTRjMDctYjJjNC1lZmMzMmE4YTdkNWIiLCJleHAiOjE1ODk5ODg5ODgsIm5iZiI6MCwiaWF0IjoxNTg5OTg4Njg4LCJpc3MiOiJodHRwczovL3Nzby1kZXYucGF0aGZpbmRlci5nb3YuYmMuY2EvYXV0aC9yZWFsbXMvY3AxcWx5MmQiLCJhdWQiOlsiY29tZm9ydCIsImNvbWZvcnQtZnJvbnRlbmQiLCJjb21mb3J0LW1pbmVzYXR0ZXN0YXRpb25zIl0sInN1YiI6IjY5Mzg0NWZlLTk4ZmYtNGM3MS04YTA5LTg1YTM0NjBkZDM3MiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNvbWZvcnQtZnJvbnRlbmQiLCJub25jZSI6IjVmYTlhNWEyLTVhYjctNDVkZi05MmU5LTVjOTE0N2E5YjFlNSIsImF1dGhfdGltZSI6MTU4OTk4ODM3MSwic2Vzc2lvbl9zdGF0ZSI6IjUyYjc5OWUzLTdhZTQtNDQ2MC04MTZkLWMzNDE3NDE2MjU1NyIsImFjciI6IjAiLCJyZXNvdXJjZV9hY2Nlc3MiOnsiY29tZm9ydC1taW5lc2F0dGVzdGF0aW9ucyI6eyJyb2xlcyI6WyJlZGl0b3IiLCJ2aWV3ZXIiLCJhZG1pbiIsInJldmlld2VyIl19LCJjb21mb3J0LWZyb250ZW5kIjp7InJvbGVzIjpbImRldmVsb3BlciJdfSwiY29tZm9ydCI6eyJyb2xlcyI6WyJhZG1pbiIsInVzZXIiXX19LCJzY29wZSI6Im9wZW5pZCBjb21mb3J0LWZyb250ZW5kIGNvbWZvcnQiLCJuYW1lIjoiSmFzb24gU2hlcm1hbiIsInByZWZlcnJlZF91c2VybmFtZSI6ImpzaGVybWFuQGlkaXIiLCJlbWFpbCI6ImpzaGVybWFuQHBhcmNzeXN0ZW1zLmNhIn0.Q0uf3kmK1bLXSKgURetgTHp49mMF3nHTmjwUjBaQGGfHsqwgCPm_bXCneKM2-8--FellWXRm4EyfAl7a3V4xQ5gVzpXSPnbudrm95qHCW8GMQAh1pzmq91nX-wQB4_6BWO55SxpeQ72tAd_trS9lL5YCTrY7LPfgvUl7tlOJ_6qFW6-BoECNJim2lY3ir8mBmDfWpj8d7Vaxd5BFAopOfNWMHtBPy4e1L0DpUOoF6l_6KRn09LnGgZsE9kzwRx1ROW24TFSqDwHx-q5AOtJHBOBo8Xt7yEZGZKmxOk66fBtzYEAAC3_Twlc6ggjz_ZfBbEQ9VBleb4jffJAut-vr_A",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "a5152bff-33ce-4a97-8895-2f36c7bdfee3",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "78e4f39f-6166-472f-a903-e37e0e182f4c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "9b186c13-edee-4cfb-840c-45969ad8a9b3",
+			"key": "host",
+			"value": "https://comfort-dev.pathfinder.gov.bc.ca",
+			"type": "string"
+		},
+		{
+			"id": "8f46ee8b-e81b-499b-b885-327fe6d3cf8e",
+			"key": "path",
+			"value": "pr-12",
+			"type": "string"
+		},
+		{
+			"id": "aec94d92-74fd-4425-8cac-af14b3f08b76",
+			"key": "submissionId",
+			"value": "c9b08968-608a-463e-b8d5-088c42662051",
+			"type": "string"
+		},
+		{
+			"id": "f5e1c63d-1a9b-45c2-9eaf-9bcf1f182d7c",
+			"key": "confirmationId",
+			"value": "C9B08968",
+			"type": "string"
+		},
+		{
+			"id": "da42a346-6e45-4df9-a897-65adad737504",
+			"key": "submissionStatusId",
+			"value": 5,
+			"type": "number"
+		},
+		{
+			"id": "2478d291-73c8-4268-bea3-5b5cbcba3c9f",
+			"key": "noteId",
+			"value": 7,
+			"type": "number"
+		},
+		{
+			"id": "3b27c438-9947-49da-adcb-f15b1c3feaef",
+			"key": "submission",
+			"value": "{\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"formVersionId\":2,\"confirmationId\":\"C9B08968\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.790Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\",\"attestation\":{\"attestationId\":\"d69708ba-b413-46ab-8b7b-21e4f0938ce3\",\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},\"business\":{\"businessId\":3,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"name\":\"Rad Biz\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},\"contacts\":[{\"contactId\":6,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"john@doh.com\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},{\"contactId\":5,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"jane@doe.com\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"}],\"location\":{\"locationId\":3,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, BC\",\"cityLatitude\":null,\"cityLongitude\":null,\"mineNumber\":\"\",\"permitNumber\":\"\",\"numberOfWorkers\":10,\"accTents\":false,\"tentDetails\":\"\",\"accMotel\":false,\"motelName\":\"\",\"motelAddressLine1\":\"\",\"motelAddressLine2\":\"\",\"motelCity\":\"\",\"motelProvince\":\"\",\"motelPostalCode\":\"\",\"accWorkersHome\":false,\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},\"statuses\":[{\"submissionStatusId\":4,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.797Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\",\"notes\":[],\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:41.255Z\"}}],\"notes\":[]}",
+			"type": "string"
+		},
+		{
+			"id": "eb7e6dbe-bc86-413e-aa06-42e295e0d9a0",
+			"key": "changedSubmission",
+			"value": "{\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"formVersionId\":2,\"confirmationId\":\"C9B08968\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.790Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\",\"attestation\":{\"attestationId\":\"d69708ba-b413-46ab-8b7b-21e4f0938ce3\",\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},\"business\":{\"businessId\":3,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"name\":\"Radical Business\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},\"contacts\":[{\"contactId\":6,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"first@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},{\"contactId\":5,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"second@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"}],\"location\":{\"locationId\":3,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, TX\",\"cityLatitude\":null,\"cityLongitude\":null,\"mineNumber\":\"\",\"permitNumber\":\"\",\"numberOfWorkers\":10,\"accTents\":false,\"tentDetails\":\"\",\"accMotel\":false,\"motelName\":\"\",\"motelAddressLine1\":\"\",\"motelAddressLine2\":\"\",\"motelCity\":\"\",\"motelProvince\":\"\",\"motelPostalCode\":\"\",\"accWorkersHome\":false,\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.793Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\"},\"statuses\":[{\"submissionStatusId\":4,\"submissionId\":\"c9b08968-608a-463e-b8d5-088c42662051\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-05-20T15:31:59.797Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:31:59.782Z\",\"notes\":[],\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:41.255Z\"}}],\"notes\":[]}",
+			"type": "string"
+		},
+		{
+			"id": "59d49b98-6d92-437b-a761-7a5c52ce4e39",
+			"key": "statusCodes",
+			"value": {
+				"code": "SUBMITTED",
+				"createdAt": "2020-05-18T16:42:45.439Z",
+				"createdBy": "migration-004",
+				"display": "Submitted",
+				"enabled": true,
+				"formVersionId": 1,
+				"nextCodes": [
+					{
+						"code": "ASSIGNED",
+						"display": "Assigned",
+						"enabled": true
+					},
+					{
+						"code": "COMPLETED",
+						"display": "Completed",
+						"enabled": true
+					}
+				],
+				"updatedAt": "2020-05-18T18:18:32.928Z",
+				"updatedBy": "development"
+			},
+			"type": "any"
+		},
+		{
+			"id": "6da01ce1-b8d7-4f1f-a687-e2bff4b23a7b",
+			"key": "submissionNoteId",
+			"value": 5,
+			"type": "number"
+		},
+		{
+			"id": "88dd6555-a715-4d2a-8cef-eee92a5e724e",
+			"key": "statusNoteId",
+			"value": 6,
+			"type": "number"
+		},
+		{
+			"id": "9ef6163f-88ca-4eaf-9187-b2cf9b37a77e",
+			"key": "formVersionId",
+			"value": 3,
+			"type": "number"
+		},
+		{
+			"id": "7ec13827-1f32-48a9-b496-631cd4179381",
+			"key": "formDefinition",
+			"value": "{\"formId\":\"f0e978a6-53fd-4cb6-b18b-59bdddd8fb84\",\"description\":\"Description updated\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:32:01.273Z\",\"metadata\":{\"formId\":\"f0e978a6-53fd-4cb6-b18b-59bdddd8fb84\",\"name\":\"Industrial Camps v2\",\"slug\":\"minesattestations\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"camps\",\"industrial\",\"attestation\",\"attestations\",\"mines\",\"mx\",\"mcad\"],\"prefix\":\"mxattstn\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:32:01.270Z\"},\"versions\":[{\"formVersionId\":3,\"formId\":\"f0e978a6-53fd-4cb6-b18b-59bdddd8fb84\",\"changes\":\"this is a new version\",\"createdBy\":\"jsherman@idir\",\"createdAt\":\"2020-05-20T15:32:01.280Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:32:01.267Z\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"createdBy\":\"jsherman@idir\",\"createdAt\":\"2020-05-20T15:26:41.697Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:32:01.278Z\"},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"],\"createdBy\":\"jsherman@idir\",\"createdAt\":\"2020-05-20T15:26:41.697Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:32:01.278Z\"}]},{\"formVersionId\":2,\"formId\":\"f0e978a6-53fd-4cb6-b18b-59bdddd8fb84\",\"changes\":\"this is a new version\",\"createdBy\":\"jsherman@idir\",\"createdAt\":\"2020-05-20T15:26:41.700Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:26:41.642Z\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"createdBy\":\"jsherman@idir\",\"createdAt\":\"2020-05-20T15:26:41.697Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:32:01.278Z\"},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"],\"createdBy\":\"jsherman@idir\",\"createdAt\":\"2020-05-20T15:26:41.697Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:32:01.278Z\"}]},{\"formVersionId\":1,\"formId\":\"f0e978a6-53fd-4cb6-b18b-59bdddd8fb84\",\"changes\":null,\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:24:34.959Z\",\"statusCodes\":[{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:41.255Z\"},{\"code\":\"ASSIGNED\",\"display\":\"Assigned\",\"enabled\":true,\"nextCodes\":[\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:41.255Z\"},{\"code\":\"COMPLETED\",\"display\":\"Completed\",\"enabled\":true,\"nextCodes\":[],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:41.255Z\"}]}]}",
+			"type": "string"
+		},
+		{
+			"id": "b7e9fa85-7408-49a1-b630-8af2c1dbe5f0",
+			"key": "changedFormDefinition",
+			"value": "{\"formId\":\"f0e978a6-53fd-4cb6-b18b-59bdddd8fb84\",\"description\":\"Description updated\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:41.691Z\",\"metadata\":{\"formId\":\"f0e978a6-53fd-4cb6-b18b-59bdddd8fb84\",\"name\":\"Industrial Camps v2\",\"slug\":\"minesattestations\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"camps\",\"industrial\",\"attestation\",\"attestations\",\"mines\",\"mx\",\"mcad\"],\"prefix\":\"mxattstn\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-20T15:26:41.648Z\"},\"versions\":[{\"changes\":\"this is a new version\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"]},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"]}]}],\"formVersionId\":2}",
+			"type": "string"
+		},
+		{
+			"id": "1d4f172a-076e-48f6-8164-280d48143c6c",
+			"key": "notificationEmail",
+			"value": "{\"name\":\"notificationEmail\",\"enabled\":false,\"config\":{\"to\":\"newem@il.com\",\"from\":\"MCAD.RegionalOps@gov.bc.ca\",\"title\":\"Industrial Camps Form Accepted\",\"subject\":\"Ignore this please\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/minesattestations/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Industrial Camps Attestation\"},\"createdBy\":\"migration-007\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:42.041Z\"}",
+			"type": "string"
+		},
+		{
+			"id": "7d2c58b8-3630-4450-8c51-47699a7dfa15",
+			"key": "changedNotificationEmail",
+			"value": "{\"name\":\"notificationEmail\",\"enabled\":false,\"config\":{\"to\":\"newem@il.com\",\"from\":\"MCAD.RegionalOps@gov.bc.ca\",\"title\":\"Industrial Camps Form Accepted\",\"subject\":\"Ignore this please\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/minesattestations/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Industrial Camps Attestation\"},\"createdBy\":\"migration-007\",\"createdAt\":\"2020-05-20T15:24:34.959Z\",\"updatedBy\":\"jsherman@idir\",\"updatedAt\":\"2020-05-20T15:26:42.041Z\"}",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

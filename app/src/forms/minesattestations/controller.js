@@ -86,6 +86,8 @@ module.exports = {
   createSubmissionStatus: async (req, res, next) => {
     try {
       const response = await dataService.createSubmissionStatus(req.body, req.params.submissionId, req.currentUser);
+      // don't await here...
+      emailService.sendStatusAssignmentEmail(response);
       res.status(201).json(response);
     } catch (error) {
       next(error);
