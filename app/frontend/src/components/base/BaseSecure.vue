@@ -7,7 +7,7 @@
       <h1 class="my-8">You are not authorized to use this feature.</h1>
       <router-link :to="{ name: 'Home' }">
         <v-btn color="primary" class="about-btn" large>
-          <v-icon left>mdi-home</v-icon>
+          <v-icon class="mr-1">mdi-home</v-icon>
           <span>Return</span>
         </v-btn>
       </router-link>
