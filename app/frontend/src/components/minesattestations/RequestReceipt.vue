@@ -1,52 +1,57 @@
 <template>
   <div>
-    <v-btn
-      color="primary"
-      class="mx-5 mb-10"
-      :disabled="success"
-      fab
-      large
-      v-on:click="displayDialog()"
-    >
-      <v-icon v-if="success">check</v-icon>
-      <v-icon v-else>email</v-icon>
-    </v-btn>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-btn
+          v-on="on"
+          color="primary"
+          :disabled="success"
+          fab
+          large
+          v-on:click="displayDialog()"
+        >
+          <v-icon v-if="success">check</v-icon>
+          <v-icon v-else>email</v-icon>
+        </v-btn>
 
-    <BaseDialog
-      :show="showDialog"
-      type="CONTINUE"
-      @close-dialog="showDialog = false"
-      @continue-dialog="requestReceipt()"
-    >
-      <template v-slot:icon>
-        <v-icon large color="primary">email</v-icon>
-      </template>
-      <template v-slot:text>
-        <v-form ref="form" v-model="valid">
-          <label>Send to E-mail Address</label>
-          <v-text-field
-            dense
-            flat
-            outlined
-            solo
-            :rules="emailRules"
-            prepend-inner-icon="email"
-            v-model="to"
-          />
-        </v-form>
-      </template>
-      <template v-slot:button-text-continue>
-        <span>SEND</span>
-      </template>
-    </BaseDialog>
+        <BaseDialog
+          :show="showDialog"
+          type="CONTINUE"
+          @close-dialog="showDialog = false"
+          @continue-dialog="requestReceipt()"
+        >
+          <template v-slot:icon>
+            <v-icon large color="primary">email</v-icon>
+          </template>
+          <template v-slot:text>
+            <v-form ref="form" v-model="valid">
+              <label>Send to E-mail Address</label>
+              <v-text-field
+                dense
+                flat
+                outlined
+                solo
+                :rules="emailRules"
+                prepend-inner-icon="email"
+                v-model="to"
+              />
+            </v-form>
+          </template>
+          <template v-slot:button-text-continue>
+            <span>SEND</span>
+          </template>
+        </BaseDialog>
 
-    <BaseDialog :show="resultDialog" @close-dialog="resultDialog = false">
-      <template v-slot:icon>
-        <v-icon v-if="success" large color="success">check_circle_outline</v-icon>
-        <v-icon v-else large color="error">cancel</v-icon>
+        <BaseDialog :show="resultDialog" @close-dialog="resultDialog = false">
+          <template v-slot:icon>
+            <v-icon v-if="success" large color="success">check_circle_outline</v-icon>
+            <v-icon v-else large color="error">cancel</v-icon>
+          </template>
+          <template v-slot:text>{{ resultDialogMsg }}</template>
+        </BaseDialog>
       </template>
-      <template v-slot:text>{{ resultDialogMsg }}</template>
-    </BaseDialog>
+      <span>Email Receipt</span>
+    </v-tooltip>
   </div>
 </template>
 
