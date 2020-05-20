@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="!isForm" class="navigation-main">
+  <nav v-if="isAdminPage" class="navigation-main">
     <div class="container">
       <ul>
         <li>
@@ -20,8 +20,8 @@
 export default {
   name: 'AdminNavBar',
   computed: {
-    isForm() {
-      return this.$route.name === 'MinesAttestationsForm';
+    isAdminPage() {
+      return this.$route.path.match(/\/admin/g);
     }
   }
 };
