@@ -12,14 +12,14 @@
       item-key="inspectionStatusId"
       class="status-table"
     >
-      <template v-slot:item.createdAt="{ item }">{{ formatDate(item.createdAt) }}</template>
-
-      <template v-slot:item.assignedTo="{ item }">{{ item.assignedTo }}</template>
+      <template v-slot:item.createdAt="{ item }">{{ formatDateTime(item.createdAt) }}</template>
+      <template v-slot:item.actionDate="{ item }">{{ formatDate(item.actionDate) }}</template>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
+import moment from 'moment';
 import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
 
 export default {
@@ -34,8 +34,9 @@ export default {
     return {
       headers: [
         { text: 'Status', value: 'code' },
-        { text: 'Date', align: 'start', value: 'createdAt' },
-        { text: 'Assignee', value: 'assignedTo' }
+        { text: 'Date Status Changed', align: 'start', value: 'createdAt' },
+        { text: 'Assignee', value: 'assignedTo' },
+        { text: 'Effective Date', value: 'actionDate' },
       ],
       statuses: [],
       loading: true,
@@ -45,8 +46,11 @@ export default {
     };
   },
   methods: {
-    formatDate(date) {
+    formatDateTime(date) {
       return date ? new Date(date).toLocaleString() : '';
+    },
+    formatDate(date) {
+      return date ? moment(date).format('MMMM D YYYY'): '';
     },
     getData() {
       minesAttestationsService

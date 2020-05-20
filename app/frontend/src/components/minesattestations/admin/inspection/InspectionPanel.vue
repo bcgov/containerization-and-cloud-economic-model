@@ -14,6 +14,9 @@
         <span
           v-if="currentStatus.assignedToEmail"
         >({{ currentStatus.assignedToEmail }})</span>
+        <br />
+        <strong>Effective Date:</strong>
+        {{ actionDateDisplay }}
       </p>
 
       <v-form v-if="!error" ref="form" v-model="valid" lazy-validation>
@@ -38,6 +41,35 @@
             />
 
             <div v-show="statusFields">
+              <div v-if="showActionDate">
+                <label>Effective Date (Optional)</label>
+                <v-menu
+                  v-model="actionDateMenu"
+                  :close-on-content-click="true"
+                  :nudge-right="40"
+                  transition="scale-transition"
+                  offset-y
+                  min-width="290px"
+                >
+                  <template v-slot:activator="{ on }">
+                    <v-text-field
+                      v-model="actionDate"
+                      :rules="[v => !!v || 'Date is required']"
+                      placeholder="yyyy-mm-dd"
+                      append-icon="event"
+                      v-on:click:append="actionDateMenu=true"
+                      readonly
+                      v-on="on"
+                      dense
+                      flat
+                      outlined
+                      solo
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="actionDate" @input="actionDateMenu = false"></v-date-picker>
+                </v-menu>
+              </div>
+
               <div v-if="showInspector">
                 <label>Assignee Name</label>
                 <v-text-field
@@ -118,6 +150,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import { AppClients, AppRoles } from '@/utils/constants';
@@ -141,7 +174,7 @@ export default {
       error: '',
       currentStatus: {},
       historyDialog: false,
-      inspectionDateMenu: false,
+      actionDateMenu: false,
       loading: true,
       statusHistory: {},
       statusFields: false,
@@ -151,6 +184,7 @@ export default {
       // Fields
       assignedTo: this.currentStatus ? this.currentStatus.assignedTo : '',
       assignedToEmail: this.currentStatus ? this.currentStatus.assignedToEmail : '',
+      actionDate: '',
       note: ''
     };
   },
@@ -166,6 +200,8 @@ export default {
       }
     },
     showInspector() { return ['ASSIGNED'].includes(this.statusToSet); },
+    showActionDate() { return ['ASSIGNED', 'COMPLETED'].includes(this.statusToSet); },
+    actionDateDisplay() { return this.currentStatus.actionDate ? moment(this.currentStatus.actionDate).format('MMMM D YYYY') : 'N/A'; },
     hasReviewer() {
       return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
         AppRoles.REVIEWER
@@ -226,6 +262,9 @@ export default {
             if(this.assignedToEmail) {
               statusBody.assignedToEmail = this.assignedToEmail;
             }
+          }
+          if(this.actionDate && this.showActionDate) {
+            statusBody.actionDate = this.actionDate;
           }
           const statusResponse = await minesAttestationsService.sendSubmissionStatuses(this.submissionId, statusBody);
           if (!statusResponse.data) {
