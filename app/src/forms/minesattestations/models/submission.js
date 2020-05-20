@@ -138,6 +138,7 @@ class SubmissionStatus extends Models.Timestamps(Model) {
         code: { type: 'string', minLength: 1, maxLength: 255 },
         assignedTo: { type: ['string', 'null'], maxLength: 255 },
         assignedToEmail: { type: ['string', 'null'], maxLength: 255 },
+        actionDate: { type: 'string', format: 'date' },
         ...Models.stamps
       },
       additionalProperties: false
