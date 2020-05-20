@@ -66,7 +66,7 @@ export default {
       if (this.$config && this.$config.orgbook) {
         return this.$config.orgbook.endpoint;
       } else {
-        throw new Error('Configuration object is missing.');
+        throw new Error('Settings object is missing.');
       }
     },
   },

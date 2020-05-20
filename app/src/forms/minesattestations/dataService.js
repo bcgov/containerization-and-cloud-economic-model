@@ -194,7 +194,7 @@ const dataService = {
 
       // set up the non-generated ids...
       const submissionId = uuidv4();
-      const confirmationId = submissionId.substring(0,8);
+      const confirmationId = submissionId.substring(0,8).toUpperCase(); // for that nice frontend look!
       obj.submissionId = submissionId;
       obj.confirmationId = confirmationId;
       obj.attestation.attestationId = uuidv4();
@@ -479,6 +479,65 @@ const dataService = {
       if (trx) await trx.rollback();
       throw err;
     }
+  },
+
+  createSettings: async (obj, user) => {
+    if (!obj) {
+      throw Error('Settings cannot be created without data');
+    }
+    let trx;
+    try {
+      trx = await transaction.start(Models.Settings.knex());
+
+      obj.createdBy = user.username;
+      await Models.Settings.query().insert(obj);
+
+      await trx.commit();
+
+      const result = await dataService.readSettings(obj.name);
+      return result;
+    } catch (err) {
+      log.error('create', `Error creating settings record: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
+  },
+
+  updateSettings: async (name, obj, user) => {
+    if (!obj) {
+      throw Error('Settings cannot be updated without data');
+    }
+    let trx;
+    try {
+      trx = await transaction.start(Models.Settings.knex());
+      obj.updatedBy = user.username;
+      await Models.Settings.query(trx).patchAndFetchById(name, obj).throwIfNotFound();
+      await trx.commit();
+      const result = await dataService.readSettings(name);
+      return result;
+    } catch (err) {
+      log.error('create', `Error updating settings record: ${err.message}. Rolling back...`);
+      log.error(err);
+      if (trx) await trx.rollback();
+      throw err;
+    }
+  },
+
+  settingsExist: async name => {
+    return Models.Settings.query().findById(name);
+  },
+
+  readSettings: async name => {
+    return Models.Settings.query()
+      .findById(name)
+      .throwIfNotFound();
+  },
+
+  allSettings: async enabled => {
+    return Models.Settings.query()
+      .modify('filterEnabled', enabled)
+      .modify('orderDescending');
   }
 };
 

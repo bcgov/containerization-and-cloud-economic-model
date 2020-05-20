@@ -92,7 +92,7 @@ export default {
         const config = Vue.prototype.$config;
         return config.geocoder.endpoint;
       } else {
-        throw new Error('Configuration object is missing.');
+        throw new Error('Settings object is missing.');
       }
     },
   },

@@ -2,7 +2,7 @@
 
 This is the Common Forms Toolkit frontend. It implements a Vue frontend with Keycloak authentication support.
 
-## Configuration
+## Settings
 
 The Common Forms Toolkit frontend will require some configuration. The API it invokes will be locked down and require a valid JWT Token to access. We will need to configure the application to authenticate using the same Keycloak realm as the [app](../). Note that the Common Forms Toolkit frontend is currently designed to expect all associated resources to be relative to the original access path.
 
@@ -42,4 +42,4 @@ npm run lint
 
 ### Customize configuration
 
-See [Configuration Reference](https://cli.vuejs.org/config/).
+See [Settings Reference](https://cli.vuejs.org/config/).
