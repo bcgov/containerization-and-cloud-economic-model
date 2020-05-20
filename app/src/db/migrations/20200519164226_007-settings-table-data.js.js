@@ -31,7 +31,7 @@ exports.up = function(knex) {
           title: 'Industrial Camps Form Accepted',
           priority: 'normal',
           messageLinkText: 'Please login to view the details of this Industrial Camps Attestation',
-          messageLinkUrl: 'https://comfort-dev.pathfinder.gov.bc.ca/app/minesattestations/admin'
+          messageLinkUrl: 'https://comfort-dev.pathfinder.gov.bc.ca/app/minesattestations/admin/submission'
         },
         createdBy: 'migration-007'
       };

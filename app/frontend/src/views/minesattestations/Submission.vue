@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <BaseSecure :resource="resource" reviewer>
+    <BaseSecure :resource="resource" viewer>
       <v-progress-linear indeterminate v-if="gettingForm" color="primary" class="mb-2" />
 
       <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
@@ -22,12 +22,12 @@
               <span>{{ locationDateDisplay(location.startDate) }} - {{ locationDateDisplay(location.endDate) }}</span>
             </h4>
           </v-col>
-          <v-col cols="12" sm="4" lg="2" class="text-sm-right">
-            <GeneratePdfButton :ipcPlanId="submissionId">
+          <v-col cols="12" sm="4" lg="2" class="text-sm-right d-print-none">
+            <PrintScreenButton :ipcPlanId="submissionId">
               <v-btn text small color="textLink" class="pl-0">
-                <v-icon class="mr-1">picture_as_pdf</v-icon>Download PDF
+                <v-icon class="mr-1">print</v-icon>Print Submission
               </v-btn>
-            </GeneratePdfButton>
+            </PrintScreenButton>
           </v-col>
         </v-row>
 
@@ -35,7 +35,7 @@
           <v-col cols="12" md="8" class="pl-0 pt-0">
             <AdminReviewSubmission />
           </v-col>
-          <v-col v-if="showInspection" cols="12" md="4" class="pl-0" order="first" order-md="last">
+          <v-col cols="12" md="4" class="pl-0 d-print-none" order="first" order-md="last">
             <InspectionPanel :submissionId="submissionId" v-on:note-updated="refreshNotes" />
 
             <NotesPanel :submissionId="submissionId" ref="notesPanel" />
@@ -51,16 +51,16 @@ import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/minesattestations/admin/AdminReviewSubmission.vue';
-import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
+import PrintScreenButton from '@/components/common/PrintScreenButton.vue';
 import InspectionPanel from '@/components/minesattestations/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/minesattestations/admin/inspection/NotesPanel.vue';
-import { AppClients, AppRoles } from '@/utils/constants';
+import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'Submission',
   components: {
     AdminReviewSubmission,
-    GeneratePdfButton,
+    PrintScreenButton,
     InspectionPanel,
     NotesPanel
   },
@@ -90,11 +90,6 @@ export default {
     },
     resource() {
       return AppClients.MINESATTESTATIONS;
-    },
-    showInspection() {
-      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
-        AppRoles.REVIEWER
-      ]);
     }
   },
   methods: {

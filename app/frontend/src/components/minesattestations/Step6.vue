@@ -9,40 +9,45 @@
         <em>confirmation id</em> in your records:
       </p>
       <h2 class="mb-10">
-        <blockquote>{{ confirmationId }}</blockquote>
+        <blockquote>{{ submissionDetails.confirmationId }}</blockquote>
       </h2>
 
-      <h2>Download and Notify</h2>
-      <ol class="my-4">
-        <li>Download or email yourself a copy of your form submission</li>
-        <li>Send a copy of your form submission to the relevant health authority</li>
-      </ol>
+      <div class="d-print-none">
+        <hr />
 
-      <v-row>
-        <GeneratePdfButton :ipcPlanId="this.submissionDetails.submissionId">
-          <v-btn color="primary" class="mx-5 mb-10" fab large>
-            <v-icon>picture_as_pdf</v-icon>
-          </v-btn>
-        </GeneratePdfButton>
+        <h3 class="my-4">Print this page or email yourself a copy of your form submission</h3>
 
-        <RequestReceipt
-          :email="this.submissionDetails.contacts[0].email"
-          :ipcPlanId="this.submissionDetails.submissionId"
-        />
-      </v-row>
+        <v-row class="mb-6">
+          <PrintScreenButton :ipcPlanId="this.submissionDetails.submissionId">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" color="primary" class="ml-5 mr-10" fab large>
+                  <v-icon>print</v-icon>
+                </v-btn>
+              </template>
+              <span>Print Screen</span>
+            </v-tooltip>
+          </PrintScreenButton>
 
-      <hr />
+          <RequestReceipt
+            :email="this.submissionDetails.contacts[0].email"
+            :ipcPlanId="this.submissionDetails.submissionId"
+          />
+        </v-row>
 
-      <p class="my-10">
-        To start again and submit another form you can refresh this page (or
-        <a
-          href="#"
-          @click="refresh"
-        >
-          click here
-          <v-icon small color="primary">refresh</v-icon>
-        </a>)
-      </p>
+        <hr />
+
+        <p class="my-10">
+          To start again and submit another form you can refresh this page (or
+          <a
+            href="#"
+            @click="refresh"
+          >
+            click here
+            <v-icon small color="primary">refresh</v-icon>
+          </a>)
+        </p>
+      </div>
     </div>
     <div v-else>
       <h2 class="pb-8">Please review your answers</h2>
@@ -186,7 +191,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
+import PrintScreenButton from '@/components/common/PrintScreenButton.vue';
 import RequestReceipt from '@/components/minesattestations/RequestReceipt.vue';
 import Step1 from '@/components/minesattestations/Step1.vue';
 import Step2 from '@/components/minesattestations/Step2.vue';
@@ -197,7 +202,7 @@ import Step5 from '@/components/minesattestations/Step5.vue';
 export default {
   name: 'MinesAttestationStep6',
   components: {
-    GeneratePdfButton,
+    PrintScreenButton,
     RequestReceipt,
     Step1,
     Step2,
@@ -218,15 +223,6 @@ export default {
       'submissionError',
       'submitting'
     ]),
-    confirmationId() {
-      if (this.submissionDetails && this.submissionDetails.submissionId) {
-        return this.submissionDetails.submissionId
-          .split('-')[0]
-          .toUpperCase();
-      } else {
-        return '';
-      }
-    },
     // Certify checkboxes
     certifyAccurateInformation: {
       get() {

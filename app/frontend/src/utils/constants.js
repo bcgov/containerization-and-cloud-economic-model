@@ -1,6 +1,7 @@
 export const ApiRoutes = Object.freeze({
   HELLO: '/hello',
-  MINESATTESTATIONS: '/minesattestations'
+  MINESATTESTATIONS: '/minesattestations',
+  EMAIL: '/minesattestations/submissions/email'
 });
 
 export const AppClients = Object.freeze({

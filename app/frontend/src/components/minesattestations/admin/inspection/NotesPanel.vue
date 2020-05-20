@@ -12,6 +12,7 @@
         small
         color="primary"
         class="pl-0"
+        :disabled="!hasReviewer"
         @click="showNoteField = true"
       >
         <v-icon class="mr-1">add</v-icon>NEW NOTE
@@ -38,7 +39,7 @@
             <v-btn outlined block color="primary" @click="showNoteField=false">Cancel</v-btn>
           </v-col>
           <v-col cols="12" sm="6" xl="4" order="first" order-sm="last">
-            <v-btn block color="primary" :disabled="!newNote" @click="addNote">ADD NOTE</v-btn>
+            <v-btn block color="primary" :disabled="!newNote || !hasReviewer" @click="addNote">ADD NOTE</v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -58,6 +59,7 @@
 import moment from 'moment';
 import { mapGetters } from 'vuex';
 
+import { AppClients, AppRoles } from '@/utils/constants';
 import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
 
 export default {
@@ -80,8 +82,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['fullName']),
-
+    ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
+    hasReviewer() {
+      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
+        AppRoles.REVIEWER
+      ]);
+    }
   },
   methods: {
     formatUserName(name) {
