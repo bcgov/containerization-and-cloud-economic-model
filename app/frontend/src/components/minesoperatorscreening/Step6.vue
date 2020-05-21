@@ -15,7 +15,7 @@
       <div class="d-print-none">
         <hr />
 
-        <h3 class="my-4">Print this page or email yourself a copy of your form submission</h3>
+        <h3 class="my-4">Download a PDF or email yourself a copy of your form submission</h3>
 
         <v-row class="mb-6">
           <GeneratePdfButton :submissionId="this.submissionDetails.submissionId">
@@ -25,7 +25,7 @@
                   <v-icon>print</v-icon>
                 </v-btn>
               </template>
-              <span>Print Screen</span>
+              <span>Download PDF</span>
             </v-tooltip>
           </GeneratePdfButton>
 
