@@ -296,6 +296,14 @@ class Contact extends Models.Timestamps(Model) {
       additionalProperties: false
     };
   }
+
+  static get modifiers () {
+    return {
+      orderContactType(builder) {
+        builder.orderByRaw('CASE WHEN "contactType" = \'PRIMARY\' THEN 1 END, CASE WHEN "contactType" = \'COVID_COORDINATOR\' THEN 1 END');
+      }
+    };
+  }
 }
 
 class Location extends Models.Timestamps(Model) {

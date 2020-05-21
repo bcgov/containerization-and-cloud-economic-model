@@ -221,7 +221,8 @@ const dataService = {
     return Models.Submission.query()
       .findById(submissionId)
       .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
-      .withGraphFetched('[attestation, business, contacts, location]')
+      .withGraphFetched('[attestation, business, location]')
+      .withGraphFetched('contacts(orderContactType)')
       .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
       .withGraphFetched('notes(orderDescending)')
       .throwIfNotFound();
@@ -307,7 +308,8 @@ const dataService = {
 
     const submissions = await Models.Submission.query()
       .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
-      .withGraphFetched('[attestation, business, contacts, location]')
+      .withGraphFetched('[attestation, business, location]')
+      .withGraphFetched('contacts(orderContactType)')
       .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
       .withGraphFetched('notes(orderDescending)')
       .joinRelated('business')
