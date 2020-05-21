@@ -23,11 +23,11 @@
             </h4>
           </v-col>
           <v-col cols="12" sm="4" lg="2" class="text-sm-right d-print-none">
-            <PrintScreenButton :ipcPlanId="submissionId">
+            <GeneratePdfButton :submissionId="submissionId">
               <v-btn text small color="textLink" class="pl-0">
-                <v-icon class="mr-1">print</v-icon>Print Submission
+                <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF
               </v-btn>
-            </PrintScreenButton>
+            </GeneratePdfButton>
           </v-col>
         </v-row>
 
@@ -51,7 +51,7 @@ import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
-import PrintScreenButton from '@/components/common/PrintScreenButton.vue';
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/minesoperatorscreening/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/minesoperatorscreening/admin/inspection/NotesPanel.vue';
 import { AppClients } from '@/utils/constants';
@@ -60,7 +60,7 @@ export default {
   name: 'Submission',
   components: {
     AdminReviewSubmission,
-    PrintScreenButton,
+    GeneratePdfButton,
     InspectionPanel,
     NotesPanel
   },

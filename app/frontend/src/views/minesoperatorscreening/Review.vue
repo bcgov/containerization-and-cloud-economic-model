@@ -6,11 +6,11 @@
 
     <v-row v-if="!getFormError">
       <v-col cols="12" md="8" offset-md="2">
-        <PrintScreenButton :ipcPlanId="submissionId">
+        <GeneratePdfButton :submissionId="submissionId">
           <v-btn text small color="textLink" class="pl-0">
-            <v-icon class="mr-1">print</v-icon>Print Submission
+            <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF of Submision
           </v-btn>
-        </PrintScreenButton>
+        </GeneratePdfButton>
         <AdminReviewSubmission />
       </v-col>
     </v-row>
@@ -22,13 +22,13 @@ import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
-import PrintScreenButton from '@/components/common/PrintScreenButton.vue';
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 
 export default {
   name: 'MinesOperatorScreeningReview',
   components: {
     AdminReviewSubmission,
-    PrintScreenButton
+    GeneratePdfButton
   },
   props: {
     submissionId: {
