@@ -94,12 +94,12 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
-import Step1 from '@/components/minesattestations/Step1.vue';
-import Step2 from '@/components/minesattestations/Step2.vue';
-import Step3 from '@/components/minesattestations/Step3.vue';
-import Step4 from '@/components/minesattestations/Step4.vue';
-import Step5 from '@/components/minesattestations/Step5.vue';
-import Step6 from '@/components/minesattestations/Step6.vue';
+import Step1 from '@/components/minesoperatorscreening/Step1.vue';
+import Step2 from '@/components/minesoperatorscreening/Step2.vue';
+import Step3 from '@/components/minesoperatorscreening/Step3.vue';
+import Step4 from '@/components/minesoperatorscreening/Step4.vue';
+import Step5 from '@/components/minesoperatorscreening/Step5.vue';
+import Step6 from '@/components/minesoperatorscreening/Step6.vue';
 
 export default {
   name: 'MinesAttestationForm',

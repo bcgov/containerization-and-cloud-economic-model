@@ -5,7 +5,7 @@
   "license": "Apache-2.0",
   "scripts": {
     "build": "vue-cli-service build",
-    "clean": "rm -rf coverage dist **/e2e/videos",
+    "clean": "rm -rf coverage dist",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
     "rebuild": "npm run clean && npm run build",

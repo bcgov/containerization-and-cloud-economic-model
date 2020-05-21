@@ -154,8 +154,8 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import { AppClients, AppRoles } from '@/utils/constants';
-import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
-import StatusTable from '@/components/minesattestations/admin/inspection/StatusTable.vue';
+import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import StatusTable from '@/components/minesoperatorscreening/admin/inspection/StatusTable.vue';
 
 export default {
   name: 'InspectionPanel',
@@ -212,14 +212,14 @@ export default {
     async getInspectionData() {
       this.loading = true;
       try {
-        const statuses = await minesAttestationsService.getSubmissionStatuses(this.submissionId);
+        const statuses = await minesOperatorScreeningService.getSubmissionStatuses(this.submissionId);
         this.statusHistory = statuses.data;
         if (!this.statusHistory.length || !this.statusHistory[0]) {
           this.error = 'No inspection statuses found';
         } else {
           // Statuses are returned in date precedence, the 0th item in the array is the current status
           this.currentStatus = this.statusHistory[0];
-          const scRes = await minesAttestationsService.getStatusCodes();
+          const scRes = await minesOperatorScreeningService.getStatusCodes();
           const statusCodes = scRes.data;
           if(!statusCodes.length) {
             throw new Error('error finding status codes');
@@ -266,7 +266,7 @@ export default {
           if(this.actionDate && this.showActionDate) {
             statusBody.actionDate = this.actionDate;
           }
-          const statusResponse = await minesAttestationsService.sendSubmissionStatuses(this.submissionId, statusBody);
+          const statusResponse = await minesOperatorScreeningService.sendSubmissionStatuses(this.submissionId, statusBody);
           if (!statusResponse.data) {
             throw new Error('No response data from API while submitting status update form');
           }
@@ -277,7 +277,7 @@ export default {
               submissionStatusId: submissionStatusId,
               note: this.note
             };
-            const response = await minesAttestationsService.addNoteToStatus(this.submissionId, submissionStatusId, noteBody);
+            const response = await minesOperatorScreeningService.addNoteToStatus(this.submissionId, submissionStatusId, noteBody);
             if (!response.data) {
               throw new Error('No response data from API while submitting note for status update');
             }

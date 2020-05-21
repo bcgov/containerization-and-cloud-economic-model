@@ -20,7 +20,7 @@
 
 <script>
 import moment from 'moment';
-import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
+import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
 
 export default {
   name: 'StatusTable',
@@ -53,7 +53,7 @@ export default {
       return date ? moment(date).format('MMMM D YYYY'): '';
     },
     getData() {
-      minesAttestationsService
+      minesOperatorScreeningService
         .getSubmissionStatuses(this.submissionId)
         .then(response => {
           this.statuses = response.data;

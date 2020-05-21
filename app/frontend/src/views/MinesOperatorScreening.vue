@@ -8,11 +8,11 @@
 </template>
 
 <script>
-import AdminNavBar from '@/components/minesattestations/admin/AdminNavBar.vue';
-import minesattestations from '@/store/modules/minesAttestations/minesAttestationsForm.js';
+import AdminNavBar from '@/components/minesoperatorscreening/admin/AdminNavBar.vue';
+import form from '@/store/modules/minesoperatorscreening/minesOperatorScreeningForm.js';
 
 export default {
-  name: 'MinesAttestations',
+  name: 'MinesOperatorScreening',
   components: {
     AdminNavBar
   },
@@ -23,7 +23,7 @@ export default {
     if(this.$store.hasModule('form')) {
       this.$store.unregisterModule('form');
     }
-    this.$store.registerModule('form', minesattestations);
+    this.$store.registerModule('form', form);
   }
 };
 </script>
