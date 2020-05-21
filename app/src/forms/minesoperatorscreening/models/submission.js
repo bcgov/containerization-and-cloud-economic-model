@@ -300,7 +300,7 @@ class Contact extends Models.Timestamps(Model) {
   static get modifiers () {
     return {
       orderContactType(builder) {
-        builder.orderByRaw('CASE WHEN "contactType" = \'PRIMARY\' THEN 1 END, CASE WHEN "contactType" = \'COVID_COORDINATOR\' THEN 1 END');
+        builder.orderByRaw('CASE WHEN "contactType" = \'PRIMARY\' THEN 1 WHEN "contactType" = \'COVID_COORDINATOR\' THEN 2 END asc');
       }
     };
   }
