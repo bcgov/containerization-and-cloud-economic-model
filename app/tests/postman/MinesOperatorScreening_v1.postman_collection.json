@@ -144,7 +144,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"attestation\": {\n\t\t\"guidelinesRead\": true,\n\t\t\"assessmentCompleted\": true,\n\t\t\"developedPlan\": true,\n\t\t\"protectionSignage\": true,\n\t\t\"workerContactPersonnel\": true,\n\t\t\"commonAreaDistancing\": true,\n\t\t\"sleepingAreaType\": \"SHARED\",\n\t\t\"sharedSleepingPerRoom\": 7,\n\t\t\"sharedSleepingDistancing\": true,\n\t\t\"selfIsolateUnderstood\": true,\n\t\t\"selfIsolateAccommodation\": true,\n\t\t\"laundryServices\": true,\n\t\t\"wasteManagementGloves\": true,\n\t\t\"wasteManagementSchedule\": true,\n\t\t\"wasteManagementBags\": true,\n\t\t\"handWashingStations\": true,\n\t\t\"handWashingSoapWater\": true,\n\t\t\"handWashingWaterless\": true,\n\t\t\"handWashingPaperTowels\": true,\n\t\t\"handWashingSignage\": true,\n\t\t\"distancingMaintained\": true,\n\t\t\"distancingFaceShields\": true,\n\t\t\"disinfectingSchedule\": true,\n\t\t\"educationSignage\": true,\n\t\t\"educationContactPersonnel\": true,\n\t\t\"trainingCovid19\": true,\n\t\t\"trainingEtiquette\": true,\n\t\t\"trainingLocations\": true,\n\t\t\"trainingFirstAid\": true,\n\t\t\"trainingReporting\": true,\n\t\t\"mealsDistancing\": true,\n\t\t\"mealsDishware\": true,\n\t\t\"mealsDishwashing\": true,\n\t\t\"infectionSeparation\": true,\n\t\t\"infectionSymptoms\": true,\n\t\t\"infectionHeathLinkBC\": true,\n\t\t\"infectionSanitization\": true,\n\t\t\"infectionAccommodation\": true,\n\t\t\"infectedFeeding\": true,\n\t\t\"infectedHousekeeping\": true,\n\t\t\"infectedWaste\": true,\n\t\t\"certifyAccurateInformation\": true,\n\t\t\"agreeToInspection\": true,\n\t\t\"transportationSingleOccupant\": true,\n\t\t\"transportationBusesVans\": true,\n\t\t\"transportationTrucksCars\": true,\n\t\t\"transportationHelicopter\": true,\n\t\t\"transportationTravelPod\": true,\n\t\t\"transportationCleaningDistancing\": true\n\t},\n\t\"business\": {\n\t\t\"name\": \"Rad Biz\",\n\t\t\"orgBookId\": null,\n\t\t\"addressLine1\": \"1234 Here St\",\n\t\t\"addressLine2\": null,\n\t\t\"city\": \"Saanich\",\n\t\t\"province\": \"BC\",\n\t\t\"postalCode\": \"ABCDEF\"\t\n\t},\n\t\"contacts\":[\n\t\t{\n\t\t\t\"contactType\": \"PRIMARY\",\n\t\t\t\"firstName\": \"Jane\",\n\t\t\t\"lastName\": \"Doe\",\n\t\t\t\"phone1\": \"1234567890\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"jane@doe.com\"\n\t\t},\n\t    {\t\t\t\n\t\t\t\"contactType\": \"COVID_COORDINATOR\",\n\t\t\t\"firstName\": \"John\",\n\t\t\t\"lastName\": \"D'oh\",\n\t\t\t\"phone1\": \"0987654321\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"john@doh.com\"\n\t\t}\n\t],\n\t\"location\": {\n\t\t\"startDate\": \"2020-05-10\",\n\t\t\"endDate\": \"2020-07-30\",\n\t\t\"city\": \"Victoria, BC\",\n\t\t\"cityLatitude\": null,\n\t\t\"cityLongitude\": null,\n\t\t\"mineNumber\": \"\",\n\t\t\"permitNumber\": \"\",\n\t\t\"numberOfWorkers\": 10,\n\t\t\"accTents\": false,\n\t\t\"tentDetails\": \"\",\n\t\t\"accMotel\": false,\n\t\t\"motelName\": \"\",\n\t\t\"motelAddressLine1\": \"\",\n\t\t\"motelAddressLine2\": \"\",\n\t\t\"motelCity\": \"\",\n\t\t\"motelProvince\": \"\",\n\t\t\"motelPostalCode\": \"\",\n\t\t\"accWorkersHome\": false\n\t}\n}"
+					"raw": "{\n\t\"attestation\": {\n\t\t\"guidelinesRead\": true,\n\t\t\"assessmentCompleted\": true,\n\t\t\"developedPlan\": true,\n\t\t\"protectionSignage\": true,\n\t\t\"workerContactPersonnel\": true,\n\t\t\"commonAreaDistancing\": true,\n\t\t\"sleepingAreaType\": \"SHARED\",\n\t\t\"sharedSleepingPerRoom\": 7,\n\t\t\"sharedSleepingDistancing\": true,\n\t\t\"selfIsolateUnderstood\": true,\n\t\t\"selfIsolateAccommodation\": true,\n\t\t\"laundryServices\": true,\n\t\t\"wasteManagementGloves\": true,\n\t\t\"wasteManagementSchedule\": true,\n\t\t\"wasteManagementBags\": true,\n\t\t\"handWashingStations\": true,\n\t\t\"handWashingSoapWater\": true,\n\t\t\"handWashingWaterless\": true,\n\t\t\"handWashingPaperTowels\": true,\n\t\t\"handWashingSignage\": true,\n\t\t\"distancingMaintained\": true,\n\t\t\"distancingFaceShields\": true,\n\t\t\"disinfectingSchedule\": true,\n\t\t\"educationSignage\": true,\n\t\t\"educationContactPersonnel\": true,\n\t\t\"trainingCovid19\": true,\n\t\t\"trainingEtiquette\": true,\n\t\t\"trainingLocations\": true,\n\t\t\"trainingFirstAid\": true,\n\t\t\"trainingReporting\": true,\n\t\t\"mealsDistancing\": true,\n\t\t\"mealsDishware\": true,\n\t\t\"mealsDishwashing\": true,\n\t\t\"infectionSeparation\": true,\n\t\t\"infectionSymptoms\": true,\n\t\t\"infectionHeathLinkBC\": true,\n\t\t\"infectionSanitization\": true,\n\t\t\"infectionAccommodation\": true,\n\t\t\"infectedFeeding\": true,\n\t\t\"infectedHousekeeping\": true,\n\t\t\"infectedWaste\": true,\n\t\t\"certifyAccurateInformation\": true,\n\t\t\"agreeToInspection\": true,\n\t\t\"transportationSingleOccupant\": true,\n\t\t\"transportationBusesVans\": true,\n\t\t\"transportationTrucksCars\": true,\n\t\t\"transportationHelicopter\": true,\n\t\t\"transportationTravelPod\": true,\n\t\t\"transportationCleaningDistancing\": true\n\t},\n\t\"business\": {\n\t\t\"name\": \"ZZ Smoke Testing\",\n\t\t\"orgBookId\": null,\n\t\t\"addressLine1\": \"1234 Here St\",\n\t\t\"addressLine2\": null,\n\t\t\"city\": \"Saanich\",\n\t\t\"province\": \"BC\",\n\t\t\"postalCode\": \"ABCDEF\"\t\n\t},\n\t\"contacts\":[\n\t\t{\n\t\t\t\"contactType\": \"PRIMARY\",\n\t\t\t\"firstName\": \"Jane\",\n\t\t\t\"lastName\": \"Doe\",\n\t\t\t\"phone1\": \"1234567890\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"jane@doe.com\"\n\t\t},\n\t    {\t\t\t\n\t\t\t\"contactType\": \"COVID_COORDINATOR\",\n\t\t\t\"firstName\": \"John\",\n\t\t\t\"lastName\": \"D'oh\",\n\t\t\t\"phone1\": \"0987654321\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"john@doh.com\"\n\t\t}\n\t],\n\t\"location\": {\n\t\t\"startDate\": \"2020-05-10\",\n\t\t\"endDate\": \"2020-07-30\",\n\t\t\"city\": \"Victoria, BC\",\n\t\t\"cityLatitude\": null,\n\t\t\"cityLongitude\": null,\n\t\t\"mineNumber\": \"\",\n\t\t\"permitNumber\": \"\",\n\t\t\"numberOfWorkers\": 10,\n\t\t\"accTents\": true,\n\t\t\"tentDetails\": \"Tents pitched on motel parking lot\",\n\t\t\"accMotel\": true,\n\t\t\"motelName\": \"Heartbreak Hotel\",\n\t\t\"motelAddressLine1\": \"2345 Everywhere\",\n\t\t\"motelAddressLine2\": \"\",\n\t\t\"motelCity\": \"Victoria\",\n\t\t\"motelProvince\": \"BC\",\n\t\t\"motelPostalCode\": \"123123\",\n\t\t\"accWorkersHome\": true\n\t}\n}"
 				},
 				"url": {
 					"raw": "{{host}}/{{path}}/api/v1/minesoperatorscreening/submissions",
@@ -238,7 +238,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/{{path}}/api/v1/minesoperatorscreening/submissions?version={{formVersionId}}&city=Vic&business=Rad&confirmationId={{confirmationId}}",
+					"raw": "{{host}}/{{path}}/api/v1/minesoperatorscreening/submissions?version={{formVersionId}}&city=Vic&business=ZZ&confirmationId={{confirmationId}}",
 					"host": [
 						"{{host}}"
 					],
@@ -260,7 +260,7 @@
 						},
 						{
 							"key": "business",
-							"value": "Rad"
+							"value": "ZZ"
 						},
 						{
 							"key": "confirmationId",
@@ -291,7 +291,7 @@
 							"    pm.expect(jsonData.code).to.equal('ASSIGNED');",
 							"    pm.expect(jsonData.notes).to.be.an('array');",
 							"    pm.expect(jsonData.notes).to.have.lengthOf(1);",
-							"    pm.expect(jsonData.notes[0].note).to.equal('a note added to status in one call')",
+							"    pm.expect(jsonData.notes[0].note).to.equal('Status level note for smoke testing.')",
 							"    pm.collectionVariables.set('submissionStatusId', jsonData.submissionStatusId);",
 							"});"
 						],
@@ -310,7 +310,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"Jason Sherman\",\n\t\"assignedToEmail\": \"jsherman@parcsystems.ca\",\n\t\"notes\": [\n\t\t{\n\t\t\t\"note\": \"a note added to status in one call\"\n\t\t}\n\t]\n}"
+					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"Jason Sherman\",\n\t\"assignedToEmail\": \"jsherman@parcsystems.ca\",\n\t\"actionDate\": \"2020-06-01\",\n\t\"notes\": [\n\t\t{\n\t\t\t\"note\": \"Status level note for smoke testing.\"\n\t\t}\n\t]\n}"
 				},
 				"url": {
 					"raw": "{{host}}/{{path}}/api/v1/minesoperatorscreening/submissions/{{submissionId}}/statuses",
@@ -410,7 +410,7 @@
 							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
 							"    pm.expect(jsonData.submissionStatusId).to.be.null;",
 							"    pm.expect(jsonData.noteId).to.not.be.null;",
-							"    pm.expect(jsonData.note).to.equal('this note is for the submission');",
+							"    pm.expect(jsonData.note).to.equal('Submission level note for smoke testing.');",
 							"    pm.collectionVariables.set('submissionNoteId', jsonData.noteId);",
 							"});"
 						],
@@ -429,7 +429,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"note\": \"this note is for the submission\"\n}"
+					"raw": "{\n\t\"note\": \"Submission level note for smoke testing.\"\n}"
 				},
 				"url": {
 					"raw": "{{host}}/{{path}}/api/v1/minesoperatorscreening/submissions/{{submissionId}}/notes",
@@ -535,7 +535,7 @@
 							"    pm.expect(jsonData).to.have.property('note');",
 							"    pm.expect(jsonData.submissionStatusId).to.equal(pm.collectionVariables.get('submissionStatusId'));",
 							"    pm.expect(jsonData.submissionId).to.be.null;",
-							"    pm.expect(jsonData.note).to.equal('adding note to submission status');",
+							"    pm.expect(jsonData.note).to.equal('Additional Status level note.');",
 							"    pm.collectionVariables.set('statusNoteId', jsonData.noteId);",
 							"});"
 						],
@@ -564,7 +564,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"note\": \"adding note to submission status\"\n}"
+					"raw": "{\n\t\"note\": \"Additional Status level note.\"\n}"
 				},
 				"url": {
 					"raw": "{{host}}/{{path}}/api/v1/minesoperatorscreening/submissions/{{submissionId}}/statuses/{{submissionStatusId}}/notes",
@@ -743,7 +743,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "[\n    {\n        \"code\": \"SUBMITTED\",\n        \"display\": \"Submitted\",\n        \"enabled\": true,\n        \"nextCodes\": [\"ASSIGNED\",\"COMPLETED\"]\n    },\n    {\n        \"code\": \"ASSIGNED\",\n        \"display\": \"Assigned\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\"]\n    },\n    {\n        \"code\": \"COMPLETED\",\n        \"display\": \"Completed\",\n        \"enabled\": true,\n        \"nextCodes\": []\n    },\n    {\n        \"code\": \"NEW_STATUS\",\n        \"display\": \"New status added in Postman test\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\",\"NEW_DISABLED_STATUS\"]\n    },\n    {\n        \"code\": \"NEW_DISABLED_STATUS\",\n        \"display\": \"New status added in Postman test - not enabled\",\n        \"enabled\": false,\n        \"nextCodes\": [\"COMPLETED\",\"ONLY_REAL_CODES_ARE_ADDED\"]\n    }\n]",
+					"raw": "[\n    {\n        \"code\": \"SUBMITTED\",\n        \"display\": \"Submitted\",\n        \"enabled\": true,\n        \"nextCodes\": [\"ASSIGNED\",\"COMPLETED\"]\n    },\n    {\n        \"code\": \"ASSIGNED\",\n        \"display\": \"Assigned\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\"]\n    },\n    {\n        \"code\": \"COMPLETED\",\n        \"display\": \"Completed\",\n        \"enabled\": true,\n        \"nextCodes\": []\n    },\n    {\n        \"code\": \"SMOKE_TEST_STATUS_A\",\n        \"display\": \"Smoke test Status A (enabled)\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\",\"SMOKE_TEST_STATUS_B\"]\n    },\n    {\n        \"code\": \"SMOKE_TEST_STATUS_B\",\n        \"display\": \"Smoke test Status B (not enabled)\",\n        \"enabled\": false,\n        \"nextCodes\": [\"COMPLETED\",\"SMOKE_TEST_STATUS_A\",\"ONLY_REAL_CODES_ARE_ADDED\"]\n    }\n]",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -779,7 +779,7 @@
 							"console.log(submission);",
 							"var data = JSON.parse(submission);",
 							"data.location.city='Victoria, TX';",
-							"data.business.name='Radical Business';",
+							"data.business.name='ZZ Smoke Testing 2.0';",
 							"data.contacts[0].email='first@contact.ca';",
 							"data.contacts[1].email='second@contact.ca';",
 							"console.log(data);",
@@ -804,7 +804,7 @@
 							"    pm.expect(jsonData.confirmationId).to.equal(pm.collectionVariables.get('confirmationId'));",
 							"    ",
 							"    pm.expect(jsonData.location.city).to.equal('Victoria, TX');",
-							"    pm.expect(jsonData.business.name).to.equal('Radical Business');",
+							"    pm.expect(jsonData.business.name).to.equal('ZZ Smoke Testing 2.0');",
 							"    pm.expect(jsonData.contacts[0].email).to.equal('first@contact.ca');",
 							"    pm.expect(jsonData.contacts[1].email).to.equal('second@contact.ca');",
 							"});"
@@ -1085,6 +1085,69 @@
 			"response": []
 		},
 		{
+			"name": "Reset Setting notificationEmail",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c726c051-99ed-4a51-b124-b37542b9ff20",
+						"exec": [
+							"var notificationEmail = pm.collectionVariables.get('notificationEmail');",
+							"console.log(notificationEmail);",
+							"var data = JSON.parse(notificationEmail);",
+							"pm.collectionVariables.set(\"resetNotificationEmail\", JSON.stringify(data));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "b4f2e34a-16ee-4d16-8453-efd6c78fb4c7",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.equal('notificationEmail');",
+							"    pm.expect(jsonData.enabled).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{resetNotificationEmail}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/minesoperatorscreening/settings/notificationEmail",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"minesoperatorscreening",
+						"settings",
+						"notificationEmail"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Get Submission PDF",
 			"request": {
 				"method": "GET",
@@ -1113,7 +1176,7 @@
 		"bearer": [
 			{
 				"key": "token",
-				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrdFJRN3VLZ3hYVU91cjdiaDRseGl1TGlUdVhzM3FyZEpzZFBnLTdvY1FnIn0.eyJqdGkiOiJlMzM3YTY5YS1kODRjLTRjMDctYjJjNC1lZmMzMmE4YTdkNWIiLCJleHAiOjE1ODk5ODg5ODgsIm5iZiI6MCwiaWF0IjoxNTg5OTg4Njg4LCJpc3MiOiJodHRwczovL3Nzby1kZXYucGF0aGZpbmRlci5nb3YuYmMuY2EvYXV0aC9yZWFsbXMvY3AxcWx5MmQiLCJhdWQiOlsiY29tZm9ydCIsImNvbWZvcnQtZnJvbnRlbmQiLCJjb21mb3J0LW1pbmVzYXR0ZXN0YXRpb25zIl0sInN1YiI6IjY5Mzg0NWZlLTk4ZmYtNGM3MS04YTA5LTg1YTM0NjBkZDM3MiIsInR5cCI6IkJlYXJlciIsImF6cCI6ImNvbWZvcnQtZnJvbnRlbmQiLCJub25jZSI6IjVmYTlhNWEyLTVhYjctNDVkZi05MmU5LTVjOTE0N2E5YjFlNSIsImF1dGhfdGltZSI6MTU4OTk4ODM3MSwic2Vzc2lvbl9zdGF0ZSI6IjUyYjc5OWUzLTdhZTQtNDQ2MC04MTZkLWMzNDE3NDE2MjU1NyIsImFjciI6IjAiLCJyZXNvdXJjZV9hY2Nlc3MiOnsiY29tZm9ydC1taW5lc2F0dGVzdGF0aW9ucyI6eyJyb2xlcyI6WyJlZGl0b3IiLCJ2aWV3ZXIiLCJhZG1pbiIsInJldmlld2VyIl19LCJjb21mb3J0LWZyb250ZW5kIjp7InJvbGVzIjpbImRldmVsb3BlciJdfSwiY29tZm9ydCI6eyJyb2xlcyI6WyJhZG1pbiIsInVzZXIiXX19LCJzY29wZSI6Im9wZW5pZCBjb21mb3J0LWZyb250ZW5kIGNvbWZvcnQiLCJuYW1lIjoiSmFzb24gU2hlcm1hbiIsInByZWZlcnJlZF91c2VybmFtZSI6ImpzaGVybWFuQGlkaXIiLCJlbWFpbCI6ImpzaGVybWFuQHBhcmNzeXN0ZW1zLmNhIn0.Q0uf3kmK1bLXSKgURetgTHp49mMF3nHTmjwUjBaQGGfHsqwgCPm_bXCneKM2-8--FellWXRm4EyfAl7a3V4xQ5gVzpXSPnbudrm95qHCW8GMQAh1pzmq91nX-wQB4_6BWO55SxpeQ72tAd_trS9lL5YCTrY7LPfgvUl7tlOJ_6qFW6-BoECNJim2lY3ir8mBmDfWpj8d7Vaxd5BFAopOfNWMHtBPy4e1L0DpUOoF6l_6KRn09LnGgZsE9kzwRx1ROW24TFSqDwHx-q5AOtJHBOBo8Xt7yEZGZKmxOk66fBtzYEAAC3_Twlc6ggjz_ZfBbEQ9VBleb4jffJAut-vr_A",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrdFJRN3VLZ3hYVU91cjdiaDRseGl1TGlUdVhzM3FyZEpzZFBnLTdvY1FnIn0.eyJqdGkiOiIwNzJhN2YwZC01YTZjLTQwNmQtYThlYi00NzEyYmVhZmNhOTIiLCJleHAiOjE1OTAwNzc2NDgsIm5iZiI6MCwiaWF0IjoxNTkwMDc3MzQ4LCJpc3MiOiJodHRwczovL3Nzby1kZXYucGF0aGZpbmRlci5nb3YuYmMuY2EvYXV0aC9yZWFsbXMvY3AxcWx5MmQiLCJhdWQiOlsiY29tZm9ydCIsImNvbWZvcnQtZnJvbnRlbmQiLCJjb21mb3J0LW1pbmVzb3BlcmF0b3JzY3JlZW5pbmciXSwic3ViIjoiNjkzODQ1ZmUtOThmZi00YzcxLThhMDktODVhMzQ2MGRkMzcyIiwidHlwIjoiQmVhcmVyIiwiYXpwIjoiY29tZm9ydC1mcm9udGVuZCIsIm5vbmNlIjoiMTM2NmM2ZDAtOTIwOS00YTIyLTgwYTItY2MzOGI5ZWU4MzI4IiwiYXV0aF90aW1lIjoxNTkwMDc1MTUzLCJzZXNzaW9uX3N0YXRlIjoiMWM5YWYzOTEtZDA1NS00NGQ3LTgxNWUtOTM3NmQ5OTZlOTIzIiwiYWNyIjoiMCIsInJlc291cmNlX2FjY2VzcyI6eyJjb21mb3J0LWZyb250ZW5kIjp7InJvbGVzIjpbImRldmVsb3BlciJdfSwiY29tZm9ydC1taW5lc29wZXJhdG9yc2NyZWVuaW5nIjp7InJvbGVzIjpbImVkaXRvciIsInZpZXdlciIsImFkbWluIiwicmV2aWV3ZXIiXX0sImNvbWZvcnQiOnsicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19fSwic2NvcGUiOiJvcGVuaWQgY29tZm9ydC1mcm9udGVuZCBjb21mb3J0IiwibmFtZSI6Ikphc29uIFNoZXJtYW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqc2hlcm1hbkBpZGlyIiwiZW1haWwiOiJqc2hlcm1hbkBwYXJjc3lzdGVtcy5jYSJ9.G1hF1XQuqUM1xlpUPlhT67Gj_Vi4211mX9MEQZZj99krPxfV5WGtY_32KWaKeYH9Ns1SWp6UL2zw-tjhfzs4whWBVeo2fhDtb5Fabl82ldlyywFDCTDfOteXe8aSAVt2R02RlU1_Vo9N0aNWRDgtaXQflF_Gj6w5VJDQiieONSa8HYk9fgcsWEJQ0JF4g8Fp1iubCC_fJCBh47LmpQQ5LOHX82SyXsr3WnKt62sfLliW459Lh13qgrNkpy-wPgt5vmXP9CdgHEjqhdRfOKP6t_pVZWnXD5743pix5WdmmG49IWPc7wv1WzJUgJkgzyISQ7_x_n-cUbUjA-c-cV-woQ",
 				"type": "string"
 			}
 		]
@@ -1142,55 +1205,55 @@
 	],
 	"variable": [
 		{
-			"id": "f8abf618-6fa6-479c-b6b1-11cef47702b7",
+			"id": "8483de69-422e-4964-86d4-337fb16a3a6c",
 			"key": "host",
 			"value": "https://comfort-dev.pathfinder.gov.bc.ca",
 			"type": "string"
 		},
 		{
-			"id": "34bb416c-38e5-4ecf-9eb8-2842af73ee68",
+			"id": "b8be5c2f-5781-4432-be4b-496ccc539d81",
 			"key": "path",
 			"value": "pr-12",
 			"type": "string"
 		},
 		{
-			"id": "55621865-c7ce-4890-9d68-2fe59a298200",
+			"id": "89f96c7f-8a71-41e8-a167-e0c6b3f3c3f5",
 			"key": "submissionId",
-			"value": "1dfb7aad-1722-46de-a2dc-72a58cf51d23",
+			"value": "33b8a265-6658-448e-9105-d68ce51132b6",
 			"type": "string"
 		},
 		{
-			"id": "87120d54-d9c2-42d5-9412-c12f7b4810e6",
+			"id": "107794db-d3a5-43ed-a1ab-b34ed8b8cafd",
 			"key": "confirmationId",
-			"value": "1DFB7AAD",
+			"value": "33B8A265",
 			"type": "string"
 		},
 		{
-			"id": "7f7bcd95-01ec-49ac-a4e5-2f9e2bb044ae",
+			"id": "62c3edd0-0aaf-4b70-a9fc-c8ae3fbdd0c8",
 			"key": "submissionStatusId",
-			"value": 2,
+			"value": 4,
 			"type": "number"
 		},
 		{
-			"id": "1bbdfed4-9cf1-4c19-aeb3-7822ee9ee950",
+			"id": "54f58331-3319-4f04-8a4e-8b4390494389",
 			"key": "noteId",
 			"value": 7,
 			"type": "number"
 		},
 		{
-			"id": "7481108e-72a7-4274-8c57-6b5c120e4a56",
+			"id": "6f1c5998-608c-415b-88d6-6376f05d273e",
 			"key": "submission",
-			"value": "{\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"formVersionId\":1,\"confirmationId\":\"1DFB7AAD\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.416Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\",\"attestation\":{\"attestationId\":\"cf705c0b-d6c9-4fed-a275-e39459d51eb6\",\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.455Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},\"business\":{\"businessId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"name\":\"Rad Biz\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},\"location\":{\"locationId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, BC\",\"cityLatitude\":null,\"cityLongitude\":null,\"mineNumber\":\"\",\"permitNumber\":\"\",\"numberOfWorkers\":10,\"accTents\":false,\"tentDetails\":\"\",\"accMotel\":false,\"motelName\":\"\",\"motelAddressLine1\":\"\",\"motelAddressLine2\":\"\",\"motelCity\":\"\",\"motelProvince\":\"\",\"motelPostalCode\":\"\",\"accWorkersHome\":false,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},\"contacts\":[{\"contactId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"jane@doe.com\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},{\"contactId\":2,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"john@doh.com\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"}],\"statuses\":[{\"submissionStatusId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"actionDate\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.471Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\",\"notes\":[],\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:37:04.590Z\"}}],\"notes\":[]}",
+			"value": "{\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"formVersionId\":2,\"confirmationId\":\"33B8A265\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.237Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\",\"attestation\":{\"attestationId\":\"aa2910ff-251d-4633-8bf8-899ad2b286c2\",\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},\"business\":{\"businessId\":2,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"name\":\"ZZ Smoke Testing\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},\"location\":{\"locationId\":2,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, BC\",\"cityLatitude\":null,\"cityLongitude\":null,\"mineNumber\":\"\",\"permitNumber\":\"\",\"numberOfWorkers\":10,\"accTents\":true,\"tentDetails\":\"Tents pitched on motel parking lot\",\"accMotel\":true,\"motelName\":\"Heartbreak Hotel\",\"motelAddressLine1\":\"2345 Everywhere\",\"motelAddressLine2\":\"\",\"motelCity\":\"Victoria\",\"motelProvince\":\"BC\",\"motelPostalCode\":\"123123\",\"accWorkersHome\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},\"contacts\":[{\"contactId\":3,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"jane@doe.com\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},{\"contactId\":4,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"john@doh.com\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"}],\"statuses\":[{\"submissionStatusId\":3,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"actionDate\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.249Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\",\"notes\":[],\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:39:14.292Z\"}}],\"notes\":[]}",
 			"type": "string"
 		},
 		{
-			"id": "bad9b7a3-f0a2-47cb-9776-be01e63c69cb",
+			"id": "0b249a9e-c91e-4a5d-9658-0146010ae754",
 			"key": "changedSubmission",
-			"value": "{\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"formVersionId\":1,\"confirmationId\":\"1DFB7AAD\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.416Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\",\"attestation\":{\"attestationId\":\"cf705c0b-d6c9-4fed-a275-e39459d51eb6\",\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.455Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},\"business\":{\"businessId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"name\":\"Radical Business\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},\"location\":{\"locationId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, TX\",\"cityLatitude\":null,\"cityLongitude\":null,\"mineNumber\":\"\",\"permitNumber\":\"\",\"numberOfWorkers\":10,\"accTents\":false,\"tentDetails\":\"\",\"accMotel\":false,\"motelName\":\"\",\"motelAddressLine1\":\"\",\"motelAddressLine2\":\"\",\"motelCity\":\"\",\"motelProvince\":\"\",\"motelPostalCode\":\"\",\"accWorkersHome\":false,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},\"contacts\":[{\"contactId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"first@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"},{\"contactId\":2,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"second@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.456Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\"}],\"statuses\":[{\"submissionStatusId\":1,\"submissionId\":\"1dfb7aad-1722-46de-a2dc-72a58cf51d23\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"actionDate\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T01:41:00.471Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:00.167Z\",\"notes\":[],\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:37:04.590Z\"}}],\"notes\":[]}",
+			"value": "{\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"formVersionId\":2,\"confirmationId\":\"33B8A265\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.237Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\",\"attestation\":{\"attestationId\":\"aa2910ff-251d-4633-8bf8-899ad2b286c2\",\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},\"business\":{\"businessId\":2,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"name\":\"ZZ Smoke Testing 2.0\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},\"location\":{\"locationId\":2,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, TX\",\"cityLatitude\":null,\"cityLongitude\":null,\"mineNumber\":\"\",\"permitNumber\":\"\",\"numberOfWorkers\":10,\"accTents\":true,\"tentDetails\":\"Tents pitched on motel parking lot\",\"accMotel\":true,\"motelName\":\"Heartbreak Hotel\",\"motelAddressLine1\":\"2345 Everywhere\",\"motelAddressLine2\":\"\",\"motelCity\":\"Victoria\",\"motelProvince\":\"BC\",\"motelPostalCode\":\"123123\",\"accWorkersHome\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},\"contacts\":[{\"contactId\":3,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"first@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"},{\"contactId\":4,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"second@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.245Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\"}],\"statuses\":[{\"submissionStatusId\":3,\"submissionId\":\"33b8a265-6658-448e-9105-d68ce51132b6\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"actionDate\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-05-21T20:40:59.249Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:40:59.225Z\",\"notes\":[],\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:39:14.292Z\"}}],\"notes\":[]}",
 			"type": "string"
 		},
 		{
-			"id": "4685908d-2a7f-4b95-852e-ffedff521e95",
+			"id": "6072b4b8-6ccb-439b-bcb3-615279082736",
 			"key": "statusCodes",
 			"value": {
 				"code": "SUBMITTED",
@@ -1217,45 +1280,51 @@
 			"type": "any"
 		},
 		{
-			"id": "07599d0b-4d87-4864-a72f-40b66c832c4a",
+			"id": "711adb74-0d92-4143-b058-c64bf86af94e",
 			"key": "submissionNoteId",
-			"value": 2,
+			"value": 5,
 			"type": "number"
 		},
 		{
-			"id": "56e7c287-b68d-4dda-8d3a-58bfc5deb558",
+			"id": "b2326e07-c3a1-4176-ae0e-96f99b4ebb87",
 			"key": "statusNoteId",
+			"value": 6,
+			"type": "number"
+		},
+		{
+			"id": "3e98b7b6-dc6e-4be7-8481-7cf5b757d6a5",
+			"key": "formVersionId",
 			"value": 3,
 			"type": "number"
 		},
 		{
-			"id": "efc6bd40-3cef-444e-bb63-8f83b4dc7395",
-			"key": "formVersionId",
-			"value": 1,
-			"type": "number"
-		},
-		{
-			"id": "ac60c4e7-0686-434d-891c-866883082d31",
+			"id": "e88ba846-e1cb-446f-880d-530521269fa5",
 			"key": "formDefinition",
-			"value": "{\"formId\":\"e6f005ad-a5a3-4ff3-80e7-c45b020d14f8\",\"description\":\"Description updated\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T01:41:02.174Z\",\"metadata\":{\"formId\":\"e6f005ad-a5a3-4ff3-80e7-c45b020d14f8\",\"name\":\"Industrial Camps v2\",\"slug\":\"minesoperatorscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"camps\",\"industrial\",\"attestation\",\"attestations\",\"mines\",\"mx\",\"mcad\",\"operator\",\"screening\"],\"prefix\":\"mines_os\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:02.162Z\"},\"versions\":[{\"formVersionId\":2,\"formId\":\"e6f005ad-a5a3-4ff3-80e7-c45b020d14f8\",\"changes\":\"this is a new version\",\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T01:41:02.192Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:41:02.152Z\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T01:41:02.184Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T01:41:02.152Z\"},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"],\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T01:41:02.184Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T01:41:02.152Z\"}]},{\"formVersionId\":1,\"formId\":\"e6f005ad-a5a3-4ff3-80e7-c45b020d14f8\",\"changes\":null,\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:37:04.590Z\",\"statusCodes\":[{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T01:41:01.807Z\"},{\"code\":\"ASSIGNED\",\"display\":\"Assigned\",\"enabled\":true,\"nextCodes\":[\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T01:41:01.808Z\"},{\"code\":\"COMPLETED\",\"display\":\"Completed\",\"enabled\":true,\"nextCodes\":[],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T01:41:01.808Z\"}]}]}",
+			"value": "{\"formId\":\"1da5d914-34b5-46ce-8999-6bf5b3fb6edf\",\"description\":\"Description updated\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:41:00.737Z\",\"metadata\":{\"formId\":\"1da5d914-34b5-46ce-8999-6bf5b3fb6edf\",\"name\":\"Industrial Camps v2\",\"slug\":\"minesoperatorscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"camps\",\"industrial\",\"attestation\",\"attestations\",\"mines\",\"mx\",\"mcad\",\"operator\",\"screening\"],\"prefix\":\"mines_os\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:41:00.731Z\"},\"versions\":[{\"formVersionId\":3,\"formId\":\"1da5d914-34b5-46ce-8999-6bf5b3fb6edf\",\"changes\":\"this is a new version\",\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T20:41:00.754Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:41:00.724Z\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T20:39:21.367Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:41:00.749Z\"},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"],\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T20:39:21.367Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:41:00.749Z\"}]},{\"formVersionId\":2,\"formId\":\"1da5d914-34b5-46ce-8999-6bf5b3fb6edf\",\"changes\":\"this is a new version\",\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T20:39:21.372Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:39:21.326Z\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T20:39:21.367Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:41:00.749Z\"},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"],\"createdBy\":\"development\",\"createdAt\":\"2020-05-21T20:39:21.367Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:41:00.749Z\"}]},{\"formVersionId\":1,\"formId\":\"1da5d914-34b5-46ce-8999-6bf5b3fb6edf\",\"changes\":null,\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:38:12.310Z\",\"statusCodes\":[{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:39:14.292Z\"},{\"code\":\"COMPLETED\",\"display\":\"Completed\",\"enabled\":true,\"nextCodes\":[],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:39:14.292Z\"},{\"code\":\"ASSIGNED\",\"display\":\"Assigned\",\"enabled\":true,\"nextCodes\":[\"COMPLETED\"],\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:39:14.292Z\"}]}]}",
 			"type": "string"
 		},
 		{
-			"id": "8bef1ced-7169-4003-abd8-c668a65e5088",
+			"id": "a14628e8-8c2c-4f85-ab07-208a48e9e5db",
 			"key": "changedFormDefinition",
-			"value": "{\"formId\":\"e6f005ad-a5a3-4ff3-80e7-c45b020d14f8\",\"description\":\"Description updated\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:37:04.590Z\",\"metadata\":{\"formId\":\"e6f005ad-a5a3-4ff3-80e7-c45b020d14f8\",\"name\":\"Industrial Camps v2\",\"slug\":\"minesoperatorscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"camps\",\"industrial\",\"attestation\",\"attestations\",\"mines\",\"mx\",\"mcad\",\"operator\",\"screening\"],\"prefix\":\"mines_os\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:37:04.590Z\"},\"versions\":[{\"changes\":\"this is a new version\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"]},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"]}]}],\"formVersionId\":1}",
+			"value": "{\"formId\":\"1da5d914-34b5-46ce-8999-6bf5b3fb6edf\",\"description\":\"Description updated\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:39:21.350Z\",\"metadata\":{\"formId\":\"1da5d914-34b5-46ce-8999-6bf5b3fb6edf\",\"name\":\"Industrial Camps v2\",\"slug\":\"minesoperatorscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"camps\",\"industrial\",\"attestation\",\"attestations\",\"mines\",\"mx\",\"mcad\",\"operator\",\"screening\"],\"prefix\":\"mines_os\",\"createdBy\":\"migration-004\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T20:39:21.337Z\"},\"versions\":[{\"changes\":\"this is a new version\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"]},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"]}]}],\"formVersionId\":2}",
 			"type": "string"
 		},
 		{
-			"id": "ce4e34c6-e357-421d-83ef-cd10370b3a43",
+			"id": "27e13b42-26dc-44d0-90b9-f1360fdd0aed",
 			"key": "notificationEmail",
-			"value": "{\"name\":\"notificationEmail\",\"enabled\":true,\"config\":{\"to\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"from\":\"MCAD.RegionalOps@gov.bc.ca\",\"title\":\"Industrial Camps Form Accepted\",\"subject\":\"Industrial Camps\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/minesattestations/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Industrial Camps Attestation\"},\"createdBy\":\"migration-006\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:37:04.590Z\"}",
+			"value": "{\"name\":\"notificationEmail\",\"enabled\":true,\"config\":{\"to\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"from\":\"MCAD.RegionalOps@gov.bc.ca\",\"title\":\"Industrial Camps Form Accepted\",\"subject\":\"Industrial Camps Form Accepted\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/minesoperatorscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Industrial Camps Attestation\"},\"createdBy\":\"migration-006\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:40:20.699Z\"}",
 			"type": "string"
 		},
 		{
-			"id": "5314263c-c00f-4936-a069-903de17b4430",
+			"id": "154ccbd4-a203-4727-97df-e5a8df4321e3",
 			"key": "changedNotificationEmail",
-			"value": "{\"name\":\"notificationEmail\",\"enabled\":false,\"config\":{\"to\":\"newem@il.com\",\"from\":\"MCAD.RegionalOps@gov.bc.ca\",\"title\":\"Industrial Camps Form Accepted\",\"subject\":\"Ignore this please\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/minesattestations/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Industrial Camps Attestation\"},\"createdBy\":\"migration-006\",\"createdAt\":\"2020-05-21T01:37:04.590Z\",\"updatedBy\":null,\"updatedAt\":\"2020-05-21T01:37:04.590Z\"}",
+			"value": "{\"name\":\"notificationEmail\",\"enabled\":false,\"config\":{\"to\":\"newem@il.com\",\"from\":\"MCAD.RegionalOps@gov.bc.ca\",\"title\":\"Industrial Camps Form Accepted\",\"subject\":\"Ignore this please\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/minesoperatorscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Industrial Camps Attestation\"},\"createdBy\":\"migration-006\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:40:20.699Z\"}",
+			"type": "string"
+		},
+		{
+			"id": "4961e573-7d48-406f-aaf0-ec60911f3d6f",
+			"key": "resetNotificationEmail",
+			"value": "{\"name\":\"notificationEmail\",\"enabled\":true,\"config\":{\"to\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"from\":\"MCAD.RegionalOps@gov.bc.ca\",\"title\":\"Industrial Camps Form Accepted\",\"subject\":\"Industrial Camps Form Accepted\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/minesoperatorscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Industrial Camps Attestation\"},\"createdBy\":\"migration-006\",\"createdAt\":\"2020-05-21T20:38:12.310Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-05-21T20:40:20.699Z\"}",
 			"type": "string"
 		}
 	],

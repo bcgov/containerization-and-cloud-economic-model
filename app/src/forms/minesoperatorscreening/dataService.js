@@ -216,16 +216,24 @@ const dataService = {
     }
   },
 
-  readSubmission: async (submissionId) => {
-    // put a tiny switch in here too, probably needed for public consumption (no notes, statuses etc).
-    return Models.Submission.query()
-      .findById(submissionId)
-      .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
-      .withGraphFetched('[attestation, business, location]')
-      .withGraphFetched('contacts(orderContactType)')
-      .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
-      .withGraphFetched('notes(orderDescending)')
-      .throwIfNotFound();
+  readSubmission: async (submissionId, tiny) => {
+    if (tiny) {
+      return Models.Submission.query()
+        .findById(submissionId)
+        .allowGraph('[attestation, business, contacts, location]')
+        .withGraphFetched('[attestation, business, location]')
+        .withGraphFetched('contacts(orderContactType)')
+        .throwIfNotFound();
+    } else {
+      return Models.Submission.query()
+        .findById(submissionId)
+        .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
+        .withGraphFetched('[attestation, business, location]')
+        .withGraphFetched('contacts(orderContactType)')
+        .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
+        .withGraphFetched('notes(orderDescending)')
+        .throwIfNotFound();
+    }
   },
 
   updateSubmission: async (submissionId, obj, user) => {
