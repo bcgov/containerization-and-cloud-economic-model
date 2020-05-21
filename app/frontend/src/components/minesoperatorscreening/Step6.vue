@@ -192,7 +192,7 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import RequestReceipt from '@/components/minesoperatorscreening/RequestReceipt.vue';
+import RequestReceipt from '@/components/common/RequestReceipt.vue';
 import Step1 from '@/components/minesoperatorscreening/Step1.vue';
 import Step2 from '@/components/minesoperatorscreening/Step2.vue';
 import Step3 from '@/components/minesoperatorscreening/Step3.vue';

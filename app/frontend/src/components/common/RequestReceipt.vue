@@ -62,6 +62,11 @@ import emailService from '@/services/emailService';
 
 export default {
   name: 'RequestReceipt',
+  computed: {
+    formName() {
+      return this.$route.path.split('/')[1];
+    }
+  },
   data: () => ({
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -83,7 +88,7 @@ export default {
     requestReceipt() {
       if (this.valid) {
         emailService
-          .requestReceiptEmail({
+          .requestReceiptEmail(this.formName, {
             submissionId: this.submissionId,
             to: this.to
           })
