@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import minesAttestationsService from '@/services/minesAttestations/minesAttestationsService';
+import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
 import { SampleData, RandomCities } from './sampleData.js';
 
 // Change the supplied state to the exact format required by the API endpoint
@@ -211,7 +211,7 @@ export default {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await minesAttestationsService.getSubmission(id);
+        const response = await minesOperatorScreeningService.getSubmission(id);
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
@@ -236,7 +236,7 @@ export default {
       try {
         const body = transformToPost(state);
 
-        const response = await minesAttestationsService.sendSubmission(body);
+        const response = await minesOperatorScreeningService.sendSubmission(body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

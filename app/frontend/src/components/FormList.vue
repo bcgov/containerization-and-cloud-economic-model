@@ -41,8 +41,8 @@ export default {
     // TODO: Consider loading this from API?
     forms: [
       {
-        linkAdminName: 'MinesAttestationsAdmin',
-        linkName: 'MinesAttestationsForm',
+        linkAdminName: 'MinesOperatorScreeningAdmin',
+        linkName: 'MinesOperatorScreeningForm',
         title: 'Industrial Camps'
       }
     ],

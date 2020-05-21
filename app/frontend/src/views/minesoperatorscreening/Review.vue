@@ -21,11 +21,11 @@
 import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/minesattestations/admin/AdminReviewSubmission.vue';
+import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
 import PrintScreenButton from '@/components/common/PrintScreenButton.vue';
 
 export default {
-  name: 'MinesAttestationsReview',
+  name: 'MinesOperatorScreeningReview',
   components: {
     AdminReviewSubmission,
     PrintScreenButton

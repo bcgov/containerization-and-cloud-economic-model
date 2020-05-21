@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 
-import Admin from '@/views/minesattestations/Admin.vue';
+import Admin from '@/views/minesoperatorscreening/Admin.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuetify);

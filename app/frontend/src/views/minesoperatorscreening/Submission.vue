@@ -50,10 +50,10 @@
 import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/minesattestations/admin/AdminReviewSubmission.vue';
+import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
 import PrintScreenButton from '@/components/common/PrintScreenButton.vue';
-import InspectionPanel from '@/components/minesattestations/admin/inspection/InspectionPanel.vue';
-import NotesPanel from '@/components/minesattestations/admin/inspection/NotesPanel.vue';
+import InspectionPanel from '@/components/minesoperatorscreening/admin/inspection/InspectionPanel.vue';
+import NotesPanel from '@/components/minesoperatorscreening/admin/inspection/NotesPanel.vue';
 import { AppClients } from '@/utils/constants';
 
 export default {

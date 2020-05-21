@@ -1,26 +1,22 @@
 <template>
   <v-container>
     <BaseSecure :resource="resource" viewer>
-      <Dashboard :url="dashboardUrl" />
+      <h1>Submissions</h1>
+      <SubmissionsTable />
     </BaseSecure>
   </v-container>
 </template>
 
 <script>
-import Dashboard from '@/components/common/Dashboard.vue';
+import SubmissionsTable from '@/components/minesoperatorscreening/admin/SubmissionsTable.vue';
 import { AppClients } from '@/utils/constants';
 
 export default {
-  name: 'PublicDashboard',
+  name: 'MinesOperatorScreeningAdmin',
   components: {
-    Dashboard
+    SubmissionsTable
   },
   computed: {
-    dashboardUrl() {
-      return this.$config
-        ? this.$config.dashboards.minesattestations.publicUrl
-        : undefined;
-    },
     resource() {
       return AppClients.MINESOPERATORSCREENING;
     }
