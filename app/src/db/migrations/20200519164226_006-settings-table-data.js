@@ -9,7 +9,7 @@ exports.up = function(knex) {
         config: {
           template: 'confirmation-number-email.html',
           from: 'MCAD.RegionalOps@gov.bc.ca',
-          subject: 'Industrial Camps',
+          subject: 'Industrial Camps Form Receipt',
           title: 'Industrial Camps Form Receipt',
           priority: 'normal',
           messageLinkText: 'Click to view your Receipt',
@@ -27,7 +27,7 @@ exports.up = function(knex) {
           template: 'confirmation-number-email.html',
           from: 'MCAD.RegionalOps@gov.bc.ca',
           to: 'NR.CommonServiceShowcase@gov.bc.ca',
-          subject: 'Industrial Camps',
+          subject: 'Industrial Camps Form Accepted',
           title: 'Industrial Camps Form Accepted',
           priority: 'normal',
           messageLinkText: 'Please login to view the details of this Industrial Camps Attestation',
@@ -44,7 +44,7 @@ exports.up = function(knex) {
         config: {
           template: 'status-assignment-email.html',
           from: 'MCAD.RegionalOps@gov.bc.ca',
-          subject: 'Industrial Camps',
+          subject: 'Industrial Camps Assignment',
           title: 'Industrial Camps Assignment',
           priority: 'normal',
           message: 'The status of the above attestation has changed. You have been assigned to review this attestation.',
@@ -60,7 +60,7 @@ exports.up = function(knex) {
         name: 'generateSubmissionPdf',
         enabled: true,
         config: {
-          template: 'generate-submission-pdf-001.docx',
+          template: 'generate-submission-pdf-001.html',
           templateJson: 'generate-submission-pdf-001.json'
         },
         createdBy: 'migration-006'
