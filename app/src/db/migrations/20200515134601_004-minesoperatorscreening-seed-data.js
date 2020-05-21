@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
-const PREFIX = require('../../forms/minesattestations/constants').PREFIX;
-const SLUG = require('../../forms/minesattestations/constants').SLUG;
+const PREFIX = require('../../forms/minesoperatorscreening/constants').PREFIX;
+const SLUG = require('../../forms/minesoperatorscreening/constants').SLUG;
 const CREATED_BY = 'migration-004';
 
 const statusCodes = [
@@ -31,7 +31,7 @@ exports.up = function(knex) {
       const form = {
         formId: uuidv4(),
         name: 'Industrial Camps',
-        keywords:['covid','camps','industrial','attestation','attestations', 'mines', 'mx', 'mcad'],
+        keywords:['covid','camps','industrial','attestation','attestations', 'mines', 'mx', 'mcad', 'operator', 'screening'],
         public: true,
         active: true,
         prefix: PREFIX,

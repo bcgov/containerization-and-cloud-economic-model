@@ -1,6 +1,6 @@
 const stamps = require('../stamps');
 
-const PREFIX = require('../../forms/minesattestations/constants').PREFIX;
+const PREFIX = require('../../forms/minesoperatorscreening/constants').PREFIX;
 
 exports.up = function(knex) {
   return Promise.resolve()

@@ -84,7 +84,7 @@ export default {
   computed: {
     ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
     hasReviewer() {
-      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
+      return this.hasResourceRoles(AppClients.MINESOPERATORSCREENING, [
         AppRoles.REVIEWER
       ]);
     }

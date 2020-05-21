@@ -1,6 +1,6 @@
 const stamps = require('../stamps');
 
-const PREFIX = require('../../forms/minesattestations/constants').PREFIX;
+const PREFIX = require('../../forms/minesoperatorscreening/constants').PREFIX;
 
 exports.up = function(knex) {
   return Promise.resolve()
@@ -41,6 +41,7 @@ exports.up = function(knex) {
       table.string('code').references('code').inTable(`${PREFIX}_status_code`).notNullable().index();
       table.string('assignedTo');
       table.string('assignedToEmail');
+      table.date('actionDate').nullable();
       stamps(knex, table);
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_note`, table => {

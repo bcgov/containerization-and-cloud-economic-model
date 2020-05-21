@@ -7,8 +7,8 @@ const SLEEPING_AREA_TYPE_SHARED = 'SHARED';
 const SLEEPING_AREA_TYPES = [SLEEPING_AREA_TYPE_SINGLE, SLEEPING_AREA_TYPE_SHARED];
 
 module.exports = Object.freeze({
-  SLUG: 'minesattestations',
-  PREFIX: 'mxattstn',
+  SLUG: 'minesoperatorscreening',
+  PREFIX: 'mines_os',
   INITIAL_STATUS_CODE: 'SUBMITTED',
   CONTACT_TYPE_PRIMARY: CONTACT_TYPE_PRIMARY,
   CONTACT_TYPE_COVID: CONTACT_TYPE_COVID,
