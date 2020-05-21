@@ -22,7 +22,7 @@ export default {
         : undefined;
     },
     resource() {
-      return AppClients.MINESATTESTATIONS;
+      return AppClients.MINESOPERATORSCREENING;
     }
   }
 };

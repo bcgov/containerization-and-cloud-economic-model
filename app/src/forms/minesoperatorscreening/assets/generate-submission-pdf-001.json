@@ -3,6 +3,7 @@
   "formatters": "{\"convTF\":\"_function_convTF|function(data) { return data ? 'Yes' : '___'; }\",\"sleepAreaSingle\":\"_function_sleepAreaSingle|function(data) {return data === 'SINGLE' ? 'Yes' : '___';}\",\"sleepAreaShared\":\"_function_sleepAreaShared|function(data) {return data === 'SHARED' ? 'Yes' : '___';}\"}",
   "options": {
     "convertTo": "pdf",
-    "reportName": "industrial-camps-attestation-{d.confirmationId}.docx"
+    "reportName": "industrial-camps-attestation-{d.confirmationId}.docx",
+    "overwrite": "true"
   }
 }

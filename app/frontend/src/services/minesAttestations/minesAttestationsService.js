@@ -8,7 +8,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getAllSubmissionData() {
-    return appAxios().get(ApiRoutes.MINESATTESTATIONS + '/submissions');
+    return appAxios().get(ApiRoutes.MINESOPERATORSCREENING + '/submissions');
   },
 
   /**
@@ -17,7 +17,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getAllSubmissionMetaData() {
-    return appAxios().get(ApiRoutes.MINESATTESTATIONS + '/submissions', { params: { tiny: true } });
+    return appAxios().get(ApiRoutes.MINESOPERATORSCREENING + '/submissions', { params: { tiny: true } });
   },
 
   /**
@@ -27,7 +27,7 @@ export default {
    * @returns {Promise} An axios response
    */
   sendSubmission(content) {
-    return appAxios().post(ApiRoutes.MINESATTESTATIONS + '/submissions', content);
+    return appAxios().post(ApiRoutes.MINESOPERATORSCREENING + '/submissions', content);
   },
 
   /**
@@ -37,7 +37,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getSubmission(submissionId) {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}`);
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/submissions/${submissionId}`);
   },
 
   /**
@@ -47,7 +47,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getSubmissionStatuses(submissionId) {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses`);
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/submissions/${submissionId}/statuses`);
   },
 
   /**
@@ -58,7 +58,7 @@ export default {
    * @returns {Promise} An axios response
    */
   sendSubmissionStatuses(submissionId, content) {
-    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses`, content);
+    return appAxios().post(`${ApiRoutes.MINESOPERATORSCREENING}/submissions/${submissionId}/statuses`, content);
   },
 
   /**
@@ -68,7 +68,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getNotes(submissionId) {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/notes`);
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/submissions/${submissionId}/notes`);
   },
 
   /**
@@ -79,7 +79,7 @@ export default {
    * @returns {Promise} An axios response
    */
   addNote(submissionId, content) {
-    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/notes`, content);
+    return appAxios().post(`${ApiRoutes.MINESOPERATORSCREENING}/submissions/${submissionId}/notes`, content);
   },
 
   /**
@@ -91,7 +91,7 @@ export default {
    * @returns {Promise} An axios response
    */
   addNoteToStatus(submissionId, statusId, content) {
-    return appAxios().post(`${ApiRoutes.MINESATTESTATIONS}/submissions/${submissionId}/statuses/${statusId}/notes`, content);
+    return appAxios().post(`${ApiRoutes.MINESOPERATORSCREENING}/submissions/${submissionId}/statuses/${statusId}/notes`, content);
   },
 
   /**
@@ -100,6 +100,6 @@ export default {
    * @returns {Promise} An axios response
    */
   getStatusCodes() {
-    return appAxios().get(`${ApiRoutes.MINESATTESTATIONS}/current/statusCodes`);
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/current/statusCodes`);
   },
 };

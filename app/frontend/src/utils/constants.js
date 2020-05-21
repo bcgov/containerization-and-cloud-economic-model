@@ -1,12 +1,12 @@
 export const ApiRoutes = Object.freeze({
   HELLO: '/hello',
-  MINESATTESTATIONS: '/minesattestations',
-  EMAIL: '/minesattestations/submissions/email'
+  MINESOPERATORSCREENING: '/minesoperatorscreening',
+  EMAIL: '/minesoperatorscreening/submissions/email'
 });
 
 export const AppClients = Object.freeze({
   APP: 'comfort',
-  MINESATTESTATIONS: 'comfort-minesattestations'
+  MINESOPERATORSCREENING: 'comfort-minesoperatorscreening'
 });
 
 export const AppRoles = Object.freeze({

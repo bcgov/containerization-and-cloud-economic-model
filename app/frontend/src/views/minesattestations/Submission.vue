@@ -88,7 +88,7 @@ export default {
         : 'N/A';
     },
     resource() {
-      return AppClients.MINESATTESTATIONS;
+      return AppClients.MINESOPERATORSCREENING;
     }
   },
   methods: {

@@ -203,7 +203,7 @@ export default {
     showActionDate() { return ['ASSIGNED', 'COMPLETED'].includes(this.statusToSet); },
     actionDateDisplay() { return this.currentStatus.actionDate ? moment(this.currentStatus.actionDate).format('MMMM D YYYY') : 'N/A'; },
     hasReviewer() {
-      return this.hasResourceRoles(AppClients.MINESATTESTATIONS, [
+      return this.hasResourceRoles(AppClients.MINESOPERATORSCREENING, [
         AppRoles.REVIEWER
       ]);
     }

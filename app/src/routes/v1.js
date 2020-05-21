@@ -4,7 +4,7 @@ const path = require('path');
 const router = require('express').Router();
 const yaml = require('js-yaml');
 
-const camp = require('../forms/minesattestations');
+const camp = require('../forms/minesoperatorscreening');
 const form = require('../forms/form');
 
 const getSpec = () => {

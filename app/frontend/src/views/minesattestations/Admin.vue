@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     resource() {
-      return AppClients.MINESATTESTATIONS;
+      return AppClients.MINESOPERATORSCREENING;
     }
   }
 };
