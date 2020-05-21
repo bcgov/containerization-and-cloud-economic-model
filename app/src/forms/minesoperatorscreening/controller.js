@@ -66,9 +66,9 @@ module.exports = {
     }
   },
 
-  readSubmission: async (req, res, next) => {
+  readSubmissionPublic: async (req, res, next) => {
     try {
-      const response = await dataService.readSubmission(req.params.submissionId);
+      const response = await dataService.readSubmission(req.params.submissionId, true);
       res.status(200).json(response);
     } catch (error) {
       next(error);

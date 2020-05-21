@@ -40,7 +40,7 @@ routes.put('/submissions/:submissionId', middleware.checkRole(['editor']), async
 });
 
 routes.get('/submissions/:submissionId', async (req, res, next) => {
-  await controller.readSubmission(req, res, next);
+  await controller.readSubmissionPublic(req, res, next);
 });
 
 routes.get('/submissions/:submissionId/pdf', async (req, res, next) => {
