@@ -30,59 +30,49 @@ export default function getRouter(basePath = '/') {
       },
       {
         path: '/minesoperatorscreening',
-        component: () => import(/* webpackChunkName: "mines-attestations" */ '@/views/MinesOperatorScreening.vue'),
+        component: () => import(/* webpackChunkName: "minesoperatorscreening" */ '@/views/MinesOperatorScreening.vue'),
         children: [
           {
             path: '',
             name: 'MinesOperatorScreeningForm',
-            component: () => import(/* webpackChunkName: "mines-attestations-form" */ '@/views/minesoperatorscreening/Root.vue'),
+            component: () => import(/* webpackChunkName: "minesoperatorscreening-form" */ '@/views/minesoperatorscreening/Root.vue'),
             meta: {
               title: 'Industrial Camps'
             }
           },
           {
+            path: 'admin',
+            name: 'MinesOperatorScreeningAdmin',
+            component: () => import(/* webpackChunkName: "minesoperatorscreening-admin" */ '@/views/minesoperatorscreening/Admin.vue'),
+            meta: {
+              hasLogin: true,
+              requiresAuth: true,
+              title: 'Industrial Camps Admin'
+            }
+          },
+          {
+            path: 'admin/dashboard',
+            name: 'MinesOperatorScreeningDashboards',
+            component: () => import(/* webpackChunkName: "minesoperatorscreening-dashboard" */ '@/views/minesoperatorscreening/Dashboards.vue'),
+            meta: {
+              hasLogin: true,
+              requiresAuth: true,
+              title: 'Industrial Camps Admin'
+            }
+          },
+          {
             path: 'review/:submissionId',
             name: 'MinesOperatorScreeningReview',
-            component: () => import(/* webpackChunkName: "mines-attestations-review" */ '@/views/minesoperatorscreening/Review.vue'),
+            component: () => import(/* webpackChunkName: "minesoperatorscreening-review" */ '@/views/minesoperatorscreening/Review.vue'),
             props: true,
             meta: {
               title: 'Industrial Camps Submission Review'
             }
           },
           {
-            path: 'admin',
-            name: 'MinesOperatorScreeningAdmin',
-            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesoperatorscreening/Admin.vue'),
-            meta: {
-              hasLogin: true,
-              requiresAuth: true,
-              title: 'Industrial Camps Admin'
-            }
-          },
-          {
-            path: 'admin/dashboard/public',
-            name: 'MinesOperatorScreeningDashboard',
-            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesoperatorscreening/PublicDashboard.vue'),
-            meta: {
-              hasLogin: true,
-              requiresAuth: true,
-              title: 'Industrial Camps Admin'
-            }
-          },
-          {
-            path: 'admin/dashboard/inspection',
-            name: 'MinesOperatorScreeningInspectionDashboard',
-            component: () => import(/* webpackChunkName: "mines-attestations-admin" */ '@/views/minesoperatorscreening/InspectionDashboard.vue'),
-            meta: {
-              hasLogin: true,
-              requiresAuth: true,
-              title: 'Industrial Camps Admin'
-            }
-          },
-          {
             path: 'admin/settings',
             name: 'MinesOperatorScreeningSettings',
-            component: () => import(/* webpackChunkName: "mines-attestations-settings" */ '@/views/minesoperatorscreening/Settings.vue'),
+            component: () => import(/* webpackChunkName: "minesoperatorscreening-settings" */ '@/views/minesoperatorscreening/Settings.vue'),
             meta: {
               hasLogin: true,
               requiresAuth: true,
@@ -92,7 +82,7 @@ export default function getRouter(basePath = '/') {
           {
             path: 'admin/submission/:submissionId',
             name: 'MinesOperatorScreeningSubmission',
-            component: () => import(/* webpackChunkName: "mines-attestations-submission" */ '@/views/minesoperatorscreening/Submission.vue'),
+            component: () => import(/* webpackChunkName: "minesoperatorscreening-submission" */ '@/views/minesoperatorscreening/Submission.vue'),
             props: true,
             meta: {
               hasLogin: true,

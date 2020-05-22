@@ -6,10 +6,7 @@
           <router-link :to="{ name: 'MinesOperatorScreeningAdmin' }">Submissions</router-link>
         </li>
         <li>
-          <router-link :to="{ name: 'MinesOperatorScreeningDashboard' }">Dashboard</router-link>
-        </li>
-        <li v-if="hasReviewer">
-          <router-link :to="{ name: 'MinesOperatorScreeningInspectionDashboard' }">Inspection Dashboard</router-link>
+          <router-link :to="{ name: 'MinesOperatorScreeningDashboards' }">Dashboards</router-link>
         </li>
       </ul>
     </div>
@@ -17,18 +14,9 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-import { AppClients, AppRoles } from '@/utils/constants';
-
 export default {
   name: 'AdminNavBar',
   computed: {
-    ...mapGetters('auth', ['hasResourceRoles']),
-    hasReviewer() {
-      return this.hasResourceRoles(AppClients.MINESOPERATORSCREENING, [
-        AppRoles.REVIEWER
-      ]);
-    },
     isAdminPage() {
       return this.$route.path.match(/\/admin/g);
     }
