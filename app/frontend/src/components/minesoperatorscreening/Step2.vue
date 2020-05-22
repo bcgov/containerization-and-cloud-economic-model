@@ -335,7 +335,7 @@
 
         <h4>Type of accommodation for workers at this location (check all that apply)</h4>
 
-        <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tents near worksite"></v-checkbox>
+        <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tents and trailers near worksite"></v-checkbox>
 
         <div v-if="accTents">
           <v-row>
@@ -519,7 +519,7 @@ export default {
       // Location
       mineNumberRules: [
         v => !!v || 'Mine Act Permit or Mine Number is required',
-        v => (v && v.length <= 255) || 'Number must be less than 255 characters',
+        v => (v && v.length == 7) || 'Mine number must be a 7 digit number',
       ],
       startDateRules: [
         v => !!v || 'Start date is required'
