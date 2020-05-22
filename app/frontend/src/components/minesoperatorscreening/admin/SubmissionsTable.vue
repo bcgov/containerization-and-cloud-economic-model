@@ -62,6 +62,7 @@ export default {
       headers: [
         { text: 'Submitted', value: 'created' },
         { text: 'Status', align: 'start', value: 'inspectionStatus' },
+        { text: 'Assigned To', align: 'start', value: 'assignedTo' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
         { text: 'Download', value: 'download', sortable: false },
@@ -112,6 +113,7 @@ export default {
               created: this.formatDate(submission.createdAt),
               confirmationId: submission.confirmationId,
               inspectionStatus: submission.status,
+              assignedTo: submission.assignedTo ? submission.assignedTo : '-'
             };
           });
           if (!submissions.length) {
@@ -162,6 +164,11 @@ export default {
 
 .ipc-table {
   clear: both;
+}
+@media (max-width: 1263px) {
+  .ipc-table >>> th {
+    vertical-align: top;
+  }
 }
 /* Want to use scss but the world hates me */
 .ipc-table >>> tbody tr:nth-of-type(odd) {

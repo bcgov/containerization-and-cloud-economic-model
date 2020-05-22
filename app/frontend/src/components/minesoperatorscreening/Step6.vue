@@ -22,7 +22,7 @@
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" color="primary" class="ml-5 mr-10" fab large>
-                  <v-icon>print</v-icon>
+                  <v-icon>picture_as_pdf</v-icon>
                 </v-btn>
               </template>
               <span>Download PDF</span>

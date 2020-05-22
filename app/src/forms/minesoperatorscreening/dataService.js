@@ -309,7 +309,8 @@ const dataService = {
           createdAt: d.createdAt,
           businessName: d.business.name,
           city: d.location.city,
-          status: d.statuses[0].statusCode.display
+          status: d.statuses[0].statusCode.display,
+          assignedTo: d.statuses[0].assignedTo
         };
       });
     };

@@ -54,7 +54,6 @@
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       v-model="actionDate"
-                      :rules="[v => !!v || 'Date is required']"
                       placeholder="yyyy-mm-dd"
                       append-icon="event"
                       v-on:click:append="actionDateMenu=true"
