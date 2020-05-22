@@ -80,6 +80,16 @@ export default function getRouter(basePath = '/') {
             }
           },
           {
+            path: 'admin/settings',
+            name: 'MinesOperatorScreeningSettings',
+            component: () => import(/* webpackChunkName: "mines-attestations-settings" */ '@/views/minesoperatorscreening/Settings.vue'),
+            meta: {
+              hasLogin: true,
+              requiresAuth: true,
+              title: 'Industrial Camps Settings'
+            }
+          },
+          {
             path: 'admin/submission/:submissionId',
             name: 'MinesOperatorScreeningSubmission',
             component: () => import(/* webpackChunkName: "mines-attestations-submission" */ '@/views/minesoperatorscreening/Submission.vue'),

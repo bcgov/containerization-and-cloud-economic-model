@@ -79,15 +79,15 @@ routes.get('/settings', middleware.checkRole(['viewer']), async (req, res, next)
   await controller.allSettings(req, res, next);
 });
 
-routes.post('/settings', middleware.checkRole(['editor']), async (req, res, next) => {
+routes.post('/settings', middleware.checkRole(['admin']), async (req, res, next) => {
   await controller.createSettings(req, res, next);
 });
 
-routes.get('/settings/:name', middleware.checkRole(['editor']), async (req, res, next) => {
+routes.get('/settings/:name', middleware.checkRole(['viewer']), async (req, res, next) => {
   await controller.readSettings(req, res, next);
 });
 
-routes.put('/settings/:name', middleware.checkRole(['editor']), async (req, res, next) => {
+routes.put('/settings/:name', middleware.checkRole(['admin']), async (req, res, next) => {
   await controller.updateSettings(req, res, next);
 });
 

@@ -102,4 +102,13 @@ export default {
   getStatusCodes() {
     return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/current/statusCodes`);
   },
+
+  /**
+   * @function getSettings
+   * Fetch this form's settings
+   * @returns {Promise} An axios response
+   */
+  getSettings() {
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/settings`);
+  },
 };
