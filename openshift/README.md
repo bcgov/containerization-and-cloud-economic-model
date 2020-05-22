@@ -29,6 +29,7 @@ export APP_NAME=<yourappshortname>
 oc create -n $NAMESPACE configmap $APP_NAME-frontend-config \
   --from-literal=FRONTEND_APIPATH=api/v1 \
   --from-literal=FRONTEND_BASEPATH=/app \
+  --from-literal=FRONTEND_ENV=dev \
   --from-literal=FRONTEND_KC_REALM=cp1qly2d \
   --from-literal=FRONTEND_KC_SERVERURL=https://sso-dev.pathfinder.gov.bc.ca/auth
 ```
