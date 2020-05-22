@@ -3,15 +3,17 @@
     <p>
       <strong>Last Updated:</strong>
       {{ updatedAtDisplay }}
+      <br />
+      <strong>Enabled:</strong>
+      {{ item.enabled }}
     </p>
+    <strong>Config:</strong>
     <pre>{{ JSON.stringify(item.config, null, 2) }}</pre>
   </div>
 </template>
 
 <script>
 import moment from 'moment';
-
-//import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
 
 export default {
   name: 'SettingItem',

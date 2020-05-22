@@ -6,7 +6,7 @@
 
     <div v-if="!gettingSettings">
       <v-expansion-panels>
-        <v-expansion-panel v-for="item in treeItems" :key="item.name">
+        <v-expansion-panel v-for="item in settings" :key="item.name">
           <v-expansion-panel-header>{{ item.name }}</v-expansion-panel-header>
           <v-expansion-panel-content>
             <SettingItem :item="item" />
@@ -25,13 +25,12 @@ import SettingItem from '@/components/minesoperatorscreening/admin/settings/Sett
 export default {
   name: 'SettingsPanel',
   components: {
-    SettingItem,
+    SettingItem
   },
   data: () => ({
     error: false,
     gettingSettings: false,
-    settings: {},
-    treeItems: [],
+    settings: []
   }),
   methods: {
     async getSettings() {
@@ -40,8 +39,6 @@ export default {
       try {
         const response = await minesOperatorScreeningService.getSettings();
         this.settings = response.data;
-        this.treeItems = response.data
-          .filter(s => s.enabled);
       } catch (error) {
         console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
         this.error = 'Failed to fetch Settings from the Database';
