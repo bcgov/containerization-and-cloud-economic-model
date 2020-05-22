@@ -1,24 +1,35 @@
 <template>
-  <div v-if="defined" class="dashboard-container">
-    <iframe :src="url" />
+  <div v-if="hasResourceRoles(resource, roles)" class="dashboard-container">
+    <iframe v-if="defined" :src="url" />
+    <h1 v-else class="my-8 text-center">No dashboard has been configured.</h1>
   </div>
   <div v-else>
-    <p class="text-center">No dashboard has been configured.</p>
+    <h1 class="my-8 text-center">You are not authorized to view this dashboard.</h1>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { AppClients } from '@/utils/constants';
+
 export default {
   name: 'Dashboard',
   computed: {
+    ...mapGetters('auth', ['hasResourceRoles']),
     defined() {
       return typeof this.url === 'string' || this.url instanceof String;
     }
   },
   props: {
+    resource: {
+      default: AppClients.APP,
+      type: String
+    },
+    roles: {
+      type: Array
+    },
     url: {
-      type: String,
-      required: false
+      type: String
     }
   }
 };
