@@ -7,9 +7,6 @@
   "frontend": {
     "apiPath": "api/v1",
     "basePath" : "/app",
-    "dashboards": {
-      "minesoperatorscreening": {}
-    },
     "geocoder": {
       "endpoint": "https://apps.gov.bc.ca/pub/geocoder"
     },

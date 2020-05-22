@@ -12,11 +12,12 @@ export default {
   name: 'Dashboard',
   computed: {
     defined() {
-      return typeof this.url !== 'undefined';
+      return typeof this.url === 'string' || this.url instanceof String;
     }
   },
   props: {
     url: {
+      type: String,
       required: false
     }
   }
