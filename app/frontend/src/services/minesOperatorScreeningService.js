@@ -8,7 +8,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getAllSubmissionData() {
-    return appAxios().get(ApiRoutes.MINESOPERATORSCREENING + '/submissions');
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/submissions`);
   },
 
   /**
@@ -17,7 +17,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getAllSubmissionMetaData() {
-    return appAxios().get(ApiRoutes.MINESOPERATORSCREENING + '/submissions', { params: { tiny: true } });
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/submissions`, { params: { tiny: true } });
   },
 
   /**
@@ -27,7 +27,7 @@ export default {
    * @returns {Promise} An axios response
    */
   sendSubmission(content) {
-    return appAxios().post(ApiRoutes.MINESOPERATORSCREENING + '/submissions', content);
+    return appAxios().post(`${ApiRoutes.MINESOPERATORSCREENING}/submissions`, content);
   },
 
   /**
@@ -111,4 +111,13 @@ export default {
   getSettings() {
     return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/settings`);
   },
+
+  /**
+   * @function getDashboardSettings
+   * Fetch a list of dashboard setting configurations
+   * @returns {Promise} An axios response
+   */
+  getDashboardSettings() {
+    return appAxios().get(`${ApiRoutes.MINESOPERATORSCREENING}/settings/dashboards`);
+  }
 };
