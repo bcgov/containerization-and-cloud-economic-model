@@ -18,7 +18,11 @@
                         <div>VIEW</div>
                       </v-btn>
                     </router-link>
-                    <router-link class="pr-2" :to="{ name: form.linkAdminName }">
+                    <router-link
+                      v-if="hasResourceRoles(form.resource, form.roles)"
+                      class="pr-2"
+                      :to="{ name: form.linkAdminName }"
+                    >
                       <v-btn outlined>
                         <span>ADMIN</span>
                       </v-btn>
@@ -35,14 +39,22 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
+import { AppClients, AppRoles } from '@/utils/constants';
+
 export default {
   name: 'FormList',
+  computed: {
+    ...mapGetters('auth', ['hasResourceRoles'])
+  },
   data: () => ({
-    // TODO: Consider loading this from API?
+    // TODO: Consider loading part of this from API?
     forms: [
       {
         linkAdminName: 'MinesOperatorScreeningAdmin',
         linkName: 'MinesOperatorScreeningForm',
+        resource: AppClients.MINESOPERATORSCREENING,
+        roles: [AppRoles.VIEWER],
         title: 'Industrial Camps'
       }
     ],

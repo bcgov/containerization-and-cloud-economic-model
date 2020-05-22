@@ -1,7 +1,5 @@
 export const ApiRoutes = Object.freeze({
-  HELLO: '/hello',
-  MINESOPERATORSCREENING: '/minesoperatorscreening',
-  EMAIL: '/minesoperatorscreening/submissions/email'
+  MINESOPERATORSCREENING: '/minesoperatorscreening'
 });
 
 export const AppClients = Object.freeze({
