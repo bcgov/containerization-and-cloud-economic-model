@@ -2,6 +2,7 @@
   <v-container>
     <div class="hide-on-review">
       <v-btn
+        v-show="showTestDataButton"
         class="mb-5"
         outlined
         color="primary"
@@ -441,6 +442,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import CityLookup from '@/components/common/CityLookup.vue';
 import OrgBookSearch from '@/components/common/OrgBookSearch.vue';
+import Vue from 'vue';
 
 export default {
   name: 'MinesAttestationStep2',
@@ -457,6 +459,7 @@ export default {
       validationFailed: false,
       startDateMenu: false,
       endDateMenu: false,
+      showTestDataButton:  Vue.prototype.$config ? Vue.prototype.$config.env !== 'prod' : false,
 
       // Todo: constants file
       provinces: ['AB','BC','MB','NB','NL','NS','NT','NU','ON','PE','QC','SK','YT'],
