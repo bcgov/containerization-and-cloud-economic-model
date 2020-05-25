@@ -2,7 +2,7 @@
   <v-container>
     <div class="hide-on-review">
       <v-btn
-        v-show="showTestDataButton"
+        v-if="showTestDataButton"
         class="mb-5"
         outlined
         color="primary"
@@ -336,7 +336,11 @@
 
         <h4>Type of accommodation for workers at this location (check all that apply)</h4>
 
-        <v-checkbox v-model="accTents" :readonly="reviewMode" label="Tents and trailers near worksite"></v-checkbox>
+        <v-checkbox
+          v-model="accTents"
+          :readonly="reviewMode"
+          label="Tents and trailers near worksite"
+        ></v-checkbox>
 
         <div v-if="accTents">
           <v-row>
@@ -418,10 +422,19 @@
             <label>Mine Number</label>
             <v-text-field dense flat outlined solo v-model="mineNumber" :rules="mineNumberRules" />
           </v-col>
-          <v-col cols="12" sm="1" class="text-sm-center pb-5 pb-sm-0" ><span class="hide-on-review">or</span></v-col>
+          <v-col cols="12" sm="1" class="text-sm-center pb-5 pb-sm-0">
+            <span class="hide-on-review">or</span>
+          </v-col>
           <v-col cols="12" sm="6" md="5">
             <label>Mines Act Permit</label>
-            <v-text-field dense flat outlined solo />
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="permitNumber"
+              :rules="permitNumberRules"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -520,10 +533,6 @@ export default {
       ],
 
       // Location
-      mineNumberRules: [
-        v => !!v || 'Mine Act Permit or Mine Number is required',
-        v => (v && v.length == 7) || 'Mine number must be a 7 digit number',
-      ],
       startDateRules: [
         v => !!v || 'Start date is required'
       ],
@@ -539,6 +548,15 @@ export default {
         v => v > 0 || '# of workers must be greater than 0',
         v => v < 9999 || '# of workers must 9999 or less'
       ],
+
+      // Mine
+      mineNumberRules: [
+        () => (this.mineNumber.length > 0 || this.permitNumber.length > 0) || 'Please enter a mine number or permit',
+        () => (!this.mineNumber || this.mineNumber.length === 7) || 'Please enter a 7 digit number for Mine Number'
+      ],
+      permitNumberRules: [
+        () => (this.mineNumber.length > 0 || this.permitNumber.length > 0) || 'Please enter a mine number or permit'
+      ]
     };
   },
   computed: {
@@ -615,10 +633,6 @@ export default {
     },
 
     // Location
-    mineNumber: {
-      get() { return this.location.mineNumber; },
-      set(value) { this.updateLocation({['mineNumber']: value}); }
-    },
     startDate: {
       get() { return this.location.startDate; },
       set(value) { this.updateLocation({['startDate']: value}); }
@@ -684,6 +698,16 @@ export default {
     accWorkersHome: {
       get() { return this.location.accWorkersHome; },
       set(value) { this.updateLocation({['accWorkersHome']: value}); }
+    },
+
+    // Mine
+    mineNumber: {
+      get() { return this.location.mineNumber; },
+      set(value) { this.updateLocation({['mineNumber']: value}); }
+    },
+    permitNumber: {
+      get() { return this.location.permitNumber; },
+      set(value) { this.updateLocation({['permitNumber']: value}); }
     },
   },
   methods: {

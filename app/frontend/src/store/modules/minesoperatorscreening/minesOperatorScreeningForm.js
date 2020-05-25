@@ -9,6 +9,12 @@ function transformToPost(state) {
   // TODO: unit test this!
   const copy = JSON.parse(JSON.stringify(state));
 
+  // Recursive remove all '' fields from body to post
+  // https://stackoverflow.com/questions/286141/remove-blank-attributes-from-an-object-in-javascript
+  // const cleanEmpty = copy => Object.entries(copy)
+  //   .map(([k, v]) => [k, v && typeof v === 'object' ? cleanEmpty(v) : v])
+  //   .reduce((a, [k, v]) => (v === '' ? a : { ...a, [k]: v }), {});
+
   const contacts = [copy.primaryContact, copy.covidContact];
   copy.location.numberOfWorkers = Number.parseInt(copy.location.numberOfWorkers, 10);
   const body = {
@@ -17,6 +23,11 @@ function transformToPost(state) {
     attestation: copy.attestation,
     location: copy.location
   };
+
+  // For now, just to be safe remove only the mine num if it's blank, should implement recursive fxn above, but when there's more breathing room and testing time
+  if (body.location && body.location.mineNumber === '') {
+    delete body.location.mineNumber;
+  }
   return body;
 }
 
