@@ -1,4 +1,5 @@
 module.exports = {
   ...require('./dataErrors'),
-  ...require('./auth')
+  ...require('./auth'),
+  ...require('./rateLimiter')
 };

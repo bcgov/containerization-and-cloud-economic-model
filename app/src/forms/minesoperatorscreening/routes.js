@@ -3,7 +3,7 @@ const routes = require('express').Router();
 const controller = require('./controller');
 const middleware = require('./middleware');
 
-routes.get('/', async (req, res, next) => {
+routes.get('/', middleware.publicRateLimiter, async (req, res, next) => {
   await controller.read(req, res, next);
 });
 
@@ -11,7 +11,7 @@ routes.post('/', middleware.checkRole(['admin']), async (req, res, next) => {
   await controller.create(req, res, next);
 });
 
-routes.get('/current', async (req, res, next) => {
+routes.get('/current', middleware.publicRateLimiter, async (req, res, next) => {
   await controller.current(req, res, next);
 });
 
@@ -19,7 +19,7 @@ routes.put('/current', middleware.checkRole(['admin']), async (req, res, next) =
   await controller.update(req, res, next);
 });
 
-routes.get('/current/statusCodes', async (req, res, next) => {
+routes.get('/current/statusCodes', middleware.publicRateLimiter, async (req, res, next) => {
   await controller.readCurrentStatusCodes(req, res, next);
 });
 
@@ -31,7 +31,7 @@ routes.get('/submissions', middleware.checkRole(['viewer']), middleware.submissi
   await controller.searchSubmissions(req, res, next);
 });
 
-routes.post('/submissions', middleware.currentUser, async (req, res, next) => {
+routes.post('/submissions', middleware.publicRateLimiter, middleware.currentUser, async (req, res, next) => {
   await controller.createSubmission(req, res, next);
 });
 
@@ -39,15 +39,15 @@ routes.put('/submissions/:submissionId', middleware.checkRole(['editor']), async
   await controller.updateSubmission(req, res, next);
 });
 
-routes.get('/submissions/:submissionId', async (req, res, next) => {
+routes.get('/submissions/:submissionId', middleware.publicRateLimiter, async (req, res, next) => {
   await controller.readSubmissionPublic(req, res, next);
 });
 
-routes.get('/submissions/:submissionId/pdf', async (req, res, next) => {
+routes.get('/submissions/:submissionId/pdf', middleware.publicRateLimiter, async (req, res, next) => {
   await controller.generateSubmissionPdf(req, res, next);
 });
 
-routes.post('/submissions/email', async (req, res, next) => {
+routes.post('/submissions/email', middleware.publicRateLimiter, async (req, res, next) => {
   await controller.sendSubmissionEmail(req, res, next);
 });
 
