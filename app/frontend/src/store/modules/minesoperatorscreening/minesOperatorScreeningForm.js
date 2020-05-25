@@ -28,8 +28,6 @@ function transformToPost(state) {
   if (body.location && body.location.mineNumber === '') {
     delete body.location.mineNumber;
   }
-
-  console.log(JSON.stringify(body, 0, 2));
   return body;
 }
 

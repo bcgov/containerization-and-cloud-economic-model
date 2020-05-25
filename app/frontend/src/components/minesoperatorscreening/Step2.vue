@@ -420,7 +420,7 @@
         <v-row align="center">
           <v-col cols="12" sm="5">
             <label>Mine Number</label>
-            <v-text-field dense flat outlined solo v-model="mineNumber" :rules="mineNumberRules || permitNumberRules" />
+            <v-text-field dense flat outlined solo v-model="mineNumber" :rules="mineNumberRules" />
           </v-col>
           <v-col cols="12" sm="1" class="text-sm-center pb-5 pb-sm-0">
             <span class="hide-on-review">or</span>
