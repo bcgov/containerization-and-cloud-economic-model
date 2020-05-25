@@ -63,7 +63,7 @@ describe('BaseSecure.vue', () => {
       stubs: ['router-link']
     });
 
-    expect(wrapper.text()).toMatch('You are not authorized to use this feature.');
+    expect(wrapper.text()).toMatch('Thank you for logging in.');
   });
 
   it('renders a message with login button if unauthenticated', () => {
