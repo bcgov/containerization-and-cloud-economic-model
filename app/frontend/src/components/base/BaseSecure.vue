@@ -4,7 +4,13 @@
       <slot />
     </div>
     <div v-else class="text-center">
-      <h1 class="my-8">You are not authorized to use this feature.</h1>
+      <h1 class="my-8">Thank you for logging in.</h1>
+      <h3 class="mb-8">
+        To complete your registration please send an email to
+        <a
+          :href="mail"
+        >nr.commonserviceshowcase@gov.bc.ca</a>
+      </h3>
       <router-link :to="{ name: 'Home' }">
         <v-btn color="primary" class="about-btn" large>
           <v-icon class="mr-1">mdi-home</v-icon>
@@ -32,8 +38,12 @@ export default {
       'authenticated',
       'createLoginUrl',
       'hasResourceRoles',
-      'keycloakReady'
-    ])
+      'keycloakReady',
+      'userName'
+    ]),
+    mail() {
+      return `mailto:nr.commonserviceshowcase@gov.bc.ca?subject=${this.userName} - Mines Operator Screening - New User&body=Please grant administrative access to ${this.userName} for the Mines Operator Screening application.`;
+    }
   },
   methods: {
     authorized() {
