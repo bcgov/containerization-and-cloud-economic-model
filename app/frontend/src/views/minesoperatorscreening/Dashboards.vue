@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container fluid>
     <BaseSecure :resource="resource" viewer>
       <v-progress-linear indeterminate v-if="loading" color="primary" class="mb-2" />
       <div v-else>
