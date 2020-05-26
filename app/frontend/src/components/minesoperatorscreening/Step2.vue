@@ -72,6 +72,7 @@
               placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="phone2"
+              :rules="phone2Rules"
             />
           </v-col>
         </v-row>
@@ -109,7 +110,14 @@
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>Address line 2 (Optional)</label>
-            <v-text-field dense flat outlined solo v-model="businessAddressLine2" />
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              v-model="businessAddressLine2"
+              :rules="businessAddressLine2Rules"
+            />
           </v-col>
         </v-row>
 
@@ -207,6 +215,7 @@
               placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="covidPhone2"
+              :rules="covidPhone2Rules"
             />
           </v-col>
         </v-row>
@@ -349,7 +358,14 @@
                 Details (eg:
                 <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
               </label>
-              <v-text-field v-model="tentDetails" dense flat outlined solo />
+              <v-text-field
+                v-model="tentDetails"
+                :rules="tentDetailsRules"
+                dense
+                flat
+                outlined
+                solo
+              />
             </v-col>
           </v-row>
         </div>
@@ -359,26 +375,40 @@
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>Name</label>
-              <v-text-field v-model="motelName" dense flat outlined solo />
+              <v-text-field v-model="motelName" :rules="motelNameRules" dense flat outlined solo />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>Address line 1</label>
-              <v-text-field v-model="motelAddressLine1" dense flat outlined solo />
+              <v-text-field
+                v-model="motelAddressLine1"
+                :rules="motelAddressLine1Rules"
+                dense
+                flat
+                outlined
+                solo
+              />
             </v-col>
 
             <v-col cols="12" sm="6" lg="5">
               <label>Address line 2 (Optional)</label>
-              <v-text-field v-model="motelAddressLine2" dense flat outlined solo />
+              <v-text-field
+                v-model="motelAddressLine2"
+                :rules="motelAddressLine2Rules"
+                dense
+                flat
+                outlined
+                solo
+              />
             </v-col>
           </v-row>
 
           <v-row>
             <v-col cols="12" sm="6" lg="5">
               <label>City</label>
-              <v-text-field v-model="motelCity" dense flat outlined solo />
+              <v-text-field v-model="motelCity" :rules="motelCityRules" dense flat outlined solo />
             </v-col>
             <v-col cols="12" sm="3" lg="2">
               <label>Province</label>
@@ -398,7 +428,14 @@
           <v-row>
             <v-col cols="12" sm="3" lg="2">
               <label>Postal Code</label>
-              <v-text-field v-model="motelPostalCode" dense flat outlined solo />
+              <v-text-field
+                v-model="motelPostalCode"
+                :rules="motelPostalCodeRules"
+                dense
+                flat
+                outlined
+                solo
+              />
             </v-col>
           </v-row>
         </div>
@@ -480,56 +517,71 @@ export default {
       // Business
       businessNameRules: [
         v => !!v || 'Business name is required',
+        v => (v && v.length <= 255) || 'Business name must be 255 characters or less',
       ],
       businessAddressLine1Rules: [
         v => !!v || 'Business address is required',
+        v => (v && v.length <= 255) || 'Line 1 must be 255 characters or less',
+      ],
+      businessAddressLine2Rules: [
+        v => !v || v.length <= 255 || 'Line 2 must be 255 characters or less',
       ],
       businessAddressCityRules: [
         v => !!v || 'City is required',
+        v => (v && v.length <= 255) || 'City must be 255 characters or less',
       ],
       businessAddressProvinceRules: [
         v => !!v || 'Province is required',
       ],
       businessAddressPostalCodeRules: [
         v => !!v || 'Postal Code is required',
+        v => (v && v.length <= 7) || 'Please enter a valid postal code',
       ],
 
       // Contact
       firstNameRules: [
         v => !!v || 'First name is required',
-        v => (v && v.length <= 100) || 'First name must be less than 100? characters',
+        v => (v && v.length <= 255) || 'First name must be 255 characters or less',
       ],
       lastNameRules: [
         v => !!v || 'Last name is required',
-        v => (v && v.length <= 100) || 'Last name must be less than 100? characters',
+        v => (v && v.length <= 255) || 'Last name must be 255 characters or less',
       ],
       phone1Rules: [
         v => !!v || 'Phone number is required',
         v => validator.isMobilePhone(v) || 'invalid phone number format',
+        v => (v && v.length <= 30) || 'Phone number must be 30 characters or less'
+      ],
+      phone2Rules: [
+        v => !v || v.length <= 30 || 'Phone number must be 30 characters or less',
       ],
       emailRules: [
         v => !!v || 'E-mail is required',
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 100) || 'E-mail must be less than 100? characters',
+        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less',
       ],
 
       // Covid Contact
       covidFirstNameRules: [
         v => !!v || 'First name is required',
-        v => (v && v.length <= 100) || 'First name must be less than 100? characters',
+        v => (v && v.length <= 255) || 'First name must be 255 characters or less',
       ],
       covidLastNameRules: [
         v => !!v || 'Last name is required',
-        v => (v && v.length <= 100) || 'Last name must be less than 100? characters',
+        v => (v && v.length <= 255) || 'Last name must be 255 characters or less',
       ],
       covidPhone1Rules: [
         v => !!v || 'Phone number is required',
         v => validator.isMobilePhone(v) || 'invalid phone number format',
+        v => (v && v.length <= 30) || 'Phone number must be 30 characters or less',
+      ],
+      covidPhone2Rules: [
+        v => !v || v.length <= 30 || 'Phone number must be 30 characters or less',
       ],
       covidEmailRules: [
         v => !!v || 'E-mail is required',
         v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 100) || 'E-mail must be less than 100? characters',
+        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less',
       ],
 
       // Location
@@ -540,7 +592,8 @@ export default {
         v => !!v || 'End date is required'
       ],
       locationCityRules: [
-        v => !!v || 'Closest Community / Town / City is required'
+        v => !!v || 'Closest Community / Town / City is required',
+        v => (v && v.length <= 255) || 'City must be 255 characters or less',
       ],
       // Todo, put in some utility fxn somewhere if needed again
       numberOfWorkersRules: [
@@ -548,14 +601,33 @@ export default {
         v => v > 0 || '# of workers must be greater than 0',
         v => v < 9999 || '# of workers must 9999 or less'
       ],
+      tentDetailsRules: [
+        v => !v || v.length <= 255 || 'Details must be 255 characters or less'
+      ],
+      motelNameRules: [
+        v => !v || v.length <= 255 || 'Name must be 255 characters or less'
+      ],
+      motelAddressLine1Rules: [
+        v => !v || v.length <= 255 || 'Address must be 255 characters or less'
+      ],
+      motelAddressLine2Rules: [
+        v => !v || v.length <= 255 || 'Address must be 255 characters or less'
+      ],
+      motelCityRules: [
+        v => !v || v.length <= 255 || 'City must be 255 characters or less'
+      ],
+      motelPostalCodeRules: [
+        v => !v || v.length <= 7 || ' enter a valid postal code'
+      ],
 
       // Mine
       mineNumberRules: [
-        () => (this.mineNumber.length > 0 || this.permitNumber.length > 0) || 'Please enter a mine number or permit',
-        () => (!this.mineNumber || this.mineNumber.length === 7) || 'Please enter a 7 digit number for Mine Number'
+        v => (v.length > 0 || this.permitNumber.length > 0) || 'Please enter a mine number or permit',
+        v => (!v || v.length === 7) || 'Please enter a 7 digit number for Mine Number'
       ],
       permitNumberRules: [
-        () => (this.mineNumber.length > 0 || this.permitNumber.length > 0) || 'Please enter a mine number or permit'
+        v => (this.mineNumber.length > 0 || v.length > 0) || 'Please enter a mine number or permit',
+        v => (!v || v.length <= 255) || 'Permit must be 255 characters or less'
       ]
     };
   },
