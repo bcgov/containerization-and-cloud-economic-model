@@ -15,6 +15,19 @@ function transformToPost(state) {
   //   .map(([k, v]) => [k, v && typeof v === 'object' ? cleanEmpty(v) : v])
   //   .reduce((a, [k, v]) => (v === '' ? a : { ...a, [k]: v }), {});
 
+  // Sanitize the optional fields in case they get checked, filled out, unchecked
+  if(!copy.location.accTents) {
+    delete copy.location.tentDetails;
+  }
+  if(!copy.location.accMotel) {
+    delete copy.location.motelName;
+    delete copy.location.motelAddressLine1;
+    delete copy.location.motelAddressLine2;
+    delete copy.location.motelCity;
+    delete copy.location.motelProvince;
+    delete copy.location.motelPostalCode;
+  }
+
   const contacts = [copy.primaryContact, copy.covidContact];
   copy.location.numberOfWorkers = Number.parseInt(copy.location.numberOfWorkers, 10);
   const body = {
