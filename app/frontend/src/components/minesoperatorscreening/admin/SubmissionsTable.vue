@@ -24,8 +24,6 @@
       :loading="loading"
       loading-text="Loading... Please wait"
       item-key="confirmationId"
-      sortBy="created"
-      update: sort-desc
     >
       <template v-slot:item.download="{ item }">
         <GeneratePdfButton :submissionId="item.submissionId">
