@@ -2,6 +2,10 @@ const log = require('npmlog');
 const Problem = require('api-problem');
 
 module.exports = function (service, e) {
+  if (e instanceof Problem) {
+    // already a problem, no need to convert, just throw it up the stack.
+    throw e;
+  }
   if (e.response) {
     log.error(`Error from ${service}: status = ${e.response.status}, data : ${e.response.data}`);
     // Validation Error

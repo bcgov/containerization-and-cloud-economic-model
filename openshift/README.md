@@ -61,17 +61,35 @@ Replace anything in angle brackets with the appropriate value!
 export NAMESPACE=<yournamespace>
 export APP_NAME=<yourappshortname>
 
+export username=<username>
+export password=<password>
+
 oc create -n $NAMESPACE secret generic $APP_NAME-keycloak-secret \
   --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
+  --from-literal=username=$username \
+  --from-literal=password=$password
 ```
 
 ```sh
+export username=<username>
+export password=<password>
+
 oc create -n $NAMESPACE secret generic $APP_NAME-sc-cs-secret \
   --type=kubernetes.io/basic-auth \
-  --from-literal=username=<username> \
-  --from-literal=password=<password>
+  --from-literal=username=$username \
+  --from-literal=password=$password
+```
+
+This is the for Keycloak admin functionality, such as group, user and role management.  
+
+```sh
+export username=<username>
+export password=<password>
+
+oc create -n $NAMESPACE secret generic $APP_NAME-keycloak-admin-secret \
+  --type=kubernetes.io/basic-auth \
+  --from-literal=username=$username \
+  --from-literal=password=$password
 ```
 
 ## Build Config & Deployment

@@ -164,6 +164,16 @@ objects:
                     secretKeyRef:
                       key: password
                       name: "${APP_NAME}-sc-cs-secret"
+                - name: SERVER_KC_ADMINCLIENTID
+                  valueFrom:
+                    secretKeyRef:
+                      key: username
+                      name: "${APP_NAME}-keycloak-admin-secret"
+                - name: SERVER_KC_ADMINCLIENTSECRET
+                  valueFrom:
+                    secretKeyRef:
+                      key: password
+                      name: "${APP_NAME}-keycloak-admin-secret"
               envFrom:
                 - configMapRef:
                     name: "${APP_NAME}-frontend-config"
