@@ -5,18 +5,20 @@
     </div>
     <div v-else class="text-center">
       <h1 class="my-8">Thank you for logging in.</h1>
-      <h3 class="mb-8">
-        To complete your registration please send an email to
-        <a
-          :href="mail"
-        >nr.commonserviceshowcase@gov.bc.ca</a>
-      </h3>
-      <router-link :to="{ name: 'Home' }">
-        <v-btn color="primary" class="about-btn" large>
-          <v-icon class="mr-1">mdi-home</v-icon>
-          <span>Return</span>
-        </v-btn>
-      </router-link>
+      <h3 class="mb-8">You have not been granted access to this feature yet.</h3>
+
+      <v-btn color="primary" @click="requestAccess" :disabled="success" large>
+        <span v-if="success">Request Sent</span>
+        <span v-else>Request Access</span>
+      </v-btn>
+
+      <BaseDialog :show="resultDialog" @close-dialog="resultDialog = false">
+        <template v-slot:icon>
+          <v-icon v-if="success" large color="success">check_circle_outline</v-icon>
+          <v-icon v-else large color="error">cancel</v-icon>
+        </template>
+        <template v-slot:text>{{ resultDialogMsg }}</template>
+      </BaseDialog>
     </div>
   </div>
   <div v-else class="text-center">
@@ -29,6 +31,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
+
+import commonFormService from '@/services/commonFormService';
 import { AppClients, AppRoles } from '@/utils/constants';
 
 export default {
@@ -38,13 +42,17 @@ export default {
       'authenticated',
       'createLoginUrl',
       'hasResourceRoles',
-      'keycloakReady',
-      'userName'
+      'keycloakReady'
     ]),
-    mail() {
-      return `mailto:nr.commonserviceshowcase@gov.bc.ca?subject=${this.userName} - Mines Operator Screening - New User&body=Please grant administrative access to ${this.userName} for the Mines Operator Screening application.`;
+    formName() {
+      return this.$route.path.split('/')[1];
     }
   },
+  data: () => ({
+    resultDialog: false,
+    resultDialogMsg: '',
+    success: false
+  }),
   methods: {
     authorized() {
       const roles = [];
@@ -59,6 +67,23 @@ export default {
       if (this.keycloakReady) {
         window.location.replace(this.createLoginUrl({ idpHint: 'idir' }));
       }
+    },
+    requestAccess() {
+      commonFormService
+        .requestTeam(this.formName)
+        .then(() => {
+          this.success = true;
+          this.resultDialogMsg =
+            'Your access request has been submitted. Please check back later.';
+        })
+        .catch(() => {
+          this.success = false;
+          this.resultDialogMsg =
+            'An error occured while attempting to request access.';
+        })
+        .finally(() => {
+          this.resultDialog = true;
+        });
     }
   },
   props: {
