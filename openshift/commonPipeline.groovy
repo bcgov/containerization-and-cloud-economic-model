@@ -54,53 +54,51 @@ def runStageBuild() {
         echo "DEBUG - Using project: ${openshift.project()}"
       }
 
-      // parallel(
-      //   App: {
+      parallel(
+        App: {
+          try {
+            notifyStageStatus('Build App', 'PENDING')
 
-      try {
-        notifyStageStatus('Build App', 'PENDING')
+            echo "Processing BuildConfig ${REPO_NAME}-app-${JOB_NAME}..."
+            def bcApp = openshift.process('-f',
+              'openshift/app.bc.yaml',
+              "REPO_NAME=${REPO_NAME}",
+              "ROUTE_PATH=${PATH_ROOT}",
+              "JOB_NAME=${JOB_NAME}",
+              "SOURCE_REPO_URL=${SOURCE_REPO_URL}",
+              "SOURCE_REPO_REF=${SOURCE_REPO_REF}"
+            )
 
-        echo "Processing BuildConfig ${REPO_NAME}-app-${JOB_NAME}..."
-        def bcApp = openshift.process('-f',
-          'openshift/app.bc.yaml',
-          "REPO_NAME=${REPO_NAME}",
-          "ROUTE_PATH=${PATH_ROOT}",
-          "JOB_NAME=${JOB_NAME}",
-          "SOURCE_REPO_URL=${SOURCE_REPO_URL}",
-          "SOURCE_REPO_REF=${SOURCE_REPO_REF}"
-        )
+            echo "Building ImageStream..."
+            openshift.apply(bcApp).narrow('bc').startBuild('-w').logs('-f')
 
-        echo "Building ImageStream..."
-        openshift.apply(bcApp).narrow('bc').startBuild('-w').logs('-f')
+            echo "Tagging Image ${REPO_NAME}-app:latest..."
+            openshift.tag("${REPO_NAME}-app:latest",
+              "${REPO_NAME}-app:${JOB_NAME}"
+            )
 
-        echo "Tagging Image ${REPO_NAME}-app:latest..."
-        openshift.tag("${REPO_NAME}-app:latest",
-          "${REPO_NAME}-app:${JOB_NAME}"
-        )
+            echo 'App build successful'
+            notifyStageStatus('Build App', 'SUCCESS')
+          } catch (e) {
+            echo 'App build failed'
+            notifyStageStatus('Build App', 'FAILURE')
+            throw e
+          }
+        },
 
-        echo 'App build successful'
-        notifyStageStatus('Build App', 'SUCCESS')
-      } catch (e) {
-        echo 'App build failed'
-        notifyStageStatus('Build App', 'FAILURE')
-        throw e
-      }
+        SonarQube: {
+          unstash APP_COV_STASH
+          unstash FE_COV_STASH
 
-      //   },
-
-      //   SonarQube: {
-      //     unstash APP_COV_STASH
-      //     unstash FE_COV_STASH
-
-      //     echo 'Performing SonarQube static code analysis...'
-      //     sh """
-      //     sonar-scanner \
-      //       -Dsonar.host.url='${SONARQUBE_URL_INT}' \
-      //       -Dsonar.projectKey='${REPO_NAME}-${JOB_NAME}' \
-      //       -Dsonar.projectName='${APP_NAME} (${JOB_NAME.toUpperCase()})'
-      //     """
-      //   }
-      // )
+          echo 'Performing SonarQube static code analysis...'
+          sh """
+          sonar-scanner \
+            -Dsonar.host.url='${SONARQUBE_URL_INT}' \
+            -Dsonar.projectKey='${REPO_NAME}-${JOB_NAME}' \
+            -Dsonar.projectName='${APP_NAME} (${JOB_NAME.toUpperCase()})'
+          """
+        }
+      )
     }
   }
 }
