@@ -4,8 +4,9 @@ const path = require('path');
 const router = require('express').Router();
 const yaml = require('js-yaml');
 
-const camp = require('../forms/minesoperatorscreening');
 const form = require('../forms/form');
+const minesOperatorScreening = require('../forms/minesoperatorscreening');
+const userManagement = require('../forms/usermanagement');
 
 const getSpec = () => {
   const rawSpec = fs.readFileSync(path.join(__dirname, '../docs/v1.api-spec.yaml'), 'utf8');
@@ -14,16 +15,18 @@ const getSpec = () => {
   return spec;
 };
 
-const campPath = camp.mount(router);
 const formPath = form.mount(router);
+const minesOperatorScreeningPath = minesOperatorScreening.mount(router);
+const userManagementPath = userManagement.mount(router);
 
 // Base v1 Responder
 router.get('/', (_req, res) => {
   res.status(200).json({
     endpoints: [
       '/docs',
-      campPath,
-      formPath
+      formPath,
+      minesOperatorScreeningPath,
+      userManagementPath
     ]
   });
 });
