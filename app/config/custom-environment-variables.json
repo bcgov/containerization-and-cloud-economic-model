@@ -26,12 +26,12 @@
     "basePath" : "SERVER_BASEPATH",
     "bodyLimit": "SERVER_BODYLIMIT",
     "keycloak": {
+      "adminClientId": "SERVER_KC_ADMINCLIENTID",
+      "adminClientSecret": "SERVER_KC_ADMINCLIENTSECRET",
       "clientId": "SERVER_KC_CLIENTID",
       "clientSecret": "SERVER_KC_CLIENTSECRET",
       "realm": "SERVER_KC_REALM",
-      "serverUrl": "SERVER_KC_SERVERURL",
-      "adminClientId": "SERVER_KC_ADMINCLIENTID",
-      "adminClientSecret": "SERVER_KC_ADMINCLIENTSECRET"
+      "serverUrl": "SERVER_KC_SERVERURL"
     },
     "logLevel": "SERVER_LOGLEVEL",
     "morganFormat": "SERVER_MORGANFORMAT",

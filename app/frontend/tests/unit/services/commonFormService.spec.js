@@ -28,15 +28,15 @@ describe('getTeamRoles', () => {
   });
 });
 
-describe('requestTeam', () => {
+describe('requestTeamAccess', () => {
   beforeEach(() => {
     mockAxios.reset();
   });
 
   it('calls team endpoint', async () => {
-    mockAxios.onPost(`${form}/team`).reply(201);
+    mockAxios.onPost(`${form}/team/access`).reply(201);
 
-    const result = await commonFormService.requestTeam(form);
+    const result = await commonFormService.requestTeamAccess(form);
     expect(result).toBeTruthy();
     expect(mockAxios.history.post.length).toBe(1);
   });

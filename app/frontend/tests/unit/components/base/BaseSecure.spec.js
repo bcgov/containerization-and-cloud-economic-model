@@ -15,7 +15,7 @@ describe('BaseSecure.vue', () => {
   const mockReplace = jest.fn(cb => {
     cb();
   });
-  const requestTeamSpy = jest.spyOn(commonFormService, 'requestTeam');
+  const requestTeamSpy = jest.spyOn(commonFormService, 'requestTeamAccess');
   let store;
 
   beforeAll(() => {

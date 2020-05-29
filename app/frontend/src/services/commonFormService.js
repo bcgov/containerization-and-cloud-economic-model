@@ -12,13 +12,13 @@ export default {
   },
 
   /**
-   * @function requestTeam
+   * @function requestTeamAccess
    * Sends a user request for a permission change
    * @param {string} form The form name
    * @returns {Promise} An axios response
    */
-  requestTeam(form) {
-    return appAxios().post(`${form}/team`);
+  requestTeamAccess(form) {
+    return appAxios().post(`${form}/team/access`);
   },
 
   /**

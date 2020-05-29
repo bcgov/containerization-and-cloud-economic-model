@@ -70,7 +70,7 @@ export default {
     },
     requestAccess() {
       commonFormService
-        .requestTeam(this.formName)
+        .requestTeamAccess(this.formName)
         .then(() => {
           this.success = true;
           this.resultDialogMsg =
