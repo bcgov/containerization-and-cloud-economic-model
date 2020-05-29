@@ -10,7 +10,7 @@ exports.up = function(knex) {
           template: 'access-requested-email.html',
           from: 'MCAD.RegionalOps@gov.bc.ca',
           to: 'NR.CommonServiceShowcase@gov.bc.ca',
-          subject: 'Mines Operator Screening - Access Requested',
+          subject: 'Industrial Camps - Access Requested',
           title: 'Access Requested',
           priority: 'normal',
           message: 'A request for access has been received for your Mines Operator Screening administration page.',
