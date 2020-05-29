@@ -1,13 +1,25 @@
 const keycloak = require('../../../../src/components/keycloak');
 
-const DEFAULT_USER = {username: 'public', name: 'public', email: undefined};
+const DEFAULT_USER = {id: undefined, username: 'public', name: 'public', email: undefined};
+const DEFAULT_RESOURCES = [];
+
+const IGNORE_RESOURCES = ['comfort', 'comfort-frontend', 'comfort-frontend-local'];
 
 const getCurrentUserFromToken = token => {
   try {
-    const {preferred_username: username, name, email } = token.content;
-    return {username: username, name: name, email: email};
+    const {preferred_username: username, name, email, sub: id } = token.content;
+    return {id: id, username: username, name: name, email: email};
   } catch (err) {
     return DEFAULT_USER;
+  }
+};
+
+const getComfortResourcesFromToken = token => {
+  try {
+    const forms = Object.keys(token.content.resource_access).filter(x => x.startsWith('comfort-') && !IGNORE_RESOURCES.includes(x));
+    return forms;
+  } catch (err) {
+    return DEFAULT_RESOURCES;
   }
 };
 
@@ -16,6 +28,14 @@ const getCurrentUserFromRequest = req => {
     return getCurrentUserFromToken(req.kauth.grant.access_token);
   } catch (err) {
     return DEFAULT_USER;
+  }
+};
+
+const getComfortResourcesFromRequest = req => {
+  try {
+    return getComfortResourcesFromToken(req.kauth.grant.access_token);
+  } catch (err) {
+    return DEFAULT_RESOURCES;
   }
 };
 
@@ -29,6 +49,7 @@ const getCurrentUserFromRequest = req => {
 
 const currentUser = async (req, res, next) => {
   req.currentUser = getCurrentUserFromRequest(req);
+  req.comfortResources = getComfortResourcesFromRequest(req);
   next();
 };
 
@@ -47,6 +68,7 @@ const hasRole = (resourceAccess, roles) => {
   if (process.env.NODE_ENV === 'development' && process.env.IGNORE_RESOURCE_ACCESS === 'true') {
     return (req, res, next) => {
       req.currentUser = {username: 'development', name: 'development', email: 'development@local.dev'};
+      req.comfortResources = ['comfort-minesoperatorscreening'];
       next();
     };
   }
@@ -57,7 +79,10 @@ const hasRole = (resourceAccess, roles) => {
 
   const rolecheck = (token, request) => {
     const result = roles.some(r => token.hasRole(`${resourceAccess}:${r}`));
-    if (result) request.currentUser = getCurrentUserFromToken(token);
+    if (result) {
+      request.currentUser = getCurrentUserFromToken(token);
+      request.comfortResources = getComfortResourcesFromToken(token);
+    }
     return result;
   };
   // return the keycloak middleware that will check against these roles...

@@ -27,7 +27,8 @@
     "keycloak": {
       "clientId": "comfort",
       "realm": "cp1qly2d",
-      "serverUrl": "https://sso-dev.pathfinder.gov.bc.ca/auth"
+      "serverUrl": "https://sso-dev.pathfinder.gov.bc.ca/auth",
+      "adminClientId": "KEYCLOAK_REALM_ADMIN"
     },
     "logLevel": "debug",
     "morganFormat": "combined",
