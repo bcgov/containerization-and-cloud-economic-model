@@ -9,6 +9,7 @@ const assetsPath = path.join(__dirname, 'assets');
 let submissionEmailBody;
 let notificationEmailBody;
 let statusAssignmentEmailBody;
+let accessRequestedEmailBody;
 
 const emailService = {
 
@@ -118,6 +119,42 @@ const emailService = {
       }
     } catch (err) {
       log.error('sendStatusAssignmentEmail', `Error: ${err.message}`);
+      log.error(err);
+      throw err;
+    }
+  },
+
+  sendAccessRequestedEmail: async (accessRequest) => {
+    try {
+      const settings = await dataService.readSettings('accessRequestedEmail');
+      if (settings.enabled) {
+        if (!accessRequestedEmailBody) {
+          accessRequestedEmailBody = fs.readFileSync(`${assetsPath}/${settings.config.template}`, 'utf8');
+        }
+        const to = settings.config.to.split(',').filter(x => x);
+        const data = {
+          body: accessRequestedEmailBody,
+          bodyType: 'html',
+          contexts: [
+            {
+              context: {
+                title: settings.config.title,
+                userInfo: `${accessRequest.firstName} ${accessRequest.lastName} - ${accessRequest.email}`,
+                message: settings.config.message,
+                messageLinkText: settings.config.messageLinkText,
+                messageLinkUrl: `${settings.config.messageLinkUrl}`
+              },
+              to: to
+            }
+          ],
+          ...settings.config
+        };
+        return await chesService.merge(data);
+      } else {
+        return false;
+      }
+    } catch (err) {
+      log.error('sendAccessRequestedEmail', `Error: ${err.message}.`);
       log.error(err);
       throw err;
     }

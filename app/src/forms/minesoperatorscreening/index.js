@@ -2,8 +2,14 @@ const constants = require('./constants');
 const middleware = require('./middleware');
 const routes = require('./routes');
 
+const emailService = require('./emailService');
+
 const Router = require('../teammanagement/router');
 const teamRouter = new Router(constants.SLUG);
+
+teamRouter.on('onAccessRequest', (accessRequest) => {
+  emailService.sendAccessRequestedEmail(accessRequest);
+});
 
 // slug will be the paths.
 module.exports.mount = (app) => {
