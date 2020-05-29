@@ -58,7 +58,7 @@
 <script>
 import validator from 'validator';
 
-import emailService from '@/services/emailService';
+import commonFormService from '@/services/commonFormService';
 
 export default {
   name: 'RequestReceipt',
@@ -87,7 +87,7 @@ export default {
     },
     requestReceipt() {
       if (this.valid) {
-        emailService
+        commonFormService
           .requestReceiptEmail(this.formName, {
             submissionId: this.submissionId,
             to: this.to
