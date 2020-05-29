@@ -124,7 +124,7 @@ const emailService = {
     }
   },
 
-  sendAccessRequestedEmail: async () => {
+  sendAccessRequestedEmail: async (accessRequest) => {
     try {
       const settings = await dataService.readSettings('accessRequestedEmail');
       if (settings.enabled) {
@@ -139,6 +139,7 @@ const emailService = {
             {
               context: {
                 title: settings.config.title,
+                userInfo: `${accessRequest.firstName} ${accessRequest.lastName} - ${accessRequest.email}`,
                 message: settings.config.message,
                 messageLinkText: settings.config.messageLinkText,
                 messageLinkUrl: `${settings.config.messageLinkUrl}`
