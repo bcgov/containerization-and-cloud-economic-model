@@ -12,7 +12,15 @@
       item-key="inspectionStatusId"
       class="status-table"
     >
-      <template v-slot:item.createdAt="{ item }">{{ formatDateTime(item.createdAt) }}</template>
+      <template v-slot:item.createdAt="{ item }">
+        <v-tooltip bottom :disabled="item.code.toUpperCase() === 'SUBMITTED'">
+          <template v-slot:activator="{ on }">
+            <span v-on="on">{{ formatDateTime(item.createdAt) }}</span>
+          </template>
+          <span>Status updated by {{ item.createdBy }}</span>
+        </v-tooltip>
+      </template>
+
       <template v-slot:item.actionDate="{ item }">{{ formatDate(item.actionDate) }}</template>
     </v-data-table>
   </v-container>
