@@ -1,14 +1,14 @@
 const keycloak = require('../../../../src/components/keycloak');
 
-const DEFAULT_USER = {username: 'public', name: 'public', email: undefined};
+const DEFAULT_USER = {id: undefined, username: 'public', name: 'public', email: undefined};
 const DEFAULT_RESOURCES = [];
 
 const IGNORE_RESOURCES = ['comfort', 'comfort-frontend', 'comfort-frontend-local'];
 
 const getCurrentUserFromToken = token => {
   try {
-    const {preferred_username: username, name, email } = token.content;
-    return {username: username, name: name, email: email};
+    const {preferred_username: username, name, email, sub: id } = token.content;
+    return {id: id, username: username, name: name, email: email};
   } catch (err) {
     return DEFAULT_USER;
   }

@@ -13,27 +13,16 @@ class Service {
   }
 
   async processAccessRequest(accessRequest, user) {
-    if (!user || !user.email) {
+    if (!user || !user.id) {
       throwProblem(401,'Unauthorized','No current user in request.');
     }
     const requestAccessRole = accessRequest ? (accessRequest.role || DEFAULT_REQUEST_ROLE)  : DEFAULT_REQUEST_ROLE;
-    const users = await keycloakAdminService.findUsers(user.email);
-    // let's just make sure we work on the right user...
-    if (!users.length) {
-      throwProblem(404,'Not found',`User not found with email ${user.email}.`);
-    }
-    if (users.length > 0) {
-      throwProblem(500,'Unique email not found',`Unique user not found with email ${user.email}, cannot proceed.`);
-    }
-    if (users[0].email !== user.email) {
-      throwProblem(500,'Unexpected Result',`Error found with email search of ${user.email}, but returned user with email ${users[0].email}.`);
-    }
     // ok, get this client and the role we want to place user in.
     const client = await this.getClient();
     const role = await keycloakAdminService.getClientRoleByName(client.id, requestAccessRole);
     // put them in the role!
-    await keycloakAdminService.addClientRoleMappings(this._clientId, users, [role]);
-    return await this.getUser(users[0].id);
+    await keycloakAdminService.addClientRoleMappings(this._clientId, [user], [role]);
+    return await this.getUser(user.id);
   }
 
 
