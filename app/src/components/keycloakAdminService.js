@@ -228,16 +228,23 @@ class KeycloakAdminService {
     }
   }
 
-  async setClientUserRoles(clientId, userId, roles) {
+  async addClientRoleMappings(clientId, users, roles) {
     try {
-      // remove user from all other client roles...
-      const clientRoles = await this._kcAdminClient.clients.listRoles({id: clientId});
-      await this._kcAdminClient.users.delClientRoleMappings({id: userId, clientUniqueId: clientId, roles: clientRoles});
-      // add to the specified roles...
-      const assignedRoles = roles.map(x => (({ id, name }) => ({ id, name }))(x));
-      await this._kcAdminClient.users.addClientRoleMappings({id: userId, clientUniqueId: clientId, roles: assignedRoles});
-      // return the current roles...
-      return await this._kcAdminClient.users.listClientRoleMappings({id: userId, clientUniqueId: clientId});
+      const roleList = roles.map(x => (({ id, name }) => ({ id, name }))(x));
+      for (const u of users) {
+        await this._kcAdminClient.users.addClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: roleList});
+      }
+    } catch(err) {
+      errorToProblem(SERVICE, err);
+    }
+  }
+
+  async removeClientRoleMappings(clientId, users, roles) {
+    try {
+      const roleList = roles.map(x => (({ id, name }) => ({ id, name }))(x));
+      for (const u of users) {
+        await this._kcAdminClient.users.delClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: roleList});
+      }
     } catch(err) {
       errorToProblem(SERVICE, err);
     }
@@ -250,29 +257,6 @@ class KeycloakAdminService {
         this._notFoundProblem('role', name);
       }
       return role;
-    } catch(err) {
-      errorToProblem(SERVICE, err);
-    }
-  }
-
-  async setClientRoleUsers(clientId, roleId, users) {
-    try {
-      const role = await this._findRole(roleId);
-      const roles = [{id: role.id, name: role.name}];
-      // remove all current users from the role...
-      const roleUsers = await this._kcAdminClient.clients.findUsersWithRole({id: clientId, roleName: role.name});
-      for (const u of roleUsers) {
-        // remove all users from this role...  they will be added back later if they are in the specified users list.
-        await this._kcAdminClient.users.delClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: roles});
-      }
-      const allClientRoles = await this._kcAdminClient.clients.listRoles({id: clientId});
-      for (const u of users) {
-        // remove all users from other client roles, they can be in only one...
-        await this._kcAdminClient.users.delClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: allClientRoles});
-        // add specified user to role.
-        await this._kcAdminClient.users.addClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: roles});
-      }
-      return await this._kcAdminClient.clients.findUsersWithRole({id: clientId, roleName: role.name});
     } catch(err) {
       errorToProblem(SERVICE, err);
     }

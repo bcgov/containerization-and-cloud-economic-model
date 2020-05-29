@@ -6,6 +6,7 @@ const yaml = require('js-yaml');
 
 const form = require('../forms/form');
 const minesOperatorScreening = require('../forms/minesoperatorscreening');
+const testCase = require('../forms/testcase');
 
 const getSpec = () => {
   const rawSpec = fs.readFileSync(path.join(__dirname, '../docs/v1.api-spec.yaml'), 'utf8');
@@ -16,6 +17,7 @@ const getSpec = () => {
 
 const formPath = form.mount(router);
 const minesOperatorScreeningPath = minesOperatorScreening.mount(router);
+testCase.mount(router);
 
 // Base v1 Responder
 router.get('/', (_req, res) => {

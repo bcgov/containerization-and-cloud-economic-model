@@ -1,0 +1,858 @@
+{
+	"info": {
+		"_postman_id": "c72b4cc4-1cb4-4ce3-a7db-1208a9ec6537",
+		"name": "Team Management (testcase)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4b024a45-bc14-419c-9d0c-c24e5b72a320",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf.at.least(5);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Users with roles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e89cfc57-5ae0-4b9d-bb24-a3140dbe0da1",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of users with roles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf.at.least(5);",
+							"    jsonData.forEach(x => pm.expect(x.roles).to.have.lengthOf.at.least(1));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/users?roles=true",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"users"
+					],
+					"query": [
+						{
+							"key": "roles",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Roles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9e933293-1bf3-4364-b3a5-231e5db96767",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of roles\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf.at.least(5);",
+							"    jsonData.forEach(x => pm.expect(x).to.have.property('composite', true));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/roles",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Roles with Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3f16d471-a8cf-49f5-b544-88a973a9a220",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of roles with users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf.at.least(5);",
+							"    //jsonData.forEach(x => pm.expect(x.users).to.have.lengthOf.at.least(1));",
+							"    pm.collectionVariables.set('role', jsonData[0]);",
+							"    pm.collectionVariables.set('roleId', jsonData[0].id);",
+							"    pm.collectionVariables.set('user', jsonData[0].users[0]);",
+							"    pm.collectionVariables.set('userId', jsonData[0].users[0].id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/roles?users=true",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"roles"
+					],
+					"query": [
+						{
+							"key": "users",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "903da60a-9add-4e74-91ed-ad177b04429e",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of roles with users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var r = pm.collectionVariables.get('role');",
+							"    var u = pm.collectionVariables.get('user');",
+							"    pm.expect(jsonData).to.be.an('Object');",
+							"    pm.expect(jsonData).to.have.property('id',r.id);",
+							"    pm.expect(jsonData).to.have.property('name',r.name);",
+							"    pm.expect(jsonData).to.have.property('users');",
+							"    pm.expect(jsonData.users).to.be.an('array');",
+							"    pm.expect(jsonData.users).to.have.lengthOf.at.least(1);",
+							"    jsonData.users.some(x => pm.expect(x).to.have.property('id', u.id));",
+							"    ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/roles/{{roleId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"roles",
+						"{{roleId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Role Users",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8bfd5173-3b42-468a-9905-391cfcdab4da",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var r = pm.collectionVariables.get('role');",
+							"    var u = pm.collectionVariables.get('user');",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.be.have.lengthOf.at.least(1);",
+							"    jsonData.some(x => pm.expect(x).to.have.property('id', u.id));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/roles/{{roleId}}/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"roles",
+						"{{roleId}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User by id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6b9705c-df01-443e-a8b4-5f217572c3b6",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var r = pm.collectionVariables.get('role');",
+							"    var u = pm.collectionVariables.get('user');",
+							"    pm.expect(jsonData).to.be.an('object'); ",
+							"    pm.expect(jsonData).to.have.property('id',u.id );",
+							"    pm.expect(jsonData).to.have.property('username',u.username );",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/users/{{userId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"users",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get User Roles",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7d7e6196-0bbf-4745-a065-5bc63f90efce",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var r = pm.collectionVariables.get('role');",
+							"    var u = pm.collectionVariables.get('user');",
+							"    pm.expect(jsonData).to.be.an('array'); ",
+							"    pm.expect(jsonData).to.be.have.lengthOf.at.least(1);",
+							"    jsonData.some(x => pm.expect(x).to.have.property('id', r.id));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/users/{{userId}}/roles",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"users",
+						"{{userId}}",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Viewer and Reviewer Roles data",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5dbf6c3c-8f50-4e2f-b1d4-90dfa176ab0a",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array of roles with users\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf.at.least(5);",
+							"    var viewerRole = jsonData.find(x => x.name === \"Form Viewer\");",
+							"    pm.collectionVariables.set('viewerRole', viewerRole);",
+							"    pm.collectionVariables.set('viewerRoleId', viewerRole.id);",
+							"    pm.collectionVariables.set('viewerUser', viewerRole.users[0]);",
+							"    pm.collectionVariables.set('viewerUserId', viewerRole.users[0].id);",
+							"    var reviewerRole = jsonData.find(x => x.name === \"Form Reviewer\");",
+							"    pm.collectionVariables.set('reviewerRole', reviewerRole);",
+							"    pm.collectionVariables.set('reviewerRoleId', reviewerRole.id);",
+							"    pm.collectionVariables.set('reviewerUser', reviewerRole.users[0]);",
+							"    pm.collectionVariables.set('reviewerUserId', reviewerRole.users[0].id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/roles?users=true",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"roles"
+					],
+					"query": [
+						{
+							"key": "users",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Reviewer Role Users",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "dc73f9dc-303b-4c39-af29-470b6e307231",
+						"exec": [
+							"var reviewerRole = pm.collectionVariables.get('reviewerRole');",
+							"var viewerRole = pm.collectionVariables.get('viewerRole');",
+							"console.log(viewerRole);",
+							"",
+							"pm.collectionVariables.set(\"viewerRoleUsers\", JSON.stringify(viewerRole.users));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "955979f6-5629-45f2-bee9-56349c911bc3",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the updated user list\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var viewerRole = pm.collectionVariables.get('viewerRole');",
+							"",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(viewerRole.users.length);",
+							"    jsonData.every(x => viewerRole.users.includes(y => y.id === x.id));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{viewerRoleUsers}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/roles/{{reviewerRoleId}}/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"roles",
+						"{{reviewerRoleId}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Viewer User Roles",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "6e712ff0-3dc2-4d06-b220-bd29eb0d7830",
+						"exec": [
+							"var reviewerRole = pm.collectionVariables.get('reviewerRole');",
+							"var viewerRole = pm.collectionVariables.get('viewerRole');",
+							"console.log(viewerRole);",
+							"var roles = [];",
+							"roles.push(viewerRole);",
+							"pm.collectionVariables.set(\"resetViewerUserRoles\", JSON.stringify(roles));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "2da6a44c-2e73-4217-9e79-3e02dc53e8d5",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the updated user list\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var viewerRole = pm.collectionVariables.get('viewerRole');",
+							"",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(1);",
+							"    pm.expect(jsonData[0]).to.have.property('id', viewerRole.id);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{resetViewerUserRoles}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/users/{{viewerUserId}}/roles",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"users",
+						"{{viewerUserId}}",
+						"roles"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Reset Reviewer Role",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e20b0910-c04c-42df-9458-17b78f17f889",
+						"exec": [
+							"var reviewerRole = pm.collectionVariables.get('reviewerRole');",
+							"console.log(reviewerRole);",
+							"",
+							"pm.collectionVariables.set(\"reviewerRoleUsers\", JSON.stringify(reviewerRole.users));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "491e5b92-db1e-4899-a73c-fdb15f7ebe18",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the updated user list\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    var reviewerRole = pm.collectionVariables.get('reviewerRole');",
+							"",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(reviewerRole.users.length);",
+							"    jsonData.every(x => reviewerRole.users.includes(y => y.id === x.id));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{reviewerRoleUsers}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{form}}/team/roles/{{reviewerRoleId}}/users",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{form}}",
+						"team",
+						"roles",
+						"{{reviewerRoleId}}",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrdFJRN3VLZ3hYVU91cjdiaDRseGl1TGlUdVhzM3FyZEpzZFBnLTdvY1FnIn0.eyJqdGkiOiI0N2ZiNTJmMC1jNjlhLTQ2YzUtYTIyMS02NTcxYzk4NzhmZGUiLCJleHAiOjE1OTA3NjcwODUsIm5iZiI6MCwiaWF0IjoxNTkwNzY2Nzg1LCJpc3MiOiJodHRwczovL3Nzby1kZXYucGF0aGZpbmRlci5nb3YuYmMuY2EvYXV0aC9yZWFsbXMvY3AxcWx5MmQiLCJhdWQiOlsiY29tZm9ydCIsImNvbWZvcnQtZnJvbnRlbmQiLCJjb21mb3J0LWZyb250ZW5kLWxvY2FsIiwiY29tZm9ydC10ZXN0Y2FzZSIsImNvbWZvcnQtbWluZXNvcGVyYXRvcnNjcmVlbmluZyJdLCJzdWIiOiI2OTM4NDVmZS05OGZmLTRjNzEtOGEwOS04NWEzNDYwZGQzNzIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjb21mb3J0LWZyb250ZW5kLWxvY2FsIiwibm9uY2UiOiI2NmJkMmY2NC1lN2VkLTRlNzYtYjlmNS0zMGZjYjAxYTAwNGEiLCJhdXRoX3RpbWUiOjE1OTA3NjYwMjgsInNlc3Npb25fc3RhdGUiOiIxNDk3YzdiOC00ZWJlLTQ5M2EtYjM4OC0xNGQ1NTJjZTkzZTgiLCJhY3IiOiIwIiwicmVzb3VyY2VfYWNjZXNzIjp7ImNvbWZvcnQtdGVzdGNhc2UiOnsicm9sZXMiOlsiZWRpdG9yIiwidmlld2VyIiwiYWRtaW4iLCJyZXZpZXdlciJdfSwiY29tZm9ydC1mcm9udGVuZC1sb2NhbCI6eyJyb2xlcyI6WyJGcm9udGVuZCBEZXZlbG9wZXIiLCJkZXZlbG9wZXIiXX0sImNvbWZvcnQtbWluZXNvcGVyYXRvcnNjcmVlbmluZyI6eyJyb2xlcyI6WyJ2aWV3ZXIiLCJlZGl0b3IiLCJhZG1pbiIsInJldmlld2VyIl19LCJjb21mb3J0Ijp7InJvbGVzIjpbImFkbWluIiwidXNlciJdfX0sInNjb3BlIjoib3BlbmlkIGNvbWZvcnQtZnJvbnRlbmQgY29tZm9ydCBjb21mb3J0LWZyb250ZW5kLWxvY2FsIiwibmFtZSI6Ikphc29uIFNoZXJtYW4iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJqc2hlcm1hbkBpZGlyIiwiZW1haWwiOiJqc2hlcm1hbkBwYXJjc3lzdGVtcy5jYSJ9.qDYJ3gD1rZiSkAFzWPdrEU8T5jA4Y1jVDOzIfPgBh5YEKt71cJYpLRsx-8Zt14TUgprWVVxYip0YOx63_6GJ_-Fr0Djd2XWEALKUaEpIV7kA7-uRasL-Ia5rz3gqhbuQpngzfZujGY873OrGugmk86PBTaq0YXRJvGOr6RvZyzugKmWnrJahBCCzaBLEud_Mdvem9DFezI9hguJw-4GzVHGwWk9DimP65bo4IvqA4fs_Fbezk_aq04LSqeKGAQQ_31Vqfcbtm2PPlfsNSTkUqWdlbdeeY-C0zlGWwiAJYInlYBRzkdBPeUqsMhJglY-ooLN-keLfQbR3nvjxdmaeZw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "cbbbbd62-6a9c-45ab-a34c-b9407e3a685b",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "2f86498f-0fd5-4fc6-a73b-872f5a45bb98",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "79ef9899-78c1-4872-8fd8-18126aafde9b",
+			"key": "host",
+			"value": "http://localhost:8080",
+			"type": "string"
+		},
+		{
+			"id": "6db8e4ba-d452-4413-adbb-609688a5efef",
+			"key": "path",
+			"value": "app",
+			"type": "string"
+		},
+		{
+			"id": "73d90735-ed22-4da2-9b45-76ef4805656d",
+			"key": "form",
+			"value": "testcase",
+			"type": "string"
+		},
+		{
+			"id": "1d49c056-f914-4886-a4cb-044f9b00588f",
+			"key": "roleId",
+			"value": "77421f90-f423-4f64-abcd-d8b368e4bb48",
+			"type": "string"
+		},
+		{
+			"id": "6606b27f-8faf-494d-8a13-901ec871bfc7",
+			"key": "role",
+			"value": {
+				"clientRole": true,
+				"composite": true,
+				"containerId": "d9da80cc-10a1-4ce2-82cb-ab9c34fe9f1b",
+				"description": "Form Reviewers have all the permissions of Form Viewer. Elevated permissions include adding notes and assignments to a submission.",
+				"id": "77421f90-f423-4f64-abcd-d8b368e4bb48",
+				"name": "Form Reviewer",
+				"users": [
+					{
+						"email": "_testcase_r@testcase.org",
+						"firstName": "R",
+						"id": "0b8dfdc5-7e74-4507-8610-ddf2797a1afd",
+						"lastName": "Test",
+						"roles": [],
+						"username": "_testcase_r"
+					}
+				]
+			},
+			"type": "any"
+		},
+		{
+			"id": "ff4cbec7-e732-4f67-9a98-d99b530724c9",
+			"key": "user",
+			"value": {
+				"email": "_testcase_r@testcase.org",
+				"firstName": "R",
+				"id": "0b8dfdc5-7e74-4507-8610-ddf2797a1afd",
+				"lastName": "Test",
+				"roles": [],
+				"username": "_testcase_r"
+			},
+			"type": "any"
+		},
+		{
+			"id": "542d2308-e30d-4476-bf68-ab80e8d8e814",
+			"key": "userId",
+			"value": "0b8dfdc5-7e74-4507-8610-ddf2797a1afd",
+			"type": "string"
+		},
+		{
+			"id": "91490897-210b-404d-9746-e201b016fc18",
+			"key": "reviewerRole",
+			"value": {
+				"clientRole": true,
+				"composite": true,
+				"containerId": "d9da80cc-10a1-4ce2-82cb-ab9c34fe9f1b",
+				"description": "Form Reviewers have all the permissions of Form Viewer. Elevated permissions include adding notes and assignments to a submission.",
+				"id": "77421f90-f423-4f64-abcd-d8b368e4bb48",
+				"name": "Form Reviewer",
+				"users": [
+					{
+						"email": "_testcase_r@testcase.org",
+						"firstName": "R",
+						"id": "0b8dfdc5-7e74-4507-8610-ddf2797a1afd",
+						"lastName": "Test",
+						"roles": [],
+						"username": "_testcase_r"
+					}
+				]
+			},
+			"type": "any"
+		},
+		{
+			"id": "a517c725-3a28-40c6-bdb7-2be7f87e9e5d",
+			"key": "viewerRole",
+			"value": {
+				"clientRole": true,
+				"composite": true,
+				"containerId": "d9da80cc-10a1-4ce2-82cb-ab9c34fe9f1b",
+				"description": "Form Viewers have read-only access to submissions.",
+				"id": "065d8d7a-242f-44d6-b0be-0d99bffe9e95",
+				"name": "Form Viewer",
+				"users": [
+					{
+						"email": "_testcase_v@testcase.org",
+						"firstName": "V",
+						"id": "3c12423c-fa95-4d5a-a66d-6dc0ebb36ae0",
+						"lastName": "Test",
+						"roles": [],
+						"username": "_testcase_v"
+					}
+				]
+			},
+			"type": "any"
+		},
+		{
+			"id": "e262f776-32ee-4cf1-a134-fad72a33066f",
+			"key": "reviewerRoleId",
+			"value": "77421f90-f423-4f64-abcd-d8b368e4bb48",
+			"type": "string"
+		},
+		{
+			"id": "ad190afe-961f-4bfc-9596-59d0c6cd6e78",
+			"key": "viewerRoleId",
+			"value": "065d8d7a-242f-44d6-b0be-0d99bffe9e95",
+			"type": "string"
+		},
+		{
+			"id": "1d293d1d-ef8e-47ec-8972-5ffb094ff9f0",
+			"key": "viewerRoleUsers",
+			"value": "[{\"id\":\"3c12423c-fa95-4d5a-a66d-6dc0ebb36ae0\",\"username\":\"_testcase_v\",\"firstName\":\"V\",\"lastName\":\"Test\",\"email\":\"_testcase_v@testcase.org\",\"roles\":[]}]",
+			"type": "string"
+		},
+		{
+			"id": "5802ae26-6551-46e3-b69d-641b1c70311e",
+			"key": "resetViewerUserRoles",
+			"value": "[{\"id\":\"065d8d7a-242f-44d6-b0be-0d99bffe9e95\",\"name\":\"Form Viewer\",\"description\":\"Form Viewers have read-only access to submissions.\",\"composite\":true,\"clientRole\":true,\"containerId\":\"d9da80cc-10a1-4ce2-82cb-ab9c34fe9f1b\",\"users\":[{\"id\":\"3c12423c-fa95-4d5a-a66d-6dc0ebb36ae0\",\"username\":\"_testcase_v\",\"firstName\":\"V\",\"lastName\":\"Test\",\"email\":\"_testcase_v@testcase.org\",\"roles\":[]}]}]",
+			"type": "string"
+		},
+		{
+			"id": "92d1f1ac-e597-4fcf-94cb-deaf2c45722c",
+			"key": "viewerUser",
+			"value": {
+				"email": "_testcase_v@testcase.org",
+				"firstName": "V",
+				"id": "3c12423c-fa95-4d5a-a66d-6dc0ebb36ae0",
+				"lastName": "Test",
+				"roles": [],
+				"username": "_testcase_v"
+			},
+			"type": "any"
+		},
+		{
+			"id": "3a86e9ae-a8b1-4b5e-ae93-b43f4098ad6e",
+			"key": "viewerUserId",
+			"value": "3c12423c-fa95-4d5a-a66d-6dc0ebb36ae0",
+			"type": "string"
+		},
+		{
+			"id": "3f198007-6aa4-4a64-8eab-8ab60b1b9cb8",
+			"key": "reviewerRoleUsers",
+			"value": "[{\"id\":\"0b8dfdc5-7e74-4507-8610-ddf2797a1afd\",\"username\":\"_testcase_r\",\"firstName\":\"R\",\"lastName\":\"Test\",\"email\":\"_testcase_r@testcase.org\",\"roles\":[]}]",
+			"type": "string"
+		},
+		{
+			"id": "786ce26f-fdf0-41e4-b839-9ca81d81e7db",
+			"key": "reviewerUser",
+			"value": {
+				"email": "_testcase_r@testcase.org",
+				"firstName": "R",
+				"id": "0b8dfdc5-7e74-4507-8610-ddf2797a1afd",
+				"lastName": "Test",
+				"roles": [],
+				"username": "_testcase_r"
+			},
+			"type": "any"
+		},
+		{
+			"id": "47457e81-4a44-4cb6-9a56-95d2ee807569",
+			"key": "reviewerUserId",
+			"value": "0b8dfdc5-7e74-4507-8610-ddf2797a1afd",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

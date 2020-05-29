@@ -32,8 +32,8 @@ class Service {
     const client = await this.getClient();
     const role = await keycloakAdminService.getClientRoleByName(client.id, requestAccessRole);
     // put them in the role!
-    await keycloakAdminService.setClientUserRoles(this._clientId, users[0].id, [role]);
-    return await this.getUserRoles(users[0].id);
+    await keycloakAdminService.addClientRoleMappings(this._clientId, users, [role]);
+    return await this.getUser(users[0].id);
   }
 
 
@@ -76,17 +76,25 @@ class Service {
 
   async updateUserRoles(id, roles) {
     const user = await this.getUser(id);
+
     if (!Array.isArray(roles)) {
       roles = [roles];
     }
     if (roles.length > 1) {
       throwProblem(422, 'Validation Error', 'User can only be in a single role.');
     }
-    let userRoles = [];
+
+    // since a user can be in only one role, we remove them from their current roles
+    await keycloakAdminService.removeClientRoleMappings(this._clientId, [user], user.roles);
+
+    // now we put them in the new role (if specified)
+    let assignedRoles = [];
     if (roles.length) {
-      userRoles = [await this.getRole(roles[0].id)];
+      assignedRoles = [await this.getRole(roles[0].id)];
     }
-    await keycloakAdminService.setClientUserRoles(this._clientId, user.id, userRoles);
+    await keycloakAdminService.addClientRoleMappings(this._clientId, [user], assignedRoles);
+
+    // return their current set of roles...
     return await this.getUserRoles(id);
   }
 
@@ -110,8 +118,21 @@ class Service {
   }
 
   async updateRoleUsers(id, users) {
+    // here we limit the users to a single role...
+    const allRoles = await this.getRoles(false);
     const role = await this.getRole(id);
-    await keycloakAdminService.setClientRoleUsers(this._clientId, role.id, users);
+
+    // remove all the current users from this role...
+    const currentRoleUsers = await this.getRoleUsers(id);
+    await keycloakAdminService.removeClientRoleMappings(this._clientId, currentRoleUsers, [role]);
+
+    // remove these users from all other roles (they can have only one role)
+    await keycloakAdminService.removeClientRoleMappings(this._clientId, users, allRoles);
+
+    // now, add the specified users to this role
+    await keycloakAdminService.addClientRoleMappings(this._clientId, users, [role]);
+
+    // return the current set of users in this role.
     return await this.getRoleUsers(id);
   }
 
