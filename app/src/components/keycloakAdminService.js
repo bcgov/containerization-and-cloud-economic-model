@@ -15,25 +15,24 @@ const refreshToken = (svc) => setInterval(async () => {
   svc._kcAdminClient.setAccessToken(svc._tokenSet.access_token);
 }, 58 * 1000); // 58 seconds
 
-const trimGroupData = (data, nullDataValue = []) => {
-  if (!data) return nullDataValue;
-
-  const trim = g => {
-    // only return id, username, firstName, lastName, email
-    return (({ id, name }) => ({ id, name }))(g);
-  };
-  if (Array.isArray(data)) {
-    return data.map(g => trim(g));
-  }
-  return trim(data);
-};
-
 const trimUserData = (data, nullDataValue = []) => {
   if (!data) return nullDataValue;
 
   const trim = u => {
     // only return id, username, firstName, lastName, email
     return (({ id, username, firstName, lastName, email }) => ({ id, username, firstName, lastName, email }))(u);
+  };
+  if (Array.isArray(data)) {
+    return data.map(u => trim(u));
+  }
+  return trim(data);
+};
+
+const trimClientData = (data, nullDataValue = []) => {
+  if (!data) return nullDataValue;
+
+  const trim = u => {
+    return (({ id, clientId, name, description }) => ({ id, clientId, name, description }))(u);
   };
   if (Array.isArray(data)) {
     return data.map(u => trim(u));
@@ -120,14 +119,26 @@ class KeycloakAdminService {
     return this._initialized;
   }
 
+  _problem(status, title, detail) {
+    throw new Problem(status, title, {detail: detail});
+  }
+
   _notFoundProblem(type, id) {
     throw new Problem(404, 'Not found', {detail: `Could not find ${type} with id ${id}.`});
   }
 
-  async _findGroup(id) {
-    const result = await this._kcAdminClient.groups.findOne({id: id});
+  async _findClient(id) {
+    const result = await this._kcAdminClient.clients.findOne({id: id});
     if (!result) {
-      this._notFoundProblem('group', id);
+      this._notFoundProblem('client', id);
+    }
+    return result;
+  }
+
+  async _findRole(id) {
+    const result = await this._kcAdminClient.roles.findOneById({id: id});
+    if (!result) {
+      this._notFoundProblem('role', id);
     }
     return result;
   }
@@ -140,30 +151,76 @@ class KeycloakAdminService {
     return result;
   }
 
-  async findUsers(search, includeGroups = false) {
+  async findClients(name, includeRoles = false) {
     try {
-      const result = await this._kcAdminClient.users.find({search: search});
-      const users = trimUserData(result);
-      if (includeGroups) {
-        for (const u of users) {
-          const groups = await this._kcAdminClient.users.listGroups({id: u.id});
-          u.groups = trimGroupData(groups);
+      let result = await this._kcAdminClient.clients.find();
+      let clients = trimClientData(result);
+      if (name) {
+        clients = clients.filter(x => x.clientId === name);
+      }
+      if (includeRoles) {
+        for (const c of clients) {
+          const roles = await this._kcAdminClient.clients.listRoles({id: c.id});
+          c.roles = roles;
         }
       }
-      return users;
+      return clients;
     } catch (err) {
       errorToProblem(SERVICE, err);
     }
   }
 
-  async getUser(id, includeGroups = false) {
+  async getClient(id, includeRoles = false, includeUsers = false, includeUserRoles = false) {
+    try {
+      const result = await this._findClient(id);
+      const client = trimClientData(result);
+      client.roles = [];
+      if (includeRoles) {
+        client.roles = await this._kcAdminClient.clients.listRoles({id: id});
+        for (const r of client.roles) {
+          r.users = [];
+          if (includeUsers) {
+            const users = await this._kcAdminClient.clients.findUsersWithRole({id: id, roleName: r.name});
+            r.users = trimUserData(users);
+            for (const ur of r.users) {
+              ur.roles =[];
+              if (includeUserRoles) {
+                ur.roles = await this._kcAdminClient.users.listClientRoleMappings({id: ur.id, clientUniqueId: id});
+              }
+            }
+          }
+        }
+      }
+      return client;
+    } catch(err) {
+      errorToProblem(SERVICE, err);
+    }
+  }
+
+  async findUsers(search) {
+    try {
+      const result = await this._kcAdminClient.users.find({search: search});
+      return trimUserData(result);
+    } catch (err) {
+      errorToProblem(SERVICE, err);
+    }
+  }
+
+  async getUser(id) {
     try {
       const result = await this._findUser(id);
+      return trimUserData(result);
+    } catch(err) {
+      errorToProblem(SERVICE, err);
+    }
+  }
+
+  async getClientUser(clientId, userId, includeRoles = false) {
+    try {
+      const result = await this._findUser(userId);
       const user = trimUserData(result);
-      user.groups = [];
-      if (includeGroups) {
-        const groups = await this._kcAdminClient.users.listGroups({id: id, });
-        user.groups = trimGroupData(groups);
+      if (includeRoles) {
+        user.roles = await this._kcAdminClient.users.listClientRoleMappings({id: userId, clientUniqueId: clientId});
       }
       return user;
     } catch(err) {
@@ -171,32 +228,51 @@ class KeycloakAdminService {
     }
   }
 
-  async findGroups(search, includeUsers = false) {
+  async setClientUserRoles(clientId, userId, roles) {
     try {
-      const result = await this._kcAdminClient.groups.find({search: search});
-      const groups = trimGroupData(result);
-      if (includeUsers) {
-        for (const g of groups) {
-          const users = await this._kcAdminClient.groups.listMembers({id: g.id});
-          g.users = trimUserData(users);
-        }
-      }
-      return groups;
+      // remove user from all other client roles...
+      const clientRoles = await this._kcAdminClient.clients.listRoles({id: clientId});
+      await this._kcAdminClient.users.delClientRoleMappings({id: userId, clientUniqueId: clientId, roles: clientRoles});
+      // add to the specified roles...
+      const assignedRoles = roles.map(x => (({ id, name }) => ({ id, name }))(x));
+      await this._kcAdminClient.users.addClientRoleMappings({id: userId, clientUniqueId: clientId, roles: assignedRoles});
+      // return the current roles...
+      return await this._kcAdminClient.users.listClientRoleMappings({id: userId, clientUniqueId: clientId});
     } catch(err) {
       errorToProblem(SERVICE, err);
     }
   }
 
-  async getGroup(id, includeUsers = false) {
+  async getClientRoleByName(clientId, name) {
     try {
-      const result = await this._findGroup(id);
-      const group = trimGroupData(result);
-      group.users = [];
-      if (includeUsers) {
-        const users = await this._kcAdminClient.groups.listMembers({id: id});
-        group.users = trimUserData(users);
+      const role = await this._kcAdminClient.clients.findRole({id: clientId, roleName: name});
+      if (!role) {
+        this._notFoundProblem('role', name);
       }
-      return group;
+      return role;
+    } catch(err) {
+      errorToProblem(SERVICE, err);
+    }
+  }
+
+  async setClientRoleUsers(clientId, roleId, users) {
+    try {
+      const role = await this._findRole(roleId);
+      const roles = [{id: role.id, name: role.name}];
+      // remove all current users from the role...
+      const roleUsers = await this._kcAdminClient.clients.findUsersWithRole({id: clientId, roleName: role.name});
+      for (const u of roleUsers) {
+        // remove all users from this role...  they will be added back later if they are in the specified users list.
+        await this._kcAdminClient.users.delClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: roles});
+      }
+      const allClientRoles = await this._kcAdminClient.clients.listRoles({id: clientId});
+      for (const u of users) {
+        // remove all users from other client roles, they can be in only one...
+        await this._kcAdminClient.users.delClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: allClientRoles});
+        // add specified user to role.
+        await this._kcAdminClient.users.addClientRoleMappings({id: u.id, clientUniqueId: clientId, roles: roles});
+      }
+      return await this._kcAdminClient.clients.findUsersWithRole({id: clientId, roleName: role.name});
     } catch(err) {
       errorToProblem(SERVICE, err);
     }

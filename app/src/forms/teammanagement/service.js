@@ -1,49 +1,120 @@
 const keycloakAdminService = require('../../components').keycloakAdminService;
-const ROLES = require('../common/constants').ROLES;
+
+const DEFAULT_REQUEST_ROLE = require('../common/constants').DEFAULT_REQUEST_ROLE;
 
 const notFoundProblem = keycloakAdminService._notFoundProblem;
+const throwProblem = keycloakAdminService._problem;
 
 class Service {
   constructor(resourceAccess) {
     this._resourceAccess = resourceAccess;
-    this._prefix = `comfort-${this._resourceAccess}-`;
-    this._groupNames = ROLES.map(r => `${this._prefix}${r}`);
+    this._clientName = `comfort-${this._resourceAccess}`;
+    this._clientId = null;
   }
 
-  async getUsers(search) {
-    const users = await keycloakAdminService.findUsers(search, true);
-    // remove groups that are not for the given resource...
-    users.forEach(u => {
-      u.groups = u.groups.filter(x => this._groupNames.includes(x.name));
+  async processAccessRequest(accessRequest, user) {
+    if (!user || !user.email) {
+      throwProblem(401,'Unauthorized','No current user in request.');
+    }
+    const requestAccessRole = accessRequest ? (accessRequest.role || DEFAULT_REQUEST_ROLE)  : DEFAULT_REQUEST_ROLE;
+    const users = await keycloakAdminService.findUsers(user.email);
+    // let's just make sure we work on the right user...
+    if (!users.length) {
+      throwProblem(404,'Not found',`User not found with email ${user.email}.`);
+    }
+    if (users.length > 0) {
+      throwProblem(500,'Unique email not found',`Unique user not found with email ${user.email}, cannot proceed.`);
+    }
+    if (users[0].email !== user.email) {
+      throwProblem(500,'Unexpected Result',`Error found with email search of ${user.email}, but returned user with email ${users[0].email}.`);
+    }
+    // ok, get this client and the role we want to place user in.
+    const client = await this.getClient();
+    const role = await keycloakAdminService.getClientRoleByName(client.id, requestAccessRole);
+    // put them in the role!
+    await keycloakAdminService.setClientUserRoles(this._clientId, users[0].id, [role]);
+    return await this.getUserRoles(users[0].id);
+  }
+
+
+  async getClient(includeRoles = false, includeUsers = false, includeUserRoles = false) {
+    if (!this._clientId) {
+      const clients = await keycloakAdminService.findClients(this._clientName);
+      if (!clients || !clients.length) {
+        notFoundProblem('client', this._clientName);
+      }
+      this._clientId = clients[0].id;
+    }
+    const client = await keycloakAdminService.getClient(this._clientId, includeRoles, includeUsers, includeUserRoles);
+    // from roles... only return the roles that we use for assignment.
+    client.roles = client.roles.filter(x => x.composite);
+    return client;
+  }
+
+  async getUsers(includeRoles = false) {
+    const client = await this.getClient(true, true, includeRoles );
+    const users = new Map();
+    client.roles.forEach(r => {
+      r.users.forEach(u => users.set(u.id, u));
     });
-    // remove any users that do not have one of the groups...
-    return users.filter(x => x.groups && x.groups.length);
+    return [...users.values()];
   }
 
   async getUser(id) {
-    const user = await keycloakAdminService.getUser(id, true);
-    user.groups = user.groups.filter(x => this._groupNames.includes(x.name));
-    if (!user.groups.length) {
+    const client = await this.getClient();
+    const user = await keycloakAdminService.getClientUser(client.id, id, true);
+    if (!user) {
       notFoundProblem('user', id);
     }
     return user;
   }
 
-  async getGroups(includeUsers = false) {
-    const groups = await keycloakAdminService.findGroups(`${this._prefix}`, includeUsers);
-    // just in case some oddly named group comes back...
-    // limit to our known groups.
-    return groups.filter(x => this._groupNames.includes(x.name));
+  async getUserRoles(id) {
+    const user = await this.getUser(id);
+    return user.roles;
   }
 
-  async getGroup(id, includeUsers = false) {
-    const group = await keycloakAdminService.getGroup(id, includeUsers);
-    // check if group is allowed
-    if (!this._groupNames.includes(group.name)) {
-      notFoundProblem('group', id);
+  async updateUserRoles(id, roles) {
+    const user = await this.getUser(id);
+    if (!Array.isArray(roles)) {
+      roles = [roles];
     }
-    return group;
+    if (roles.length > 1) {
+      throwProblem(422, 'Validation Error', 'User can only be in a single role.');
+    }
+    let userRoles = [];
+    if (roles.length) {
+      userRoles = [await this.getRole(roles[0].id)];
+    }
+    await keycloakAdminService.setClientUserRoles(this._clientId, user.id, userRoles);
+    return await this.getUserRoles(id);
   }
+
+  async getRoles(includeUsers = false) {
+    const client = await this.getClient(true, includeUsers);
+    return client.roles;
+  }
+
+  async getRole(id) {
+    const roles = await this.getRoles(true);
+    const role = roles.find(x => x.id === id);
+    if (!role) {
+      notFoundProblem('role', id);
+    }
+    return role;
+  }
+
+  async getRoleUsers(id) {
+    const role = await this.getRole(id);
+    return role.users;
+  }
+
+  async updateRoleUsers(id, users) {
+    const role = await this.getRole(id);
+    await keycloakAdminService.setClientRoleUsers(this._clientId, role.id, users);
+    return await this.getRoleUsers(id);
+  }
+
 }
 
 module.exports = Service;
