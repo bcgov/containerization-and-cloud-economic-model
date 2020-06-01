@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-container>
     <!-- search input -->
     <div class="team-search mt-6 mt-sm-0">
       <v-text-field
@@ -12,26 +12,35 @@
       />
     </div>
     <!-- table alert -->
-    <v-alert v-if="showAlert" :type="alertType" tile dense>{{ alertMessage }}</v-alert>
+    <v-alert v-if="alertShow" :type="alertType" tile dense>{{ alertMessage }}</v-alert>
     <!-- table header -->
     <v-data-table
       class="team-table"
       :headers="headers"
-      :items="submissions"
-      :items-per-page="10"
+      item-key="id"
+      :items="users"
+      must-sort
       :search="search"
       :loading="loading"
       loading-text="Loading... Please wait"
-      item-key="confirmationId"
+      :options="options"
     >
-      <template v-slot:item.newRole="{ item }">
-        Dropdown TBD {{ item }}
+      <template v-slot:item.username="{ item }">
+        <v-tooltip bottom>
+          <span>{{ item.id }}</span>
+          <template v-slot:activator="{ on }">
+            <span v-on="on">{{ item.username }}</span>
+          </template>
+        </v-tooltip>
       </template>
+      <template v-slot:item.newRole>Dropdown TBD</template>
     </v-data-table>
-  </div>
+  </v-container>
 </template>
 
 <script>
+import commonFormService from '@/services/commonFormService';
+
 export default {
   name: 'TeamTable',
   computed: {
@@ -40,25 +49,45 @@ export default {
     }
   },
   data: () => ({
-    search: '',
     headers: [
-      { text: 'ID', value: 'id' },
       { text: 'Username', align: 'start', value: 'username' },
       { text: 'Name', align: 'start', value: 'fullname' },
       { text: 'Email', align: 'start', value: 'email' },
       { text: 'Current Role', align: 'start', value: 'currentRole' },
-      { text: 'New Role', value: 'newRole', sortable: false }
+      { text: 'New Role', align: 'end', value: 'newRole', sortable: false }
     ],
-    roles: [],
-    users: [],
-    loading: true,
-    showAlert: false,
+    alertMessage: '',
+    alertShow: false,
     alertType: null,
-    alertMessage: ''
+    loading: true,
+    options: {
+      sortBy: ['currentRole'],
+      sortDesc: [true]
+    },
+    roles: [],
+    search: '',
+    users: []
   }),
   methods: {
-    getData() {
-      this.loading = false;
+    getUsers() {
+      commonFormService
+        .getTeamUsers(this.formName, true)
+        .then(response => {
+          const data = response.data;
+          this.users = data.map(user => ({
+            id: user.id,
+            username: user.username,
+            fullname: `${user.firstName} ${user.lastName}`,
+            email: user.email,
+            currentRole: user.roles[0].name
+          }));
+          this.loading = false;
+        })
+        .catch(error => {
+          console.error(`Error getting users: ${error}`); // eslint-disable-line no-console
+          this.showTableAlert('error', 'Failed to get users');
+          this.loading = false;
+        });
     },
     showTableAlert(type, msg) {
       this.showAlert = true;
@@ -68,7 +97,7 @@ export default {
     }
   },
   mounted() {
-    this.getData();
+    this.getUsers();
   }
 };
 </script>
