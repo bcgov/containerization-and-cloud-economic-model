@@ -43,11 +43,6 @@ import commonFormService from '@/services/commonFormService';
 
 export default {
   name: 'TeamTable',
-  computed: {
-    formName() {
-      return this.$route.path.split('/')[1];
-    }
-  },
   data: () => ({
     headers: [
       { text: 'Username', align: 'start', value: 'username' },
@@ -69,25 +64,38 @@ export default {
     users: []
   }),
   methods: {
-    getUsers() {
-      commonFormService
-        .getTeamUsers(this.formName, true)
-        .then(response => {
-          const data = response.data;
-          this.users = data.map(user => ({
-            id: user.id,
-            username: user.username,
-            fullname: `${user.firstName} ${user.lastName}`,
-            email: user.email,
-            currentRole: user.roles[0].name
-          }));
-          this.loading = false;
-        })
-        .catch(error => {
-          console.error(`Error getting users: ${error}`); // eslint-disable-line no-console
-          this.showTableAlert('error', 'Failed to get users');
-          this.loading = false;
-        });
+    async getRoles() {
+      try {
+        const response = await commonFormService.getTeamRoles(this.formName);
+        const data = response.data;
+        this.roles = data.map(role => ({
+          id: role.id,
+          name: role.name,
+          description: role.description
+        }));
+      } catch (error) {
+        console.error(`Error getting roles: ${error}`); // eslint-disable-line no-console
+        this.showTableAlert('error', 'Failed to get roles');
+      }
+    },
+    async getUsers() {
+      try {
+        const response = await commonFormService.getTeamUsers(
+          this.formName,
+          true
+        );
+        const data = response.data;
+        this.users = data.map(user => ({
+          id: user.id,
+          username: user.username,
+          fullname: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          currentRole: user.roles[0].name
+        }));
+      } catch (error) {
+        console.error(`Error getting users: ${error}`); // eslint-disable-line no-console
+        this.showTableAlert('error', 'Failed to get users');
+      }
     },
     showTableAlert(type, msg) {
       this.showAlert = true;
@@ -96,8 +104,15 @@ export default {
       this.loading = false;
     }
   },
-  mounted() {
-    this.getUsers();
+  async mounted() {
+    await Promise.all([this.getRoles(), this.getUsers()]);
+    this.loading = false;
+  },
+  props: {
+    formName: {
+      type: String,
+      required: true
+    }
   }
 };
 </script>

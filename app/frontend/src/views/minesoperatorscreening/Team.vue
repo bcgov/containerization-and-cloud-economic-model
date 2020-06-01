@@ -2,7 +2,7 @@
   <v-container>
     <BaseSecure :resource="resource" admin>
       <h1 class="mb-6">Team Management</h1>
-      <TeamTable />
+      <TeamTable :formName="formName" />
     </BaseSecure>
   </v-container>
 </template>
@@ -17,6 +17,9 @@ export default {
     TeamTable
   },
   computed: {
+    formName() {
+      return this.$route.path.split('/')[1];
+    },
     resource() {
       return AppClients.MINESOPERATORSCREENING;
     }
