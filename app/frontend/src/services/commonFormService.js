@@ -5,10 +5,26 @@ export default {
    * @function getTeamRoles
    * Fetches a list of valid team roles for `form`.
    * @param {string} form The form name
+   * @param {boolean} [users=false] Populate response with users
    * @returns {Promise} An axios response
    */
-  getTeamRoles(form) {
-    return appAxios().get(`${form}/team/roles`);
+  getTeamRoles(form, users = false) {
+    const params = {};
+    if (users) params.users = true;
+    return appAxios().get(`${form}/team/roles`, { params });
+  },
+
+  /**
+   * @function getTeamUsers
+   * Fetches a list of valid team roles for `form`.
+   * @param {string} form The form name
+   * @param {boolean} [roles=false] Populate response with roles
+   * @returns {Promise} An axios response
+   */
+  getTeamUsers(form, roles = false) {
+    const params = {};
+    if (roles) params.roles = true;
+    return appAxios().get(`${form}/team/users`, { params });
   },
 
   /**
