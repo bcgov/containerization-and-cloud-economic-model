@@ -49,7 +49,13 @@ export default {
       { text: 'Name', align: 'start', value: 'fullname' },
       { text: 'Email', align: 'start', value: 'email' },
       { text: 'Current Role', align: 'start', value: 'currentRole' },
-      { text: 'New Role', align: 'end', value: 'newRole', sortable: false }
+      {
+        text: 'New Role',
+        align: 'end',
+        value: 'newRole',
+        filterable: false,
+        sortable: false
+      }
     ],
     alertMessage: '',
     alertShow: false,
