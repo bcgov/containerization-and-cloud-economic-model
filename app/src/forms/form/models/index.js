@@ -1,4 +1,4 @@
 module.exports = {
-  ...require('./base'),
+  Metadata: require('../../common/models').Metadata,
   ...require('./searchParameters')
 };

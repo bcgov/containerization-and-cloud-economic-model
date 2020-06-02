@@ -1,32 +1,22 @@
 const { Model } = require('objection');
-const Models = require('../../common/models');
+const CommonModels = require('../../common/models');
+const FormModels = require('./base');
 
-const BaseModels = require('./base');
 const constants = require('../constants');
 const PREFIX = constants.PREFIX;
 const SUBMISSION = `${PREFIX}_submission`;
 
-class Submission extends Models.Timestamps(Model) {
-  static get tableName () {
-    return `${SUBMISSION}`;
+class Submission extends CommonModels.Submission {
+  static get tablePrefix () {
+    return PREFIX;
   }
 
-  static get idColumn () {
-    return 'submissionId';
+  static get Note () {
+    return FormModels.Note;
   }
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['submissionId', 'formVersionId', 'confirmationId'],
-      properties: {
-        submissionId: { type: 'string', pattern: constants.UUID_REGEX },
-        confirmationId: { type: 'string', pattern: constants.CONFIRMATION_ID_REGEX },
-        formVersionId: { type: 'integer'},
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
+  static get Status () {
+    return FormModels.Status;
   }
 
   static get modifiers () {
@@ -52,6 +42,11 @@ class Submission extends Models.Timestamps(Model) {
       filterCity(query, value) {
         if (value) {
           query.where('location.city', 'ilike', `%${value}%`);
+        }
+      },
+      filterDeleted(query, value) {
+        if (value !== undefined) {
+          query.where('deleted', value);
         }
       }
     };
@@ -93,7 +88,7 @@ class Submission extends Models.Timestamps(Model) {
       },
       notes: {
         relation: Model.HasManyRelation,
-        modelClass: BaseModels.Note,
+        modelClass: this.Note,
         join: {
           from: `${SUBMISSION}.submissionId`,
           to: `${PREFIX}_note.submissionId`
@@ -101,7 +96,7 @@ class Submission extends Models.Timestamps(Model) {
       },
       statuses: {
         relation: Model.HasManyRelation,
-        modelClass: SubmissionStatus,
+        modelClass: this.Status,
         join: {
           from: `${SUBMISSION}.submissionId`,
           to: `${SUBMISSION}_status.submissionId`
@@ -111,63 +106,7 @@ class Submission extends Models.Timestamps(Model) {
   }
 }
 
-class SubmissionStatus extends Models.Timestamps(Model) {
-  static get tableName () {
-    return `${SUBMISSION}_status`;
-  }
-
-  static get idColumn () {
-    return 'submissionStatusId';
-  }
-
-  static get modifiers () {
-    return {
-      orderDescending(builder) {
-        builder.orderBy('submissionStatusId', 'desc');
-      }
-    };
-  }
-
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['submissionId', 'code'],
-      properties: {
-        submissionStatusId: { type: 'integer' },
-        submissionId: { type: 'string', pattern: constants.UUID_REGEX },
-        code: { type: 'string', minLength: 1, maxLength: 255 },
-        assignedTo: { type: ['string', 'null'], maxLength: 255 },
-        assignedToEmail: { type: ['string', 'null'], maxLength: 255 },
-        actionDate: { type: 'string', format: 'date' },
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
-  }
-
-  static get relationMappings () {
-    return {
-      notes: {
-        relation: Model.HasManyRelation,
-        modelClass: BaseModels.Note,
-        join: {
-          from: `${SUBMISSION}_status.submissionStatusId`,
-          to: `${PREFIX}_note.submissionStatusId`
-        }
-      },
-      statusCode: {
-        relation: Model.HasOneRelation,
-        modelClass: BaseModels.StatusCode,
-        join: {
-          from: `${SUBMISSION}_status.code`,
-          to: `${PREFIX}_status_code.code`
-        }
-      },
-    };
-  }
-}
-
-class Attestation extends Models.Timestamps(Model) {
+class Attestation extends CommonModels.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_attestation`;
   }
@@ -232,14 +171,14 @@ class Attestation extends Models.Timestamps(Model) {
         transportationHelicopter: { type: 'boolean' },
         transportationTravelPod: { type: 'boolean' },
         transportationCleaningDistancing: { type: 'boolean' },
-        ...Models.stamps
+        ...CommonModels.stamps
       },
       additionalProperties: false
     };
   }
 }
 
-class Business extends Models.Timestamps(Model) {
+class Business extends CommonModels.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_business`;
   }
@@ -262,14 +201,14 @@ class Business extends Models.Timestamps(Model) {
         city: { type: 'string', minLength: 1, maxLength: 255 },
         province: { type: 'string', minLength: 1, maxLength: 30 },
         postalCode: { type: 'string', minLength: 1, maxLength: 30 },
-        ...Models.stamps
+        ...CommonModels.stamps
       },
       additionalProperties: false
     };
   }
 }
 
-class Contact extends Models.Timestamps(Model) {
+class Contact extends CommonModels.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_contact`;
   }
@@ -291,7 +230,7 @@ class Contact extends Models.Timestamps(Model) {
         phone1: { type: ['string', 'null'], maxLength: 30 },
         phone2: { type: ['string', 'null'], maxLength: 30 },
         email: { type: ['string', 'null'], format: 'email' },
-        ...Models.stamps
+        ...CommonModels.stamps
       },
       additionalProperties: false
     };
@@ -306,7 +245,7 @@ class Contact extends Models.Timestamps(Model) {
   }
 }
 
-class Location extends Models.Timestamps(Model) {
+class Location extends CommonModels.Timestamps(Model) {
   static get tableName () {
     return `${SUBMISSION}_location`;
   }
@@ -340,7 +279,7 @@ class Location extends Models.Timestamps(Model) {
         motelProvince: { type: ['string', 'null'], maxLength: 30 },
         motelPostalCode: { type: ['string', 'null'], maxLength: 30 },
         accWorkersHome: { type: 'boolean' },
-        ...Models.stamps
+        ...CommonModels.stamps
       },
       additionalProperties: false
     };
@@ -352,6 +291,5 @@ module.exports = {
   Business: Business,
   Contact: Contact,
   Location: Location,
-  Submission: Submission,
-  Status: SubmissionStatus
+  Submission: Submission
 };

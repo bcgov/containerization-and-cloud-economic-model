@@ -1,27 +1,29 @@
 const chesService = require('../../components/chesService');
-const dataService = require('./dataService');
 const fs = require('fs');
 const log = require('npmlog');
-const path = require('path');
 
-const assetsPath = path.join(__dirname, 'assets');
+class EmailService{
 
-let submissionEmailBody;
-let notificationEmailBody;
-let statusAssignmentEmailBody;
-let accessRequestedEmailBody;
+  constructor(commonDataService, formDataService, assetsPath) {
+    this._commonDataService = commonDataService;
+    this._formDataService = formDataService;
+    this._assetsPath = assetsPath;
 
-const emailService = {
+    this._submissionEmailBody = null;
+    this._notificationEmailBody = null;
+    this._statusAssignmentEmailBody = null;
+    this._accessRequestedEmailBody = null;
+  }
 
-  sendSubmissionEmail: async (submission, to) => {
+  async sendSubmissionEmail(submission, to) {
     try {
-      const settings = await dataService.readSettings('submissionEmail');
-      if (settings.enabled) {
-        if (!submissionEmailBody) {
-          submissionEmailBody = fs.readFileSync(`${assetsPath}/${settings.config.template}`, 'utf8');
+      const settings = await this._commonDataService.readSettings('submissionEmail');
+      if (settings && settings.enabled) {
+        if (!this._submissionEmailBody) {
+          this._submissionEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
         const data = {
-          body: submissionEmailBody,
+          body: this._submissionEmailBody,
           bodyType: 'html',
           contexts: [
             {
@@ -45,18 +47,18 @@ const emailService = {
       log.error(err);
       throw err;
     }
-  },
+  }
 
-  sendNotificationEmail: async (submission) => {
+  async sendNotificationEmail(submission) {
     try {
-      const settings = await dataService.readSettings('notificationEmail');
-      if (settings.enabled) {
-        if (!notificationEmailBody) {
-          notificationEmailBody = fs.readFileSync(`${assetsPath}/${settings.config.template}`, 'utf8');
+      const settings = await this._commonDataService.readSettings('notificationEmail');
+      if (settings && settings.enabled) {
+        if (!this._notificationEmailBody) {
+          this._notificationEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
         const to = settings.config.to.split(',').filter(x => x);
         const data = {
-          body: notificationEmailBody,
+          body: this._notificationEmailBody,
           bodyType: 'html',
           contexts: [
             {
@@ -80,22 +82,22 @@ const emailService = {
       log.error(err);
       throw err;
     }
-  },
+  }
 
-  sendStatusAssignmentEmail: async (statusUpdate) => {
+  async sendStatusAssignmentEmail(statusUpdate){
     try {
-      const settings = await dataService.readSettings('statusAssignmentEmail');
-      if (settings.enabled && statusUpdate.assignedToEmail) {
-        if (!statusAssignmentEmailBody) {
-          statusAssignmentEmailBody = fs.readFileSync(`${assetsPath}/${settings.config.template}`, 'utf8');
+      const settings = await this._commonDataService.readSettings('statusAssignmentEmail');
+      if (settings && settings.enabled && statusUpdate.assignedToEmail) {
+        if (!this._statusAssignmentEmailBody) {
+          this._statusAssignmentEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
-        // get the submission.
-        const submission = await dataService.readSubmission(statusUpdate.submissionId);
-        const statusCodes = await dataService.readCurrentStatusCodes();
+
+        const submission = await this._formDataService.readSubmission(statusUpdate.submissionId);
+        const statusCodes = await this._commonDataService.readCurrentStatusCodes();
         const statusCode = statusCodes.find(x => x.code === statusUpdate.code);
 
         const data = {
-          body: statusAssignmentEmailBody,
+          body: this._statusAssignmentEmailBody,
           bodyType: 'html',
           contexts: [
             {
@@ -122,18 +124,18 @@ const emailService = {
       log.error(err);
       throw err;
     }
-  },
+  }
 
-  sendAccessRequestedEmail: async (accessRequest) => {
+  async sendAccessRequestedEmail(accessRequest) {
     try {
-      const settings = await dataService.readSettings('accessRequestedEmail');
-      if (settings.enabled) {
-        if (!accessRequestedEmailBody) {
-          accessRequestedEmailBody = fs.readFileSync(`${assetsPath}/${settings.config.template}`, 'utf8');
+      const settings = await this._commonDataService.readSettings('accessRequestedEmail');
+      if (settings && settings.enabled) {
+        if (!this._accessRequestedEmailBody) {
+          this._accessRequestedEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
         const to = settings.config.to.split(',').filter(x => x);
         const data = {
-          body: accessRequestedEmailBody,
+          body: this._accessRequestedEmailBody,
           bodyType: 'html',
           contexts: [
             {
@@ -160,6 +162,6 @@ const emailService = {
     }
   }
 
-};
+}
 
-module.exports = emailService;
+module.exports = EmailService;
