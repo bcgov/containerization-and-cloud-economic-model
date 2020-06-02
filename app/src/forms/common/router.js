@@ -48,19 +48,19 @@ class Router extends EventEmitter {
       await this._controller.readSubmissionNotes(req, res, next);
     });
 
-    this._routes.get('/settings', middleware.hasRole(this._resourceAccess,['viewer']), async (req, res, next) => {
+    this._routes.get('/settings', middleware.hasRole(this._resourceAccess, ['viewer']), async (req, res, next) => {
       await this._controller.allSettings(req, res, next);
     });
 
-    this._routes.post('/settings', middleware.hasRole(this._resourceAccess,['admin']), async (req, res, next) => {
+    this._routes.post('/settings', middleware.hasRole(this._resourceAccess, ['admin']), async (req, res, next) => {
       await this._controller.createSettings(req, res, next);
     });
 
-    this._routes.get('/settings/:name', middleware.hasRole(this._resourceAccess,['viewer']), async (req, res, next) => {
+    this._routes.get('/settings/:name', middleware.hasRole(this._resourceAccess, ['viewer']), async (req, res, next) => {
       await this._controller.readSettings(req, res, next);
     });
 
-    this._routes.put('/settings/:name', middleware.hasRole(this._resourceAccess,['admin']), async (req, res, next) => {
+    this._routes.put('/settings/:name', middleware.hasRole(this._resourceAccess, ['admin']), async (req, res, next) => {
       await this._controller.updateSettings(req, res, next);
     });
 
