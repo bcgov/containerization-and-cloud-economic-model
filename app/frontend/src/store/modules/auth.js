@@ -24,7 +24,7 @@ export default {
       if (!getters.authenticated) return false;
       if (!roles.length) return true; // No roles to check against
 
-      if (getters.resourceAccess[resource]) {
+      if (getters.resourceAccess && getters.resourceAccess[resource]) {
         return hasRoles(getters.resourceAccess[resource].roles, roles);
       }
       return false; // There are roles to check, but nothing in token to check against
