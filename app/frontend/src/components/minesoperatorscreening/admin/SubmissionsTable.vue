@@ -1,5 +1,8 @@
 <template>
   <div>
+    <!-- table alert -->
+    <v-alert v-if="alertShow" :type="alertType" tile dense>{{ alertMessage }}</v-alert>
+
     <!-- search input -->
     <div class="ipc-search mt-6 mt-sm-0">
       <v-text-field
@@ -9,21 +12,19 @@
         single-line
         hide-details
         class="pb-5"
-      ></v-text-field>
+      />
     </div>
-    <!-- table alert -->
-    <v-alert v-if="showAlert" :type="alertType" tile dense>{{alertMessage}}</v-alert>
+
     <!-- table header -->
     <v-data-table
       class="ipc-table"
-      :custom-sort="customSort"
       :headers="headers"
+      item-key="confirmationId"
       :items="submissions"
-      :items-per-page="10"
       :search="search"
       :loading="loading"
       loading-text="Loading... Please wait"
-      item-key="confirmationId"
+      :options="options"
     >
       <template v-slot:item.download="{ item }">
         <GeneratePdfButton :submissionId="item.submissionId">
@@ -55,52 +56,51 @@ export default {
     GeneratePdfButton
   },
   computed: {
-    responsiveCell () {
-      return (this.$vuetify.breakpoint.name == 'xs') ? 'v-data-table__mobile-table-row' : '';
+    responsiveCell() {
+      return this.$vuetify.breakpoint.name == 'xs'
+        ? 'v-data-table__mobile-table-row'
+        : '';
     }
   },
   data() {
     return {
-      // vuetify data table
-      search: '',
       headers: [
-        { text: 'Submitted', value: 'created' },
+        {
+          text: 'Submitted',
+          value: 'created',
+          sort: (a, b) => {
+            return new Date(a) - new Date(b);
+          }
+        },
         { text: 'Status', align: 'start', value: 'inspectionStatus' },
         { text: 'Assigned To', align: 'start', value: 'assignedTo' },
         { text: 'Business Name', align: 'start', value: 'name' },
         { text: 'Confirmation ID', align: 'start', value: 'confirmationId' },
-        { text: 'Download', value: 'download', sortable: false },
-        { text: 'Details', value: 'details', sortable: false }
+        {
+          text: 'Download',
+          value: 'download',
+          filterable: false,
+          sortable: false
+        },
+        {
+          text: 'Details',
+          value: 'details',
+          filterable: false,
+          sortable: false
+        }
       ],
-      submissions: [],
-      loading: true,
-      showAlert: false,
+      alertMessage: '',
+      alertShow: false,
       alertType: null,
-      alertMessage: ''
+      loading: true,
+      options: {},
+      search: '',
+      submissions: []
     };
   },
   methods: {
-    customSort(items, index, sortDesc) {
-      return items.sort((a, b) => {
-        if (index[0] === 'created') {
-          // Treat created field as date instead of string
-          if (sortDesc[0]) {
-            return new Date(b.created) - new Date(a.created);
-          } else {
-            return new Date(a.created) - new Date(b.created);
-          }
-        } else {
-          // Retain ordering functionality of other columns
-          if (sortDesc[0]) {
-            return b[index] < a[index] ? -1 : 1;
-          } else {
-            return a[index] < b[index] ? -1 : 1;
-          }
-        }
-      });
-    },
-    formatDate(date){
-      return (date) ? new Date(date).toLocaleString() : 'N/A';
+    formatDate(date) {
+      return date ? new Date(date).toLocaleString() : 'N/A';
     },
     // get table data from frontend service layer
     getData() {
@@ -125,17 +125,17 @@ export default {
           }
           this.submissions = submissions;
         })
-        .catch((error) => {
+        .catch(error => {
           console.error(`Error getting submissions: ${error}`); // eslint-disable-line no-console
           this.showTableAlert('error', 'No response from server');
         });
     },
     showTableAlert(typ, msg) {
-      this.showAlert = true;
+      this.alertShow = true;
       this.alertType = typ;
       this.alertMessage = msg;
       this.loading = false;
-    },
+    }
   },
   mounted() {
     this.getData();
