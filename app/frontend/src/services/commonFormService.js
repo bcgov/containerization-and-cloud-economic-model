@@ -34,11 +34,11 @@ export default {
    * Updates `user` to have `role` for `form`.
    * @param {string} form The form name
    * @param {string} user The user uuid
-   * @param {object} role The desired composite role. Removes `user` from all roles if undefined.
+   * @param {object[]} roleArray The desired composite role. Removes `user` from all roles if empty.
    * @returns {Promise} An axios response
    */
-  updateTeamUserRole(form, user, role) {
-    return appAxios().put(`${form}/team/users/${user}/roles`, role);
+  updateTeamUserRole(form, user, roleArray) {
+    return appAxios().put(`${form}/team/users/${user}/roles`, roleArray);
   },
 
   /**
