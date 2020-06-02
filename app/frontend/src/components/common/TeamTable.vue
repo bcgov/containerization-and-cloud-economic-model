@@ -1,5 +1,8 @@
 <template>
   <v-container>
+    <!-- table alert -->
+    <v-alert v-if="alertShow" :type="alertType" tile dense>{{ alertMessage }}</v-alert>
+
     <!-- search input -->
     <div class="team-search mt-6 mt-sm-0">
       <v-text-field
@@ -11,15 +14,13 @@
         class="pb-5"
       />
     </div>
-    <!-- table alert -->
-    <v-alert v-if="alertShow" :type="alertType" tile dense>{{ alertMessage }}</v-alert>
+
     <!-- table header -->
     <v-data-table
       class="team-table"
       :headers="headers"
       item-key="id"
       :items="users"
-      must-sort
       :search="search"
       :loading="loading"
       loading-text="Loading... Please wait"
@@ -33,13 +34,23 @@
           </template>
         </v-tooltip>
       </template>
-      <template v-slot:item.newRole>Dropdown TBD</template>
+      <template v-slot:item.newRole="{ item }">
+        <v-select
+          v-model="selection[item.id]"
+          @change="updateUserRole(item.id)"
+          dense
+          :disabled="loading"
+          :items="selectableRoleNames(item.currentRole)"
+        />
+      </template>
     </v-data-table>
   </v-container>
 </template>
 
 <script>
 import commonFormService from '@/services/commonFormService';
+
+const NOROLE = 'No Access';
 
 export default {
   name: 'TeamTable',
@@ -66,6 +77,7 @@ export default {
       sortDesc: [true]
     },
     roles: [],
+    selection: {},
     search: '',
     users: []
   }),
@@ -103,11 +115,69 @@ export default {
         this.showTableAlert('error', 'Failed to get users');
       }
     },
+    resetTableAlert() {
+      this.alertMessage = '';
+      this.alertShow = false;
+      this.alertType = null;
+    },
+    selectableRoleNames(currentRole) {
+      const selectable = this.roles
+        .filter(role => role.name !== 'Request Access')
+        .filter(role => role.name !== currentRole)
+        .map(role => role.name);
+      selectable.push(NOROLE);
+      return selectable;
+    },
     showTableAlert(type, msg) {
-      this.showAlert = true;
-      this.alertType = type;
       this.alertMessage = msg;
+      this.alertShow = true;
+      this.alertType = type;
       this.loading = false;
+    },
+    async updateUserRole(userId) {
+      try {
+        this.resetTableAlert();
+
+        const user = this.users.find(u => u.id === userId);
+        const roleArray =
+          this.selection[userId] !== NOROLE
+            ? [this.roles.find(r => r.name === this.selection[userId])]
+            : [];
+
+        // Short circuit if selection is somehow the same as current role
+        if (this.selection[userId] !== user.currentRole) {
+          // Update User Roles
+          this.loading = true;
+          const response = await commonFormService.updateTeamUserRole(
+            this.formName,
+            userId,
+            roleArray
+          );
+          const data = response.data;
+
+          // Integrity Check
+          if (
+            (data.length && this.selection[userId] === NOROLE) ||
+            (data.length === 1 && data[0].name !== this.selection[userId])
+          ) {
+            throw new Error(
+              'Integrity failure: requested roles do not match response'
+            );
+          }
+
+          // Update Table Contents
+          user.currentRole = data.length === 1 ? data[0].name : NOROLE;
+          this.showTableAlert(
+            'success',
+            `User ${user.fullname} (${user.email}) has been updated to ${user.currentRole} role`
+          );
+        }
+
+        delete this.selection[userId];
+      } catch (error) {
+        console.error(`Error updating user roles: ${error}`); // eslint-disable-line no-console
+        this.showTableAlert('error', 'Failed to update user roles');
+      }
     }
   },
   async mounted() {

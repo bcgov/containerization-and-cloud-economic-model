@@ -1,6 +1,8 @@
 import { appAxios } from '@/services/interceptors';
 
 export default {
+  // Team Management Endpoints
+
   /**
    * @function getTeamRoles
    * Fetches a list of valid team roles for `form`.
@@ -16,7 +18,7 @@ export default {
 
   /**
    * @function getTeamUsers
-   * Fetches a list of valid team roles for `form`.
+   * Fetches a list of associated users for `form`.
    * @param {string} form The form name
    * @param {boolean} [roles=false] Populate response with roles
    * @returns {Promise} An axios response
@@ -28,6 +30,18 @@ export default {
   },
 
   /**
+   * @function updateTeamUserRole
+   * Updates `user` to have `role` for `form`.
+   * @param {string} form The form name
+   * @param {string} user The user uuid
+   * @param {object[]} roleArray The desired composite role. Removes `user` from all roles if empty.
+   * @returns {Promise} An axios response
+   */
+  updateTeamUserRole(form, user, roleArray) {
+    return appAxios().put(`${form}/team/users/${user}/roles`, roleArray);
+  },
+
+  /**
    * @function requestTeamAccess
    * Sends a user request for a permission change
    * @param {string} form The form name
@@ -36,6 +50,8 @@ export default {
   requestTeamAccess(form) {
     return appAxios().post(`${form}/team/access`);
   },
+
+  // Email Endpoints
 
   /**
    * @function requestReceiptEmail

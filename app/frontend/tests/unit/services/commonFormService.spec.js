@@ -7,6 +7,7 @@ const mockInstance = axios.create();
 const mockAxios = new MockAdapter(mockInstance);
 
 const form = 'testForm';
+const zeroUuid = '00000000-0000-0000-0000-000000000000';
 
 jest.mock('@/services/interceptors', () => {
   return {
@@ -65,6 +66,28 @@ describe('getTeamUsers', () => {
     expect(mockAxios.history.get).toHaveLength(1);
     expect(Object.keys(mockAxios.history.get[0].params)).toHaveLength(1);
     expect(mockAxios.history.get[0].params.roles).toBeTruthy();
+  });
+});
+
+describe('updateTeamUserRole', () => {
+  const endpoint = `${form}/team/users/${zeroUuid}/roles`;
+  const data = {
+    id: zeroUuid,
+    name: 'testRole',
+    description: 'testDescription'
+  };
+
+  beforeEach(() => {
+    mockAxios.reset();
+  });
+
+  it('calls team user role update endpoint', async () => {
+    mockAxios.onPut(endpoint).reply(200, [data]);
+
+    const result = await commonFormService.updateTeamUserRole(form, zeroUuid, data);
+    expect(result).toBeTruthy();
+    expect(result.data[0]).toEqual(data);
+    expect(mockAxios.history.put).toHaveLength(1);
   });
 });
 
