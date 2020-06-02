@@ -52,7 +52,7 @@ const submissionSearch = async (req, res, next) => {
     if (req.query) {
       verifyInt(req.query, 'version', result, errors);
       ['confirmationId', 'business', 'city'].forEach(p => verifyString(req.query, p, result, errors));
-      verifyBoolean(req.query, 'tiny', result, errors);
+      ['tiny', 'deleted'].forEach(p => verifyBoolean(req.query, p, result, errors));
     }
 
     if (errors.length) {

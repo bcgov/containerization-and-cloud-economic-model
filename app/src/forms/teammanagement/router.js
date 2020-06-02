@@ -1,6 +1,7 @@
 const EventEmitter = require('events');
 
 const Controller = require('./controller');
+const events = require('./events');
 
 const middleware = require('../common/middleware');
 
@@ -11,8 +12,8 @@ class Router extends EventEmitter {
     this._clientName = `comfort-${resourceAccess}`;
     this._routes = require('express').Router();
 
-    this._controller.on('onAccessRequest', (result) => {
-      this.emit('onAccessRequest', result);
+    this._controller.on(events.ACCESS_REQUESTED, (result) => {
+      this.emit(events.ACCESS_REQUESTED, result);
     });
 
     this._routes.post('/access', middleware.currentUser, async (req, res, next) => {

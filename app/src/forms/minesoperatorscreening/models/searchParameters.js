@@ -4,6 +4,7 @@ class SubmissionSearch {
     this.confirmationId = undefined;
     this.business = undefined;
     this.city = undefined;
+    this.deleted = undefined;
     this.tiny = undefined;
   }
 }

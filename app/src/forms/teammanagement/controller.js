@@ -1,5 +1,5 @@
 const EventEmitter = require('events');
-
+const events = require('./events');
 const Service = require('./service');
 
 class Controller extends EventEmitter {
@@ -11,7 +11,7 @@ class Controller extends EventEmitter {
   async processAccessRequest(req, res, next) {
     try {
       const response = await this._service.processAccessRequest(req.body, req.currentUser);
-      this.emit('onAccessRequest', response);
+      this.emit(events.ACCESS_REQUESTED, response);
       res.status(201).json(response);
     } catch (error) {
       next(error);

@@ -1,266 +1,77 @@
-const { Model } = require('objection');
-const Models = require('../../common/models');
+const CommonModels = require('../../common/models');
 
 const constants = require('../constants');
 const PREFIX = constants.PREFIX;
 
-class Metadata extends Models.Timestamps(Model) {
-  static get tableName () {
-    return 'form';
+class Form extends CommonModels.Form {
+
+  static get tablePrefix () {
+    return PREFIX;
   }
 
-  static get idColumn () {
-    return 'formId';
+  static get Metadata () {
+    return CommonModels.Metadata;
   }
 
-  // exclude keywords array from explicit JSON conversion
-  // encounter malformed array literal
-  static get jsonAttributes() {
-    return ['formId', 'name', 'slug', 'prefix', 'public', 'active', 'createdAt', 'updatedBy', 'updatedAt'];
-  }
-
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['name', 'slug', 'public', 'active', 'prefix'],
-      properties: {
-        formId: { type: 'string', pattern: constants.UUID_REGEX },
-        name: { type: 'string', minLength: 1, maxLength: 255 },
-        slug: { type: 'string', minLength: 1, maxLength: 255 },
-        prefix: { type: 'string', minLength: 1, maxLength: 255 },
-        public: { type: 'boolean' },
-        active: { type: 'boolean' },
-        keywords: { type: 'array', items: { type: 'string'}},
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
+  static get Version () {
+    return Version;
   }
 }
 
-class Form extends Models.Timestamps(Model) {
-  static get tableName () {
-    return `${PREFIX}_form`;
+class Version extends CommonModels.Version {
+
+  static get tablePrefix () {
+    return PREFIX;
   }
 
-  static get idColumn () {
-    return 'formId';
-  }
-
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: [],
-      properties: {
-        formId: { type: 'string', pattern: constants.UUID_REGEX },
-        description: { type: ['string', 'null'], maxLength: 255 },
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
-  }
-
-  static get relationMappings () {
-    return {
-      metadata: {
-        relation: Model.BelongsToOneRelation,
-        modelClass: Metadata,
-        join: {
-          from: 'form.formId',
-          to: `${PREFIX}_form.formId`
-        }
-      },
-      versions: {
-        relation: Model.HasManyRelation,
-        modelClass: Version,
-        join: {
-          from: `${PREFIX}_form.formId`,
-          to: `${PREFIX}_form_version.formId`
-        }
-      }
-    };
+  static get StatusCode () {
+    return StatusCode;
   }
 }
 
-class Version extends Models.Timestamps(Model) {
-  static get tableName () {
-    return `${PREFIX}_form_version`;
+class StatusCode extends CommonModels.StatusCode {
+
+  static get tablePrefix () {
+    return PREFIX;
   }
 
-  static get idColumn () {
-    return 'formVersionId';
-  }
-
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: [],
-      properties: {
-        formVersionId: { type: 'integer' },
-        formId: { type: 'string', pattern: constants.UUID_REGEX },
-        changes: { type: ['string', 'null'], maxLength: 255 },
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
-  }
-
-  static get relationMappings () {
-    return {
-      statusCodes: {
-        relation: Model.ManyToManyRelation,
-        modelClass: StatusCode,
-        join: {
-          from: `${PREFIX}_form_version.formVersionId`,
-          through: {
-            from: `${PREFIX}_version_status_code.formVersionId`,
-            to: `${PREFIX}_version_status_code.code`
-          },
-          to: `${PREFIX}_status_code.code`
-        }
-      }
-    };
-  }
-
-  static get modifiers () {
-    return {
-      orderDescending(builder) {
-        builder.orderBy('formVersionId', 'desc');
-      }
-    };
+  static get Version () {
+    return Version;
   }
 }
 
-class StatusCode extends Models.Timestamps(Model) {
-  static get tableName () {
-    return `${PREFIX}_status_code`;
-  }
+class Note extends CommonModels.Note {
 
-  static get idColumn () {
-    return 'code';
-  }
-
-  // exclude nextCodes array from explicit JSON conversion
-  // encounter malformed array literal
-  static get jsonAttributes() {
-    return ['code', 'display', 'enabled', 'formVersionId', 'createdBy', 'createdAt', 'updatedBy', 'updatedAt'];
-  }
-
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['code', 'display', 'enabled'],
-      properties: {
-        code: { type: 'string', minLength: 1, maxLength: 255 },
-        display: { type: 'string', minLength: 1, maxLength: 255 },
-        enabled: { type: 'boolean' },
-        nextCodes: { type: 'array', items: { type: 'string'}},
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
-  }
-
-  static get relationMappings () {
-    return {
-      versions: {
-        relation: Model.ManyToManyRelation,
-        modelClass: Version,
-        join: {
-          from: `${PREFIX}_status_code.code`,
-          through: {
-            from: `${PREFIX}_version_status_code.code`,
-            to: `${PREFIX}_version_status_code.formVersionId`
-          },
-          to: `${PREFIX}_form_version.formVersionId`
-        }
-      }
-    };
-  }
-
-  static get modifiers () {
-    return {
-      filterEnabled(query, value) {
-        if (value !== undefined) {
-          query.where('enabled', value);
-        }
-      }
-    };
-  }
-
-}
-
-class Note extends Models.Timestamps(Model) {
-  static get tableName () {
-    return `${PREFIX}_note`;
-  }
-
-  static get idColumn () {
-    return 'noteId';
-  }
-
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['note'],
-      properties: {
-        note: { type: 'string', minLength: 1, maxLength: 4000 },
-        submissionId: { type: 'string', pattern: constants.UUID_REGEX },
-        submissionStatusId: { type: 'integer' },
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
-  }
-
-  static get modifiers () {
-    return {
-      orderDescending(builder) {
-        builder.orderBy('noteId', 'desc');
-      }
-    };
+  static get tablePrefix () {
+    return PREFIX;
   }
 }
 
-class Settings extends Models.Timestamps(Model) {
-  static get tableName () {
-    return `${PREFIX}_settings`;
-  }
-  static get idColumn () {
-    return 'name';
-  }
+class Settings extends CommonModels.Settings {
 
-  static get jsonSchema() {
-    return {
-      type: 'object',
-      required: ['name', 'enabled', 'config'],
-      properties: {
-        name: { type: 'string', minLength: 1, maxLength: 255 },
-        enabled: { type: 'boolean' },
-        config: { type: 'jsonb' },
-        ...Models.stamps
-      },
-      additionalProperties: false
-    };
-  }
-
-  static get modifiers () {
-    return {
-      filterEnabled(query, value) {
-        if (value !== undefined) {
-          query.where('enabled', value);
-        }
-      },
-      orderDescending(builder) {
-        builder.orderBy('updatedAt', 'desc');
-      }
-    };
+  static get tablePrefix () {
+    return PREFIX;
   }
 }
 
-module.exports.Metadata = Metadata;
+class Status extends CommonModels.Status {
+  static get tablePrefix () {
+    return PREFIX;
+  }
+
+  static get Note() {
+    return Note;
+  }
+
+  static get StatusCode() {
+    return StatusCode;
+  }
+}
+
+module.exports.Metadata = CommonModels.Metadata;
 module.exports.Form = Form;
 module.exports.Version = Version;
 module.exports.StatusCode = StatusCode;
 module.exports.Note = Note;
 module.exports.Settings = Settings;
+module.exports.Status = Status;
