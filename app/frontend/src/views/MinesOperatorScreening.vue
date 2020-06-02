@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AdminNavBar />
+    <AdminNavBar :resource="resource" />
     <transition name="component-fade" mode="out-in">
       <router-view />
     </transition>
@@ -10,6 +10,7 @@
 <script>
 import AdminNavBar from '@/components/minesoperatorscreening/admin/AdminNavBar.vue';
 import form from '@/store/modules/minesoperatorscreening/minesOperatorScreeningForm.js';
+import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'MinesOperatorScreening',
@@ -18,6 +19,11 @@ export default {
   },
   beforeDestroy() {
     this.$store.unregisterModule('form');
+  },
+  computed: {
+    resource() {
+      return AppClients.MINESOPERATORSCREENING;
+    }
   },
   created() {
     if(this.$store.hasModule('form')) {

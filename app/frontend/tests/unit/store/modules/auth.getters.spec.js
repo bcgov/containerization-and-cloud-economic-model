@@ -96,7 +96,29 @@ describe('auth getters', () => {
     expect(store.getters.hasResourceRoles(AppClients.APP, roles)).toBeTruthy();
   });
 
-  it('hasResourceRoles should return false when resource does not exist', () => {
+  it('hasResourceRoles should return false when resource_access is undefined', () => {
+    authenticated = true;
+    roles = [AppRoles.ADMIN];
+
+    // TODO: Find better way to set up keycloak object mock without deleting first
+    delete Vue.prototype.$keycloak;
+    Object.defineProperty(Vue.prototype, '$keycloak', {
+      configurable: true, // Needed to allow deletions later
+      get() {
+        return {
+          authenticated: authenticated,
+          tokenParsed: {
+            realm_access: {},
+          }
+        };
+      }
+    });
+
+    expect(store.getters.authenticated).toBeTruthy();
+    expect(store.getters.hasResourceRoles(AppClients.APP, roles)).toBeFalsy();
+  });
+
+  it('hasResourceRoles should return false when a specific resource does not exist', () => {
     authenticated = true;
     roles = [AppRoles.ADMIN];
 

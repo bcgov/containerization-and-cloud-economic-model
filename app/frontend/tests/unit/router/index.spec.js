@@ -1,16 +1,27 @@
 import getRouter from '@/router';
 
 describe('Router', () => {
-  const router = getRouter();
-  const routes = router.options.routes;
+  let router;
 
-  it('has the correct number of routes', () => {
-    expect(routes).toHaveLength(4);
+  beforeEach(() => {
+    router = getRouter();
   });
 
-  it('has the expected routes', () => {
-    const routeSet = new Set(routes);
-    expect(routeSet).toContainEqual(expect.objectContaining({ name: 'Home' }));
-    expect(routeSet).toContainEqual(expect.objectContaining({ name: 'NotFound' }));
+  it('defaults to / path when unspecified', () => {
+    expect(router.options.base).toMatch('/');
+  });
+
+  it('uses the specified path parameter', () => {
+    const path = '/test';
+    router = getRouter(path);
+    expect(router.options.base).toMatch(path);
+  });
+
+  it('is in history mode', () => {
+    expect(router.options.mode).toMatch('history');
+  });
+
+  it('has the correct number of route entries', () => {
+    expect(router.options.routes).toHaveLength(4);
   });
 });
