@@ -31,11 +31,6 @@ const dataService = {
     if (!obj) {
       throw Error(`${constants.SHORT_NAME} cannot be created without data`);
     }
-    const types = await dataService.readTypes(true);
-    const typeCode = types.find(x => equal(x.type, obj.type));
-    if (!typeCode) {
-      throw new Problem(422, 'Invalid Operation Type Code', {detail: `${obj.type||'<null>'} is not a valid, enabled operation type code.`});
-    }
     let trx;
     try {
       trx = await transaction.start(Models.Metadata.knex());
@@ -208,12 +203,6 @@ const dataService = {
       obj.confirmationId = confirmationId;
       obj.attestation.attestationId = uuidv4();
 
-      if (obj.operationType) {
-        // store the type in the type field.
-        obj.type = obj.operationType.type;
-        // type is the valid field on the Model, not operationType...
-        delete obj.operationType;
-      }
 
       // add the initial submitted status to the graph
       obj.statuses = [{
@@ -383,7 +372,6 @@ const dataService = {
       throw new Problem(422, 'Invalid Operation Type Code', {detail: `${obj.type||'<null>'} is not a valid, enabled operation type code.`});
     }
   }
-
 };
 
 module.exports = dataService;
