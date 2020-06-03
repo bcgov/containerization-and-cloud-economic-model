@@ -31,7 +31,7 @@ const formRouter = new FormRouter(constants.SLUG, controller);
 const middleware = require('./middleware');
 
 commonRouter.on(commonEvents.STATUS_CREATED, async (statusUpdate) => {
-  emailService.sendStatusAssignmentEmail(constants.SLUG, statusUpdate);
+  emailService.sendStatusAssignmentEmail(statusUpdate);
 });
 
 teamRouter.on(teamEvents.ACCESS_REQUESTED, async (accessRequest) => {
