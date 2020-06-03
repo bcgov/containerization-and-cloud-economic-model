@@ -25,6 +25,7 @@ exports.up = function(knex) {
       table.string('motelProvince', 30).nullable();
       table.string('motelPostalCode', 30).nullable();
       table.boolean('accWorkersHome').notNullable();
+      table.string('licencees', 1000).nullable().comment('Name of licencee(s) (free text)');
       stamps(knex, table);
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_submission_contact`, table => {
@@ -81,12 +82,6 @@ exports.up = function(knex) {
       table.boolean('disinfectingSchedule').notNullable();
       table.boolean('educationSignage').notNullable();
       table.boolean('educationContactPersonnel').notNullable();
-      table.boolean('transportationSingleOccupant').notNullable();
-      table.boolean('transportationBusesVans').notNullable();
-      table.boolean('transportationTrucksCars').notNullable();
-      table.boolean('transportationHelicopter').notNullable();
-      table.boolean('transportationTravelPod').notNullable();
-      table.boolean('transportationCleaningDistancing').notNullable();
       table.boolean('trainingCovid19').notNullable();
       table.boolean('trainingEtiquette').notNullable();
       table.boolean('trainingLocations').notNullable();

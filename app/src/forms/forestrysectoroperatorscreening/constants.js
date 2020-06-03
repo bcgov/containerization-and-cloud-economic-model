@@ -9,7 +9,7 @@ const SLEEPING_AREA_TYPE_SHARED = 'SHARED';
 const SLEEPING_AREA_TYPES = [SLEEPING_AREA_TYPE_SINGLE, SLEEPING_AREA_TYPE_SHARED];
 
 module.exports = Object.freeze({
-  SLUG: 'forestrysectoroperatorscreening',
+  SLUG: 'forestrysectoropscreening',
   PREFIX: 'forsec_os',
   SHORT_NAME: 'Forestry Sector',
   INITIAL_STATUS_CODE: 'SUBMITTED',

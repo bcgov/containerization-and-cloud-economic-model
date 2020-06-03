@@ -358,6 +358,7 @@ class Location extends CommonModels.Timestamps(Model) {
         motelProvince: {type: ['string', 'null'], maxLength: 30},
         motelPostalCode: {type: ['string', 'null'], maxLength: 30},
         accWorkersHome: {type: 'boolean'},
+        licencees: {type: ['string', 'null'], maxLength: 1000},
         ...CommonModels.stamps
       },
       additionalProperties: false

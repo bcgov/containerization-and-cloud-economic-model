@@ -72,7 +72,7 @@ class Controller {
     try {
       const response = await this._dataService.createSubmission(req.body);
       // don't await here...
-      this._emailService.sendNotificationEmail(response);
+      this._emailService.sendConfirmationEmail(response);
       res.status(201).json(response);
     } catch (error) {
       next(error);

@@ -10,7 +10,7 @@ class EmailService {
     this._assetsPath = assetsPath;
 
     this._submissionEmailBody = null;
-    this._notificationEmailBody = null;
+    this._confirmationEmailBody = null;
     this._statusAssignmentEmailBody = null;
     this._accessRequestedEmailBody = null;
   }
@@ -49,21 +49,22 @@ class EmailService {
     }
   }
 
-  async sendNotificationEmail(submission) {
+  async sendConfirmationEmail(submission) {
     try {
-      const settings = await this._commonDataService.readSettings('notificationEmail');
+      const settings = await this._commonDataService.readSettings('confirmationEmail');
       if (settings && settings.enabled) {
-        if (!this._notificationEmailBody) {
-          this._notificationEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
+        if (!this._confirmationEmailBody) {
+          this._confirmationEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
         const to = settings.config.to.split(',').filter(x => x);
         const data = {
-          body: this._notificationEmailBody,
+          body: this._confirmationEmailBody,
           bodyType: 'html',
           contexts: [
             {
               context: {
                 confirmationNumber: submission.confirmationId,
+                operationType: submission.operationType.display,
                 title: settings.config.title,
                 messageLinkText: settings.config.messageLinkText,
                 messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
@@ -103,6 +104,7 @@ class EmailService {
             {
               context: {
                 confirmationNumber: submission.confirmationId,
+                operationType: submission.operationType.display,
                 business: submission.business.name,
                 status: statusCode.display,
                 message: settings.config.message,

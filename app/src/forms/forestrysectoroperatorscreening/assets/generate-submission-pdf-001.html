@@ -125,7 +125,7 @@
           valign="top"
           width="558">
         <p class="MsoNormal" style="margin-top: 6pt;"><b><span style="font-size:24.0pt;
-  font-family:&quot;Calibri&quot;,sans-serif;color:#FFF">Mines Operator
+  font-family:&quot;Calibri&quot;,sans-serif;color:#FFF">Forestry Sector Operator
                     Screening</span></b></p>
       </td>
     </tr>
@@ -161,8 +161,6 @@
   </table>
   <h1>2. Your business contact information</h1>
   <p class="Normal1">Registered Business Name: {d.business.name}</p>
-  <p class="Normal1">Mine Number: {d.location.mineNumber}</p>
-  <p class="Normal1">Mines Act Permit: {d.location.permitNumber}</p>
   <p class="MsoNormal">&nbsp;</p>
   <h2>Primary Contact</h2>
   <table border="0" cellpadding="0"
@@ -435,6 +433,26 @@
   <p class="Normal1">&nbsp;</p>
   <p class="Normal1"><b><span style="color:#4472C4">[{d.location.accWorkersHome:convTF()}]</span></b>
     Worker’s home in community</p>
+  <h2>Licencee(s) that you are conducting the work for:</h2>
+  <p class="Normal1">&nbsp;</p>
+  <table border="0" cellpadding="0"
+         cellspacing="0"
+         class="MsoTableGrid"
+         style="margin-left:35.2pt;border-collapse:collapse;border:none">
+    <tbody>
+    <tr>
+      <td style="width:191.35pt;padding:0cm 5.4pt 0cm 5.4pt" valign="top" width="255">
+        <p class="Normal1">Name of Licencee(s)</p>
+      </td>
+      <td style="width:240.65pt;padding:0cm 5.4pt 0cm 5.4pt" valign="top" width="321">
+        <p class="Normal1">{d.location.licencees}</p>
+      </td>
+      <td style="border:none;padding:0cm 0cm 0cm 0cm" width="0">
+        <p class="MsoNormal">&nbsp;</p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
   <p class="MsoNormal">&nbsp;</p>
   <h1>3. Before operations begin, please check all that apply:</h1>
   <h2>1. COVID-19 Information</h2>
@@ -569,32 +587,6 @@
       style="color:#4472C4">[{d.attestation.disinfectingSchedule:convTF()}]
             </span></b>I have a schedule to ensure common and high touch areas
     are cleaned or disinfected at the start and end of each day.</p>
-  <h2>9. Transportation of Workers</h2>
-  <p class="MsoNormal">Modes of transportation:</p>
-  <p class="MsoNormal">&nbsp;</p>
-  <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt"><b><span
-      style="color:#4472C4">[{d.attestation.transportationSingleOccupant:convTF()}]
-            </span></b>One person per vehicle</p>
-  <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt"><b><span
-      style="color:#4472C4">[{d.attestation.transportationBusesVans:convTF()}]
-            </span></b>Buses or Vans</p>
-  <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt"><b><span
-      style="color:#4472C4">[{d.attestation.transportationTrucksCars:convTF()}]
-            </span></b>Trucks and Cars</p>
-  <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt"><b><span
-      style="color:#4472C4">[{d.attestation.transportationHelicopter:convTF()}]
-            </span></b>Helicopter</p>
-  <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt">&nbsp;</p>
-  <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt"><b><span
-      style="color:#4472C4">[{d.attestation.transportationTravelPod:convTF()}]
-            </span></b>I have made arrangements so that where workers are
-    required to travel together in vehicles or helicopters to the work site,
-    workers will travel with their work pod.</p>
-  <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt"><b><span
-      style="color:#4472C4">[{d.attestation.transportationCleaningDistancing:convTF()}]
-            </span></b>Procedures for frequent vehicle cleaning and physical
-    distancing or use personal protective equipment have been developed and
-    communicated to the workers prior to being transported to the worksite.</p>
   <p class="MsoNormal" style="margin-left:35.45pt;text-indent:-35.45pt">&nbsp;</p>
   <h1>4. After workers arrive at the Industrial Camp</h1>
   <p class="MsoNormal">Once your workers arrive at the location, you are

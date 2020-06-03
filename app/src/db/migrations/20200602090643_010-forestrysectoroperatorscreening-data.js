@@ -44,7 +44,7 @@ exports.up = function(knex) {
       return knex(`${PREFIX}_form`).del();
     })
     .then(()=> {
-      return knex('form').where('name', FORM_NAME).del();
+      return knex('form').where('prefix', PREFIX).del();
     })
     .then(() => {
       return knex(`${PREFIX}_status_code`).insert(statusCodes);
@@ -103,7 +103,7 @@ exports.up = function(knex) {
     })
     .then(() => {
       const data = {
-        name: 'notificationEmail',
+        name: 'confirmationEmail',
         enabled: true,
         config: {
           template: 'confirmation-number-email.html',
@@ -212,6 +212,6 @@ exports.down = function(knex) {
       return knex(`${PREFIX}_form`).del();
     })
     .then(()=> {
-      return knex('form').where('name', FORM_NAME).del();
+      return knex('form').where('prefix', PREFIX).del();
     });
 };
