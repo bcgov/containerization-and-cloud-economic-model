@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AdminNavBar :resource="resource" />
+    <AdminNavBar :formName="formName" :resource="resource" />
     <transition name="component-fade" mode="out-in">
       <router-view />
     </transition>
@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import AdminNavBar from '@/components/forestrysectoropscreening/admin/AdminNavBar.vue';
+import AdminNavBar from '@/components/common/AdminNavBar.vue';
 import forestrySectorOpScreeningForm from '@/store/modules/forestrysectoropscreening/forestrySectorOpScreeningForm.js';
-import { AppClients } from '@/utils/constants';
+import { AppClients, FormNames } from '@/utils/constants';
 
 export default {
   name: 'ForestrySectorOpScreening',
@@ -21,6 +21,9 @@ export default {
     this.$store.unregisterModule('forestrySectorOpScreeningForm');
   },
   computed: {
+    formName() {
+      return FormNames.FORESTRYSECTOROPSCREENING;
+    },
     resource() {
       return AppClients.FORESTRYSECTOROPSCREENING;
     }
