@@ -4,6 +4,8 @@ export const ApiRoutes = Object.freeze({
 
 export const AppClients = Object.freeze({
   APP: 'comfort',
+  AGRISEAFOODOPSCREENING: 'comfort-agriseafoodopscreening',
+  FORESTRYSECTOROPSCREENING: 'comfort-forestrysectoropscreening',
   MINESOPERATORSCREENING: 'comfort-minesoperatorscreening'
 });
 
