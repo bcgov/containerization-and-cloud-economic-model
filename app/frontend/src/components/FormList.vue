@@ -56,6 +56,20 @@ export default {
         resource: AppClients.MINESOPERATORSCREENING,
         roles: [AppRoles.VIEWER],
         title: 'Industrial Camps'
+      },
+      {
+        linkAdminName: 'ForestrySectorOpScreeningAdmin',
+        linkName: 'ForestrySectorOpScreeningForm',
+        resource: AppClients.FORESTRYSECTOROPSCREENING,
+        roles: [AppRoles.VIEWER],
+        title: 'Forestry Sector'
+      },
+      {
+        linkAdminName: 'AgriSeaOpScreeningAdmin',
+        linkName: 'AgriSeaOpScreeningForm',
+        resource: AppClients.AGRISEAOPSCREENING,
+        roles: [AppRoles.VIEWER],
+        title: 'Agriculture & Seafood'
       }
     ],
     moduleLoaded: true
