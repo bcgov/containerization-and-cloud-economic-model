@@ -3,7 +3,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import comfort from './comfort';
-import agriSeaOpScreening from './agriSeaOpScreening';
+import agriSeafoodOpScreening from './agriSeafoodOpScreening';
 import forestrySectorOpScreening from './forestrySectorOpScreening';
 import minesOperatorScreening from './minesOperatorScreening';
 
@@ -22,7 +22,7 @@ export default function getRouter(basePath = '/') {
     mode: 'history',
     routes: [
       ...comfort,
-      ...agriSeaOpScreening,
+      ...agriSeafoodOpScreening,
       ...forestrySectorOpScreening,
       ...minesOperatorScreening
     ]

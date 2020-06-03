@@ -65,9 +65,9 @@ export default {
         title: 'Forestry Sector'
       },
       {
-        linkAdminName: 'AgriSeaOpScreeningAdmin',
-        linkName: 'AgriSeaOpScreeningForm',
-        resource: AppClients.AGRISEAOPSCREENING,
+        linkAdminName: 'AgriSeafoodOpScreeningAdmin',
+        linkName: 'AgriSeafoodOpScreeningForm',
+        resource: AppClients.AGRISEAFOODOPSCREENING,
         roles: [AppRoles.VIEWER],
         title: 'Agriculture & Seafood'
       }

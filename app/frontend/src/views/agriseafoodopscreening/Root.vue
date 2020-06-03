@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import Form from '@/components/agriseaopscreening/Form.vue';
+import Form from '@/components/agriseafoodopscreening/Form.vue';
 export default {
-  name: 'AgriSeaOpScreeningRoot',
+  name: 'AgriSeafoodOpScreeningRoot',
   components: {
     Form
   }

@@ -22,6 +22,6 @@ describe('Router', () => {
   });
 
   it('has the correct number of route entries', () => {
-    expect(router.options.routes).toHaveLength(18);
+    expect(router.options.routes).toHaveLength(6);
   });
 });

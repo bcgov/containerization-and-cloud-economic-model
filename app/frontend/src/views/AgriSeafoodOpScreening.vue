@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     resource() {
-      return AppClients.AGRISEAOPSCREENING;
+      return AppClients.AGRISEAFOODOPSCREENING;
     }
   },
   created() {
