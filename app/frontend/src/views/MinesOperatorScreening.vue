@@ -22,10 +22,10 @@ export default {
   },
   computed: {
     formName() {
-      return FormNames.FORESTRYSECTOROPSCREENING;
+      return FormNames.MINESOPERATORSCREENING;
     },
     resource() {
-      return AppClients.FORESTRYSECTOROPSCREENING;
+      return AppClients.MINESOPERATORSCREENING;
     }
   },
   created() {
