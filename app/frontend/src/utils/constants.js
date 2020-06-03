@@ -1,18 +1,28 @@
-export const ApiRoutes = Object.freeze({
-  MINESOPERATORSCREENING: '/minesoperatorscreening'
+const FormNames = Object.freeze({
+  AGRISEAFOODOPSCREENING: 'agriseafoodopscreening',
+  FORESTRYSECTOROPSCREENING: 'forestrysectoropscreening',
+  MINESOPERATORSCREENING: 'minesoperatorscreening'
 });
 
-export const AppClients = Object.freeze({
+const ApiRoutes = Object.freeze({
+  AGRISEAFOODOPSCREENING: `/${FormNames.AGRISEAFOODOPSCREENING}`,
+  FORESTRYSECTOROPSCREENING: `/${FormNames.FORESTRYSECTOROPSCREENING}`,
+  MINESOPERATORSCREENING: `/${FormNames.MINESOPERATORSCREENING}`
+});
+
+const AppClients = Object.freeze({
   APP: 'comfort',
-  AGRISEAFOODOPSCREENING: 'comfort-agriseafoodopscreening',
-  FORESTRYSECTOROPSCREENING: 'comfort-forestrysectoropscreening',
-  MINESOPERATORSCREENING: 'comfort-minesoperatorscreening'
+  AGRISEAFOODOPSCREENING: `comfort-${FormNames.AGRISEAFOODOPSCREENING}`,
+  FORESTRYSECTOROPSCREENING: `comfort-${FormNames.FORESTRYSECTOROPSCREENING}`,
+  MINESOPERATORSCREENING: `comfort-${FormNames.MINESOPERATORSCREENING}`
 });
 
-export const AppRoles = Object.freeze({
+const AppRoles = Object.freeze({
   ADMIN: 'admin',
   EDITOR: 'editor',
   REVIEWER: 'reviewer',
   USER: 'user',
   VIEWER: 'viewer'
 });
+
+export { FormNames, ApiRoutes, AppClients, AppRoles };
