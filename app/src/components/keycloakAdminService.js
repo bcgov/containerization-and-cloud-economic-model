@@ -7,12 +7,15 @@ const errorToProblem = require('./errorToProblem');
 
 const refreshToken = (svc) => setInterval(async () => {
   // just in case we didn't go through the initialization phase.
-  if (!svc._initialized) {
-    await svc.initialize();
+  await svc.initialize(false);
+  try {
+    const refreshToken = svc._tokenSet.refresh_token;
+    svc._tokenSet = await svc._client.refresh(refreshToken);
+    svc._kcAdminClient.setAccessToken(svc._tokenSet.access_token);
+  } catch (e) {
+    log.error('KeycloakAdminService.refreshToken', `Error refreshing token. Re-initializing/authorizing admin client. ${e.message}`);
+    await svc.initialize(true);
   }
-  const refreshToken = svc._tokenSet.refresh_token;
-  svc._tokenSet = await svc._client.refresh(refreshToken);
-  svc._kcAdminClient.setAccessToken(svc._tokenSet.access_token);
 }, 58 * 1000); // 58 seconds
 
 const trimUserData = (data, nullDataValue = []) => {
@@ -66,10 +69,11 @@ class KeycloakAdminService {
       baseUrl: this._baseUrl,
       realmName: this._realm
     });
-    this.initialize();
+    this.initialize(true);
   }
 
-  async initialize() {
+  async initialize(force = false) {
+    if (force === true) this._initialized = false;
     if (!this._initialized) {
       // try to do a straight initialization of the client with configured credentials.
       // service should be good to go right away.
