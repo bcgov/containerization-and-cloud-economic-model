@@ -44,6 +44,18 @@
         />
       </template>
     </v-data-table>
+
+    <v-list disabled>
+      <h3 class="pb-4">Roles</h3>
+      <v-list-item-group>
+        <v-list-item v-for="role in roles" :key="role.id">
+          <v-list-item-content>
+            <v-list-item-title v-text="role.name"></v-list-item-title>
+            <v-list-item-subtitle v-text="role.description"></v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+      </v-list-item-group>
+    </v-list>
   </v-container>
 </template>
 
