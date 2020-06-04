@@ -31,16 +31,13 @@ function transformToPost(state) {
   const contacts = [copy.primaryContact, copy.covidContact];
   copy.location.numberOfWorkers = Number.parseInt(copy.location.numberOfWorkers, 10);
   const body = {
+    type: copy.type,
     business: copy.business,
     contacts: contacts,
     attestation: copy.attestation,
     location: copy.location
   };
 
-  // For now, just to be safe remove only the mine num if it's blank, should implement recursive fxn above, but when there's more breathing room and testing time
-  if (body.location && body.location.mineNumber === '') {
-    delete body.location.mineNumber;
-  }
   return body;
 }
 
@@ -68,12 +65,13 @@ export default {
     getFormError: '',
     gettingForm: false,
     submitting: false,
-    step: 1,
+    step: 0,
     submissionComplete: false,
     submissionDetails: null,
     submissionError: '',
 
     // Form schema
+    type: '',
     business: {
       name: '',
       orgBookId: '',
@@ -105,8 +103,7 @@ export default {
       city: '',
       cityLatitude: undefined,
       cityLongitude: undefined,
-      mineNumber: '',
-      permitNumber: '',
+      licencees: '',
       numberOfWorkers: '',
       accTents: false,
       tentDetails: '',
@@ -182,6 +179,7 @@ export default {
     submissionError: state => state.submissionError,
 
     // Form objects
+    operationType: state => state.type,
     business: state => state.business,
     primaryContact: state => state.primaryContact,
     covidContact: state => state.covidContact,
@@ -214,6 +212,9 @@ export default {
     },
 
     // Form updates
+    setOperationType(state, type) {
+      state.type = type;
+    },
     updateBusiness: (state, obj) => {
       Object.assign(state.business, obj);
     },
@@ -259,13 +260,14 @@ export default {
       commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
+        alert('TBD' + body);
 
-        const response = await minesOperatorScreeningService.sendSubmission(body);
-        if (!response.data) {
-          throw new Error('No response data from API while submitting form');
-        }
-        commit('setSubmissionDetails', response.data);
-        commit('setSubmissionComplete');
+        // const response = await minesOperatorScreeningService.sendSubmission(body);
+        // if (!response.data) {
+        //   throw new Error('No response data from API while submitting form');
+        // }
+        // commit('setSubmissionDetails', response.data);
+        // commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error} - ${error.message}`); // eslint-disable-line no-console
         commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');

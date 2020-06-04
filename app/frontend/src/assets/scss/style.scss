@@ -8,7 +8,7 @@ $bcgov-blue: #003366;
 $bcgov-blue-secondary: #38598a;
 $bcgov-orange: #fcba19;
 $bcgov-grey: #efefef;
-$bcgov-font: #494949;
+$bcgov-font: #313132;
 
 // Sticky Footer
 body {
@@ -186,4 +186,10 @@ a, .v-tab {
       }
     }
   }
+}
+
+// Landing pages
+.comfort-landing-title.v-sheet{
+  background-color: lightcoral !important;
+  padding: 0;
 }

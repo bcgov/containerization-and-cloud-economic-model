@@ -9,16 +9,16 @@
 
 <script>
 import AdminNavBar from '@/components/minesoperatorscreening/admin/AdminNavBar.vue';
-// import form from '@/store/modules/minesoperatorscreening/minesOperatorScreeningForm.js';
+import agriSeafoodOpScreeningForm from '@/store/modules/agriseafoodopscreening/agriSeafoodOpScreeningForm.js';
 import { AppClients } from '@/utils/constants';
 
 export default {
-  name: 'MinesOperatorScreening',
+  name: 'AgricultureSeafoodOperatorScreening',
   components: {
     AdminNavBar
   },
   beforeDestroy() {
-    // this.$store.unregisterModule('form');
+    this.$store.unregisterModule('agriSeafoodOpScreeningForm');
   },
   computed: {
     resource() {
@@ -26,10 +26,10 @@ export default {
     }
   },
   created() {
-    // if(this.$store.hasModule('form')) {
-    //   this.$store.unregisterModule('form');
-    // }
-    // this.$store.registerModule('form', form);
+    if(this.$store.hasModule('agriSeafoodOpScreeningForm')) {
+      this.$store.unregisterModule('agriSeafoodOpScreeningForm');
+    }
+    this.$store.registerModule('agriSeafoodOpScreeningForm', agriSeafoodOpScreeningForm);
   }
 };
 </script>

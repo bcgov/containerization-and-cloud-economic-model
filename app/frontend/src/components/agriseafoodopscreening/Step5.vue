@@ -1,185 +1,268 @@
 <template>
   <v-container>
-    <div class="hide-on-review">
-      <h2 class="pb-8">If workers become ill at the operation</h2>
-      <hr class="orange" />
-    </div>
+    <div v-if="submissionComplete">
+      <h1 class="pb-8">
+        <v-icon color="success">check_circle</v-icon>Your form has submitted successfully.
+      </h1>
+      <p>
+        Please record the following
+        <em>confirmation id</em> in your records:
+      </p>
+      <h2 class="mb-10">
+        <blockquote>{{ submissionDetails.confirmationId }}</blockquote>
+      </h2>
 
-    <div class="question-series">
-      <h3 class="question-head">1. Plan to manage individuals with suspected COVID-19 Infection</h3>
-      <div class="questions">
-        <p
-          class="hide-on-review"
-        >Industrial Camp Operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority.</p>
-        <p>
-          If two or more workers become sick, you must notify the local
+      <div class="d-print-none">
+        <hr />
+
+        <h3 class="my-4">Download a PDF or email yourself a copy of your form submission</h3>
+
+        <v-row class="mb-6">
+          <GeneratePdfButton :submissionId="this.submissionDetails.submissionId">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" color="primary" class="ml-5 mr-10" fab large>
+                  <v-icon>picture_as_pdf</v-icon>
+                </v-btn>
+              </template>
+              <span>Download PDF</span>
+            </v-tooltip>
+          </GeneratePdfButton>
+
+          <RequestReceipt
+            :email="this.submissionDetails.contacts[0].email"
+            :submissionId="this.submissionDetails.submissionId"
+          />
+        </v-row>
+
+        <hr />
+
+        <p class="my-10">
+          To start again and submit another form you can refresh this page (or
           <a
-            target="_blank"
-            href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
-          >Medical Health Officer <v-icon small color="primary">open_in_new</v-icon></a> of the outbreak.
+            href="#"
+            @click="refresh"
+          >
+            click here
+            <v-icon small color="primary">refresh</v-icon>
+          </a>)
         </p>
-        <v-checkbox
-          v-model="infectionSeparation"
-          :readonly="reviewMode"
-          label="I am prepared to promptly separate the individual from others in their own accommodation"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="infectionSymptoms"
-          :readonly="reviewMode"
-          label="I am prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose."
-        ></v-checkbox>
-        <v-checkbox
-          v-model="infectionHeathLinkBC"
-          :readonly="reviewMode"
-          label="I am prepared to direct the person to call  HealthLinkBC (8-1-1)."
-        ></v-checkbox>
-        <v-checkbox
-          v-model="infectionSanitization"
-          :readonly="reviewMode"
-          label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
-        ></v-checkbox>
-        <v-checkbox
-          v-model="infectionAccommodation"
-          :readonly="reviewMode"
-          label="If commercial accommodation is being used to self-isolate, then I will inform management of the situation and necessary requirements."
-        ></v-checkbox>
       </div>
     </div>
-
-    <BaseWarningCard class="mt-6 mb-12 hide-on-review">
-      <h3>
-        As COVID-19 recommendations are evolving daily, please keep up to date with
-        <a
-          target="_blank"
-          href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
-        >BC Centre for Disease Control <v-icon small color="primary">open_in_new</v-icon></a> guidance.
-      </h3>
-    </BaseWarningCard>
-
-    <div class="question-series">
-      <h3 class="question-head">2. Providing Food for Ill Workers</h3>
-      <div class="questions">
-        <v-checkbox
-          v-model="infectedFeeding"
-          :readonly="reviewMode"
-          label="I am able to provide food in a safe manner to a self-isolated worker"
-        ></v-checkbox>
-        <BaseInfoCard class="mb-10 hide-on-review">
-          <template v-slot:title>What does this mean?</template>
-          <ul>
-            <li>Gloves are required when delivering or picking up food trays.</li>
-            <li>Proper hand hygiene must be practiced before delivering and after picking up food trays.</li>
-            <li>Do NOT enter a room to deliver or pick up food trays for workers who are ill. Deliver and pick up food trays from outside their accommodation.</li>
-          </ul>
-        </BaseInfoCard>
-      </div>
+    <div v-else>
+      <BaseHeaderSection :text="'Please review your answers'" />
     </div>
 
-    <div class="question-series">
-      <h3 class="question-head">3. Housekeeping for Ill Workers</h3>
-      <div class="questions">
+    <v-row>
+      <v-col offset-lg="1" cols="12" lg="10">
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
+            1. Contact Information
+            <v-btn
+              v-if="!submissionComplete"
+              color="primary"
+              class="mx-5"
+              fab
+              x-small
+              @click="setStep(1)"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </h2>
+          <Step1 :reviewMode="true" />
+        </v-card>
+
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
+            2. Before Operations Begin
+            <v-btn
+              v-if="!submissionComplete"
+              color="primary"
+              class="mx-5"
+              fab
+              x-small
+              @click="setStep(2)"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </h2>
+          <Step2 :reviewMode="true" />
+        </v-card>
+
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
+            3. After Workers Arrive
+            <v-btn
+              v-if="!submissionComplete"
+              color="primary"
+              class="mx-5"
+              fab
+              x-small
+              @click="setStep(3)"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </h2>
+          <Step3 :reviewMode="true" />
+        </v-card>
+
+        <v-card outlined class="review-form">
+          <h2 class="review-heading">
+            4. If Workers Become Ill
+            <v-btn
+              v-if="!submissionComplete"
+              color="primary"
+              class="mx-5"
+              fab
+              x-small
+              @click="setStep(4)"
+            >
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </h2>
+          <Step4 :reviewMode="true" />
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <div v-if="!submissionComplete">
+      <v-form v-model="step5Valid">
         <v-checkbox
-          v-model="infectedHousekeeping"
-          :readonly="reviewMode"
-          label="I am able to perform adequate housekeeping for a self isolated worker"
+          :rules="[v => !!v || 'You must certify to continue']"
+          v-model="certifyAccurateInformation"
+          label="I certify this information to be accurate"
         ></v-checkbox>
-        <BaseInfoCard class="mb-10 hide-on-review">
-          <template v-slot:title>What does this mean?</template>
-          <ul>
-            <li>Site operators must identify and record the locations of all self-isolating guests.</li>
-            <li>Do NOT provide cleaning service inside rooms or tents where people are in self-isolation.</li>
-            <li>Ensure staff do NOT enter self-isolation rooms or tents until authorized.</li>
-            <li>Use alternate means of assisting workers in isolation, such as leaving fresh linens, toiletries and cleaning supplies outside their accommodation during the period of isolation.</li>
-            <li>Once the individual(s) in self-isolation have left their accommodation, complete a thorough cleaning of all hard surfaces with an approved disinfectant, launder all removable cloth items (sheets, towels).</li>
-            <li>Discard all personal soap and shampoo remnants.</li>
-          </ul>
-        </BaseInfoCard>
-      </div>
+        <v-checkbox
+          :rules="[v => !!v || 'You must agree to continue']"
+          v-model="agreeToInspection"
+          label="I agree that my Industrial Camps will be subject to a site inspection"
+        ></v-checkbox>
+      </v-form>
     </div>
 
-    <div class="question-series">
-      <h3 class="question-head">4. Waste Management for Ill Workers</h3>
-      <div class="questions">
-        <v-checkbox
-          v-model="infectedWaste"
-          :readonly="reviewMode"
-          label="I am able to perform waste management for supporting a self-isolated worker"
-        ></v-checkbox>
-        <BaseInfoCard class="mb-10 hide-on-review">
-          <template v-slot:title>What does this mean?</template>
-          <ul>
-            <li>Wherever possible, waste from all self-isolation rooms or tents should be handled by a designated person or small, designated team.</li>
-          </ul>
-        </BaseInfoCard>
-      </div>
-    </div>
-
-    <div class="hide-on-review">
-      <hr class="mt-5" />
-
-      <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
+    <div v-if="!submissionComplete">
+      <v-btn color="primary" :disabled="!step5Valid" @click="submit">Submit</v-btn>
       <v-btn text @click="setStep(4)">Back</v-btn>
     </div>
+
+    <v-dialog v-model="submitting" hide-overlay persistent width="300">
+      <v-card color="#38598a" dark>
+        <v-card-text class="pt-4">
+          Submitting Form
+          <v-progress-linear indeterminate color="white"></v-progress-linear>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="submissionError" persistent max-width="500">
+      <v-card>
+        <v-card-title class="headline grey lighten-2 mb-2" primary-title>
+          <v-icon color="red">error</v-icon>Error
+        </v-card-title>
+        <v-card-text>{{ submissionError }}</v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red" text @click="setSubmissionError('')">OK</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex';
+import { mapActions, mapGetters, mapMutations } from 'vuex';
+
+import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
+import RequestReceipt from '@/components/common/RequestReceipt.vue';
+import Step1 from '@/components/agriseafoodopscreening/Step1.vue';
+import Step2 from '@/components/agriseafoodopscreening/Step2.vue';
+import Step3 from '@/components/agriseafoodopscreening/Step3.vue';
+import Step4 from '@/components/agriseafoodopscreening/Step4.vue';
 
 export default {
-  name: 'MinesAttestationStep5',
-  props: {
-    reviewMode: Boolean
+  name: 'AgriSeaStep5',
+  components: {
+    GeneratePdfButton,
+    RequestReceipt,
+    Step1,
+    Step2,
+    Step3,
+    Step4
+  },
+  data() {
+    return {
+      step5Valid: false
+    };
   },
   computed: {
-    ...mapGetters('form', ['attestation']),
-
-    // Safe Lodging
-    //TBD??
-
-    // Infection
-    infectionSeparation: {
-      get() { return this.attestation.infectionSeparation; },
-      set(value) { this.updateAttestation({['infectionSeparation']: value}); }
+    ...mapGetters('agriSeafoodOpScreeningForm', [
+      'attestation',
+      'submissionComplete',
+      'submissionDetails',
+      'submissionError',
+      'submitting'
+    ]),
+    // Certify checkboxes
+    certifyAccurateInformation: {
+      get() {
+        return this.attestation.certifyAccurateInformation;
+      },
+      set(value) {
+        this.updateAttestation({ ['certifyAccurateInformation']: value });
+      }
     },
-    infectionSymptoms: {
-      get() { return this.attestation.infectionSymptoms; },
-      set(value) { this.updateAttestation({['infectionSymptoms']: value}); }
-    },
-    infectionHeathLinkBC: {
-      get() { return this.attestation.infectionHeathLinkBC; },
-      set(value) { this.updateAttestation({['infectionHeathLinkBC']: value}); }
-    },
-    infectionSanitization: {
-      get() { return this.attestation.infectionSanitization; },
-      set(value) { this.updateAttestation({['infectionSanitization']: value}); }
-    },
-    infectionAccommodation: {
-      get() { return this.attestation.infectionAccommodation; },
-      set(value) { this.updateAttestation({['infectionAccommodation']: value}); }
-    },
-
-    // Food
-    infectedFeeding: {
-      get() { return this.attestation.infectedFeeding; },
-      set(value) { this.updateAttestation({['infectedFeeding']: value}); }
-    },
-
-    // HouseKeeping
-    infectedHousekeeping: {
-      get() { return this.attestation.infectedHousekeeping; },
-      set(value) { this.updateAttestation({['infectedHousekeeping']: value}); }
-    },
-
-    // Waste
-    infectedWaste: {
-      get() { return this.attestation.infectedWaste; },
-      set(value) { this.updateAttestation({['infectedWaste']: value}); }
-    },
+    agreeToInspection: {
+      get() {
+        return this.attestation.agreeToInspection;
+      },
+      set(value) {
+        this.updateAttestation({ ['agreeToInspection']: value });
+      }
+    }
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateAttestation']),
+    ...mapMutations('agriSeafoodOpScreeningForm', ['setStep', 'setSubmissionError', 'updateAttestation']),
+    ...mapActions('agriSeafoodOpScreeningForm', ['submitForm']),
+    async submit() {
+      await this.submitForm();
+      if (this.submissionComplete) {
+        // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
+        window.onbeforeunload = null;
+      }
+    },
+    refresh() {
+      location.reload();
+    }
+  },
+  mounted() {
+    document
+      .querySelectorAll('.review-form input, .review-form .v-select')
+      .forEach(q => {
+        q.setAttribute('readonly', 'true');
+      });
   }
 };
 </script>
 
+<style scoped lang="scss">
+.review-form {
+  font-size: smaller;
+  margin-bottom: 2em;
+  padding: 1em;
+  .review-heading {
+    margin-left: 0.5em;
+    margin-bottom: 1em;
+  }
+  background-color: #efefef;
+  &::v-deep {
+    h3,
+    .v-input--checkbox {
+      margin-top: 0.2em !important;
+    }
+    .hide-on-review {
+      display: none;
+    }
+  }
+}
+</style>

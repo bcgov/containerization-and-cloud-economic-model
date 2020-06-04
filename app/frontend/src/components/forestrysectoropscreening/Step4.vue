@@ -1,92 +1,120 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">After workers arrive at the Industrial Camp</h2>
-      <hr class="orange" />
+      <BaseHeaderSection :text="'If workers become ill at the operation'" />
     </div>
 
-    <p>Once your workers arrive at the location, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
-
     <div class="question-series">
-      <h3 class="question-head">1. Implement COVID-19 Employee Education</h3>
+      <h3 class="question-head">1. Plan to manage individuals with suspected COVID-19 Infection</h3>
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camps Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
+        >Industrial Camp Operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority.</p>
+        <p>
+          If two or more workers become sick, you must notify the local
+          <a
+            target="_blank"
+            href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
+          >Medical Health Officer <v-icon small color="primary">open_in_new</v-icon></a> of the outbreak.
+        </p>
         <v-checkbox
-          v-model="educationSignage"
+          v-model="infectionSeparation"
           :readonly="reviewMode"
-          label="I have signage in place in the appropriate language on how employees can protect themselves from COVID-19"
+          label="I am prepared to promptly separate the individual from others in their own accommodation"
         ></v-checkbox>
         <v-checkbox
-          v-model="educationContactPersonnel"
+          v-model="infectionSymptoms"
           :readonly="reviewMode"
-          label="I have someone identified that workers can go to if they have questions on COVID-19"
+          label="I am prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose."
+        ></v-checkbox>
+        <v-checkbox
+          v-model="infectionHeathLinkBC"
+          :readonly="reviewMode"
+          label="I am prepared to direct the person to call  HealthLinkBC (8-1-1)."
+        ></v-checkbox>
+        <v-checkbox
+          v-model="infectionSanitization"
+          :readonly="reviewMode"
+          label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
+        ></v-checkbox>
+        <v-checkbox
+          v-model="infectionAccommodation"
+          :readonly="reviewMode"
+          label="If commercial accommodation is being used to self-isolate, then I will inform management of the situation and necessary requirements."
         ></v-checkbox>
       </div>
     </div>
 
+    <BaseWarningCard class="mt-6 mb-12 hide-on-review">
+      <h3>
+        As COVID-19 recommendations are evolving daily, please keep up to date with
+        <a
+          target="_blank"
+          href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
+        >BC Centre for Disease Control <v-icon small color="primary">open_in_new</v-icon></a> guidance.
+      </h3>
+    </BaseWarningCard>
+
     <div class="question-series">
-      <h3 class="question-head">2. Train workers on COVID-19 infection control</h3>
+      <h3 class="question-head">2. Providing Food for Ill Workers</h3>
       <div class="questions">
-        <p
-          class="hide-on-review"
-        >Industrial Camp Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
         <v-checkbox
-          v-model="trainingCovid19"
+          v-model="infectedFeeding"
           :readonly="reviewMode"
-          label="I have materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease"
+          label="I am able to provide food in a safe manner to a self-isolated worker"
         ></v-checkbox>
-        <v-checkbox
-          v-model="trainingEtiquette"
-          :readonly="reviewMode"
-          label="I have materials ready on hand washing, physical distancing, and cough/sneeze etiquette"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="trainingLocations"
-          :readonly="reviewMode"
-          label="I can provide locations of washing facilities, including dispensing stations for alcohol-based hand rubs"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="trainingFirstAid"
-          :readonly="reviewMode"
-          label="I have materials ready on how to seek first aid"
-        ></v-checkbox>
-        <v-checkbox
-          v-model="trainingReporting"
-          :readonly="reviewMode"
-          label="I have materials ready on how to report an exposure to or symptoms of COVID-19"
-        ></v-checkbox>
+        <BaseInfoCard class="mb-10 hide-on-review">
+          <template v-slot:title>What does this mean?</template>
+          <ul>
+            <li>Gloves are required when delivering or picking up food trays.</li>
+            <li>Proper hand hygiene must be practiced before delivering and after picking up food trays.</li>
+            <li>Do NOT enter a room to deliver or pick up food trays for workers who are ill. Deliver and pick up food trays from outside their accommodation.</li>
+          </ul>
+        </BaseInfoCard>
       </div>
     </div>
 
     <div class="question-series">
-      <h3 class="question-head">3. Meals Preparation: Practice safe food handling</h3>
+      <h3 class="question-head">3. Housekeeping for Ill Workers</h3>
       <div class="questions">
-        <div class="hide-on-review">
-          <p>All employers and employees must practice good food handling and hygiene practices.</p>
-          <p>This includes safe food practices like protecting foods from contamination, minimizing direct handling of food and preventing cross contamination of foods.</p>
-        </div>
         <v-checkbox
-          v-model="mealsDistancing"
+          v-model="infectedHousekeeping"
           :readonly="reviewMode"
-          label="I have schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical distancing"
+          label="I am able to perform adequate housekeeping for a self isolated worker"
         ></v-checkbox>
+        <BaseInfoCard class="mb-10 hide-on-review">
+          <template v-slot:title>What does this mean?</template>
+          <ul>
+            <li>Site operators must identify and record the locations of all self-isolating guests.</li>
+            <li>Do NOT provide cleaning service inside rooms or tents where people are in self-isolation.</li>
+            <li>Ensure staff do NOT enter self-isolation rooms or tents until authorized.</li>
+            <li>Use alternate means of assisting workers in isolation, such as leaving fresh linens, toiletries and cleaning supplies outside their accommodation during the period of isolation.</li>
+            <li>Once the individual(s) in self-isolation have left their accommodation, complete a thorough cleaning of all hard surfaces with an approved disinfectant, launder all removable cloth items (sheets, towels).</li>
+            <li>Discard all personal soap and shampoo remnants.</li>
+          </ul>
+        </BaseInfoCard>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3 class="question-head">4. Waste Management for Ill Workers</h3>
+      <div class="questions">
         <v-checkbox
-          v-model="mealsDishware"
+          v-model="infectedWaste"
           :readonly="reviewMode"
-          label="Each employee has their own dishware, utensils and drinking cup"
+          label="I am able to perform waste management for supporting a self-isolated worker"
         ></v-checkbox>
-        <v-checkbox
-          v-model="mealsDishwashing"
-          :readonly="reviewMode"
-          label="Used dishware will be washed immediately"
-        ></v-checkbox>
+        <BaseInfoCard class="mb-10 hide-on-review">
+          <template v-slot:title>What does this mean?</template>
+          <ul>
+            <li>Wherever possible, waste from all self-isolation rooms or tents should be handled by a designated person or small, designated team.</li>
+          </ul>
+        </BaseInfoCard>
       </div>
     </div>
 
     <div class="hide-on-review">
-      <hr />
+      <hr class="mt-5" />
 
       <v-btn color="primary" @click="setStep(5)">Go to Step 5</v-btn>
       <v-btn text @click="setStep(3)">Back</v-btn>
@@ -98,61 +126,55 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: 'MinesAttestationStep4',
+  name: 'ForestrySectorStep4',
   props: {
     reviewMode: Boolean
   },
   computed: {
-    ...mapGetters('form', ['attestation']),
+    ...mapGetters('forestrySectorOpScreeningForm', ['attestation']),
 
-    // Education
-    educationSignage: {
-      get() { return this.attestation.educationSignage; },
-      set(value) { this.updateAttestation({['educationSignage']: value}); }
+    // Infection
+    infectionSeparation: {
+      get() { return this.attestation.infectionSeparation; },
+      set(value) { this.updateAttestation({['infectionSeparation']: value}); }
     },
-    educationContactPersonnel: {
-      get() { return this.attestation.educationContactPersonnel; },
-      set(value) { this.updateAttestation({['educationContactPersonnel']: value}); }
+    infectionSymptoms: {
+      get() { return this.attestation.infectionSymptoms; },
+      set(value) { this.updateAttestation({['infectionSymptoms']: value}); }
     },
-
-    // Training
-    trainingCovid19: {
-      get() { return this.attestation.trainingCovid19; },
-      set(value) { this.updateAttestation({['trainingCovid19']: value}); }
+    infectionHeathLinkBC: {
+      get() { return this.attestation.infectionHeathLinkBC; },
+      set(value) { this.updateAttestation({['infectionHeathLinkBC']: value}); }
     },
-    trainingEtiquette: {
-      get() { return this.attestation.trainingEtiquette; },
-      set(value) { this.updateAttestation({['trainingEtiquette']: value}); }
+    infectionSanitization: {
+      get() { return this.attestation.infectionSanitization; },
+      set(value) { this.updateAttestation({['infectionSanitization']: value}); }
     },
-    trainingLocations: {
-      get() { return this.attestation.trainingLocations; },
-      set(value) { this.updateAttestation({['trainingLocations']: value}); }
-    },
-    trainingFirstAid: {
-      get() { return this.attestation.trainingFirstAid; },
-      set(value) { this.updateAttestation({['trainingFirstAid']: value}); }
-    },
-    trainingReporting: {
-      get() { return this.attestation.trainingReporting; },
-      set(value) { this.updateAttestation({['trainingReporting']: value}); }
+    infectionAccommodation: {
+      get() { return this.attestation.infectionAccommodation; },
+      set(value) { this.updateAttestation({['infectionAccommodation']: value}); }
     },
 
-    // Meals
-    mealsDistancing: {
-      get() { return this.attestation.mealsDistancing; },
-      set(value) { this.updateAttestation({['mealsDistancing']: value}); }
+    // Food
+    infectedFeeding: {
+      get() { return this.attestation.infectedFeeding; },
+      set(value) { this.updateAttestation({['infectedFeeding']: value}); }
     },
-    mealsDishware: {
-      get() { return this.attestation.mealsDishware; },
-      set(value) { this.updateAttestation({['mealsDishware']: value}); }
+
+    // HouseKeeping
+    infectedHousekeeping: {
+      get() { return this.attestation.infectedHousekeeping; },
+      set(value) { this.updateAttestation({['infectedHousekeeping']: value}); }
     },
-    mealsDishwashing: {
-      get() { return this.attestation.mealsDishwashing; },
-      set(value) { this.updateAttestation({['mealsDishwashing']: value}); }
-    }
+
+    // Waste
+    infectedWaste: {
+      get() { return this.attestation.infectedWaste; },
+      set(value) { this.updateAttestation({['infectedWaste']: value}); }
+    },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateAttestation']),
+    ...mapMutations('forestrySectorOpScreeningForm', ['setStep', 'updateAttestation']),
   }
 };
 </script>

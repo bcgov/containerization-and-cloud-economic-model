@@ -9,7 +9,7 @@
 
 <script>
 import AdminNavBar from '@/components/forestrysectoropscreening/admin/AdminNavBar.vue';
-import form from '@/store/modules/forestrysectoropscreening/forestrySectorOpScreeningForm.js';
+import forestrySectorOpScreeningForm from '@/store/modules/forestrysectoropscreening/forestrySectorOpScreeningForm.js';
 import { AppClients } from '@/utils/constants';
 
 export default {
@@ -18,7 +18,7 @@ export default {
     AdminNavBar
   },
   beforeDestroy() {
-    this.$store.unregisterModule('form');
+    this.$store.unregisterModule('forestrySectorOpScreeningForm');
   },
   computed: {
     resource() {
@@ -26,10 +26,10 @@ export default {
     }
   },
   created() {
-    if(this.$store.hasModule('form')) {
-      this.$store.unregisterModule('form');
+    if(this.$store.hasModule('forestrySectorOpScreeningForm')) {
+      this.$store.unregisterModule('forestrySectorOpScreeningForm');
     }
-    this.$store.registerModule('form', form);
+    this.$store.registerModule('forestrySectorOpScreeningForm', forestrySectorOpScreeningForm);
   }
 };
 </script>
