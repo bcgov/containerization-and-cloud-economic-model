@@ -1,13 +1,7 @@
-<<<<<<< HEAD
 const FormNames = Object.freeze({
   AGRISEAFOODOPSCREENING: 'agriseafoodopscreening',
   FORESTRYSECTOROPSCREENING: 'forestrysectoropscreening',
   MINESOPERATORSCREENING: 'minesoperatorscreening'
-=======
-export const ApiRoutes = Object.freeze({
-  FORESTRYSECTOROPSCREENING: '/forestrysectoropscreening',
-  MINESOPERATORSCREENING: '/minesoperatorscreening'
->>>>>>> update service layer for forestry form
 });
 
 // Add slash prefix to FormNames values
