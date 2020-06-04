@@ -55,21 +55,21 @@ export default {
         linkName: 'AgriSeafoodOpScreeningForm',
         resource: AppClients.AGRISEAFOODOPSCREENING,
         roles: [AppRoles.VIEWER],
-        title: 'Agriculture and Seafood'
+        title: 'Agriculture and Seafood Operator Screening'
       },
       {
         linkAdminName: 'ForestrySectorOpScreeningAdmin',
         linkName: 'ForestrySectorOpScreeningForm',
         resource: AppClients.FORESTRYSECTOROPSCREENING,
         roles: [AppRoles.VIEWER],
-        title: 'Forestry Sector'
+        title: 'Forestry Sector Operator Screening'
       },
       {
         linkAdminName: 'MinesOperatorScreeningAdmin',
         linkName: 'MinesOperatorScreeningForm',
         resource: AppClients.MINESOPERATORSCREENING,
         roles: [AppRoles.VIEWER],
-        title: 'Industrial Camps'
+        title: 'Mines Operator Screening'
       }
     ],
     moduleLoaded: true
