@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AdminNavBar :resource="resource" />
+    <AdminNavBar :formName="formName" :resource="resource" />
     <transition name="component-fade" mode="out-in">
       <router-view />
     </transition>
@@ -8,9 +8,9 @@
 </template>
 
 <script>
-import AdminNavBar from '@/components/minesoperatorscreening/admin/AdminNavBar.vue';
+import AdminNavBar from '@/components/common/AdminNavBar.vue';
 import agriSeafoodOpScreeningForm from '@/store/modules/agriseafoodopscreening/agriSeafoodOpScreeningForm.js';
-import { AppClients } from '@/utils/constants';
+import { AppClients, FormNames } from '@/utils/constants';
 
 export default {
   name: 'AgricultureSeafoodOperatorScreening',
@@ -21,6 +21,9 @@ export default {
     this.$store.unregisterModule('agriSeafoodOpScreeningForm');
   },
   computed: {
+    formName() {
+      return FormNames.AGRISEAFOODOPSCREENING;
+    },
     resource() {
       return AppClients.AGRISEAFOODOPSCREENING;
     }

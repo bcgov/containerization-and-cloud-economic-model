@@ -50,7 +50,7 @@
 import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
+import AdminReviewSubmission from '@/components/agriseafoodopscreening/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/minesoperatorscreening/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/minesoperatorscreening/admin/inspection/NotesPanel.vue';

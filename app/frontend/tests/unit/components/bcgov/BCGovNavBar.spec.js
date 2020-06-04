@@ -1,24 +1,14 @@
-import { shallowMount } from '@vue/test-utils';
-import Vuetify from 'vuetify';
-import VueRouter from 'vue-router';
+import { createLocalVue, shallowMount } from '@vue/test-utils';
 
 import BCGovNavBar from '@/components/bcgov/BCGovNavBar.vue';
+import getRouter from '@/router';
+
+const localVue = createLocalVue();
+localVue.use(getRouter());
 
 describe('BCGovNavBar.vue', () => {
-  let router;
-  let vuetify;
-
-  beforeEach(() => {
-    router = new VueRouter();
-    vuetify = new Vuetify();
-  });
-
   it('renders', () => {
-    const wrapper = shallowMount(BCGovNavBar, {
-      vuetify,
-      router,
-      stubs: ['router-link', 'router-view']
-    });
+    const wrapper = shallowMount(BCGovNavBar, { localVue, stubs: ['router-link'] });
 
     expect(wrapper.text()).toContain('Home');
   });

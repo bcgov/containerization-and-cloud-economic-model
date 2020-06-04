@@ -35,7 +35,8 @@
     "reinstall": "npm run purge && npm install",
     "serve": "nodemon ./bin/www",
     "start": "node ./bin/www",
-    "test": "jest --verbose --forceExit --detectOpenHandles --maxWorkers=10"
+    "test": "jest --verbose --forceExit --detectOpenHandles --maxWorkers=10",
+    "test:short": "jest --forceExit --detectOpenHandles --maxWorkers=10"
   },
   "dependencies": {
     "api-problem": "6.0.1",

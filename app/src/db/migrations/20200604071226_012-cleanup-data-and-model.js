@@ -34,7 +34,7 @@ exports.up = function(knex) {
       return knex(`${MINES_PREFIX}_settings`).where('name', 'notificationEmail').del();
     })
     .then((setting) => {
-      console.log(setting);
+      console.log(setting); // eslint-disable-line no-console
     })
     .then(() => {
       return knex('form').where('prefix', AGRI_PREFIX).update({

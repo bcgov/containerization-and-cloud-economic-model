@@ -1,77 +1,82 @@
 /**
  * Forestry Sector Operator Screening Form Routes
  */
+import { FormNames } from '@/utils/constants';
+
+const baseName = 'ForestrySectorOpScreening';
+const baseTitle = 'Forestry Sector Operator Screening';
+
 export default [
   {
-    path: '/forestrysectoropscreening',
+    path: `/${FormNames.FORESTRYSECTOROPSCREENING}`,
     component: () => import(/* webpackChunkName: "forestrysectoropscreening" */ '@/views/ForestrySectorOpScreening.vue'),
     children: [
       {
         path: '',
-        name: 'ForestrySectorOpScreeningForm',
+        name: `${baseName}Form`,
         component: () => import(/* webpackChunkName: "forestrysectoropscreening-form" */ '@/views/forestrysectoropscreening/Root.vue'),
         meta: {
-          title: 'Forestry Sector Operator Screening'
+          title: baseTitle
         }
       },
       {
         path: 'admin',
-        name: 'ForestrySectorOpScreeningAdmin',
+        name: `${baseName}Admin`,
         component: () => import(/* webpackChunkName: "forestrysectoropscreening-admin" */ '@/views/forestrysectoropscreening/Admin.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
-          title: 'Forestry Sector Admin'
+          title: `${baseTitle} Admin`
         }
       },
       {
         path: 'admin/dashboard',
-        name: 'ForestrySectorOpScreeningDashboards',
+        name: `${baseName}Dashboards`,
         component: () => import(/* webpackChunkName: "forestrysectoropscreening-dashboard" */ '@/views/forestrysectoropscreening/Dashboards.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
-          title: 'Forestry Sector Admin'
+          title: `${baseTitle} Admin`
         }
       },
       {
         path: 'admin/settings',
-        name: 'ForestrySectorOpScreeningSettings',
+        name: `${baseName}Settings`,
         component: () => import(/* webpackChunkName: "forestrysectoropscreening-settings" */ '@/views/forestrysectoropscreening/Settings.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
-          title: 'Forestry Sector Settings'
+          title: `${baseTitle} Settings`
         }
       },
       {
         path: 'admin/submission/:submissionId',
-        name: 'ForestrySectorOpScreeningSubmission',
+        name: `${baseName}Submission`,
         component: () => import(/* webpackChunkName: "forestrysectoropscreening-submission" */ '@/views/forestrysectoropscreening/Submission.vue'),
         props: true,
         meta: {
           hasLogin: true,
           requiresAuth: true,
-          title: 'Forestry Sector Submission'
+          title: `${baseTitle} Submission`
         }
       },
       {
         path: 'admin/team',
-        name: 'ForestrySectorOpScreeningTeam',
+        name: `${baseName}Team`,
         component: () => import(/* webpackChunkName: "forestrysectoropscreening-team" */ '@/views/forestrysectoropscreening/Team.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
-          title: 'Forestry Sector Team Management'
+          title: `${baseTitle} Team Management`
         }
       },
       {
         path: 'review/:submissionId',
-        name: 'ForestrySectorOpScreeningReview',
+        name: `${baseName}Review`,
         component: () => import(/* webpackChunkName: "forestrysectoropscreening-review" */ '@/views/forestrysectoropscreening/Review.vue'),
         props: true,
         meta: {
-          title: 'Forestry Sector Submission Review'
+          title: `${baseTitle} Submission Review`
         }
       },
     ]

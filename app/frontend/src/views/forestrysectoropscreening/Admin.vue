@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import SubmissionsTable from '@/components/minesoperatorscreening/admin/SubmissionsTable.vue';
+import SubmissionsTable from '@/components/forestrysectoropscreening/admin/SubmissionsTable.vue';
 import { AppClients } from '@/utils/constants';
 
 export default {
