@@ -30,6 +30,7 @@ class EmailService {
               context: {
                 confirmationNumber: submission.confirmationId,
                 title: settings.config.title,
+                operationType: submission.operationType.display,
                 messageLinkText: settings.config.messageLinkText,
                 messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
               },
