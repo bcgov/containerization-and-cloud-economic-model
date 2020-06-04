@@ -244,6 +244,12 @@ class Attestation extends CommonModels.Timestamps(Model) {
         infectedWaste: {type: 'boolean'},
         certifyAccurateInformation: {type: 'boolean'},
         agreeToInspection: {type: 'boolean'},
+        transportationSingleOccupant: {type: 'boolean'},
+        transportationBusesVans: {type: 'boolean'},
+        transportationTrucksCars: {type: 'boolean'},
+        transportationHelicopter: {type: 'boolean'},
+        transportationTravelPod: {type: 'boolean'},
+        transportationCleaningDistancing: {type: 'boolean'},
         ...CommonModels.stamps
       },
       additionalProperties: false

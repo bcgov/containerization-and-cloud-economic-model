@@ -42,15 +42,9 @@ class DataService {
     if (!obj) {
       throw Error('Status cannot be created without data');
     }
-    // only allow currently active statuses...
-    const statusCode = await this.validateStatusCode(obj.code);
-    if (!statusCode) {
-      throw new Problem(422, 'Invalid Status Code', {detail: `${obj.code} is not a valid, enabled code.`});
-    }
-    // check that if a classification is set, that it is allowed for this status code...
-    if (!await this.validateClassification(statusCode, obj.classification)) {
-      throw new Problem(422, 'Invalid Classification', {detail: `${obj.classification} is not valid for status code ${statusCode.display}.`});
-    }
+
+    await this.validateCreateSubmissionStatus(obj, submissionId);
+
     let trx;
     try {
 
@@ -62,7 +56,6 @@ class DataService {
       if (obj.notes && Array.isArray(obj.notes)) {
         obj.notes.forEach(n => n.createdBy = user.username);
       }
-
 
       const result = await this._models.Status.query(trx).insertGraph(obj).returning('*');
       await trx.commit();
@@ -164,6 +157,14 @@ class DataService {
     return statuses;
   }
 
+  async getSubmission(submissionId) {
+    return this._models.Submission.query()
+      .findById(submissionId)
+      .allowGraph('[statuses.statusCode]')
+      .withGraphFetched('statuses(orderDescending).[statusCode]')
+      .throwIfNotFound();
+  }
+
   async validateStatusCode(code) {
     if (code === undefined || code === null) return null;
     const statusCodes = await this.readCurrentStatusCodes(true);
@@ -175,6 +176,23 @@ class DataService {
 
     const classifications = code.allowedClassifications || [];
     return classifications.includes(classification);
+  }
+
+  async validateCreateSubmissionStatus(obj, submissionId) {
+    const submission = await this.getSubmission(submissionId);
+    const currentStatusCode = submission.statuses[0].statusCode;
+    // only allow currently active statuses...
+    const statusCode = await this.validateStatusCode(obj.code);
+    if (!statusCode) {
+      throw new Problem(422, 'Invalid Status Code', {detail: `${obj.code} is not a valid, enabled code.`});
+    }
+    // check that if a classification is set, that it is allowed for this status code...
+    if (!await this.validateClassification(statusCode, obj.classification)) {
+      throw new Problem(422, 'Invalid Classification', {detail: `${obj.classification} is not valid for status code ${statusCode.display}.`});
+    }
+    if (!currentStatusCode.nextCodes.includes(statusCode.code)) {
+      throw new Problem(422, 'Invalid Next Code', {detail: `Cannot change state from ${currentStatusCode.display} to ${statusCode.display}.`});
+    }
   }
 
   async updateCurrentStatusCodes (obj, user){
