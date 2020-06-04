@@ -4,18 +4,19 @@ const FormNames = Object.freeze({
   MINESOPERATORSCREENING: 'minesoperatorscreening'
 });
 
-const ApiRoutes = Object.freeze({
-  AGRISEAFOODOPSCREENING: `/${FormNames.AGRISEAFOODOPSCREENING}`,
-  FORESTRYSECTOROPSCREENING: `/${FormNames.FORESTRYSECTOROPSCREENING}`,
-  MINESOPERATORSCREENING: `/${FormNames.MINESOPERATORSCREENING}`
-});
+// Add slash prefix to FormNames values
+const ApiRoutes = Object.freeze(
+  Object.assign(
+    {},
+    ...Object.entries(FormNames).map(([k, v]) => ({ [k]: `/${v}` })))
+);
 
-const AppClients = Object.freeze({
-  APP: 'comfort',
-  AGRISEAFOODOPSCREENING: `comfort-${FormNames.AGRISEAFOODOPSCREENING}`,
-  FORESTRYSECTOROPSCREENING: `comfort-${FormNames.FORESTRYSECTOROPSCREENING}`,
-  MINESOPERATORSCREENING: `comfort-${FormNames.MINESOPERATORSCREENING}`
-});
+// Add comfort- prefix to FormNames values
+const AppClients = Object.freeze(
+  Object.assign(
+    { APP: 'comfort' },
+    ...Object.entries(FormNames).map(([k, v]) => ({ [k]: `comfort-${v}` })))
+);
 
 const AppRoles = Object.freeze({
   ADMIN: 'admin',
