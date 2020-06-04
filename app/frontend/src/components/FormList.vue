@@ -15,7 +15,7 @@
                   <div>
                     <router-link class="pr-2" :to="{ name: form.linkName }">
                       <v-btn color="primary">
-                        <div>VIEW</div>
+                        <span>VIEW</span>
                       </v-btn>
                     </router-link>
                     <router-link
