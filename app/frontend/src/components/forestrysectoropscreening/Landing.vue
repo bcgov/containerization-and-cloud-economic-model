@@ -164,9 +164,10 @@
               class="my-8"
             >The Province of BC will use the information you provide through this online form for the site inspection that determines your compliance with the COVID-19 Industrial Camps Provincial Health Order.</p>
 
-            <BaseWarningCardNew
-              class="mb-10"
-            >If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</BaseWarningCardNew>
+            <BaseWarningCardNew class="mb-10">
+              If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under
+              Part 4, Division 6 of the Public Health Act.
+            </BaseWarningCardNew>
 
             <v-form ref="form" v-model="landingValid">
               <v-row>

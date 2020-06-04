@@ -27,12 +27,6 @@
       color: #6c4a00 !important;
       margin-right: 0.5em;
     }
-    a,
-    a:hover,
-    a:active {
-      color: #6c4a00;
-      text-decoration: underline;
-    }
     .icon {
       box-sizing: border-box;
       float: left;

@@ -25,7 +25,7 @@ import AdminReviewSubmission from '@/components/forestrysectoropscreening/admin/
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 
 export default {
-  name: 'MinesOperatorScreeningReview',
+  name: 'ForestrySectorOperatorScreeningReview',
   components: {
     AdminReviewSubmission,
     GeneratePdfButton
@@ -40,7 +40,7 @@ export default {
     error: false
   }),
   computed: {
-    ...mapGetters('form', [
+    ...mapGetters('forestrySectorOpScreeningForm', [
       'business',
       'location',
       'gettingForm',
@@ -54,8 +54,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('form', ['setGettingForm']),
-    ...mapActions('form', ['getForm']),
+    ...mapMutations('forestrySectorOpScreeningForm', ['setGettingForm']),
+    ...mapActions('forestrySectorOpScreeningForm', ['getForm']),
     locationDateDisplay(ldate) {
       return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A';
     }

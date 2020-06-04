@@ -15,7 +15,10 @@
           <a
             target="_blank"
             href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
-          >Medical Health Officer <v-icon small color="primary">open_in_new</v-icon></a> of the outbreak.
+          >
+            Medical Health Officer
+            <v-icon small color="primary">open_in_new</v-icon>
+          </a> of the outbreak.
         </p>
         <v-checkbox
           v-model="infectionSeparation"
@@ -45,15 +48,14 @@
       </div>
     </div>
 
-    <BaseWarningCard class="mt-6 mb-12 hide-on-review">
-      <h3>
-        As COVID-19 recommendations are evolving daily, please keep up to date with
-        <a
-          target="_blank"
-          href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
-        >BC Centre for Disease Control <v-icon small color="primary">open_in_new</v-icon></a> guidance.
-      </h3>
-    </BaseWarningCard>
+    <BaseWarningCardNew class="mt-6 mb-12 hide-on-review">
+      As COVID-19 recommendations are evolving daily, please keep up to date with
+      <a
+        target="_blank"
+        href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
+      >BC Centre for Disease Control</a>
+      <v-icon small>open_in_new</v-icon>guidance.
+    </BaseWarningCardNew>
 
     <div class="question-series">
       <h3 class="question-head">2. Providing Food for Ill Workers</h3>
@@ -114,8 +116,6 @@
     </div>
 
     <div class="hide-on-review">
-      <hr class="mt-5" />
-
       <v-btn color="primary" @click="setStep(5)">Go to Step 5</v-btn>
       <v-btn text @click="setStep(3)">Back</v-btn>
     </div>
