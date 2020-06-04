@@ -3,6 +3,15 @@ import { ApiRoutes } from '@/utils/constants';
 
 export default {
   /**
+   * @function getTypes
+   * Fetch a list of supported form types
+   * @returns {Promise} An axios response
+   */
+  getTypes() {
+    return appAxios().get(`${ApiRoutes.AGRISEAFOODOPSCREENING}/types`);
+  },
+
+  /**
    * @function getAllSubmissionData
    * Fetch the contents of all attestation submissions
    * @returns {Promise} An axios response
