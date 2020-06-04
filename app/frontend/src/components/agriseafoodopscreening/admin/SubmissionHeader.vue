@@ -27,9 +27,6 @@
 
 <script>
 export default {
-
+  name: 'SubmissionHeader'
 };
 </script>
-
-<style lang="scss" scoped>
-</style>

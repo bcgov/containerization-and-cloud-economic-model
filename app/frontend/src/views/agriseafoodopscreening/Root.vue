@@ -5,7 +5,7 @@
 <script>
 import Form from '@/components/agriseafoodopscreening/Form.vue';
 export default {
-  name: 'AgriSeafoodOpScreeningRoot',
+  name: 'Root',
   components: {
     Form
   }

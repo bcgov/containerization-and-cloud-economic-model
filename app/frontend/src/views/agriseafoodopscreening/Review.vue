@@ -25,7 +25,7 @@ import AdminReviewSubmission from '@/components/agriseafoodopscreening/admin/Adm
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 
 export default {
-  name: 'MinesOperatorScreeningReview',
+  name: 'Review',
   components: {
     AdminReviewSubmission,
     GeneratePdfButton

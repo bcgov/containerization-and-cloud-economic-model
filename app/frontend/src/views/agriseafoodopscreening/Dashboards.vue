@@ -21,7 +21,7 @@
 
 <script>
 import Dashboard from '@/components/common/Dashboard.vue';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import agriSeafoodOpScreeningService from '@/services/agriSeafoodOpScreeningService';
 import { AppClients } from '@/utils/constants';
 
 export default {
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     resource() {
-      return AppClients.MINESOPERATORSCREENING;
+      return AppClients.AGRISEAFOODOPSCREENING;
     }
   },
   data: () => ({
@@ -42,7 +42,7 @@ export default {
   methods: {
     getDashboards() {
       this.loading = true;
-      minesOperatorScreeningService
+      agriSeafoodOpScreeningService
         .getDashboardSettings()
         .then(response => {
           this.dashboards = response.data.config;
