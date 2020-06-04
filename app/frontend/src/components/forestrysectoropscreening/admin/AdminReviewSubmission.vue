@@ -55,7 +55,7 @@ export default {
     Step4
   },
   computed: {
-    ...mapGetters('ForestrySectorOpScreeningForm', ['gettingForm', 'attestation', 'submissionComplete']),
+    ...mapGetters('forestrySectorOpScreeningForm', ['gettingForm', 'attestation', 'submissionComplete']),
     // Certify checkboxes
     certifyAccurateInformation() { return this.attestation.certifyAccurateInformation; },
     agreeToInspection() { return this.attestation.agreeToInspection; }
