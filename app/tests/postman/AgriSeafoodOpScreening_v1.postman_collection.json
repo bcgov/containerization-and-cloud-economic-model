@@ -189,7 +189,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"attestation\": {\n\t\t\"guidelinesRead\": true,\n\t\t\"assessmentCompleted\": true,\n\t\t\"developedPlan\": true,\n\t\t\"protectionSignage\": true,\n\t\t\"workerContactPersonnel\": true,\n\t\t\"commonAreaDistancing\": true,\n\t\t\"sleepingAreaType\": \"SHARED\",\n\t\t\"sharedSleepingPerRoom\": 7,\n\t\t\"sharedSleepingDistancing\": true,\n\t\t\"selfIsolateUnderstood\": true,\n\t\t\"selfIsolateAccommodation\": true,\n\t\t\"laundryServices\": true,\n\t\t\"wasteManagementGloves\": true,\n\t\t\"wasteManagementSchedule\": true,\n\t\t\"wasteManagementBags\": true,\n\t\t\"handWashingStations\": true,\n\t\t\"handWashingSoapWater\": true,\n\t\t\"handWashingWaterless\": true,\n\t\t\"handWashingPaperTowels\": true,\n\t\t\"handWashingSignage\": true,\n\t\t\"distancingMaintained\": true,\n\t\t\"distancingFaceShields\": true,\n\t\t\"disinfectingSchedule\": true,\n\t\t\"educationSignage\": true,\n\t\t\"educationContactPersonnel\": true,\n\t\t\"trainingCovid19\": true,\n\t\t\"trainingEtiquette\": true,\n\t\t\"trainingLocations\": true,\n\t\t\"trainingFirstAid\": true,\n\t\t\"trainingReporting\": true,\n\t\t\"mealsDistancing\": true,\n\t\t\"mealsDishware\": true,\n\t\t\"mealsDishwashing\": true,\n\t\t\"infectionSeparation\": true,\n\t\t\"infectionSymptoms\": true,\n\t\t\"infectionHeathLinkBC\": true,\n\t\t\"infectionSanitization\": true,\n\t\t\"infectionAccommodation\": true,\n\t\t\"infectedFeeding\": true,\n\t\t\"infectedHousekeeping\": true,\n\t\t\"infectedWaste\": true,\n\t\t\"certifyAccurateInformation\": true,\n\t\t\"agreeToInspection\": true,\n\t\t\"transportationSingleOccupant\": true,\n\t\t\"transportationBusesVans\": true,\n\t\t\"transportationTrucksCars\": true,\n\t\t\"transportationHelicopter\": true,\n\t\t\"transportationTravelPod\": true,\n\t\t\"transportationCleaningDistancing\": true\n\t},\n\t\"business\": {\n\t\t\"name\": \"ZZ Smoke Testing\",\n\t\t\"orgBookId\": null,\n\t\t\"addressLine1\": \"1234 Here St\",\n\t\t\"addressLine2\": null,\n\t\t\"city\": \"Saanich\",\n\t\t\"province\": \"BC\",\n\t\t\"postalCode\": \"ABCDEF\"\t\n\t},\n\t\"contacts\":[\n\t\t{\n\t\t\t\"contactType\": \"PRIMARY\",\n\t\t\t\"firstName\": \"Jane\",\n\t\t\t\"lastName\": \"Doe\",\n\t\t\t\"phone1\": \"1234567890\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"jane@doe.com\"\n\t\t},\n\t    {\t\t\t\n\t\t\t\"contactType\": \"COVID_COORDINATOR\",\n\t\t\t\"firstName\": \"John\",\n\t\t\t\"lastName\": \"D'oh\",\n\t\t\t\"phone1\": \"0987654321\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"john@doh.com\"\n\t\t}\n\t],\n\t\"location\": {\n\t\t\"startDate\": \"2020-05-10\",\n\t\t\"endDate\": \"2020-07-30\",\n\t\t\"city\": \"Victoria, BC\",\n\t\t\"cityLatitude\": null,\n\t\t\"cityLongitude\": null,\n\t\t\"mineNumber\": null,\n\t\t\"permitNumber\": \"\",\n\t\t\"numberOfWorkers\": 10,\n\t\t\"accTents\": true,\n\t\t\"tentDetails\": \"Tents pitched on motel parking lot\",\n\t\t\"accMotel\": true,\n\t\t\"motelName\": \"Heartbreak Hotel\",\n\t\t\"motelAddressLine1\": \"2345 Everywhere\",\n\t\t\"motelAddressLine2\": \"\",\n\t\t\"motelCity\": \"Victoria\",\n\t\t\"motelProvince\": \"BC\",\n\t\t\"motelPostalCode\": \"123123\",\n\t\t\"accWorkersHome\": true,\n\t\t\"licencees\": \"Ministry of Forests\"\n\t},\n\t\"type\": \"SEAFOOD\"\n}"
+					"raw": "{\n\t\"attestation\": {\n\t\t\"guidelinesRead\": true,\n\t\t\"assessmentCompleted\": true,\n\t\t\"developedPlan\": true,\n\t\t\"protectionSignage\": true,\n\t\t\"workerContactPersonnel\": true,\n\t\t\"commonAreaDistancing\": true,\n\t\t\"sleepingAreaType\": \"SHARED\",\n\t\t\"sharedSleepingPerRoom\": 7,\n\t\t\"sharedSleepingDistancing\": true,\n\t\t\"selfIsolateUnderstood\": true,\n\t\t\"selfIsolateAccommodation\": true,\n\t\t\"laundryServices\": true,\n\t\t\"wasteManagementGloves\": true,\n\t\t\"wasteManagementSchedule\": true,\n\t\t\"wasteManagementBags\": true,\n\t\t\"handWashingStations\": true,\n\t\t\"handWashingSoapWater\": true,\n\t\t\"handWashingWaterless\": true,\n\t\t\"handWashingPaperTowels\": true,\n\t\t\"handWashingSignage\": true,\n\t\t\"distancingMaintained\": true,\n\t\t\"distancingFaceShields\": true,\n\t\t\"disinfectingSchedule\": true,\n\t\t\"educationSignage\": true,\n\t\t\"educationContactPersonnel\": true,\n\t\t\"trainingCovid19\": true,\n\t\t\"trainingEtiquette\": true,\n\t\t\"trainingLocations\": true,\n\t\t\"trainingFirstAid\": true,\n\t\t\"trainingReporting\": true,\n\t\t\"mealsDistancing\": true,\n\t\t\"mealsDishware\": true,\n\t\t\"mealsDishwashing\": true,\n\t\t\"infectionSeparation\": true,\n\t\t\"infectionSymptoms\": true,\n\t\t\"infectionHeathLinkBC\": true,\n\t\t\"infectionSanitization\": true,\n\t\t\"infectionAccommodation\": true,\n\t\t\"infectedFeeding\": true,\n\t\t\"infectedHousekeeping\": true,\n\t\t\"infectedWaste\": true,\n\t\t\"certifyAccurateInformation\": true,\n\t\t\"agreeToInspection\": true,\n\t\t\"transportationSingleOccupant\": true,\n\t\t\"transportationBusesVans\": true,\n\t\t\"transportationTrucksCars\": true,\n\t\t\"transportationHelicopter\": true,\n\t\t\"transportationTravelPod\": true,\n\t\t\"transportationCleaningDistancing\": true\n\t},\n\t\"business\": {\n\t\t\"name\": \"ZZ Smoke Testing\",\n\t\t\"orgBookId\": null,\n\t\t\"addressLine1\": \"1234 Here St\",\n\t\t\"addressLine2\": null,\n\t\t\"city\": \"Saanich\",\n\t\t\"province\": \"BC\",\n\t\t\"postalCode\": \"ABCDEF\"\t\n\t},\n\t\"contacts\":[\n\t\t{\n\t\t\t\"contactType\": \"PRIMARY\",\n\t\t\t\"firstName\": \"Jane\",\n\t\t\t\"lastName\": \"Doe\",\n\t\t\t\"phone1\": \"1234567890\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"jane@doe.com\"\n\t\t},\n\t    {\t\t\t\n\t\t\t\"contactType\": \"COVID_COORDINATOR\",\n\t\t\t\"firstName\": \"John\",\n\t\t\t\"lastName\": \"D'oh\",\n\t\t\t\"phone1\": \"0987654321\",\n\t\t\t\"phone2\": \"\",\n\t\t\t\"email\": \"john@doh.com\"\n\t\t}\n\t],\n\t\"location\": {\n\t\t\"startDate\": \"2020-05-10\",\n\t\t\"endDate\": \"2020-07-30\",\n\t\t\"city\": \"Victoria, BC\",\n\t\t\"cityLatitude\": null,\n\t\t\"cityLongitude\": null,\n\t\t\"numberOfWorkers\": 10,\n\t\t\"accTents\": true,\n\t\t\"tentDetails\": \"Tents pitched on motel parking lot\",\n\t\t\"accMotel\": true,\n\t\t\"motelName\": \"Heartbreak Hotel\",\n\t\t\"motelAddressLine1\": \"2345 Everywhere\",\n\t\t\"motelAddressLine2\": \"\",\n\t\t\"motelCity\": \"Victoria\",\n\t\t\"motelProvince\": \"BC\",\n\t\t\"motelPostalCode\": \"123123\",\n\t\t\"accWorkersHome\": true,\n\t\t\"licencees\": \"Ministry of Forests\"\n\t},\n\t\"type\": \"SEAFOOD\"\n}"
 				},
 				"url": {
 					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions",
@@ -889,7 +889,6 @@
 							"console.log(submission);",
 							"var data = submission;",
 							"data.location.city='Victoria, TX';",
-							"data.location.mineNumber='0123456';",
 							"data.business.name='ZZ Smoke Testing 2.0';",
 							"data.contacts[0].email='first@contact.ca';",
 							"data.contacts[1].email='second@contact.ca';",
@@ -915,7 +914,6 @@
 							"    pm.expect(jsonData.confirmationId).to.equal(pm.collectionVariables.get('confirmationId'));",
 							"    ",
 							"    pm.expect(jsonData.location.city).to.equal('Victoria, TX');",
-							"    pm.expect(jsonData.location.mineNumber).to.equal('0123456');",
 							"    pm.expect(jsonData.business.name).to.equal('ZZ Smoke Testing 2.0');",
 							"    pm.expect(jsonData.contacts[0].email).to.equal('first@contact.ca');",
 							"    pm.expect(jsonData.contacts[1].email).to.equal('second@contact.ca');",
@@ -1418,77 +1416,77 @@
 	],
 	"variable": [
 		{
-			"id": "8af93c97-50f5-4919-ae86-24f99ba7e9bd",
+			"id": "d0d6a473-58ab-42b3-9a00-15c265a1d8a9",
 			"key": "host",
 			"value": "http://localhost:8080",
 			"type": "string"
 		},
 		{
-			"id": "33a9ad44-05c9-451e-86b5-f6f6ca425725",
+			"id": "4e90b1fa-887e-46a4-9f9f-48954e71fa40",
 			"key": "path",
 			"value": "app",
 			"type": "string"
 		},
 		{
-			"id": "c7d94f0c-8847-4195-85fe-ebe22f60d676",
+			"id": "b9fa5e84-36ca-462d-8f9d-c20d39d941e7",
 			"key": "slug",
 			"value": "agriseafoodopscreening",
 			"type": "string"
 		},
 		{
-			"id": "3c2aa600-ef15-4246-b9ca-4a699a16460e",
+			"id": "c2af671f-8fa5-4b2b-84cd-bd1312451d14",
 			"key": "formDefinition",
-			"value": "{\"formId\":\"8711e9bc-3c2d-44b1-94e6-356f9d0a437e\",\"description\":\"Description updated\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T23:08:54.896Z\",\"metadata\":{\"formId\":\"8711e9bc-3c2d-44b1-94e6-356f9d0a437e\",\"name\":\"Agriculture/Seafood v2\",\"slug\":\"agriseafoodopscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"attestation\",\"attestations\",\"agriculture\",\"seafood\",\"operator\",\"screening\"],\"prefix\":\"agrisea_os\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:08:54.881Z\"},\"versions\":[{\"formVersionId\":7,\"formId\":\"8711e9bc-3c2d-44b1-94e6-356f9d0a437e\",\"changes\":\"this is a new version\",\"createdBy\":\"development\",\"createdAt\":\"2020-06-03T23:08:54.935Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:08:54.868Z\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"allowedClassifications\":[\"Good\",\"Bad\",\"Ugly\"],\"createdBy\":\"development\",\"createdAt\":\"2020-06-03T22:25:15.569Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T23:08:54.912Z\"},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"],\"allowedClassifications\":null,\"createdBy\":\"development\",\"createdAt\":\"2020-06-03T22:25:15.569Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T23:08:54.912Z\"}]}],\"formVersionId\":7}",
+			"value": "{\"formId\":\"daa5c4c9-d49c-45b8-9dcc-d1f9d5c3e358\",\"description\":\"This is an attestation form for Agriculture and Seafood\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":\"migration-012\",\"updatedAt\":\"2020-06-04T15:02:53.631Z\",\"metadata\":{\"formId\":\"daa5c4c9-d49c-45b8-9dcc-d1f9d5c3e358\",\"name\":\"Agriculture and Seafood\",\"slug\":\"agriseafoodopscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"attestation\",\"attestations\",\"agriculture\",\"seafood\",\"operator\",\"screening\"],\"prefix\":\"agrisea_os\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":\"migration-012\",\"updatedAt\":\"2020-06-04T15:02:53.631Z\"},\"versions\":[{\"formVersionId\":10,\"formId\":\"daa5c4c9-d49c-45b8-9dcc-d1f9d5c3e358\",\"changes\":null,\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:02:53.631Z\",\"statusCodes\":[{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"allowedClassifications\":[],\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:02:53.631Z\"},{\"code\":\"ASSIGNED\",\"display\":\"Assigned\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"allowedClassifications\":[],\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:02:53.631Z\"},{\"code\":\"COMPLETED\",\"display\":\"Completed\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\"],\"allowedClassifications\":[],\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:02:53.631Z\"}]}],\"formVersionId\":10}",
 			"type": "string"
 		},
 		{
-			"id": "9dbc5f45-92ab-47ca-944a-61b68062b5e6",
+			"id": "3a6590c5-28a5-4a8b-9869-d7c1403fba0b",
 			"key": "formVersionId",
-			"value": 8,
+			"value": 11,
 			"type": "number"
 		},
 		{
-			"id": "0939d05d-7b41-448d-9f10-033bcdc00bec",
+			"id": "8a336158-023b-4a70-95a7-72595a344a57",
 			"key": "operationTypes",
 			"value": [
 				{
-					"createdAt": "2020-06-03T22:06:37.610Z",
+					"createdAt": "2020-06-04T15:02:53.631Z",
 					"createdBy": "migration-011",
 					"display": "Agriculture",
 					"enabled": true,
 					"type": "AGRICULTURE",
-					"updatedAt": "2020-06-03T22:06:37.610Z",
+					"updatedAt": "2020-06-04T15:02:53.631Z",
 					"updatedBy": null
 				},
 				{
-					"createdAt": "2020-06-03T22:06:37.610Z",
+					"createdAt": "2020-06-04T15:02:53.631Z",
 					"createdBy": "migration-011",
 					"display": "Seafood",
 					"enabled": true,
 					"type": "SEAFOOD",
-					"updatedAt": "2020-06-03T22:06:37.610Z",
+					"updatedAt": "2020-06-04T15:02:53.631Z",
 					"updatedBy": null
 				}
 			],
 			"type": "any"
 		},
 		{
-			"id": "38d62348-a3cc-45cd-929e-694c9a5b5b7a",
+			"id": "4749a99b-dbab-4920-8040-d7158bf58aef",
 			"key": "confirmationId",
-			"value": "11787E21",
+			"value": "31BE9884",
 			"type": "string"
 		},
 		{
-			"id": "8cf81fa4-8168-48c9-8e7f-a9fa97263d84",
+			"id": "0827ca0c-9f89-4fb8-83cf-a23e4624364f",
 			"key": "submission",
 			"value": {
 				"attestation": {
 					"agreeToInspection": true,
 					"assessmentCompleted": true,
-					"attestationId": "21c951ab-d7fb-4fa8-b150-14dc84bd715d",
+					"attestationId": "75c237a7-a294-4468-a244-f9eb77dd8c61",
 					"certifyAccurateInformation": true,
 					"commonAreaDistancing": true,
-					"createdAt": "2020-06-03T23:16:55.653Z",
+					"createdAt": "2020-06-04T15:38:00.145Z",
 					"createdBy": "public",
 					"developedPlan": true,
 					"disinfectingSchedule": true,
@@ -1520,7 +1518,7 @@
 					"sharedSleepingDistancing": true,
 					"sharedSleepingPerRoom": 7,
 					"sleepingAreaType": "SHARED",
-					"submissionId": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
+					"submissionId": "31be9884-c79e-4502-b85a-a6b57c34839e",
 					"trainingCovid19": true,
 					"trainingEtiquette": true,
 					"trainingFirstAid": true,
@@ -1532,7 +1530,7 @@
 					"transportationSingleOccupant": true,
 					"transportationTravelPod": true,
 					"transportationTrucksCars": true,
-					"updatedAt": "2020-06-03T23:16:55.459Z",
+					"updatedAt": "2020-06-04T15:37:59.974Z",
 					"updatedBy": null,
 					"wasteManagementBags": true,
 					"wasteManagementGloves": true,
@@ -1542,53 +1540,53 @@
 				"business": {
 					"addressLine1": "1234 Here St",
 					"addressLine2": null,
-					"businessId": 9,
+					"businessId": 10,
 					"city": "Saanich",
-					"createdAt": "2020-06-03T23:16:55.653Z",
+					"createdAt": "2020-06-04T15:38:00.145Z",
 					"createdBy": "public",
 					"name": "ZZ Smoke Testing",
 					"orgBookId": null,
 					"postalCode": "ABCDEF",
 					"province": "BC",
-					"submissionId": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
-					"updatedAt": "2020-06-03T23:16:55.459Z",
+					"submissionId": "31be9884-c79e-4502-b85a-a6b57c34839e",
+					"updatedAt": "2020-06-04T15:37:59.974Z",
 					"updatedBy": null
 				},
-				"confirmationId": "11787E21",
+				"confirmationId": "31BE9884",
 				"contacts": [
 					{
-						"contactId": 17,
+						"contactId": 19,
 						"contactType": "PRIMARY",
-						"createdAt": "2020-06-03T23:16:55.653Z",
+						"createdAt": "2020-06-04T15:38:00.145Z",
 						"createdBy": "public",
 						"email": "jane@doe.com",
 						"firstName": "Jane",
 						"lastName": "Doe",
 						"phone1": "1234567890",
 						"phone2": "",
-						"submissionId": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
-						"updatedAt": "2020-06-03T23:16:55.459Z",
+						"submissionId": "31be9884-c79e-4502-b85a-a6b57c34839e",
+						"updatedAt": "2020-06-04T15:37:59.974Z",
 						"updatedBy": null
 					},
 					{
-						"contactId": 18,
+						"contactId": 20,
 						"contactType": "COVID_COORDINATOR",
-						"createdAt": "2020-06-03T23:16:55.653Z",
+						"createdAt": "2020-06-04T15:38:00.145Z",
 						"createdBy": "public",
 						"email": "john@doh.com",
 						"firstName": "John",
 						"lastName": "D'oh",
 						"phone1": "0987654321",
 						"phone2": "",
-						"submissionId": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
-						"updatedAt": "2020-06-03T23:16:55.459Z",
+						"submissionId": "31be9884-c79e-4502-b85a-a6b57c34839e",
+						"updatedAt": "2020-06-04T15:37:59.974Z",
 						"updatedBy": null
 					}
 				],
-				"createdAt": "2020-06-03T23:16:55.625Z",
+				"createdAt": "2020-06-04T15:38:00.113Z",
 				"createdBy": "public",
 				"deleted": false,
-				"formVersionId": 7,
+				"formVersionId": 10,
 				"location": {
 					"accMotel": true,
 					"accTents": true,
@@ -1596,12 +1594,11 @@
 					"city": "Victoria, BC",
 					"cityLatitude": null,
 					"cityLongitude": null,
-					"createdAt": "2020-06-03T23:16:55.653Z",
+					"createdAt": "2020-06-04T15:38:00.145Z",
 					"createdBy": "public",
 					"endDate": "2020-07-30",
 					"licencees": "Ministry of Forests",
-					"locationId": 9,
-					"mineNumber": null,
+					"locationId": 10,
 					"motelAddressLine1": "2345 Everywhere",
 					"motelAddressLine2": "",
 					"motelCity": "Victoria",
@@ -1609,21 +1606,20 @@
 					"motelPostalCode": "123123",
 					"motelProvince": "BC",
 					"numberOfWorkers": 10,
-					"permitNumber": "",
 					"startDate": "2020-05-10",
-					"submissionId": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
+					"submissionId": "31be9884-c79e-4502-b85a-a6b57c34839e",
 					"tentDetails": "Tents pitched on motel parking lot",
-					"updatedAt": "2020-06-03T23:16:55.459Z",
+					"updatedAt": "2020-06-04T15:37:59.974Z",
 					"updatedBy": null
 				},
 				"notes": [],
 				"operationType": {
-					"createdAt": "2020-06-03T22:06:37.610Z",
+					"createdAt": "2020-06-04T15:02:53.631Z",
 					"createdBy": "migration-011",
 					"display": "Seafood",
 					"enabled": true,
 					"type": "SEAFOOD",
-					"updatedAt": "2020-06-03T22:06:37.610Z",
+					"updatedAt": "2020-06-04T15:02:53.631Z",
 					"updatedBy": null
 				},
 				"statuses": [
@@ -1633,13 +1629,13 @@
 						"assignedToEmail": null,
 						"classification": null,
 						"code": "SUBMITTED",
-						"createdAt": "2020-06-03T23:16:55.660Z",
+						"createdAt": "2020-06-04T15:38:00.156Z",
 						"createdBy": "public",
 						"notes": [],
 						"statusCode": {
 							"allowedClassifications": [],
 							"code": "SUBMITTED",
-							"createdAt": "2020-06-03T22:06:37.610Z",
+							"createdAt": "2020-06-04T15:02:53.631Z",
 							"createdBy": "migration-011",
 							"display": "Submitted",
 							"enabled": true,
@@ -1647,86 +1643,86 @@
 								"ASSIGNED",
 								"COMPLETED"
 							],
-							"updatedAt": "2020-06-03T22:24:57.250Z",
-							"updatedBy": "development"
+							"updatedAt": "2020-06-04T15:02:53.631Z",
+							"updatedBy": null
 						},
-						"submissionId": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
-						"submissionStatusId": 14,
-						"updatedAt": "2020-06-03T23:16:55.459Z",
+						"submissionId": "31be9884-c79e-4502-b85a-a6b57c34839e",
+						"submissionStatusId": 16,
+						"updatedAt": "2020-06-04T15:37:59.974Z",
 						"updatedBy": null
 					}
 				],
-				"submissionId": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
+				"submissionId": "31be9884-c79e-4502-b85a-a6b57c34839e",
 				"type": "SEAFOOD",
-				"updatedAt": "2020-06-03T23:16:55.459Z",
+				"updatedAt": "2020-06-04T15:37:59.974Z",
 				"updatedBy": null
 			},
 			"type": "any"
 		},
 		{
-			"id": "ba1b31a7-4792-4306-9e0e-5956866ac542",
+			"id": "1106cbbc-9044-46f0-9949-3b2d40a893de",
 			"key": "submissionId",
-			"value": "11787e21-4fbe-42b3-8a7c-e15d0c05982e",
+			"value": "31be9884-c79e-4502-b85a-a6b57c34839e",
 			"type": "string"
 		},
 		{
-			"id": "dab3eb63-ed8a-41ff-a2c7-cd43539413fa",
+			"id": "b9462925-adb4-4402-91f4-0e11d4067c47",
 			"key": "operationType",
 			"value": "SEAFOOD",
 			"type": "string"
 		},
 		{
-			"id": "7ac7b008-2e7a-40d7-82ac-55d87702b19a",
+			"id": "01f04d1a-2dae-4345-99c3-e6efbc9ade46",
 			"key": "operationTypeDisplay",
 			"value": "Seafood",
 			"type": "string"
 		},
 		{
-			"id": "e03b75bc-6174-4ab6-928d-1b44d17ba06b",
+			"id": "efd80b34-fff2-4ef0-863e-5c5fcf83c240",
 			"key": "submissionStatusId",
-			"value": 15,
+			"value": 17,
 			"type": "number"
 		},
 		{
-			"id": "81408cd7-4694-4ecd-841a-42faebf24fa2",
+			"id": "35220165-21d9-43a6-acfb-53ba00d6226a",
 			"key": "submissionNoteId",
-			"value": 15,
+			"value": 18,
 			"type": "number"
 		},
 		{
-			"id": "a32dc57a-2be7-49a5-86c8-cc8652453901",
+			"id": "4fc6667e-914e-43bf-b0cd-95058fb406fc",
 			"key": "statusNoteId",
-			"value": 16,
+			"value": 19,
 			"type": "number"
 		},
 		{
-			"id": "123a2455-d97a-4d25-87ff-723ec5adb27f",
+			"id": "421bffa3-6abe-47fa-a921-c07155e8b1e0",
 			"key": "changedSubmission",
-			"value": "{\"submissionId\":\"11787e21-4fbe-42b3-8a7c-e15d0c05982e\",\"formVersionId\":7,\"confirmationId\":\"11787E21\",\"type\":\"SEAFOOD\",\"deleted\":false,\"createdBy\":\"public\",\"createdAt\":\"2020-06-03T23:16:55.625Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:16:55.459Z\",\"operationType\":{\"type\":\"SEAFOOD\",\"display\":\"Seafood\",\"enabled\":true,\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T22:06:37.610Z\"},\"business\":{\"businessId\":9,\"submissionId\":\"11787e21-4fbe-42b3-8a7c-e15d0c05982e\",\"name\":\"ZZ Smoke Testing 2.0\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-03T23:16:55.653Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:16:55.459Z\"},\"attestation\":{\"attestationId\":\"21c951ab-d7fb-4fa8-b150-14dc84bd715d\",\"submissionId\":\"11787e21-4fbe-42b3-8a7c-e15d0c05982e\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-06-03T23:16:55.653Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:16:55.459Z\"},\"location\":{\"locationId\":9,\"submissionId\":\"11787e21-4fbe-42b3-8a7c-e15d0c05982e\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, TX\",\"cityLatitude\":null,\"cityLongitude\":null,\"mineNumber\":\"0123456\",\"permitNumber\":\"\",\"numberOfWorkers\":10,\"accTents\":true,\"tentDetails\":\"Tents pitched on motel parking lot\",\"accMotel\":true,\"motelName\":\"Heartbreak Hotel\",\"motelAddressLine1\":\"2345 Everywhere\",\"motelAddressLine2\":\"\",\"motelCity\":\"Victoria\",\"motelProvince\":\"BC\",\"motelPostalCode\":\"123123\",\"accWorkersHome\":true,\"licencees\":\"Ministry of Forests\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-03T23:16:55.653Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:16:55.459Z\"},\"contacts\":[{\"contactId\":17,\"submissionId\":\"11787e21-4fbe-42b3-8a7c-e15d0c05982e\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"first@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-03T23:16:55.653Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:16:55.459Z\"},{\"contactId\":18,\"submissionId\":\"11787e21-4fbe-42b3-8a7c-e15d0c05982e\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"second@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-03T23:16:55.653Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:16:55.459Z\"}],\"statuses\":[{\"submissionStatusId\":14,\"submissionId\":\"11787e21-4fbe-42b3-8a7c-e15d0c05982e\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"actionDate\":null,\"classification\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-06-03T23:16:55.660Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:16:55.459Z\",\"notes\":[],\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"allowedClassifications\":[],\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T22:24:57.250Z\"}}],\"notes\":[]}",
+			"value": "{\"submissionId\":\"31be9884-c79e-4502-b85a-a6b57c34839e\",\"formVersionId\":10,\"confirmationId\":\"31BE9884\",\"type\":\"SEAFOOD\",\"deleted\":false,\"createdBy\":\"public\",\"createdAt\":\"2020-06-04T15:38:00.113Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:37:59.974Z\",\"operationType\":{\"type\":\"SEAFOOD\",\"display\":\"Seafood\",\"enabled\":true,\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:02:53.631Z\"},\"business\":{\"businessId\":10,\"submissionId\":\"31be9884-c79e-4502-b85a-a6b57c34839e\",\"name\":\"ZZ Smoke Testing 2.0\",\"orgBookId\":null,\"addressLine1\":\"1234 Here St\",\"addressLine2\":null,\"city\":\"Saanich\",\"province\":\"BC\",\"postalCode\":\"ABCDEF\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-04T15:38:00.145Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:37:59.974Z\"},\"attestation\":{\"attestationId\":\"75c237a7-a294-4468-a244-f9eb77dd8c61\",\"submissionId\":\"31be9884-c79e-4502-b85a-a6b57c34839e\",\"guidelinesRead\":true,\"assessmentCompleted\":true,\"developedPlan\":true,\"protectionSignage\":true,\"workerContactPersonnel\":true,\"commonAreaDistancing\":true,\"sleepingAreaType\":\"SHARED\",\"sharedSleepingPerRoom\":7,\"sharedSleepingDistancing\":true,\"selfIsolateUnderstood\":true,\"selfIsolateAccommodation\":true,\"laundryServices\":true,\"wasteManagementGloves\":true,\"wasteManagementSchedule\":true,\"wasteManagementBags\":true,\"handWashingStations\":true,\"handWashingSoapWater\":true,\"handWashingWaterless\":true,\"handWashingPaperTowels\":true,\"handWashingSignage\":true,\"distancingMaintained\":true,\"distancingFaceShields\":true,\"disinfectingSchedule\":true,\"educationSignage\":true,\"educationContactPersonnel\":true,\"transportationSingleOccupant\":true,\"transportationBusesVans\":true,\"transportationTrucksCars\":true,\"transportationHelicopter\":true,\"transportationTravelPod\":true,\"transportationCleaningDistancing\":true,\"trainingCovid19\":true,\"trainingEtiquette\":true,\"trainingLocations\":true,\"trainingFirstAid\":true,\"trainingReporting\":true,\"mealsDistancing\":true,\"mealsDishware\":true,\"mealsDishwashing\":true,\"infectionSeparation\":true,\"infectionSymptoms\":true,\"infectionHeathLinkBC\":true,\"infectionSanitization\":true,\"infectionAccommodation\":true,\"infectedFeeding\":true,\"infectedHousekeeping\":true,\"infectedWaste\":true,\"certifyAccurateInformation\":true,\"agreeToInspection\":true,\"createdBy\":\"public\",\"createdAt\":\"2020-06-04T15:38:00.145Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:37:59.974Z\"},\"location\":{\"locationId\":10,\"submissionId\":\"31be9884-c79e-4502-b85a-a6b57c34839e\",\"startDate\":\"2020-05-10\",\"endDate\":\"2020-07-30\",\"city\":\"Victoria, TX\",\"cityLatitude\":null,\"cityLongitude\":null,\"numberOfWorkers\":10,\"accTents\":true,\"tentDetails\":\"Tents pitched on motel parking lot\",\"accMotel\":true,\"motelName\":\"Heartbreak Hotel\",\"motelAddressLine1\":\"2345 Everywhere\",\"motelAddressLine2\":\"\",\"motelCity\":\"Victoria\",\"motelProvince\":\"BC\",\"motelPostalCode\":\"123123\",\"accWorkersHome\":true,\"licencees\":\"Ministry of Forests\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-04T15:38:00.145Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:37:59.974Z\"},\"contacts\":[{\"contactId\":19,\"submissionId\":\"31be9884-c79e-4502-b85a-a6b57c34839e\",\"contactType\":\"PRIMARY\",\"firstName\":\"Jane\",\"lastName\":\"Doe\",\"phone1\":\"1234567890\",\"phone2\":\"\",\"email\":\"first@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-04T15:38:00.145Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:37:59.974Z\"},{\"contactId\":20,\"submissionId\":\"31be9884-c79e-4502-b85a-a6b57c34839e\",\"contactType\":\"COVID_COORDINATOR\",\"firstName\":\"John\",\"lastName\":\"D'oh\",\"phone1\":\"0987654321\",\"phone2\":\"\",\"email\":\"second@contact.ca\",\"createdBy\":\"public\",\"createdAt\":\"2020-06-04T15:38:00.145Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:37:59.974Z\"}],\"statuses\":[{\"submissionStatusId\":16,\"submissionId\":\"31be9884-c79e-4502-b85a-a6b57c34839e\",\"code\":\"SUBMITTED\",\"assignedTo\":null,\"assignedToEmail\":null,\"actionDate\":null,\"classification\":null,\"createdBy\":\"public\",\"createdAt\":\"2020-06-04T15:38:00.156Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:37:59.974Z\",\"statusCode\":{\"code\":\"SUBMITTED\",\"display\":\"Submitted\",\"enabled\":true,\"nextCodes\":[\"ASSIGNED\",\"COMPLETED\"],\"allowedClassifications\":[],\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-04T15:02:53.631Z\"},\"notes\":[]}],\"notes\":[]}",
 			"type": "string"
 		},
 		{
-			"id": "c29ca29a-9a2c-4c26-88bd-e2ac0ba673b8",
+			"id": "15828ce1-305b-4657-9b7b-c7ec402f5782",
 			"key": "changedFormDefinition",
-			"value": "{\"formId\":\"8711e9bc-3c2d-44b1-94e6-356f9d0a437e\",\"description\":\"Description updated\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T23:08:54.896Z\",\"metadata\":{\"formId\":\"8711e9bc-3c2d-44b1-94e6-356f9d0a437e\",\"name\":\"Agriculture/Seafood v2\",\"slug\":\"agriseafoodopscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"attestation\",\"attestations\",\"agriculture\",\"seafood\",\"operator\",\"screening\"],\"prefix\":\"agrisea_os\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":null,\"updatedAt\":\"2020-06-03T23:08:54.881Z\"},\"versions\":[{\"changes\":\"this is a new version\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"allowedClassifications\":[\"Good\",\"Bad\",\"Ugly\"]},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"]}]}],\"formVersionId\":7}",
+			"value": "{\"formId\":\"daa5c4c9-d49c-45b8-9dcc-d1f9d5c3e358\",\"description\":\"Description updated\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":\"migration-012\",\"updatedAt\":\"2020-06-04T15:02:53.631Z\",\"metadata\":{\"formId\":\"daa5c4c9-d49c-45b8-9dcc-d1f9d5c3e358\",\"name\":\"Agriculture/Seafood v2\",\"slug\":\"agriseafoodopscreening\",\"public\":true,\"active\":true,\"keywords\":[\"covid\",\"attestation\",\"attestations\",\"agriculture\",\"seafood\",\"operator\",\"screening\"],\"prefix\":\"agrisea_os\",\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":\"migration-012\",\"updatedAt\":\"2020-06-04T15:02:53.631Z\"},\"versions\":[{\"changes\":\"this is a new version\",\"statusCodes\":[{\"code\":\"A\",\"display\":\"Aa\",\"enabled\":true,\"nextCodes\":[\"B\"],\"allowedClassifications\":[\"Good\",\"Bad\",\"Ugly\"]},{\"code\":\"B\",\"display\":\"Bb\",\"enabled\":true,\"nextCodes\":[\"A\"]}]}],\"formVersionId\":10}",
 			"type": "string"
 		},
 		{
-			"id": "14f881a5-1d0a-4c1b-ae38-504b8bbafbfc",
+			"id": "ddff7b90-e401-4840-9085-52458bbdb1d9",
 			"key": "confirmationEmail",
-			"value": "{\"name\":\"confirmationEmail\",\"enabled\":true,\"config\":{\"to\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"from\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"title\":\"Agriculture/Seafood Operator Screening Form Accepted\",\"subject\":\"Agriculture/Seafood Operator Screening Form Accepted\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Agriculture/Seafood Operator Screening Attestation\"},\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T23:08:55.288Z\"}",
+			"value": "{\"name\":\"confirmationEmail\",\"enabled\":true,\"config\":{\"to\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"from\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"title\":\"Agriculture and Seafood Form Accepted\",\"subject\":\"Agriculture and Seafood Form Accepted\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Agriculture and Seafood Attestation\"},\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":\"migration-012\",\"updatedAt\":\"2020-06-04T15:02:53.631Z\"}",
 			"type": "string"
 		},
 		{
-			"id": "87be09e1-6a25-4f17-989c-3aebae2a7319",
+			"id": "b5f7199a-f880-4aa8-9e80-2571d7b3038e",
 			"key": "changedConfirmationEmail",
-			"value": "{\"name\":\"confirmationEmail\",\"enabled\":false,\"config\":{\"to\":\"newem@il.com\",\"from\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"title\":\"Agriculture/Seafood Operator Screening Form Accepted\",\"subject\":\"Ignore this please\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Agriculture/Seafood Operator Screening Attestation\"},\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T23:08:55.288Z\"}",
+			"value": "{\"name\":\"confirmationEmail\",\"enabled\":false,\"config\":{\"to\":\"newem@il.com\",\"from\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"title\":\"Agriculture and Seafood Form Accepted\",\"subject\":\"Ignore this please\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Agriculture and Seafood Attestation\"},\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":\"migration-012\",\"updatedAt\":\"2020-06-04T15:02:53.631Z\"}",
 			"type": "string"
 		},
 		{
-			"id": "7241c430-65ac-4e9a-8497-806be366c4d7",
+			"id": "cd470bc7-a5f2-44b3-aeff-1deb14a7f89e",
 			"key": "resetConfirmationEmail",
-			"value": "{\"name\":\"confirmationEmail\",\"enabled\":true,\"config\":{\"to\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"from\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"title\":\"Agriculture/Seafood Operator Screening Form Accepted\",\"subject\":\"Agriculture/Seafood Operator Screening Form Accepted\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Agriculture/Seafood Operator Screening Attestation\"},\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-03T22:06:37.610Z\",\"updatedBy\":\"development\",\"updatedAt\":\"2020-06-03T23:08:55.288Z\"}",
+			"value": "{\"name\":\"confirmationEmail\",\"enabled\":true,\"config\":{\"to\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"from\":\"NR.CommonServiceShowcase@gov.bc.ca\",\"title\":\"Agriculture and Seafood Form Accepted\",\"subject\":\"Agriculture and Seafood Form Accepted\",\"priority\":\"normal\",\"template\":\"confirmation-number-email.html\",\"messageLinkUrl\":\"https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission\",\"messageLinkText\":\"Please login to view the details of this Agriculture and Seafood Attestation\"},\"createdBy\":\"migration-011\",\"createdAt\":\"2020-06-04T15:02:53.631Z\",\"updatedBy\":\"migration-012\",\"updatedAt\":\"2020-06-04T15:02:53.631Z\"}",
 			"type": "string"
 		}
 	],

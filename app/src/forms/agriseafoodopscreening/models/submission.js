@@ -345,8 +345,6 @@ class Location extends CommonModels.Timestamps(Model) {
         city: {type: 'string', minLength: 1, maxLength: 255},
         cityLatitude: {type: ['number', 'null'], minimum: -90, maximum: 90},
         cityLongitude: {type: ['number', 'null'], minimum: -180, maximum: 180},
-        mineNumber: {type: ['string', 'null'], maxLength: 255, pattern: constants.MINE_NUMBER_REGEX},
-        permitNumber: {type: ['string', 'null'], maxLength: 255},
         numberOfWorkers: {type: 'integer', minimum: 1, maximum: 100000},
         accTents: {type: 'boolean'},
         tentDetails: {type: ['string', 'null'], maxLength: 255},

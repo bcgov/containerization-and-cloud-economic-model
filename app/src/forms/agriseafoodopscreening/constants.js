@@ -11,7 +11,7 @@ const SLEEPING_AREA_TYPES = [SLEEPING_AREA_TYPE_SINGLE, SLEEPING_AREA_TYPE_SHARE
 module.exports = Object.freeze({
   SLUG: 'agriseafoodopscreening',
   PREFIX: 'agrisea_os',
-  SHORT_NAME: 'Agriculture/Seafood Operator Screening',
+  TITLE: 'Agriculture and Seafood',
   INITIAL_STATUS_CODE: 'SUBMITTED',
   CONTACT_TYPE_PRIMARY: CONTACT_TYPE_PRIMARY,
   CONTACT_TYPE_COVID: CONTACT_TYPE_COVID,
@@ -20,6 +20,5 @@ module.exports = Object.freeze({
   SLEEPING_AREA_TYPE_SHARED: SLEEPING_AREA_TYPE_SHARED,
   SLEEPING_AREA_TYPES: SLEEPING_AREA_TYPES,
   CONFIRMATION_ID_REGEX: '^[0-9A-Fa-f]{8}$',
-  MINE_NUMBER_REGEX: '^[0-9]{7}$',
   ...CONSTANTS
 });
