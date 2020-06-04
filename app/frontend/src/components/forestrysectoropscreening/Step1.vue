@@ -756,17 +756,7 @@ export default {
     accWorkersHome: {
       get() { return this.location.accWorkersHome; },
       set(value) { this.updateLocation({['accWorkersHome']: value}); }
-    },
-
-    // Mine
-    mineNumber: {
-      get() { return this.location.mineNumber; },
-      set(value) { this.updateLocation({['mineNumber']: value}); }
-    },
-    permitNumber: {
-      get() { return this.location.permitNumber; },
-      set(value) { this.updateLocation({['permitNumber']: value}); }
-    },
+    }
   },
   methods: {
     ...mapActions('forestrySectorOpScreeningForm', ['sampleData']),
