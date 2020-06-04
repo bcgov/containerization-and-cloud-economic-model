@@ -197,45 +197,6 @@
       </div>
     </div>
 
-    <div class="question-series">
-      <h3 class="question-head">9. Transportation of Workers</h3>
-      <div class="questions">
-        <p>Modes of transportation (choose all that apply)</p>
-        <div class="questions-check-group">
-          <v-checkbox
-            v-model="transportationSingleOccupant"
-            :readonly="reviewMode"
-            label="One person per vehicle"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="transportationBusesVans"
-            :readonly="reviewMode"
-            label="Buses or Vans"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="transportationTrucksCars"
-            :readonly="reviewMode"
-            label="Trucks and Cars"
-          ></v-checkbox>
-          <v-checkbox
-            v-model="transportationHelicopter"
-            :readonly="reviewMode"
-            label="Helicopter"
-          ></v-checkbox>
-        </div>
-        <v-checkbox
-          v-model="transportationTravelPod"
-          :readonly="reviewMode"
-          label="I have made arrangements so that where workers are required to travel together in vehicles or helicopters to the work site, workers will travel with their work pod."
-        ></v-checkbox>
-        <v-checkbox
-          v-model="transportationCleaningDistancing"
-          :readonly="reviewMode"
-          label="Procedures for frequent vehicle cleaning and physical distancing or use personal protective equipment have been developed and communicated to the workers prior to being transported to the worksite."
-        ></v-checkbox>
-      </div>
-    </div>
-
     <div class="hide-on-review">
       <hr />
 
@@ -356,32 +317,6 @@ export default {
     disinfectingSchedule: {
       get() { return this.attestation.disinfectingSchedule; },
       set(value) { this.updateAttestation({['disinfectingSchedule']: value}); }
-    },
-
-    // Transportation
-    transportationSingleOccupant: {
-      get() { return this.attestation.transportationSingleOccupant; },
-      set(value) { this.updateAttestation({['transportationSingleOccupant']: value}); }
-    },
-    transportationBusesVans: {
-      get() { return this.attestation.transportationBusesVans; },
-      set(value) { this.updateAttestation({['transportationBusesVans']: value}); }
-    },
-    transportationTrucksCars: {
-      get() { return this.attestation.transportationTrucksCars; },
-      set(value) { this.updateAttestation({['transportationTrucksCars']: value}); }
-    },
-    transportationHelicopter: {
-      get() { return this.attestation.transportationHelicopter; },
-      set(value) { this.updateAttestation({['transportationHelicopter']: value}); }
-    },
-    transportationTravelPod: {
-      get() { return this.attestation.transportationTravelPod; },
-      set(value) { this.updateAttestation({['transportationTravelPod']: value}); }
-    },
-    transportationCleaningDistancing: {
-      get() { return this.attestation.transportationCleaningDistancing; },
-      set(value) { this.updateAttestation({['transportationCleaningDistancing']: value}); }
     }
   },
   methods: {
