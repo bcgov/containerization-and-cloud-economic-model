@@ -47,7 +47,7 @@ import Step3 from '@/components/agriseafoodopscreening/Step3.vue';
 import Step4 from '@/components/agriseafoodopscreening/Step4.vue';
 
 export default {
-  name: 'ReviewSubmission',
+  name: 'AdminReviewSubmission',
   components: {
     Step1,
     Step2,

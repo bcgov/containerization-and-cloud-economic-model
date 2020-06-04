@@ -51,7 +51,7 @@ import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import agriSeafoodOpScreeningService from '@/services/agriSeafoodOpScreeningService';
 
 export default {
-  name: 'MinesSubmissionsTable',
+  name: 'SubmissionsTable',
   components: {
     GeneratePdfButton
   },
