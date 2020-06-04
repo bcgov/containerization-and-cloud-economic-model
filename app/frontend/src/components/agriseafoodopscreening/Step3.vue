@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">After workers arrive at the Industrial Camp</h2>
-      <hr class="orange" />
+      <BaseHeaderSection :text="'After workers arrive at the Industrial Camp'" />
     </div>
 
     <p>Once your workers arrive at the location, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
@@ -88,8 +87,8 @@
     <div class="hide-on-review">
       <hr />
 
-      <v-btn color="primary" @click="setStep(5)">Go to Step 5</v-btn>
-      <v-btn text @click="setStep(3)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(4)">Go to Step 4</v-btn>
+      <v-btn text @click="setStep(2)">Back</v-btn>
     </div>
   </v-container>
 </template>

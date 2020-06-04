@@ -42,7 +42,7 @@
 
               <v-divider></v-divider>
 
-              <v-stepper-step step="">Review</v-stepper-step>
+              <v-stepper-step step="5">Review</v-stepper-step>
             </v-stepper-header>
           </v-col>
         </v-row>

@@ -371,14 +371,16 @@
 
         <div v-if="accTents">
           <v-row>
-            <v-col cols="12" lg="10">
+            <v-col cols="12">
               <label>
                 Details (eg:
                 <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
               </label>
-              <v-text-field
+              <v-textarea
                 v-model="tentDetails"
                 :rules="tentDetailsRules"
+                auto-grow
+                rows="1"
                 dense
                 flat
                 outlined

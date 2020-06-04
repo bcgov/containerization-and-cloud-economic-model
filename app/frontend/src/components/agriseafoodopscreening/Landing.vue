@@ -140,7 +140,7 @@
             <div class="my-12">
               <BaseInfoCard>
                 <h4>
-                  If you need assistance completing these risk assessment or infection prevention tasks, please contact AgSafe for help.
+                  The following contacts are available if you need assistance completing these risk assessment or infection prevention tasks:
                   <br />
                   <br />Toll-free: 1-877-533-1789 | Email: Contact@AgSafeBC.ca : ??? Confirm later
                 </h4>
@@ -159,30 +159,32 @@
               class="mb-10"
             >If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</BaseWarningCardNew>
 
-            <v-row>
-              <v-col
-                cols="12"
-                sm="6"
-                class="text-sm-right pt-sm-5 pb-0"
-              >Please select your Operation Type:</v-col>
-              <v-col cols="12" sm="6" lg="3">
-                <v-select
-                  :items="operationTypes"
-                  item-text="display"
-                  item-value="type"
-                  v-model="type"
-                  :rules="[v => !!v || 'Type is required']"
-                  dense
-                  flat
-                  outlined
-                  solo
-                  single-line
-                />
-              </v-col>
-            </v-row>
-            <div class="text-center my-6">
-              <v-btn class="px-12" color="primary" @click="setStep(1)">Start</v-btn>
-            </div>
+            <v-form ref="form" v-model="landingValid">
+              <v-row>
+                <v-col
+                  cols="12"
+                  sm="6"
+                  class="text-sm-right pt-sm-5 pb-0"
+                >Please select your Operation Type:</v-col>
+                <v-col cols="12" sm="6" lg="3">
+                  <v-select
+                    :items="operationTypes"
+                    item-text="display"
+                    item-value="type"
+                    v-model="opType"
+                    :rules="[v => !!v || 'Type is required']"
+                    dense
+                    flat
+                    outlined
+                    solo
+                    single-line
+                  />
+                </v-col>
+              </v-row>
+              <div class="text-center my-6">
+                <v-btn class="px-12" color="primary" @click="startForm">Start</v-btn>
+              </div>
+            </v-form>
           </div>
         </v-col>
       </v-row>
@@ -191,7 +193,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'AgriSeaLanding',
@@ -199,6 +201,8 @@ export default {
     return {
       docTitle: 'Protecting Farm Workers and Temporary Foreign Workers During the COVID-19 Pandemic',
       docShortTitle: 'COVID-19 guidance for farms and farm workers',
+      landingValid: false,
+
       // TODO: fetch this from API
       operationTypes: [
         { type:'AGRICULTURE', display: 'Agriculture', enabled: true },
@@ -206,8 +210,20 @@ export default {
       ]
     };
   },
+  computed: {
+    ...mapGetters('agriSeafoodOpScreeningForm', ['operationType']),
+    opType: {
+      get() { return this.operationType; },
+      set(value) { this.setOperationType(value); }
+    }
+  },
   methods: {
-    ...mapMutations('agriSeafoodOpScreeningForm', ['setStep']),
+    ...mapMutations('agriSeafoodOpScreeningForm', ['setStep', 'setOperationType']),
+    startForm() {
+      if(this.$refs.form.validate()) {
+        this.setStep(1);
+      }
+    }
   }
 };
 </script>

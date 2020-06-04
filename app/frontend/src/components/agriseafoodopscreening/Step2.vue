@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">Before operations begin, please check all that apply</h2>
-      <hr class="orange" />
+      <BaseHeaderSection :text="'Before operations begin, please check all that apply'" />
     </div>
 
     <BaseInfoCard class="hide-on-review mt-5 mb-8">
@@ -240,7 +239,7 @@
     <div class="hide-on-review">
       <hr />
 
-      <v-btn color="primary" @click="setStep(4)">Go to Step 4</v-btn>
+      <v-btn color="primary" @click="setStep(3)">Go to Step 3</v-btn>
       <v-btn text @click="setStep(2)">Back</v-btn>
     </div>
   </v-container>

@@ -1,8 +1,7 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <h2 class="pb-8">If workers become ill at the operation</h2>
-      <hr class="orange" />
+      <BaseHeaderSection :text="'If workers become ill at the operation'" />
     </div>
 
     <div class="question-series">
@@ -117,8 +116,8 @@
     <div class="hide-on-review">
       <hr class="mt-5" />
 
-      <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
-      <v-btn text @click="setStep(4)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(5)">Go to Step 5</v-btn>
+      <v-btn text @click="setStep(3)">Back</v-btn>
     </div>
   </v-container>
 </template>

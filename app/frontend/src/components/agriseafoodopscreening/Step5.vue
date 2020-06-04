@@ -50,15 +50,14 @@
       </div>
     </div>
     <div v-else>
-      <h2 class="pb-8">Please review your answers</h2>
+      <BaseHeaderSection :text="'Please review your answers'" />
     </div>
-    <hr class="orange" />
 
     <v-row>
       <v-col offset-lg="1" cols="12" lg="10">
         <v-card outlined class="review-form">
           <h2 class="review-heading">
-            1. Before You Begin
+            1. Contact Information
             <v-btn
               v-if="!submissionComplete"
               color="primary"
@@ -70,12 +69,12 @@
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </h2>
-          <Step1 />
+          <Step1 :reviewMode="true" />
         </v-card>
 
         <v-card outlined class="review-form">
           <h2 class="review-heading">
-            2. Contact Information
+            2. Before Operations Begin
             <v-btn
               v-if="!submissionComplete"
               color="primary"
@@ -92,7 +91,7 @@
 
         <v-card outlined class="review-form">
           <h2 class="review-heading">
-            3. Before Operations Begin
+            3. After Workers Arrive
             <v-btn
               v-if="!submissionComplete"
               color="primary"
@@ -109,7 +108,7 @@
 
         <v-card outlined class="review-form">
           <h2 class="review-heading">
-            4. After Workers Arrive
+            4. If Workers Become Ill
             <v-btn
               v-if="!submissionComplete"
               color="primary"
@@ -123,28 +122,11 @@
           </h2>
           <Step4 :reviewMode="true" />
         </v-card>
-
-        <v-card outlined class="review-form">
-          <h2 class="review-heading">
-            5. If Workers Become Ill
-            <v-btn
-              v-if="!submissionComplete"
-              color="primary"
-              class="mx-5"
-              fab
-              x-small
-              @click="setStep(5)"
-            >
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-          </h2>
-          <Step5 :reviewMode="true" />
-        </v-card>
       </v-col>
     </v-row>
 
     <div v-if="!submissionComplete">
-      <v-form v-model="step6Valid">
+      <v-form v-model="step5Valid">
         <v-checkbox
           :rules="[v => !!v || 'You must certify to continue']"
           v-model="certifyAccurateInformation"
@@ -159,7 +141,7 @@
     </div>
 
     <div v-if="!submissionComplete">
-      <v-btn color="primary" :disabled="!step6Valid" @click="submit">Submit</v-btn>
+      <v-btn color="primary" :disabled="!step5Valid" @click="submit">Submit</v-btn>
       <v-btn text @click="setStep(5)">Back</v-btn>
     </div>
 
