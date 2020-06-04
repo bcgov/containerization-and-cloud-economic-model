@@ -21,7 +21,7 @@
 import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
+import AdminReviewSubmission from '@/components/forestrysectoropscreening/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 
 export default {
