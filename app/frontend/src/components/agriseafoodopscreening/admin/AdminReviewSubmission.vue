@@ -2,22 +2,22 @@
   <v-container>
     <v-card outlined class="review-form">
       <h2 class="review-heading">Contact Information</h2>
-      <Step2 :reviewMode="true" />
+      <Step1 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
       <h2 class="review-heading">Before Operations Begin</h2>
-      <Step3 :reviewMode="true" />
+      <Step2 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
       <h2 class="review-heading">After Workers Arrive</h2>
-      <Step4 :reviewMode="true" />
+      <Step3 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
       <h2 class="review-heading">If Workers Become Ill</h2>
-      <Step5 :reviewMode="true" />
+      <Step4 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
@@ -41,18 +41,18 @@
 <script>
 import { mapGetters } from 'vuex';
 
+import Step1 from '@/components/agriseafoodopscreening/Step1.vue';
 import Step2 from '@/components/agriseafoodopscreening/Step2.vue';
 import Step3 from '@/components/agriseafoodopscreening/Step3.vue';
 import Step4 from '@/components/agriseafoodopscreening/Step4.vue';
-import Step5 from '@/components/agriseafoodopscreening/Step5.vue';
 
 export default {
   name: 'ReviewSubmission',
   components: {
+    Step1,
     Step2,
     Step3,
-    Step4,
-    Step5
+    Step4
   },
   computed: {
     ...mapGetters('agriSeafoodOpScreeningForm', ['gettingForm', 'attestation', 'submissionComplete']),
