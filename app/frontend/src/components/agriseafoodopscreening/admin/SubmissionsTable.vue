@@ -35,7 +35,7 @@
       </template>
       <template v-slot:item.details="{ item }">
         <router-link
-          :to="{ name: 'MinesOperatorScreeningSubmission', params: { submissionId: item.submissionId } }"
+          :to="{ name: 'AgriSeafoodOpScreeningSubmission', params: { submissionId: item.submissionId } }"
         >
           <v-btn text small color="textLink">
             <v-icon class="mr-1">remove_red_eye</v-icon>VIEW
@@ -48,7 +48,7 @@
 
 <script>
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import agriSeafoodOpScreeningService from '@/services/agriSeafoodOpScreeningService';
 
 export default {
   name: 'MinesSubmissionsTable',
@@ -104,7 +104,7 @@ export default {
     },
     // get table data from frontend service layer
     getData() {
-      minesOperatorScreeningService
+      agriSeafoodOpScreeningService
         .getAllSubmissionMetaData()
         .then(response => {
           const data = response.data;

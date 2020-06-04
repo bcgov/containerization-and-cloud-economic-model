@@ -41,10 +41,10 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Step2 from '@/components/minesoperatorscreening/Step2.vue';
-import Step3 from '@/components/minesoperatorscreening/Step3.vue';
-import Step4 from '@/components/minesoperatorscreening/Step4.vue';
-import Step5 from '@/components/minesoperatorscreening/Step5.vue';
+import Step2 from '@/components/agriseafoodopscreening/Step2.vue';
+import Step3 from '@/components/agriseafoodopscreening/Step3.vue';
+import Step4 from '@/components/agriseafoodopscreening/Step4.vue';
+import Step5 from '@/components/agriseafoodopscreening/Step5.vue';
 
 export default {
   name: 'ReviewSubmission',
@@ -55,7 +55,7 @@ export default {
     Step5
   },
   computed: {
-    ...mapGetters('form', ['gettingForm', 'attestation', 'submissionComplete']),
+    ...mapGetters('agriSeafoodOpScreeningForm', ['gettingForm', 'attestation', 'submissionComplete']),
     // Certify checkboxes
     certifyAccurateInformation() { return this.attestation.certifyAccurateInformation; },
     agreeToInspection() { return this.attestation.agreeToInspection; }

@@ -153,8 +153,8 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import { AppClients, AppRoles } from '@/utils/constants';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
-import StatusTable from '@/components/minesoperatorscreening/admin/inspection/StatusTable.vue';
+import agriSeafoodOpScreeningService from '@/services/agriSeafoodOpScreeningService';
+import StatusTable from '@/components/agriseafoodopscreening/admin/inspection/StatusTable.vue';
 
 export default {
   name: 'InspectionPanel',
@@ -202,7 +202,7 @@ export default {
     showActionDate() { return ['ASSIGNED', 'COMPLETED'].includes(this.statusToSet); },
     actionDateDisplay() { return this.currentStatus.actionDate ? moment(this.currentStatus.actionDate).format('MMMM D YYYY') : 'N/A'; },
     hasReviewer() {
-      return this.hasResourceRoles(AppClients.MINESOPERATORSCREENING, [
+      return this.hasResourceRoles(AppClients.AGRISEAFOODOPSCREENING, [
         AppRoles.REVIEWER
       ]);
     }
@@ -211,14 +211,14 @@ export default {
     async getInspectionData() {
       this.loading = true;
       try {
-        const statuses = await minesOperatorScreeningService.getSubmissionStatuses(this.submissionId);
+        const statuses = await agriSeafoodOpScreeningService.getSubmissionStatuses(this.submissionId);
         this.statusHistory = statuses.data;
         if (!this.statusHistory.length || !this.statusHistory[0]) {
           this.error = 'No inspection statuses found';
         } else {
           // Statuses are returned in date precedence, the 0th item in the array is the current status
           this.currentStatus = this.statusHistory[0];
-          const scRes = await minesOperatorScreeningService.getStatusCodes();
+          const scRes = await agriSeafoodOpScreeningService.getStatusCodes();
           const statusCodes = scRes.data;
           if(!statusCodes.length) {
             throw new Error('error finding status codes');
@@ -265,7 +265,7 @@ export default {
           if(this.actionDate && this.showActionDate) {
             statusBody.actionDate = this.actionDate;
           }
-          const statusResponse = await minesOperatorScreeningService.sendSubmissionStatuses(this.submissionId, statusBody);
+          const statusResponse = await agriSeafoodOpScreeningService.sendSubmissionStatuses(this.submissionId, statusBody);
           if (!statusResponse.data) {
             throw new Error('No response data from API while submitting status update form');
           }
@@ -276,7 +276,7 @@ export default {
               submissionStatusId: submissionStatusId,
               note: this.note
             };
-            const response = await minesOperatorScreeningService.addNoteToStatus(this.submissionId, submissionStatusId, noteBody);
+            const response = await agriSeafoodOpScreeningService.addNoteToStatus(this.submissionId, submissionStatusId, noteBody);
             if (!response.data) {
               throw new Error('No response data from API while submitting note for status update');
             }

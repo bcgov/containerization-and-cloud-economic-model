@@ -9,7 +9,7 @@
 
 <script>
 import { AppClients } from '@/utils/constants';
-import SettingsPanel from '@/components/minesoperatorscreening/admin/settings/SettingsPanel.vue';
+import SettingsPanel from '@/components/agriseafoodopscreening/admin/settings/SettingsPanel.vue';
 
 export default {
   name: 'Settings',
@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     resource() {
-      return AppClients.MINESOPERATORSCREENING;
+      return AppClients.AGRISEAFOODOPSCREENING;
     }
   }
 };

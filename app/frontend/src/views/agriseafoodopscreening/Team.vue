@@ -21,7 +21,7 @@ export default {
       return this.$route.path.split('/')[1];
     },
     resource() {
-      return AppClients.MINESOPERATORSCREENING;
+      return AppClients.AGRISEAFOODOPSCREENING;
     }
   }
 };
