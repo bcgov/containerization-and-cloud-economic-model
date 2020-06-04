@@ -28,7 +28,7 @@
 
 <script>
 import moment from 'moment';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
 
 export default {
   name: 'StatusTable',
@@ -61,7 +61,7 @@ export default {
       return date ? moment(date).format('MMMM D YYYY'): '';
     },
     getData() {
-      minesOperatorScreeningService
+      forestrySectorOpSreeningService
         .getSubmissionStatuses(this.submissionId)
         .then(response => {
           this.statuses = response.data;

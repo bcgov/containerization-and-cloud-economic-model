@@ -52,8 +52,8 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/forestrysectoropscreening/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import InspectionPanel from '@/components/minesoperatorscreening/admin/inspection/InspectionPanel.vue';
-import NotesPanel from '@/components/minesoperatorscreening/admin/inspection/NotesPanel.vue';
+import InspectionPanel from '@/components/forestrysectoropscreening/admin/inspection/InspectionPanel.vue';
+import NotesPanel from '@/components/forestrysectoropscreening/admin/inspection/NotesPanel.vue';
 import { AppClients } from '@/utils/constants';
 
 export default {
@@ -74,7 +74,7 @@ export default {
     error: false
   }),
   computed: {
-    ...mapGetters('form', [
+    ...mapGetters('forestrySectorOpScreeningForm', [
       'business',
       'location',
       'gettingForm',
@@ -88,12 +88,12 @@ export default {
         : 'N/A';
     },
     resource() {
-      return AppClients.MINESOPERATORSCREENING;
+      return AppClients.FORESTRYSECTOROPSCREENING;
     }
   },
   methods: {
-    ...mapMutations('form', ['setGettingForm']),
-    ...mapActions('form', ['getForm']),
+    ...mapMutations('forestrySectorOpScreeningForm', ['setGettingForm']),
+    ...mapActions('forestrySectorOpScreeningForm', ['getForm']),
     locationDateDisplay(ldate) {
       return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A';
     },

@@ -5,7 +5,7 @@
 <script>
 import Form from '@/components/forestrysectoropscreening/Form.vue';
 export default {
-  name: 'ForestrySectorOpScreeningRoot',
+  name: 'Root',
   components: {
     Form
   }

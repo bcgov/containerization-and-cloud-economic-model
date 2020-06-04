@@ -25,7 +25,7 @@ import AdminReviewSubmission from '@/components/forestrysectoropscreening/admin/
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 
 export default {
-  name: 'ForestrySectorOperatorScreeningReview',
+  name: 'Review',
   components: {
     AdminReviewSubmission,
     GeneratePdfButton

@@ -60,7 +60,7 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import { AppClients, AppRoles } from '@/utils/constants';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
 
 export default {
   name: 'NotesPanel',
@@ -98,7 +98,7 @@ export default {
     },
     getNotes() {
       this.loading = true;
-      minesOperatorScreeningService
+      forestrySectorOpSreeningService
         .getNotes(this.submissionId)
         .then(response => {
           this.notes = response.data;
@@ -117,7 +117,7 @@ export default {
           createdBy: this.fullName,
           note: this.newNote
         };
-        const response = await minesOperatorScreeningService.addNote(this.submissionId, body);
+        const response = await forestrySectorOpSreeningService.addNote(this.submissionId, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }
