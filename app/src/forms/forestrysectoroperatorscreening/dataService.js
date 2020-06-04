@@ -29,7 +29,7 @@ const dataService = {
 
   create: async (obj, user) => {
     if (!obj) {
-      throw Error(`${constants.SHORT_NAME} cannot be created without data`);
+      throw Error(`${constants.TITLE} cannot be created without data`);
     }
     const types = await dataService.readTypes(true);
     const typeCode = types.find(x => equal(x.type, obj.type));
@@ -71,7 +71,7 @@ const dataService = {
       const result = await dataService.read();
       return result;
     } catch (err) {
-      log.error('create', `Error creating ${constants.SHORT_NAME} record: ${err.message}. Rolling back...`);
+      log.error('create', `Error creating ${constants.TITLE} record: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
@@ -80,7 +80,7 @@ const dataService = {
 
   update: async (obj, user) => {
     if (!obj) {
-      throw Error(`${constants.SHORT_NAME} cannot be updated without data`);
+      throw Error(`${constants.TITLE} cannot be updated without data`);
     }
     let trx;
     try {
@@ -135,7 +135,7 @@ const dataService = {
       const result = await dataService.read();
       return result;
     } catch (err) {
-      log.error('create', `Error updating ${constants.SHORT_NAME} record: ${err.message}. Rolling back...`);
+      log.error('create', `Error updating ${constants.TITLE} record: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
@@ -188,7 +188,7 @@ const dataService = {
 
   createSubmission: async (obj) => {
     if (!obj) {
-      throw Error(`${constants.SHORT_NAME} Submission cannot be created without data`);
+      throw Error(`${constants.TITLE} Submission cannot be created without data`);
     }
 
     await dataService.validateCreateSubmission(obj);
@@ -225,7 +225,7 @@ const dataService = {
       const result = await dataService.readSubmission(submissionId);
       return result;
     } catch (err) {
-      log.error('create', `Error creating ${constants.SHORT_NAME} submission record: ${err.message}. Rolling back...`);
+      log.error('create', `Error creating ${constants.TITLE} submission record: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
@@ -255,7 +255,7 @@ const dataService = {
   updateSubmission: async (submissionId, obj, user) => {
     // update: location, contacts, business
     if (!obj) {
-      throw Error(`${constants.SHORT_NAME} Submission cannot be updated without data`);
+      throw Error(`${constants.TITLE} Submission cannot be updated without data`);
     }
     let trx;
     try {
@@ -304,7 +304,7 @@ const dataService = {
       const result = await dataService.readSubmission(obj.submissionId);
       return result;
     } catch (err) {
-      log.error('create', `Error updating ${constants.SHORT_NAME} submission: ${err.message}. Rolling back...`);
+      log.error('create', `Error updating ${constants.TITLE} submission: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
@@ -313,7 +313,7 @@ const dataService = {
 
   deleteSubmission: async (submissionId, user) => {
     if (!submissionId) {
-      throw Error(`${constants.SHORT_NAME} Submission cannot be deleted without an id`);
+      throw Error(`${constants.TITLE} Submission cannot be deleted without an id`);
     }
     let trx;
     try {
@@ -323,7 +323,7 @@ const dataService = {
       const result = await dataService.readSubmission(submissionId);
       return result;
     } catch (err) {
-      log.error('create', `Error deleting ${constants.SHORT_NAME} submission: ${err.message}. Rolling back...`);
+      log.error('create', `Error deleting ${constants.TITLE} submission: ${err.message}. Rolling back...`);
       log.error(err);
       if (trx) await trx.rollback();
       throw err;
