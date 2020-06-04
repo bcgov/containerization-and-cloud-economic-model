@@ -37,10 +37,6 @@ function transformToPost(state) {
     location: copy.location
   };
 
-  // For now, just to be safe remove only the mine num if it's blank, should implement recursive fxn above, but when there's more breathing room and testing time
-  if (body.location && body.location.mineNumber === '') {
-    delete body.location.mineNumber;
-  }
   return body;
 }
 
@@ -68,12 +64,13 @@ export default {
     getFormError: '',
     gettingForm: false,
     submitting: false,
-    step: 1,
+    step: 0,
     submissionComplete: false,
     submissionDetails: null,
     submissionError: '',
-
+    
     // Form schema
+    type: '',
     business: {
       name: '',
       orgBookId: '',
@@ -105,8 +102,7 @@ export default {
       city: '',
       cityLatitude: undefined,
       cityLongitude: undefined,
-      mineNumber: '',
-      permitNumber: '',
+      licencees: '',
       numberOfWorkers: '',
       accTents: false,
       tentDetails: '',
