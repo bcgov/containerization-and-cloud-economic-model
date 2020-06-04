@@ -12,7 +12,8 @@
     "reinstall": "npm run purge && npm install",
     "serve": "vue-cli-service serve",
     "test": "npm run test:unit",
-    "test:unit": "vue-cli-service test:unit --verbose --verbose --forceExit --detectOpenHandles --maxWorkers=10",
+    "test:unit": "vue-cli-service test:unit --verbose --forceExit --detectOpenHandles --maxWorkers=10",
+    "test:unit:short": "vue-cli-service test:unit --forceExit --detectOpenHandles --maxWorkers=10",
     "pretest": "npm run lint",
     "purge": "rm -rf node_modules"
   },

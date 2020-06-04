@@ -1,7 +1,7 @@
-import routes from '@/router/minesOperatorScreening';
+import routes from '@/router/forestrySectorOpScreening';
 
-const baseName = 'MinesOperatorScreening';
-const baseTitle = 'Industrial Camps';
+const baseName = 'ForestrySectorOpScreening';
+const baseTitle = 'Forestry Sector Operator Screening';
 
 describe(`Routes > ${baseName}`, () => {
   it('has the correct number of routes', () => {

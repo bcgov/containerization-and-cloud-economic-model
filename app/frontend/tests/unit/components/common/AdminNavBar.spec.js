@@ -47,7 +47,6 @@ describe('AdminNavBar.vue', () => {
       stubs: ['router-link']
     });
 
-    console.log(wrapper.vm.$route);
     expect(wrapper.html()).toContain('Submissions');
     expect(wrapper.text()).toContain('Dashboards');
   });
