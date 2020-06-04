@@ -20,7 +20,7 @@
 <script>
 
 import agriSeafoodOpScreeningService from '@/services/agriSeafoodOpScreeningService';
-import SettingItem from '@/components/minesoperatorscreening/admin/settings/SettingItem.vue';
+import SettingItem from '@/components/agriseafoodopscreening/admin/settings/SettingItem.vue';
 
 export default {
   name: 'SettingsPanel',

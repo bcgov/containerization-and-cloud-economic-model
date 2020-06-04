@@ -20,7 +20,7 @@
 <script>
 
 import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
-import SettingItem from '@/components/minesoperatorscreening/admin/settings/SettingItem.vue';
+import SettingItem from '@/components/forestrysectoropscreening/admin/settings/SettingItem.vue';
 
 export default {
   name: 'SettingsPanel',

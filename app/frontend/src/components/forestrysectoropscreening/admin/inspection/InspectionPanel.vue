@@ -154,7 +154,7 @@ import { mapGetters } from 'vuex';
 
 import { AppClients, AppRoles } from '@/utils/constants';
 import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
-import StatusTable from '@/components/minesoperatorscreening/admin/inspection/StatusTable.vue';
+import StatusTable from '@/components/forestrysectoropscreening/admin/inspection/StatusTable.vue';
 
 export default {
   name: 'InspectionPanel',
