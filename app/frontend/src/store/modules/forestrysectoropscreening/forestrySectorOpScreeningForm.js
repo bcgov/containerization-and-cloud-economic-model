@@ -1,6 +1,6 @@
 import moment from 'moment';
 
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
 import { SampleData, RandomCities } from './sampleData.js';
 
 // Change the supplied state to the exact format required by the API endpoint
@@ -31,6 +31,7 @@ function transformToPost(state) {
   const contacts = [copy.primaryContact, copy.covidContact];
   copy.location.numberOfWorkers = Number.parseInt(copy.location.numberOfWorkers, 10);
   const body = {
+    type: copy.type,
     business: copy.business,
     contacts: contacts,
     attestation: copy.attestation,
@@ -50,6 +51,7 @@ function transformToState(data) {
   copy.location.startDate = moment(copy.location.startDate).format('YYYY-MM-DD');
   copy.location.endDate = moment(copy.location.endDate).format('YYYY-MM-DD');
   return {
+    type: copy.type,
     business: copy.business,
     primaryContact: primary,
     covidContact: covid,
@@ -229,7 +231,7 @@ export default {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await minesOperatorScreeningService.getSubmission(id);
+        const response = await forestrySectorOpSreeningService.getSubmission(id);
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
@@ -253,14 +255,13 @@ export default {
       commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
-        alert('TBD' + body);
 
-        // const response = await minesOperatorScreeningService.sendSubmission(body);
-        // if (!response.data) {
-        //   throw new Error('No response data from API while submitting form');
-        // }
-        // commit('setSubmissionDetails', response.data);
-        // commit('setSubmissionComplete');
+        const response = await forestrySectorOpSreeningService.sendSubmission(body);
+        if (!response.data) {
+          throw new Error('No response data from API while submitting form');
+        }
+        commit('setSubmissionDetails', response.data);
+        commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error} - ${error.message}`); // eslint-disable-line no-console
         commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');

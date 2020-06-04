@@ -85,8 +85,6 @@
     </div>
 
     <div class="hide-on-review">
-      <hr />
-
       <v-btn color="primary" @click="setStep(4)">Go to Step 4</v-btn>
       <v-btn text @click="setStep(2)">Back</v-btn>
     </div>
