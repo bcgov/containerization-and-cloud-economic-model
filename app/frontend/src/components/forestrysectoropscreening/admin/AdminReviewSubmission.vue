@@ -2,22 +2,22 @@
   <v-container>
     <v-card outlined class="review-form">
       <h2 class="review-heading">Contact Information</h2>
-      <Step2 :reviewMode="true" />
+      <Step1 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
       <h2 class="review-heading">Before Operations Begin</h2>
-      <Step3 :reviewMode="true" />
+      <Step2 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
       <h2 class="review-heading">After Workers Arrive</h2>
-      <Step4 :reviewMode="true" />
+      <Step3 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
       <h2 class="review-heading">If Workers Become Ill</h2>
-      <Step5 :reviewMode="true" />
+      <Step4 :reviewMode="true" />
     </v-card>
 
     <v-card outlined class="review-form">
@@ -41,21 +41,21 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Step2 from '@/components/minesoperatorscreening/Step2.vue';
-import Step3 from '@/components/minesoperatorscreening/Step3.vue';
-import Step4 from '@/components/minesoperatorscreening/Step4.vue';
-import Step5 from '@/components/minesoperatorscreening/Step5.vue';
+import Step1 from '@/components/forestrysectoropscreening/Step1.vue';
+import Step2 from '@/components/forestrysectoropscreening/Step2.vue';
+import Step3 from '@/components/forestrysectoropscreening/Step3.vue';
+import Step4 from '@/components/forestrysectoropscreening/Step4.vue';
 
 export default {
-  name: 'ReviewSubmission',
+  name: 'AdminReviewSubmission',
   components: {
+    Step1,
     Step2,
     Step3,
-    Step4,
-    Step5
+    Step4
   },
   computed: {
-    ...mapGetters('form', ['gettingForm', 'attestation', 'submissionComplete']),
+    ...mapGetters('forestrySectorOpScreeningForm', ['gettingForm', 'attestation', 'submissionComplete']),
     // Certify checkboxes
     certifyAccurateInformation() { return this.attestation.certifyAccurateInformation; },
     agreeToInspection() { return this.attestation.agreeToInspection; }

@@ -19,7 +19,7 @@
 
 <script>
 
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
 import SettingItem from '@/components/minesoperatorscreening/admin/settings/SettingItem.vue';
 
 export default {
@@ -37,7 +37,7 @@ export default {
       this.error = '';
       this.gettingSettings = true;
       try {
-        const response = await minesOperatorScreeningService.getSettings();
+        const response = await forestrySectorOpSreeningService.getSettings();
         this.settings = response.data;
       } catch (error) {
         console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console

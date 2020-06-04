@@ -12,13 +12,13 @@ import SubmissionsTable from '@/components/forestrysectoropscreening/admin/Submi
 import { AppClients } from '@/utils/constants';
 
 export default {
-  name: 'MinesOperatorScreeningAdmin',
+  name: 'Admin',
   components: {
     SubmissionsTable
   },
   computed: {
     resource() {
-      return AppClients.MINESOPERATORSCREENING;
+      return AppClients.FORESTRYSECTOROPSCREENING;
     }
   }
 };
