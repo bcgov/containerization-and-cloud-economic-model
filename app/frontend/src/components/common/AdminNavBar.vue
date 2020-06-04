@@ -25,13 +25,11 @@ export default {
   name: 'AdminNavBar',
   computed: {
     ...mapGetters('auth', ['hasResourceRoles']),
+    isAdmin() {
+      return this.hasResourceRoles(this.resource, [AppRoles.ADMIN]);
+    },
     isAdminPage() {
       return this.$route.path.match(/\/admin/g);
-    }
-  },
-  methods: {
-    isAdmin() {
-      return this.hasResourceRoles(this.resource, AppRoles.ADMIN);
     }
   },
   props: {
