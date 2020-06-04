@@ -275,7 +275,7 @@
         <p class="Normal1">First Name</p>
       </td>
       <td style="width:248.25pt;padding:0cm 5.4pt 0cm 5.4pt" valign="top" width="331">
-        <p class="Normal1">{d.contacts[i+1].firstName}</p>
+        <p class="Normal1">{d.contacts[i, contactType = 'COVID_COORDINATOR'].firstName}</p>
       </td>
     </tr>
     <tr>
@@ -283,7 +283,7 @@
         <p class="Normal1">Last Name</p>
       </td>
       <td style="width:248.25pt;padding:0cm 5.4pt 0cm 5.4pt" valign="top" width="331">
-        <p class="Normal1">{d.contacts[i+1].lastName}</p>
+        <p class="Normal1">{d.contacts[i, contactType = 'COVID_COORDINATOR'].lastName}</p>
       </td>
     </tr>
     <tr>
@@ -291,7 +291,7 @@
         <p class="Normal1">Cell Phone</p>
       </td>
       <td style="width:248.25pt;padding:0cm 5.4pt 0cm 5.4pt" valign="top" width="331">
-        <p class="Normal1">{d.contacts[i+1].phone1}</p>
+        <p class="Normal1">{d.contacts[i, contactType = 'COVID_COORDINATOR'].phone1}</p>
       </td>
     </tr>
     <tr>
@@ -299,7 +299,7 @@
         <p class="Normal1">Alternative Phone Number (optional)</p>
       </td>
       <td style="width:248.25pt;padding:0cm 5.4pt 0cm 5.4pt" valign="top" width="331">
-        <p class="Normal1">{d.contacts[i+1].phone2}</p>
+        <p class="Normal1">{d.contacts[i, contactType = 'COVID_COORDINATOR'].phone2}</p>
       </td>
     </tr>
     <tr>
@@ -309,7 +309,7 @@
         <p class="Normal1">&nbsp;</p>
       </td>
       <td style="width:248.25pt;padding:0cm 5.4pt 0cm 5.4pt" valign="top" width="331">
-        <p class="Normal1">{d.contacts[i+1].email}</p>
+        <p class="Normal1">{d.contacts[i, contactType = 'COVID_COORDINATOR'].email}</p>
       </td>
     </tr>
     </tbody>
