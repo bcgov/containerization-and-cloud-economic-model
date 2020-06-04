@@ -240,7 +240,7 @@
       <hr />
 
       <v-btn color="primary" @click="setStep(3)">Go to Step 3</v-btn>
-      <v-btn text @click="setStep(2)">Back</v-btn>
+      <v-btn text @click="setStep(1)">Back</v-btn>
     </div>
   </v-container>
 </template>

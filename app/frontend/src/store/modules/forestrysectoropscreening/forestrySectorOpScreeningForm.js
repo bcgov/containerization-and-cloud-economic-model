@@ -16,10 +16,10 @@ function transformToPost(state) {
   //   .reduce((a, [k, v]) => (v === '' ? a : { ...a, [k]: v }), {});
 
   // Sanitize the optional fields in case they get checked, filled out, unchecked
-  if(!copy.location.accTents) {
+  if (!copy.location.accTents) {
     delete copy.location.tentDetails;
   }
-  if(!copy.location.accMotel) {
+  if (!copy.location.accMotel) {
     delete copy.location.motelName;
     delete copy.location.motelAddressLine1;
     delete copy.location.motelAddressLine2;
@@ -70,6 +70,7 @@ export default {
     submissionError: '',
 
     // Form schema
+    type: '',
     business: {
       name: '',
       orgBookId: '',
@@ -101,7 +102,7 @@ export default {
       city: '',
       cityLatitude: undefined,
       cityLongitude: undefined,
-      licencee: '',
+      licencees: '',
       numberOfWorkers: '',
       accTents: false,
       tentDetails: '',
@@ -177,6 +178,7 @@ export default {
     submissionError: state => state.submissionError,
 
     // Form objects
+    operationType: state => state.type,
     business: state => state.business,
     primaryContact: state => state.primaryContact,
     covidContact: state => state.covidContact,
@@ -209,6 +211,9 @@ export default {
     },
 
     // Form updates
+    setOperationType(state, type) {
+      state.type = type;
+    },
     updateBusiness: (state, obj) => {
       Object.assign(state.business, obj);
     },
@@ -254,13 +259,14 @@ export default {
       commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
+        alert('TBD' + body);
 
-        const response = await minesOperatorScreeningService.sendSubmission(body);
-        if (!response.data) {
-          throw new Error('No response data from API while submitting form');
-        }
-        commit('setSubmissionDetails', response.data);
-        commit('setSubmissionComplete');
+        // const response = await minesOperatorScreeningService.sendSubmission(body);
+        // if (!response.data) {
+        //   throw new Error('No response data from API while submitting form');
+        // }
+        // commit('setSubmissionDetails', response.data);
+        // commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error} - ${error.message}`); // eslint-disable-line no-console
         commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');

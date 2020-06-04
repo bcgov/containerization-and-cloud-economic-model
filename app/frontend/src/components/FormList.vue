@@ -51,6 +51,20 @@ export default {
     // TODO: Consider loading part of this from API?
     forms: [
       {
+        linkAdminName: 'AgriSeafoodOpScreeningAdmin',
+        linkName: 'AgriSeafoodOpScreeningForm',
+        resource: AppClients.AGRISEAFOODOPSCREENING,
+        roles: [AppRoles.VIEWER],
+        title: 'Agriculture and Seafood'
+      },
+      {
+        linkAdminName: 'ForestrySectorOpScreeningAdmin',
+        linkName: 'ForestrySectorOpScreeningForm',
+        resource: AppClients.FORESTRYSECTOROPSCREENING,
+        roles: [AppRoles.VIEWER],
+        title: 'Forestry Sector'
+      },
+      {
         linkAdminName: 'MinesOperatorScreeningAdmin',
         linkName: 'MinesOperatorScreeningForm',
         resource: AppClients.MINESOPERATORSCREENING,

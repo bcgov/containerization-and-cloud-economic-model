@@ -1,826 +1,392 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <v-btn
-        v-if="showTestDataButton"
-        class="mb-5"
-        outlined
-        color="primary"
-        @click="sampleData"
-      >FOR TEST ONLY - FILL SAMPLE DATA</v-btn>
-      <h2 class="pb-8">Provide Your Business Contact Information</h2>
-      <hr class="orange" />
+      <BaseHeaderSection :text="'Before operations begin, please check all that apply'" />
     </div>
 
-    <v-form ref="form" v-model="step2Valid">
-      <v-container>
-        <v-row>
-          <v-col cols="12" lg="10">
-            <h4 class="heading-field-label mb-1">Registered Business Name</h4>
-            <OrgBookSearch
-              v-if="!reviewMode"
-              :field-model.sync="businessName"
-              :field-rules="businessNameRules"
-            />
-            <v-text-field
-              v-if="reviewMode"
-              dense
-              flat
-              outlined
-              solo
-              v-model="businessName"
-              :rules="businessNameRules"
-            />
-          </v-col>
-        </v-row>
+    <BaseInfoCard class="hide-on-review mt-5 mb-8">
+      Please note questions
+      <strong>2, 3, and 4</strong> are not relevant if your accommodation is a private residence.
+    </BaseInfoCard>
 
-        <hr />
-
-        <h4>Primary Contact</h4>
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>First Name</label>
-            <v-text-field dense flat outlined solo v-model="firstName" :rules="firstNameRules" />
-          </v-col>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Last Name</label>
-            <v-text-field dense flat outlined solo v-model="lastName" :rules="lastNameRules" />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Phone Number</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="000-000-0000"
-              :rules="phone1Rules"
-              prepend-inner-icon="phone"
-              v-model="phone1"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Alternative Phone Number (Optional)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="000-000-0000"
-              prepend-inner-icon="phone"
-              v-model="phone2"
-              :rules="phone2Rules"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>E-mail Address (Primary Contact)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="john.doe@example.com"
-              :rules="emailRules"
-              prepend-inner-icon="email"
-              v-model="email"
-            />
-          </v-col>
-        </v-row>
-
-        <hr />
-
-        <h4>Business Address</h4>
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Address line 1</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="businessAddressLine1"
-              :rules="businessAddressLine1Rules"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Address line 2 (Optional)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="businessAddressLine2"
-              :rules="businessAddressLine2Rules"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>City</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="businessAddressCity"
-              :rules="businessAddressCityRules"
-            />
-          </v-col>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Province</label>
-            <v-select
-              :items="provinces"
-              dense
-              flat
-              outlined
-              solo
-              single-line
-              label="Select"
-              v-model="businessAddressProvince"
-              :rules="businessAddressProvinceRules"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Postal Code</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="businessAddressPostalCode"
-              :rules="businessAddressPostalCodeRules"
-            />
-          </v-col>
-        </v-row>
-
-        <hr />
-
-        <h4>COVID-19 Coordinator</h4>
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>First Name</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="covidFirstName"
-              :rules="covidFirstNameRules"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Last Name</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="covidLastName"
-              :rules="covidLastNameRules"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Phone Number</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="000-000-0000"
-              prepend-inner-icon="phone"
-              v-model="covidPhone1"
-              :rules="covidPhone1Rules"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Alternative Phone Number (Optional)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="000-000-0000"
-              prepend-inner-icon="phone"
-              v-model="covidPhone2"
-              :rules="covidPhone2Rules"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>E-mail Address (Primary Contact)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="john.doe@example.com"
-              prepend-inner-icon="email"
-              v-model="covidEmail"
-              :rules="covidEmailRules"
-            />
-          </v-col>
-        </v-row>
-
-        <hr />
-        <h4>Provide your accomodation details</h4>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <v-menu
-              v-model="startDateMenu"
-              :close-on-content-click="true"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <label>Operation Start Date</label>
-                <v-text-field
-                  v-model="startDate"
-                  :rules="startDateRules"
-                  placeholder="yyyy-mm-dd"
-                  append-icon="event"
-                  v-on:click:append="startDateMenu=true"
-                  readonly
-                  v-on="on"
-                  dense
-                  flat
-                  outlined
-                  solo
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="startDate"
-                @input="startDateMenu = false"
-                :readonly="reviewMode"
-              ></v-date-picker>
-            </v-menu>
-          </v-col>
-
-          <v-col cols="12" sm="6" lg="5">
-            <v-menu
-              v-model="endDateMenu"
-              :close-on-content-click="true"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <label>Operation End Date</label>
-                <v-text-field
-                  v-model="endDate"
-                  :rules="endDateRules"
-                  placeholder="yyyy-mm-dd"
-                  append-icon="event"
-                  v-on:click:append="endDateMenu=true"
-                  readonly
-                  v-on="on"
-                  dense
-                  flat
-                  outlined
-                  solo
-                ></v-text-field>
-              </template>
-              <v-date-picker v-model="endDate" @input="endDateMenu = false" :readonly="reviewMode"></v-date-picker>
-            </v-menu>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Closest Community / Town / City</label>
-            <CityLookup
-              v-if="!reviewMode"
-              :field-model.sync="locationCity"
-              :latitude.sync="cityLatitude"
-              :longitude.sync="cityLongitude"
-              :field-rules="locationCityRules"
-            />
-            <v-text-field
-              v-if="reviewMode"
-              dense
-              flat
-              outlined
-              solo
-              v-model="locationCity"
-              :rules="locationCityRules"
-            />
-            <v-text-field v-model="cityLatitude" class="d-none" />
-            <v-text-field v-model="cityLongitude" class="d-none" />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="4" lg="3">
-            <label>Number of workers at this location</label>
-            <v-text-field
-              v-model="numberOfWorkers"
-              :rules="numberOfWorkersRules"
-              type="number"
-              min="1"
-              dense
-              flat
-              outlined
-              solo
-            />
-          </v-col>
-        </v-row>
-
-        <h4>Type of accommodation for workers at this location (check all that apply)</h4>
+    <div class="question-series">
+      <h3 class="question-head">1. COVID-19 Information</h3>
+      <div class="questions">
+        <p
+          class="hide-on-review"
+        >Industrial Camp Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19.</p>
 
         <v-checkbox
-          v-model="accTents"
+          v-model="protectionSignage"
           :readonly="reviewMode"
-          label="Tents and trailers near worksite"
+          label="I have signage in place in the appropriate language on how employees can protect themselves from COVID-19 "
         ></v-checkbox>
-
-        <div v-if="accTents">
-          <v-row>
-            <v-col cols="12" lg="10">
-              <label>
-                Details (eg:
-                <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
-              </label>
-              <v-text-field
-                v-model="tentDetails"
-                :rules="tentDetailsRules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-          </v-row>
-        </div>
-
-        <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel / Hotel in town"></v-checkbox>
-        <div v-if="accMotel">
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Name</label>
-              <v-text-field v-model="motelName" :rules="motelNameRules" dense flat outlined solo />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Address line 1</label>
-              <v-text-field
-                v-model="motelAddressLine1"
-                :rules="motelAddressLine1Rules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-
-            <v-col cols="12" sm="6" lg="5">
-              <label>Address line 2 (Optional)</label>
-              <v-text-field
-                v-model="motelAddressLine2"
-                :rules="motelAddressLine2Rules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>City</label>
-              <v-text-field v-model="motelCity" :rules="motelCityRules" dense flat outlined solo />
-            </v-col>
-            <v-col cols="12" sm="3" lg="2">
-              <label>Province</label>
-              <v-select
-                dense
-                flat
-                outlined
-                solo
-                single-line
-                label="select"
-                v-model="motelProvince"
-                :items="provinces"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="3" lg="2">
-              <label>Postal Code</label>
-              <v-text-field
-                v-model="motelPostalCode"
-                :rules="motelPostalCodeRules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-          </v-row>
-        </div>
-
         <v-checkbox
-          v-model="accWorkersHome"
+          v-model="workerContactPersonnel"
           :readonly="reviewMode"
-          label="Worker's home in community"
+          label="I have someone identified that workers can go to if they have questions on COVID-19"
         ></v-checkbox>
-      </v-container>
-
-      <div class="hide-on-review">
-        <h2 class="pb-8 mt-8">Authorization Information</h2>
-        <hr class="orange" />
       </div>
+    </div>
 
-      <v-container>
-        <h4>Please enter your mine identifier(s)</h4>
-        <v-row align="center">
-          <v-col cols="12" sm="5">
-            <label>Mine Number</label>
-            <v-text-field dense flat outlined solo v-model="mineNumber" :rules="mineNumberRules" />
-          </v-col>
-          <v-col cols="12" sm="1" class="text-sm-center pb-5 pb-sm-0">
-            <span class="hide-on-review">or</span>
-          </v-col>
-          <v-col cols="12" sm="6" md="5">
-            <label>Mines Act Permit</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="permitNumber"
-              :rules="permitNumberRules"
-            />
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
+    <div class="question-series">
+      <h3 class="question-head">2. Provide safe lodging and accommodation: General Worker</h3>
+
+      <div class="questions">
+        <p
+          class="hide-on-review"
+        >Industrial Camp Operators must be able to provide accommodations that minimize crowding, social interactions, and provide sufficient physical distance (individual tents or beds 2m apart and head-to-toe in shared accommodations).</p>
+
+        <p>1) Do your Common areas allow for physical distancing of 2m / 6ft at all times?</p>
+        <div class="pl-4">
+          <v-radio-group :readonly="reviewMode" v-model="commonAreaDistancing" :mandatory="true">
+            <v-radio label="Yes" value="yes"></v-radio>
+            <v-radio label="No" value="no"></v-radio>
+          </v-radio-group>
+        </div>
+
+        <p>2) Do you have individual/single beds or shared sleeping areas?</p>
+        <div class="pl-4">
+          <v-radio-group :readonly="reviewMode" v-model="sleepingAreaType" :mandatory="true">
+            <v-radio label="Individual Beds or Single beds" value="SINGLE"></v-radio>
+            <v-radio label="Shared sleeping areas" value="SHARED"></v-radio>
+          </v-radio-group>
+
+          <div v-if="sleepingAreaType === 'SHARED'">
+            <v-row no-gutters>
+              <v-col cols="12" md="8" lg="3">
+                <v-combobox
+                  v-model="sharedSleepingPerRoom"
+                  :readonly="reviewMode"
+                  :items="numbers"
+                  label="How many people are in a room?"
+                ></v-combobox>
+              </v-col>
+            </v-row>
+            <v-checkbox
+              v-model="sharedSleepingDistancing"
+              :readonly="reviewMode"
+              label="Beds in the head-to-toe configuration with the 2m distance apart"
+            ></v-checkbox>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3
+        class="question-head"
+      >3. Self-isolation space if a worker comes down with COVID-19-like symptoms</h3>
+      <div class="questions">
+        <v-checkbox
+          v-model="selfIsolateUnderstood"
+          :readonly="reviewMode"
+          label="I understand what is needed for a person to self-isolate."
+        ></v-checkbox>
+        <v-checkbox
+          v-model="selfIsolateAccommodation"
+          :readonly="reviewMode"
+          label="I have the accommodation to let a worker self-isolate in a separate accommodation than other workers or arrange for separate accommodation."
+        ></v-checkbox>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3 class="question-head">4. Make sure laundry services are available and handled safely</h3>
+      <div class="questions">
+        <p
+          class="hide-on-review"
+        >Laundry must be performed properly to reduce the risk of disease transmission of COVID-19, including using hot water for laundry machines and having adequate supply of detergent.</p>
+        <v-checkbox
+          v-model="laundryServices"
+          :readonly="reviewMode"
+          label="I have laundry services available for regular use"
+        ></v-checkbox>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3 class="question-head">5. Practicing waste management: At work-site and accommodation</h3>
+      <div class="questions">
+        <p
+          class="hide-on-review"
+        >Proper collection and removal of garbage is crucial to reducing the risk of disease transmission. This includes wearing disposable gloves to remove waste from rooms and common areas and using sturdy, leak resistant garbage bags for containing waste.</p>
+        <v-checkbox
+          v-model="wasteManagementGloves"
+          :readonly="reviewMode"
+          label="I have disposable gloves for the handling of garbage"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="wasteManagementSchedule"
+          :readonly="reviewMode"
+          label="I have a waste removal schedule"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="wasteManagementBags"
+          :readonly="reviewMode"
+          label="I have sturdy, leak resistant garbage bags"
+        ></v-checkbox>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3
+        class="question-head"
+      >6. Have proper hand-washing facilities: At work-site and accommodation</h3>
+      <div class="questions">
+        <p
+          class="hide-on-review"
+        >Helping workers to engage in hand hygiene prevents or reduces the spread of COVID-19 and other illnesses. Industrial Camp Operators should ensure easy access to hand hygiene facilities either through hand hygiene stations or the provisions of hand sanitizer at the work site and at the accommodation site.</p>
+        <v-checkbox
+          v-model="handWashingStations"
+          :readonly="reviewMode"
+          label="I have an adequate number of hand washing stations (either permanent or portable) available to workers"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="handWashingSoapWater"
+          :readonly="reviewMode"
+          label="There is an appropriate supply of soap and water "
+        ></v-checkbox>
+        <v-checkbox
+          v-model="handWashingWaterless"
+          :readonly="reviewMode"
+          label="I have supplemented with waterless hand sanitizers with a min of 60% alcohol where appropriate"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="handWashingPaperTowels"
+          :readonly="reviewMode"
+          label="I have provided disposable paper towels"
+        ></v-checkbox>
+        <v-checkbox
+          v-model="handWashingSignage"
+          :readonly="reviewMode"
+          label="I have put up signs to promote regular hand washing"
+        ></v-checkbox>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3 class="question-head">7. Physical Distancing Practices</h3>
+      <div class="questions">
+        <div class="hide-on-review">
+          <p>Keeping a 2 meter distance between people is one of the most important ways to break the chain of transmission of COVID-19. Industrial Camps Operators can take practical steps to ensure physical distancing is maintained while workers are transported to or from the work site, while working indoors or outdoors, during break times.</p>
+          <p>Physical barriers such as the use of plexi-glass, face shields, masks, and other techniques can be used where physical distancing is not possible.</p>
+        </div>
+        <v-checkbox
+          v-model="distancingMaintained"
+          :readonly="reviewMode"
+          label="I have taken steps to ensure physical distancing can be maintained during work and after work."
+        ></v-checkbox>
+        <v-checkbox
+          v-model="distancingFaceShields"
+          :readonly="reviewMode"
+          label="I have physical barriers like face shields or masks for situations where physical distancing is not possible."
+        ></v-checkbox>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3 class="question-head">8. Have a Cleaning and Disinfecting Schedule</h3>
+      <div class="questions">
+        <p>All common areas and surfaces should be cleaned at the start and end of each day. Examples of common areas and surfaces include washrooms, common tables, desks, light switches, and door handles. Regular household cleaners are effective against COVID-19, following the instructions on the label.</p>
+        <v-checkbox
+          v-model="disinfectingSchedule"
+          :readonly="reviewMode"
+          label="I have a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end of each day"
+        ></v-checkbox>
+      </div>
+    </div>
+
+    <div class="question-series">
+      <h3 class="question-head">9. Transportation of Workers</h3>
+      <div class="questions">
+        <p>Modes of transportation (choose all that apply)</p>
+        <div class="questions-check-group">
+          <v-checkbox
+            v-model="transportationSingleOccupant"
+            :readonly="reviewMode"
+            label="One person per vehicle"
+          ></v-checkbox>
+          <v-checkbox
+            v-model="transportationBusesVans"
+            :readonly="reviewMode"
+            label="Buses or Vans"
+          ></v-checkbox>
+          <v-checkbox
+            v-model="transportationTrucksCars"
+            :readonly="reviewMode"
+            label="Trucks and Cars"
+          ></v-checkbox>
+          <v-checkbox
+            v-model="transportationHelicopter"
+            :readonly="reviewMode"
+            label="Helicopter"
+          ></v-checkbox>
+        </div>
+        <v-checkbox
+          v-model="transportationTravelPod"
+          :readonly="reviewMode"
+          label="I have made arrangements so that where workers are required to travel together in vehicles or helicopters to the work site, workers will travel with their work pod."
+        ></v-checkbox>
+        <v-checkbox
+          v-model="transportationCleaningDistancing"
+          :readonly="reviewMode"
+          label="Procedures for frequent vehicle cleaning and physical distancing or use personal protective equipment have been developed and communicated to the workers prior to being transported to the worksite."
+        ></v-checkbox>
+      </div>
+    </div>
 
     <div class="hide-on-review">
       <hr />
 
-      <v-btn color="primary" @click="submit">Go to Step 3</v-btn>
+      <v-btn color="primary" @click="setStep(3)">Go to Step 3</v-btn>
       <v-btn text @click="setStep(1)">Back</v-btn>
     </div>
   </v-container>
 </template>
 
 <script>
-import validator from 'validator';
-import { mapActions, mapGetters, mapMutations } from 'vuex';
-
-import CityLookup from '@/components/common/CityLookup.vue';
-import OrgBookSearch from '@/components/common/OrgBookSearch.vue';
-import Vue from 'vue';
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: 'MinesAttestationStep2',
+  name: 'ForestrySectorStep2',
   props: {
     reviewMode: Boolean
   },
-  components: {
-    CityLookup,
-    OrgBookSearch
-  },
   data() {
     return {
-      step2Valid: false,
-      validationFailed: false,
-      startDateMenu: false,
-      endDateMenu: false,
-      showTestDataButton:  Vue.prototype.$config ? Vue.prototype.$config.env !== 'prod' : false,
-
-      // Todo: constants file
-      provinces: ['AB','BC','MB','NB','NL','NS','NT','NU','ON','PE','QC','SK','YT'],
-
-      // Business
-      businessNameRules: [
-        v => !!v || 'Business name is required',
-        v => (v && v.length <= 255) || 'Business name must be 255 characters or less',
-      ],
-      businessAddressLine1Rules: [
-        v => !!v || 'Business address is required',
-        v => (v && v.length <= 255) || 'Line 1 must be 255 characters or less',
-      ],
-      businessAddressLine2Rules: [
-        v => !v || v.length <= 255 || 'Line 2 must be 255 characters or less',
-      ],
-      businessAddressCityRules: [
-        v => !!v || 'City is required',
-        v => (v && v.length <= 255) || 'City must be 255 characters or less',
-      ],
-      businessAddressProvinceRules: [
-        v => !!v || 'Province is required',
-      ],
-      businessAddressPostalCodeRules: [
-        v => !!v || 'Postal Code is required',
-        v => (v && v.length <= 7) || 'Please enter a valid postal code',
-      ],
-
-      // Contact
-      firstNameRules: [
-        v => !!v || 'First name is required',
-        v => (v && v.length <= 255) || 'First name must be 255 characters or less',
-      ],
-      lastNameRules: [
-        v => !!v || 'Last name is required',
-        v => (v && v.length <= 255) || 'Last name must be 255 characters or less',
-      ],
-      phone1Rules: [
-        v => !!v || 'Phone number is required',
-        v => validator.isMobilePhone(v) || 'invalid phone number format',
-        v => (v && v.length <= 30) || 'Phone number must be 30 characters or less'
-      ],
-      phone2Rules: [
-        v => !v || v.length <= 30 || 'Phone number must be 30 characters or less',
-      ],
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less',
-      ],
-
-      // Covid Contact
-      covidFirstNameRules: [
-        v => !!v || 'First name is required',
-        v => (v && v.length <= 255) || 'First name must be 255 characters or less',
-      ],
-      covidLastNameRules: [
-        v => !!v || 'Last name is required',
-        v => (v && v.length <= 255) || 'Last name must be 255 characters or less',
-      ],
-      covidPhone1Rules: [
-        v => !!v || 'Phone number is required',
-        v => validator.isMobilePhone(v) || 'invalid phone number format',
-        v => (v && v.length <= 30) || 'Phone number must be 30 characters or less',
-      ],
-      covidPhone2Rules: [
-        v => !v || v.length <= 30 || 'Phone number must be 30 characters or less',
-      ],
-      covidEmailRules: [
-        v => !!v || 'E-mail is required',
-        v=> validator.isEmail(v, { allow_display_name: true }) || 'invalid e-mail format',
-        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less',
-      ],
-
-      // Location
-      startDateRules: [
-        v => !!v || 'Start date is required'
-      ],
-      endDateRules: [
-        v => !!v || 'End date is required'
-      ],
-      locationCityRules: [
-        v => !!v || 'Closest Community / Town / City is required',
-        v => (v && v.length <= 255) || 'City must be 255 characters or less',
-      ],
-      // Todo, put in some utility fxn somewhere if needed again
-      numberOfWorkersRules: [
-        v => (new RegExp('^[-+]?\\d+$')).test(v) || 'invalid # of workers',
-        v => v > 0 || '# of workers must be greater than 0',
-        v => v < 9999 || '# of workers must 9999 or less'
-      ],
-      tentDetailsRules: [
-        v => !v || v.length <= 255 || 'Details must be 255 characters or less'
-      ],
-      motelNameRules: [
-        v => !v || v.length <= 255 || 'Name must be 255 characters or less'
-      ],
-      motelAddressLine1Rules: [
-        v => !v || v.length <= 255 || 'Address must be 255 characters or less'
-      ],
-      motelAddressLine2Rules: [
-        v => !v || v.length <= 255 || 'Address must be 255 characters or less'
-      ],
-      motelCityRules: [
-        v => !v || v.length <= 255 || 'City must be 255 characters or less'
-      ],
-      motelPostalCodeRules: [
-        v => !v || v.length <= 7 || ' enter a valid postal code'
-      ],
-
-      // Mine
-      mineNumberRules: [
-        v => (v.length > 0 || this.permitNumber.length > 0) || 'Please enter a mine number or permit',
-        v => (!v || v.length === 7) || 'Please enter a 7 digit number for Mine Number'
-      ],
-      permitNumberRules: [
-        v => (this.mineNumber.length > 0 || v.length > 0) || 'Please enter a mine number or permit',
-        v => (!v || v.length <= 255) || 'Permit must be 255 characters or less'
-      ]
+      numbers: [1,2,3,4,5,6,7,8,9,10]
     };
   },
   computed: {
-    ...mapGetters('form', ['business', 'primaryContact', 'covidContact', 'location']),
+    ...mapGetters('forestrySectorOpScreeningForm', ['attestation']),
 
-    // Business
-    businessName: {
-      get() { return this.business.name; },
-      set(value) { this.updateBusiness({['name']: value}); }
+    // COVID 19 info
+    protectionSignage: {
+      get() { return this.attestation.protectionSignage; },
+      set(value) { this.updateAttestation({['protectionSignage']: value}); }
     },
-    businessAddressLine1: {
-      get() { return this.business.addressLine1; },
-      set(value) { this.updateBusiness({['addressLine1']: value}); }
-    },
-    businessAddressLine2: {
-      get() { return this.business.addressLine2; },
-      set(value) { this.updateBusiness({['addressLine2']: value}); }
-    },
-    businessAddressCity: {
-      get() { return this.business.city; },
-      set(value) { this.updateBusiness({['city']: value}); }
-    },
-    businessAddressProvince: {
-      get() { return this.business.province; },
-      set(value) { this.updateBusiness({['province']: value}); }
-    },
-    businessAddressPostalCode: {
-      get() { return this.business.postalCode; },
-      set(value) { this.updateBusiness({['postalCode']: value}); }
+    workerContactPersonnel: {
+      get() { return this.attestation.workerContactPersonnel; },
+      set(value) { this.updateAttestation({['workerContactPersonnel']: value}); }
     },
 
-    // Contact
-    firstName: {
-      get() { return this.primaryContact.firstName; },
-      set(value) { this.updatePrimaryContact({['firstName']: value}); }
+    // Lodging
+    commonAreaDistancing: {
+      get() { return this.attestation.commonAreaDistancing ? 'yes' : 'no'; },
+      set(value) { this.updateAttestation({['commonAreaDistancing']: value === 'yes'}); }
     },
-    lastName: {
-      get() { return this.primaryContact.lastName; },
-      set(value) { this.updatePrimaryContact({['lastName']: value}); }
+    sleepingAreaType: {
+      get() { return this.attestation.sleepingAreaType; },
+      set(value) { this.updateAttestation({['sleepingAreaType']: value}); }
     },
-    phone1: {
-      get() { return this.primaryContact.phone1; },
-      set(value) { this.updatePrimaryContact({['phone1']: value}); }
+    sharedSleepingPerRoom: {
+      get() { return this.attestation.sharedSleepingPerRoom; },
+      set(value) { this.updateAttestation({['sharedSleepingPerRoom']: value}); }
     },
-    phone2: {
-      get() { return this.primaryContact.phone2; },
-      set(value) { this.updatePrimaryContact({['phone2']: value}); }
-    },
-    email: {
-      get() { return this.primaryContact.email; },
-      set(value) { this.updatePrimaryContact({['email']: value}); }
+    sharedSleepingDistancing: {
+      get() { return this.attestation.sharedSleepingDistancing; },
+      set(value) { this.updateAttestation({['sharedSleepingDistancing']: value}); }
     },
 
-    // COVID Coordinator
-    covidFirstName: {
-      get() { return this.covidContact.firstName; },
-      set(value) { this.updateCovidContact({['firstName']: value}); }
+    // Self-isolation
+    selfIsolateUnderstood: {
+      get() { return this.attestation.selfIsolateUnderstood; },
+      set(value) { this.updateAttestation({['selfIsolateUnderstood']: value}); }
     },
-    covidLastName: {
-      get() { return this.covidContact.lastName; },
-      set(value) { this.updateCovidContact({['lastName']: value}); }
-    },
-    covidPhone1: {
-      get() { return this.covidContact.phone1; },
-      set(value) { this.updateCovidContact({['phone1']: value}); }
-    },
-    covidPhone2: {
-      get() { return this.covidContact.phone2; },
-      set(value) { this.updateCovidContact({['phone2']: value}); }
-    },
-    covidEmail: {
-      get() { return this.covidContact.email; },
-      set(value) { this.updateCovidContact({['email']: value}); }
+    selfIsolateAccommodation: {
+      get() { return this.attestation.selfIsolateAccommodation; },
+      set(value) { this.updateAttestation({['selfIsolateAccommodation']: value}); }
     },
 
-    // Location
-    startDate: {
-      get() { return this.location.startDate; },
-      set(value) { this.updateLocation({['startDate']: value}); }
-    },
-    endDate: {
-      get() { return this.location.endDate; },
-      set(value) { this.updateLocation({['endDate']: value}); }
-    },
-    locationCity: {
-      get() { return this.location.city; },
-      set(value) { this.updateLocation({['city']: value}); }
-    },
-    cityLatitude: {
-      get() { return this.location.cityLatitude; },
-      set(value) { this.updateLocation({['cityLatitude']: value}); }
-    },
-    cityLongitude: {
-      get() { return this.location.cityLongitude; },
-      set(value) { this.updateLocation({['cityLongitude']: value}); }
-    },
-    numberOfWorkers: {
-      get() { return this.location.numberOfWorkers ? this.location.numberOfWorkers.toString() : ''; },
-      set(value) { this.updateLocation({['numberOfWorkers']:
-        Number.isNaN(value) ? 0 : Number.parseInt(value)});
-      }
-    },
-    accTents: {
-      get() { return this.location.accTents; },
-      set(value) { this.updateLocation({['accTents']: value}); }
-    },
-    tentDetails: {
-      get() { return this.location.tentDetails; },
-      set(value) { this.updateLocation({['tentDetails']: value}); }
-    },
-    accMotel: {
-      get() { return this.location.accMotel; },
-      set(value) { this.updateLocation({['accMotel']: value}); }
-    },
-    motelName: {
-      get() { return this.location.motelName; },
-      set(value) { this.updateLocation({['motelName']: value}); }
-    },
-    motelAddressLine1: {
-      get() { return this.location.motelAddressLine1; },
-      set(value) { this.updateLocation({['motelAddressLine1']: value}); }
-    },
-    motelAddressLine2: {
-      get() { return this.location.motelAddressLine2; },
-      set(value) { this.updateLocation({['motelAddressLine2']: value}); }
-    },
-    motelCity: {
-      get() { return this.location.motelCity; },
-      set(value) { this.updateLocation({['motelCity']: value}); }
-    },
-    motelProvince: {
-      get() { return this.location.motelProvince; },
-      set(value) { this.updateLocation({['motelProvince']: value}); }
-    },
-    motelPostalCode: {
-      get() { return this.location.motelPostalCode; },
-      set(value) { this.updateLocation({['motelPostalCode']: value}); }
-    },
-    accWorkersHome: {
-      get() { return this.location.accWorkersHome; },
-      set(value) { this.updateLocation({['accWorkersHome']: value}); }
+    // Laundry
+    laundryServices: {
+      get() { return this.attestation.laundryServices; },
+      set(value) { this.updateAttestation({['laundryServices']: value}); }
     },
 
-    // Mine
-    mineNumber: {
-      get() { return this.location.mineNumber; },
-      set(value) { this.updateLocation({['mineNumber']: value}); }
+    // Waste mgmt
+    wasteManagementGloves: {
+      get() { return this.attestation.wasteManagementGloves; },
+      set(value) { this.updateAttestation({['wasteManagementGloves']: value}); }
     },
-    permitNumber: {
-      get() { return this.location.permitNumber; },
-      set(value) { this.updateLocation({['permitNumber']: value}); }
+    wasteManagementSchedule: {
+      get() { return this.attestation.wasteManagementSchedule; },
+      set(value) { this.updateAttestation({['wasteManagementSchedule']: value}); }
     },
+    wasteManagementBags: {
+      get() { return this.attestation.wasteManagementBags; },
+      set(value) { this.updateAttestation({['wasteManagementBags']: value}); }
+    },
+
+    // Hand-washing
+    handWashingStations: {
+      get() { return this.attestation.handWashingStations; },
+      set(value) { this.updateAttestation({['handWashingStations']: value}); }
+    },
+    handWashingSoapWater: {
+      get() { return this.attestation.handWashingSoapWater; },
+      set(value) { this.updateAttestation({['handWashingSoapWater']: value}); }
+    },
+    handWashingWaterless: {
+      get() { return this.attestation.handWashingWaterless; },
+      set(value) { this.updateAttestation({['handWashingWaterless']: value}); }
+    },
+    handWashingPaperTowels: {
+      get() { return this.attestation.handWashingPaperTowels; },
+      set(value) { this.updateAttestation({['handWashingPaperTowels']: value}); }
+    },
+    handWashingSignage: {
+      get() { return this.attestation.handWashingSignage; },
+      set(value) { this.updateAttestation({['handWashingSignage']: value}); }
+    },
+
+
+    // Phyisical Distancing
+    distancingMaintained: {
+      get() { return this.attestation.distancingMaintained; },
+      set(value) { this.updateAttestation({['distancingMaintained']: value}); }
+    },
+    distancingFaceShields: {
+      get() { return this.attestation.distancingFaceShields; },
+      set(value) { this.updateAttestation({['distancingFaceShields']: value}); }
+    },
+
+    // Cleaning/Disinfecting
+    disinfectingSchedule: {
+      get() { return this.attestation.disinfectingSchedule; },
+      set(value) { this.updateAttestation({['disinfectingSchedule']: value}); }
+    },
+
+    // Transportation
+    transportationSingleOccupant: {
+      get() { return this.attestation.transportationSingleOccupant; },
+      set(value) { this.updateAttestation({['transportationSingleOccupant']: value}); }
+    },
+    transportationBusesVans: {
+      get() { return this.attestation.transportationBusesVans; },
+      set(value) { this.updateAttestation({['transportationBusesVans']: value}); }
+    },
+    transportationTrucksCars: {
+      get() { return this.attestation.transportationTrucksCars; },
+      set(value) { this.updateAttestation({['transportationTrucksCars']: value}); }
+    },
+    transportationHelicopter: {
+      get() { return this.attestation.transportationHelicopter; },
+      set(value) { this.updateAttestation({['transportationHelicopter']: value}); }
+    },
+    transportationTravelPod: {
+      get() { return this.attestation.transportationTravelPod; },
+      set(value) { this.updateAttestation({['transportationTravelPod']: value}); }
+    },
+    transportationCleaningDistancing: {
+      get() { return this.attestation.transportationCleaningDistancing; },
+      set(value) { this.updateAttestation({['transportationCleaningDistancing']: value}); }
+    }
   },
   methods: {
-    ...mapActions('form', ['sampleData']),
-    ...mapMutations('form', ['setStep', 'updateBusiness', 'updatePrimaryContact', 'updateCovidContact', 'updateLocation']),
-    async submit() {
-      if(this.$refs.form.validate()) {
-        this.setStep(3);
-      } else {
-        await new Promise(r => setTimeout(r, 200)); //ugh
-        const el = document.querySelector('.v-messages.error--text:first-of-type');
-        el.scrollIntoView(true);
-        window.scrollBy(0, -60); // ugh again
-      }
-    }
-  },
-  mounted() {
-    if(!this.reviewMode) {
-      // Once they've gotten to the form start (step 2) enable the typical "leave site" native browser warning
-      // This gets disabled after form submit in step 6
-      window.onbeforeunload = () => true;
-    }
+    ...mapMutations('forestrySectorOpScreeningForm', ['setStep', 'updateAttestation']),
   }
 };
 </script>
 
-<style lang="scss" scoped>
-form {
-  h4:not(.heading-field-label) {
-    padding-bottom: 1em;
-  }
-  hr {
-    margin-bottom: 1.75em;
-    margin-top: 0.5em;
-  }
-  .row {
-    div[class^='col-'],
-    div[class*=' col-'] {
-      padding-bottom: 0;
-      padding-top: 0;
-    }
-  }
-}
-</style>

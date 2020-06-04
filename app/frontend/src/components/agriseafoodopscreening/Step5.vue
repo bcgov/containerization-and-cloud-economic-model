@@ -142,7 +142,7 @@
 
     <div v-if="!submissionComplete">
       <v-btn color="primary" :disabled="!step5Valid" @click="submit">Submit</v-btn>
-      <v-btn text @click="setStep(5)">Back</v-btn>
+      <v-btn text @click="setStep(4)">Back</v-btn>
     </div>
 
     <v-dialog v-model="submitting" hide-overlay persistent width="300">
