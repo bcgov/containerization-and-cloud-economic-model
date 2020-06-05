@@ -51,7 +51,7 @@ function transformToState(data) {
   copy.location.startDate = moment(copy.location.startDate).format('YYYY-MM-DD');
   copy.location.endDate = moment(copy.location.endDate).format('YYYY-MM-DD');
   return {
-    type: copy.type,
+    type: copy.operationType,
     business: copy.business,
     primaryContact: primary,
     covidContact: covid,
@@ -242,6 +242,7 @@ export default {
         commit('updatePrimaryContact', transformed.primaryContact);
         commit('updateCovidContact', transformed.covidContact);
         commit('updateLocation', transformed.location);
+        commit('setOperationType', transformed.type ? transformed.type.display : '');
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
