@@ -327,7 +327,7 @@
             <v-text-field v-model="cityLongitude" class="d-none" />
           </v-col>
 
-          <v-col cols="12" sm="4" lg="3">
+          <v-col cols="12" sm="6" lg="3">
             <label>Number of workers at this location</label>
             <v-text-field
               v-model="numberOfWorkers"
@@ -344,29 +344,12 @@
 
         <hr />
 
-        <h3 class="mt-6 mb-2">Name of Licencee(s)</h3>
-        <v-row>
-          <v-col cols="12">
-            <label>Provide the name or names of the licencee(s) that you are conducting the work for</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="licencees"
-              :rules="licenceesRules"
-            />
-          </v-col>
-        </v-row>
-
-        <hr />
-
-        <h3>Type of accommodation for workers at this location (check all that apply)</h3>
+        <h3 class="mt-6">Type of accommodations provided by employers for workers at this location (check all that apply)</h3>
 
         <v-checkbox
           v-model="accTents"
           :readonly="reviewMode"
-          label="Tents and trailers near worksite"
+          label="Tent or trailer sites"
         ></v-checkbox>
 
         <div v-if="accTents">
@@ -390,7 +373,7 @@
           </v-row>
         </div>
 
-        <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Motel / Hotel in town"></v-checkbox>
+        <v-checkbox v-model="accMotel" :readonly="reviewMode" label="Worker's Lodging Location (Motel, hotel, or other lodging)"></v-checkbox>
         <div v-if="accMotel">
           <v-row>
             <v-col cols="12" sm="6" lg="5">
@@ -590,9 +573,6 @@ export default {
         v => v > 0 || '# of workers must be greater than 0',
         v => v < 9999 || '# of workers must 9999 or less'
       ],
-      licenceesRules: [
-        v => !!v || 'Name of licencee(s) required'
-      ],
       tentDetailsRules: [
         v => !v || v.length <= 255 || 'Details must be 255 characters or less'
       ],
@@ -712,10 +692,6 @@ export default {
       set(value) { this.updateLocation({['numberOfWorkers']:
         Number.isNaN(value) ? 0 : Number.parseInt(value)});
       }
-    },
-    licencees: {
-      get() { return this.location.licencees; },
-      set(value) { this.updateLocation({['licencees']: value}); }
     },
     accTents: {
       get() { return this.location.accTents; },

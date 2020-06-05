@@ -2,7 +2,7 @@
   <v-container>
     <v-container fluid class="px-0">
       <v-row dense>
-        <v-col v-for="form in forms" :key="form.title" cols="12" md="4" xl="2" class="my-app-card">
+        <v-col v-for="form in forms.filter(f => f.enabled)" :key="form.title" cols="12" md="4" xl="2" class="my-app-card">
           <BaseActionCard :linkName="form.linkName">
             <div class="app-link">
               <h2>{{ form.title }}</h2>
@@ -51,6 +51,7 @@ export default {
     // TODO: Consider loading part of this from API?
     forms: [
       {
+        enabled: false,
         linkAdminName: 'AgriSeafoodOpScreeningAdmin',
         linkName: 'AgriSeafoodOpScreeningForm',
         resource: AppClients.AGRISEAFOODOPSCREENING,
@@ -58,6 +59,7 @@ export default {
         title: 'Agriculture and Seafood Operator Screening'
       },
       {
+        enabled: false,
         linkAdminName: 'ForestrySectorOpScreeningAdmin',
         linkName: 'ForestrySectorOpScreeningForm',
         resource: AppClients.FORESTRYSECTOROPSCREENING,
@@ -65,6 +67,7 @@ export default {
         title: 'Forestry Sector Operator Screening'
       },
       {
+        enabled: true,
         linkAdminName: 'MinesOperatorScreeningAdmin',
         linkName: 'MinesOperatorScreeningForm',
         resource: AppClients.MINESOPERATORSCREENING,
