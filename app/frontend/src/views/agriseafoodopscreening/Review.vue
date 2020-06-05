@@ -8,7 +8,7 @@
       <v-col cols="12" md="8" offset-md="2">
         <GeneratePdfButton :submissionId="submissionId">
           <v-btn text small color="textLink" class="pl-0">
-            <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF of Submision
+            <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF of Submission
           </v-btn>
         </GeneratePdfButton>
         <AdminReviewSubmission />
@@ -40,7 +40,7 @@ export default {
     error: false
   }),
   computed: {
-    ...mapGetters('form', [
+    ...mapGetters('agriSeafoodOpScreeningForm', [
       'business',
       'location',
       'gettingForm',
@@ -54,8 +54,8 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('form', ['setGettingForm']),
-    ...mapActions('form', ['getForm']),
+    ...mapMutations('agriSeafoodOpScreeningForm', ['setGettingForm']),
+    ...mapActions('agriSeafoodOpScreeningForm', ['getForm']),
     locationDateDisplay(ldate) {
       return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A';
     }

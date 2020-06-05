@@ -8,7 +8,7 @@
       <v-col cols="12" md="8" offset-md="2">
         <GeneratePdfButton :submissionId="submissionId">
           <v-btn text small color="textLink" class="pl-0">
-            <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF of Submision
+            <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF of Submission
           </v-btn>
         </GeneratePdfButton>
         <AdminReviewSubmission />

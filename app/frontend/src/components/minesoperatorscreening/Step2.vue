@@ -237,7 +237,7 @@
         </v-row>
 
         <hr />
-        <h4>Provide your accomodation details</h4>
+        <h4>Provide your accommodation details</h4>
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
