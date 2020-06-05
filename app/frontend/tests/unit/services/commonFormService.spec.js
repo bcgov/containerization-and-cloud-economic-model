@@ -39,6 +39,40 @@ describe('Email', () => {
 });
 
 describe('Notes', () => {
+  describe('getNotes', () => {
+    const endpoint = `${form}/submissions/${zeroUuid}/notes`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls note endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getNotes(form, zeroUuid);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+    });
+  });
+
+  describe('addNote', () => {
+    const endpoint = `${form}/submissions/${zeroUuid}/notes`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls add note endpoint', async () => {
+      const data = { test: 'testdata' };
+      mockAxios.onPost(endpoint).reply(200, data);
+
+      const result = await commonFormService.addNote(form, zeroUuid, data);
+      expect(result).toBeTruthy();
+      expect(result.data).toEqual(data);
+      expect(mockAxios.history.post).toHaveLength(1);
+    });
+  });
+
   describe('addNoteToStatus', () => {
     const statusId = 1;
     const endpoint = `${form}/submissions/${zeroUuid}/statuses/${statusId}/notes`;
@@ -47,7 +81,7 @@ describe('Notes', () => {
       mockAxios.reset();
     });
 
-    it('calls email endpoint', async () => {
+    it('calls add status note endpoint', async () => {
       const data = { test: 'testdata' };
       mockAxios.onPost(endpoint).reply(200, data);
 
@@ -83,7 +117,7 @@ describe('Settings', () => {
       mockAxios.reset();
     });
 
-    it('calls settings endpoint', async () => {
+    it('calls dashboard settings endpoint', async () => {
       mockAxios.onGet(endpoint).reply(200);
 
       const result = await commonFormService.getDashboardSettings(form);
@@ -101,7 +135,7 @@ describe('Statuses', () => {
       mockAxios.reset();
     });
 
-    it('calls team roles endpoint', async () => {
+    it('calls status codes endpoint', async () => {
       mockAxios.onGet(endpoint).reply(200);
 
       const result = await commonFormService.getStatusCodes(form);
@@ -117,7 +151,7 @@ describe('Statuses', () => {
       mockAxios.reset();
     });
 
-    it('calls team users endpoint', async () => {
+    it('calls submission statuses endpoint', async () => {
       mockAxios.onGet(endpoint).reply(200);
 
       const result = await commonFormService.getSubmissionStatuses(form, zeroUuid);
@@ -133,7 +167,7 @@ describe('Statuses', () => {
       mockAxios.reset();
     });
 
-    it('calls team endpoint', async () => {
+    it('calls send submission endpoint', async () => {
       const data = { test: 'testdata' };
       mockAxios.onPost(endpoint).reply(201, data);
 
@@ -228,7 +262,7 @@ describe('Team Management', () => {
       mockAxios.reset();
     });
 
-    it('calls team endpoint', async () => {
+    it('calls request team access endpoint', async () => {
       mockAxios.onPost(endpoint).reply(201);
 
       const result = await commonFormService.requestTeamAccess(form);

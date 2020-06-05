@@ -47,26 +47,5 @@ export default {
    */
   getSubmission(submissionId) {
     return appAxios().get(`${ApiRoutes.FORESTRYSECTOROPSCREENING}/submissions/${submissionId}`);
-  },
-
-  /**
-   * @function getNotes
-   * Fetch the notes of a specific submission
-   * @param {string} submissionId The guid of a submitted submissionId from the database
-   * @returns {Promise} An axios response
-   */
-  getNotes(submissionId) {
-    return appAxios().get(`${ApiRoutes.FORESTRYSECTOROPSCREENING}/submissions/${submissionId}/notes`);
-  },
-
-  /**
-   * @function addNote
-   * Add a note of a specific form submission
-   * @param {string} submissionId The guid of a submitted form from the database
-   * @param {object} content An object representing the note
-   * @returns {Promise} An axios response
-   */
-  addNote(submissionId, content) {
-    return appAxios().post(`${ApiRoutes.FORESTRYSECTOROPSCREENING}/submissions/${submissionId}/notes`, content);
   }
 };

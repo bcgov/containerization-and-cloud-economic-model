@@ -21,6 +21,29 @@ export default {
   //
 
   /**
+   * @function getNotes
+   * Fetch the notes of a specific submission
+   * @param {string} form The form name
+   * @param {string} submissionId The guid of a submitted submissionId from the database
+   * @returns {Promise} An axios response
+   */
+  getNotes(form, submissionId) {
+    return appAxios().get(`${form}/submissions/${submissionId}/notes`);
+  },
+
+  /**
+   * @function addNote
+   * Add a note of a specific form submission
+   * @param {string} form The form name
+   * @param {string} submissionId The guid of a submitted form from the database
+   * @param {object} content An object representing the note
+   * @returns {Promise} An axios response
+   */
+  addNote(form, submissionId, content) {
+    return appAxios().post(`${form}/submissions/${submissionId}/notes`, content);
+  },
+
+  /**
    * @function addNoteToStatus
    * Add a note of a specific form submission on a specific status update
    * @param {string} form The form name
