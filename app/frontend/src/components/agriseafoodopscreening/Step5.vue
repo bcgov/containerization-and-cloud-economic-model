@@ -31,6 +31,7 @@
 
           <RequestReceipt
             :email="this.submissionDetails.contacts[0].email"
+            :formName="this.formName"
             :submissionId="this.submissionDetails.submissionId"
           />
         </v-row>
@@ -179,6 +180,7 @@ import Step1 from '@/components/agriseafoodopscreening/Step1.vue';
 import Step2 from '@/components/agriseafoodopscreening/Step2.vue';
 import Step3 from '@/components/agriseafoodopscreening/Step3.vue';
 import Step4 from '@/components/agriseafoodopscreening/Step4.vue';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'AgriSeaStep5',
@@ -219,6 +221,9 @@ export default {
       set(value) {
         this.updateAttestation({ ['agreeToInspection']: value });
       }
+    },
+    formName() {
+      return FormNames.AGRISEAFOODOPSCREENING;
     }
   },
   methods: {

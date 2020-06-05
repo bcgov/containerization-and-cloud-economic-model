@@ -31,6 +31,7 @@
 
           <RequestReceipt
             :email="this.submissionDetails.contacts[0].email"
+            :formName="this.formName"
             :submissionId="this.submissionDetails.submissionId"
           />
         </v-row>
@@ -198,6 +199,7 @@ import Step2 from '@/components/minesoperatorscreening/Step2.vue';
 import Step3 from '@/components/minesoperatorscreening/Step3.vue';
 import Step4 from '@/components/minesoperatorscreening/Step4.vue';
 import Step5 from '@/components/minesoperatorscreening/Step5.vue';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'MinesAttestationStep6',
@@ -239,6 +241,9 @@ export default {
       set(value) {
         this.updateAttestation({ ['agreeToInspection']: value });
       }
+    },
+    formName() {
+      return FormNames.MINESOPERATORSCREENING;
     }
   },
   methods: {
