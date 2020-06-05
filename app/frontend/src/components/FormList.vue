@@ -50,20 +50,20 @@ export default {
   data: () => ({
     // TODO: Consider loading part of this from API?
     forms: [
-      {
-        linkAdminName: 'AgriSeafoodOpScreeningAdmin',
-        linkName: 'AgriSeafoodOpScreeningForm',
-        resource: AppClients.AGRISEAFOODOPSCREENING,
-        roles: [AppRoles.VIEWER],
-        title: 'Agriculture and Seafood Operator Screening'
-      },
-      {
-        linkAdminName: 'ForestrySectorOpScreeningAdmin',
-        linkName: 'ForestrySectorOpScreeningForm',
-        resource: AppClients.FORESTRYSECTOROPSCREENING,
-        roles: [AppRoles.VIEWER],
-        title: 'Forestry Sector Operator Screening'
-      },
+      // {
+      //   linkAdminName: 'AgriSeafoodOpScreeningAdmin',
+      //   linkName: 'AgriSeafoodOpScreeningForm',
+      //   resource: AppClients.AGRISEAFOODOPSCREENING,
+      //   roles: [AppRoles.VIEWER],
+      //   title: 'Agriculture and Seafood Operator Screening'
+      // },
+      // {
+      //   linkAdminName: 'ForestrySectorOpScreeningAdmin',
+      //   linkName: 'ForestrySectorOpScreeningForm',
+      //   resource: AppClients.FORESTRYSECTOROPSCREENING,
+      //   roles: [AppRoles.VIEWER],
+      //   title: 'Forestry Sector Operator Screening'
+      // },
       {
         linkAdminName: 'MinesOperatorScreeningAdmin',
         linkName: 'MinesOperatorScreeningForm',
