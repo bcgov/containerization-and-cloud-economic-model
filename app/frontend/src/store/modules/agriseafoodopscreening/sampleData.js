@@ -25,7 +25,6 @@ export const SampleData = Object.freeze({
     email: 'no@yes.com'
   },
   location: {
-    licencees: 'FLNRO',
     startDate: '2020-05-22',
     endDate: '2020-05-29',
     city: 'Victoria, BC',

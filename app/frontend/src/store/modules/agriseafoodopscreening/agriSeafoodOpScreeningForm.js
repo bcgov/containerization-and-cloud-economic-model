@@ -104,7 +104,6 @@ export default {
       city: '',
       cityLatitude: undefined,
       cityLongitude: undefined,
-      licencees: '',
       numberOfWorkers: '',
       accTents: false,
       tentDetails: '',
