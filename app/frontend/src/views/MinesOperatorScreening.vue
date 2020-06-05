@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AdminNavBar from '@/components/common/AdminNavBar.vue';
+import AdminNavBar from '@/components/common/admin/AdminNavBar.vue';
 import form from '@/store/modules/minesoperatorscreening/minesOperatorScreeningForm.js';
 import { AppClients, FormNames } from '@/utils/constants';
 
