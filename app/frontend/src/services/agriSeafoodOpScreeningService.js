@@ -50,27 +50,6 @@ export default {
   },
 
   /**
-   * @function getSubmissionStatuses
-   * Fetch the inspection statuses of a specific attestation form submission
-   * @param {string} submissionId The guid of a submitted submissionId from the database
-   * @returns {Promise} An axios response
-   */
-  getSubmissionStatuses(submissionId) {
-    return appAxios().get(`${ApiRoutes.AGRISEAFOODOPSCREENING}/submissions/${submissionId}/statuses`);
-  },
-
-  /**
-   * @function sendSubmissionStatuses
-   * Update the statuses of a specific attestation form submission
-   * @param {string} submissionId The guid of a submitted submission from the database
-   * @param {object} content An object representing the updated status for the `submissionId` form
-   * @returns {Promise} An axios response
-   */
-  sendSubmissionStatuses(submissionId, content) {
-    return appAxios().post(`${ApiRoutes.AGRISEAFOODOPSCREENING}/submissions/${submissionId}/statuses`, content);
-  },
-
-  /**
    * @function getNotes
    * Fetch the notes of a specific submission
    * @param {string} submissionId The guid of a submitted submissionId from the database
@@ -89,44 +68,5 @@ export default {
    */
   addNote(submissionId, content) {
     return appAxios().post(`${ApiRoutes.AGRISEAFOODOPSCREENING}/submissions/${submissionId}/notes`, content);
-  },
-
-  /**
-   * @function addNoteToStatus
-   * Add a note of a specific form submission on a specific status update
-   * @param {string} submissionId The guid of a submitted form from the database
-   * @param {string} statusId The guid of a status record from the database
-   * @param {object} content An object representing the note
-   * @returns {Promise} An axios response
-   */
-  addNoteToStatus(submissionId, statusId, content) {
-    return appAxios().post(`${ApiRoutes.AGRISEAFOODOPSCREENING}/submissions/${submissionId}/statuses/${statusId}/notes`, content);
-  },
-
-  /**
-   * @function getStatusCodes
-   * Fetch the contents of the Status Codes lookup table
-   * @returns {Promise} An axios response
-   */
-  getStatusCodes() {
-    return appAxios().get(`${ApiRoutes.AGRISEAFOODOPSCREENING}/current/statusCodes`);
-  },
-
-  /**
-   * @function getSettings
-   * Fetch this form's settings
-   * @returns {Promise} An axios response
-   */
-  getSettings() {
-    return appAxios().get(`${ApiRoutes.AGRISEAFOODOPSCREENING}/settings`);
-  },
-
-  /**
-   * @function getDashboardSettings
-   * Fetch a list of dashboard setting configurations
-   * @returns {Promise} An axios response
-   */
-  getDashboardSettings() {
-    return appAxios().get(`${ApiRoutes.AGRISEAFOODOPSCREENING}/settings/dashboards`);
   }
 };

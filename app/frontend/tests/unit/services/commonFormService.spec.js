@@ -38,6 +38,112 @@ describe('Email', () => {
   });
 });
 
+describe('Notes', () => {
+  describe('addNoteToStatus', () => {
+    const statusId = 1;
+    const endpoint = `${form}/submissions/${zeroUuid}/statuses/${statusId}/notes`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls email endpoint', async () => {
+      const data = { test: 'testdata' };
+      mockAxios.onPost(endpoint).reply(200, data);
+
+      const result = await commonFormService.addNoteToStatus(form, zeroUuid, statusId, data);
+      expect(result).toBeTruthy();
+      expect(result.data).toEqual(data);
+      expect(mockAxios.history.post).toHaveLength(1);
+    });
+  });
+});
+
+describe('Settings', () => {
+  describe('getSettings', () => {
+    const endpoint = `${form}/settings`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls settings endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getSettings(form);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+    });
+  });
+
+  describe('getDashboardSettings', () => {
+    const endpoint = `${form}/settings/dashboards`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls settings endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getDashboardSettings(form);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+    });
+  });
+});
+
+describe('Statuses', () => {
+  describe('getStatusCodes', () => {
+    const endpoint = `${form}/current/statusCodes`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls team roles endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getStatusCodes(form);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+    });
+  });
+
+  describe('getSubmissionStatuses', () => {
+    const endpoint = `${form}/submissions/${zeroUuid}/statuses`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls team users endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getSubmissionStatuses(form, zeroUuid);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+    });
+  });
+
+  describe('sendSubmissionStatuses', () => {
+    const endpoint = `${form}/submissions/${zeroUuid}/statuses`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('calls team endpoint', async () => {
+      const data = { test: 'testdata' };
+      mockAxios.onPost(endpoint).reply(201, data);
+
+      const result = await commonFormService.sendSubmissionStatuses(form, zeroUuid, data);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.post).toHaveLength(1);
+    });
+  });
+});
+
 describe('Team Management', () => {
   describe('getTeamRoles', () => {
     const endpoint = `${form}/team/roles`;

@@ -17,6 +17,84 @@ export default {
   },
 
   //
+  // Notes
+  //
+
+  /**
+   * @function addNoteToStatus
+   * Add a note of a specific form submission on a specific status update
+   * @param {string} form The form name
+   * @param {string} submissionId The guid of a submitted form from the database
+   * @param {string} statusId The guid of a status record from the database
+   * @param {object} content An object representing the note
+   * @returns {Promise} An axios response
+   */
+  addNoteToStatus(form, submissionId, statusId, content) {
+    return appAxios().post(`${form}/submissions/${submissionId}/statuses/${statusId}/notes`, content);
+  },
+
+  //
+  // Settings
+  //
+
+  /**
+   * @function getSettings
+   * Fetch this form's settings
+   * @param {string} form The form name
+   * @returns {Promise} An axios response
+   */
+  getSettings(form) {
+    return appAxios().get(`${form}/settings`);
+  },
+
+  /**
+   * @function getDashboardSettings
+   * Fetch a list of dashboard setting configurations
+   * @param {string} form The form name
+   * @returns {Promise} An axios response
+   */
+  getDashboardSettings(form) {
+    return appAxios().get(`${form}/settings/dashboards`);
+  },
+
+  //
+  // Statuses
+  //
+
+  /**
+   * @function getStatusCodes
+   * Fetch the contents of the Status Codes lookup table
+   * @param {string} form The form name
+   * @returns {Promise} An axios response
+   */
+  getStatusCodes(form) {
+    return appAxios().get(`${form}/current/statusCodes`);
+  },
+
+  /**
+   * @function getSubmissionStatuses
+   * Fetch the inspection statuses of a specific attestation form submission
+   * @param {string} form The form name
+   * @param {string} submissionId The guid of a submitted submissionId from the database
+   * @returns {Promise} An axios response
+   */
+  getSubmissionStatuses(form, submissionId) {
+    return appAxios().get(`${form}/submissions/${submissionId}/statuses`);
+  },
+
+  /**
+   * @function sendSubmissionStatuses
+   * Update the statuses of a specific attestation form submission
+   * @param {string} form The form name
+   * @param {string} submissionId The guid of a submitted submission from the database
+   * @param {object} content An object representing the updated status for the `submissionId` form
+   * @returns {Promise} An axios response
+   */
+  sendSubmissionStatuses(form, submissionId, content) {
+    return appAxios().post(`${form}/submissions/${submissionId}/statuses`, content);
+  },
+
+  //
   // Team Management
   //
 

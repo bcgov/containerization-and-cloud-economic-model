@@ -152,20 +152,20 @@
 import moment from 'moment';
 import { mapGetters } from 'vuex';
 
-import { AppClients, AppRoles } from '@/utils/constants';
-import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
 import StatusTable from '@/components/forestrysectoropscreening/admin/inspection/StatusTable.vue';
+import commonFormService from '@/services/commonFormService';
+import { AppClients, AppRoles, FormNames } from '@/utils/constants';
 
 export default {
   name: 'InspectionPanel',
   components: {
-    StatusTable,
+    StatusTable
   },
   props: {
     submissionId: {
       required: true,
       type: String
-    },
+    }
   },
   data() {
     return {
@@ -182,7 +182,9 @@ export default {
 
       // Fields
       assignedTo: this.currentStatus ? this.currentStatus.assignedTo : '',
-      assignedToEmail: this.currentStatus ? this.currentStatus.assignedToEmail : '',
+      assignedToEmail: this.currentStatus
+        ? this.currentStatus.assignedToEmail
+        : '',
       actionDate: '',
       note: ''
     };
@@ -192,15 +194,29 @@ export default {
 
     // State machine
     items() {
-      if(this.currentStatus && this.currentStatus.statusCodeDetail && this.currentStatus.statusCodeDetail.nextCodes) {
-        return this.currentStatus.statusCodeDetail.nextCodes.filter(n => n.enabled);
+      if (
+        this.currentStatus &&
+        this.currentStatus.statusCodeDetail &&
+        this.currentStatus.statusCodeDetail.nextCodes
+      ) {
+        return this.currentStatus.statusCodeDetail.nextCodes.filter(
+          n => n.enabled
+        );
       } else {
         return [];
       }
     },
-    showInspector() { return ['ASSIGNED'].includes(this.statusToSet); },
-    showActionDate() { return ['ASSIGNED', 'COMPLETED'].includes(this.statusToSet); },
-    actionDateDisplay() { return this.currentStatus.actionDate ? moment(this.currentStatus.actionDate).format('MMMM D YYYY') : 'N/A'; },
+    showInspector() {
+      return ['ASSIGNED'].includes(this.statusToSet);
+    },
+    showActionDate() {
+      return ['ASSIGNED', 'COMPLETED'].includes(this.statusToSet);
+    },
+    actionDateDisplay() {
+      return this.currentStatus.actionDate
+        ? moment(this.currentStatus.actionDate).format('MMMM D YYYY')
+        : 'N/A';
+    },
     hasReviewer() {
       return this.hasResourceRoles(AppClients.FORESTRYSECTOROPSCREENING, [
         AppRoles.REVIEWER
@@ -211,19 +227,26 @@ export default {
     async getInspectionData() {
       this.loading = true;
       try {
-        const statuses = await forestrySectorOpSreeningService.getSubmissionStatuses(this.submissionId);
+        const statuses = await commonFormService.getSubmissionStatuses(
+          FormNames.FORESTRYSECTOROPSCREENING,
+          this.submissionId
+        );
         this.statusHistory = statuses.data;
         if (!this.statusHistory.length || !this.statusHistory[0]) {
           this.error = 'No inspection statuses found';
         } else {
           // Statuses are returned in date precedence, the 0th item in the array is the current status
           this.currentStatus = this.statusHistory[0];
-          const scRes = await forestrySectorOpSreeningService.getStatusCodes();
+          const scRes = await commonFormService.getStatusCodes(
+            FormNames.FORESTRYSECTOROPSCREENING
+          );
           const statusCodes = scRes.data;
-          if(!statusCodes.length) {
+          if (!statusCodes.length) {
             throw new Error('error finding status codes');
           }
-          this.currentStatus.statusCodeDetail = statusCodes.find(sc => sc.code === this.currentStatus.code);
+          this.currentStatus.statusCodeDetail = statusCodes.find(
+            sc => sc.code === this.currentStatus.code
+          );
         }
       } catch (error) {
         this.error = 'Error occured fetching status for this submission';
@@ -246,39 +269,52 @@ export default {
     async updateStatus() {
       try {
         this.error = '';
-        if(this.$refs.form.validate()) {
-          if(!this.statusToSet) {
+        if (this.$refs.form.validate()) {
+          if (!this.statusToSet) {
             throw new Error('No Status');
           }
 
           const statusBody = {
             code: this.statusToSet
           };
-          if(this.showInspector) {
-            if(this.assignedTo) {
+          if (this.showInspector) {
+            if (this.assignedTo) {
               statusBody.assignedTo = this.assignedTo;
             }
-            if(this.assignedToEmail) {
+            if (this.assignedToEmail) {
               statusBody.assignedToEmail = this.assignedToEmail;
             }
           }
-          if(this.actionDate && this.showActionDate) {
+          if (this.actionDate && this.showActionDate) {
             statusBody.actionDate = this.actionDate;
           }
-          const statusResponse = await forestrySectorOpSreeningService.sendSubmissionStatuses(this.submissionId, statusBody);
+          const statusResponse = await commonFormService.sendSubmissionStatuses(
+            FormNames.FORESTRYSECTOROPSCREENING,
+            this.submissionId,
+            statusBody
+          );
           if (!statusResponse.data) {
-            throw new Error('No response data from API while submitting status update form');
+            throw new Error(
+              'No response data from API while submitting status update form'
+            );
           }
-          if(this.note) {
+          if (this.note) {
             const submissionStatusId = statusResponse.data.submissionStatusId;
             const noteBody = {
               submissionId: this.submissionId,
               submissionStatusId: submissionStatusId,
               note: this.note
             };
-            const response = await forestrySectorOpSreeningService.addNoteToStatus(this.submissionId, submissionStatusId, noteBody);
+            const response = await commonFormService.addNoteToStatus(
+              FormNames.FORESTRYSECTOROPSCREENING,
+              this.submissionId,
+              submissionStatusId,
+              noteBody
+            );
             if (!response.data) {
-              throw new Error('No response data from API while submitting note for status update');
+              throw new Error(
+                'No response data from API while submitting note for status update'
+              );
             }
             // Update the parent if the note was updated
             this.$emit('note-updated');
@@ -290,7 +326,7 @@ export default {
         console.error(`Error updating status: ${error}`); // eslint-disable-line no-console
         this.error = 'An error occured while trying to update the status';
       }
-    },
+    }
   },
   created() {
     this.getInspectionData();

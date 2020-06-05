@@ -19,8 +19,9 @@
 
 <script>
 
-import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
+import commonFormService from '@/services/commonFormService';
 import SettingItem from '@/components/forestrysectoropscreening/admin/settings/SettingItem.vue';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'SettingsPanel',
@@ -37,7 +38,9 @@ export default {
       this.error = '';
       this.gettingSettings = true;
       try {
-        const response = await forestrySectorOpSreeningService.getSettings();
+        const response = await commonFormService.getSettings(
+          FormNames.FORESTRYSECTOROPSCREENING
+        );
         this.settings = response.data;
       } catch (error) {
         console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
