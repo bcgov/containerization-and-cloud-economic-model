@@ -1,5 +1,5 @@
 
-const AGRI_PREFIX = require('../../forms/agriseafoodopscreening/constants').PREFIX;
+const AGRI_PREFIX = require('../../forms/attestations/agriseafoodopscreening/constants').PREFIX;
 
 exports.up = function (knex) {
   return Promise.resolve()

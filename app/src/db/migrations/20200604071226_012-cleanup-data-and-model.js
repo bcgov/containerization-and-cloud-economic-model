@@ -1,13 +1,13 @@
 
-const AGRI_PREFIX = require('../../forms/agriseafoodopscreening/constants').PREFIX;
-const AGRI_TITLE = require('../../forms/agriseafoodopscreening/constants').TITLE;
+const AGRI_PREFIX = require('../../forms/attestations/agriseafoodopscreening/constants').PREFIX;
+const AGRI_TITLE = require('../../forms/attestations/agriseafoodopscreening/constants').TITLE;
 const AGRI_TITLE_ORIG = 'Agriculture/Seafood Operator Screening';
 
-const FOREST_PREFIX = require('../../forms/forestrysectoroperatorscreening/constants').PREFIX;
-const FOREST_TITLE = require('../../forms/forestrysectoroperatorscreening/constants').TITLE;
+const FOREST_PREFIX = require('../../forms/attestations/forestrysectoroperatorscreening/constants').PREFIX;
+const FOREST_TITLE = require('../../forms/attestations/forestrysectoroperatorscreening/constants').TITLE;
 const FOREST_TITLE_ORIG = 'Forestry Sector Operator Screening';
 
-const MINES_PREFIX = require('../../forms/minesoperatorscreening/constants').PREFIX;
+const MINES_PREFIX = require('../../forms/attestations/minesoperatorscreening/constants').PREFIX;
 
 const CREATED_BY = 'migration-012';
 const UPDATED_BY = CREATED_BY;
