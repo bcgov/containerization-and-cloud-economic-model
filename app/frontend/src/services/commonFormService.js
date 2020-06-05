@@ -1,7 +1,24 @@
 import { appAxios } from '@/services/interceptors';
 
 export default {
-  // Team Management Endpoints
+  //
+  // Email
+  //
+
+  /**
+   * @function requestReceiptEmail
+   * Sends an application registration request email
+   * @param {string} form The form name
+   * @param {object} content An object with submissionId and to attributes
+   * @returns {Promise} An axios response
+   */
+  requestReceiptEmail(form, content) {
+    return appAxios().post(`${form}/submissions/email`, content);
+  },
+
+  //
+  // Team Management
+  //
 
   /**
    * @function getTeamRoles
@@ -49,18 +66,5 @@ export default {
    */
   requestTeamAccess(form) {
     return appAxios().post(`${form}/team/access`);
-  },
-
-  // Email Endpoints
-
-  /**
-   * @function requestReceiptEmail
-   * Sends an application registration request email
-   * @param {string} form The form name
-   * @param {object} content An object with submissionId and to attributes
-   * @returns {Promise} An axios response
-   */
-  requestReceiptEmail(form, content) {
-    return appAxios().post(`${form}/submissions/email`, content);
   }
 };
