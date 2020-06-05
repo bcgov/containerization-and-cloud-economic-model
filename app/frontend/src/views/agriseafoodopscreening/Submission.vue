@@ -6,30 +6,13 @@
       <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
 
       <div v-if="!gettingForm && attestation">
-        <v-row>
-          <v-col cols="12" sm="8" lg="10">
-            <h1>{{ business.name }}</h1>
-            <h4 class="heading-detail">
-              Submitted:
-              <span>{{ createdAtDisplay }}</span>
-            </h4>
-            <h4 class="heading-detail">
-              Confirmation ID:
-              <span>{{ submissionId.split('-')[0].toUpperCase() }}</span>
-            </h4>
-            <h4 class="heading-detail">
-              Operation Dates:
-              <span>{{ locationDateDisplay(location.startDate) }} - {{ locationDateDisplay(location.endDate) }}</span>
-            </h4>
-          </v-col>
-          <v-col cols="12" sm="4" lg="2" class="text-sm-right d-print-none">
-            <GeneratePdfButton :submissionId="submissionId">
-              <v-btn text small color="textLink" class="pl-0">
-                <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF
-              </v-btn>
-            </GeneratePdfButton>
-          </v-col>
-        </v-row>
+        <SubmissionHeader
+          :attestation="attestation"
+          :business="business"
+          :location="location"
+          :submissionId="submissionId"
+          :operationType="operationType"
+        />
 
         <v-row>
           <v-col cols="12" md="8" class="pl-0 pt-0">
@@ -47,22 +30,21 @@
 </template>
 
 <script>
-import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/agriseafoodopscreening/admin/AdminReviewSubmission.vue';
-import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import InspectionPanel from '@/components/agriseafoodopscreening/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/agriseafoodopscreening/admin/inspection/NotesPanel.vue';
+import SubmissionHeader from '@/components/common/admin/SubmissionHeader.vue';
 import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'Submission',
   components: {
     AdminReviewSubmission,
-    GeneratePdfButton,
     InspectionPanel,
-    NotesPanel
+    NotesPanel,
+    SubmissionHeader
   },
   props: {
     submissionId: {
@@ -79,14 +61,10 @@ export default {
       'location',
       'gettingForm',
       'getFormError',
-      'attestation'
+      'attestation',
+      'operationType'
     ]),
     ...mapGetters('auth', ['hasResourceRoles', 'token']),
-    createdAtDisplay() {
-      return this.attestation && this.attestation.createdAt
-        ? moment(this.attestation.createdAt).format('MMMM D YYYY, h:mm:ss a')
-        : 'N/A';
-    },
     resource() {
       return AppClients.AGRISEAFOODOPSCREENING;
     }
@@ -94,9 +72,6 @@ export default {
   methods: {
     ...mapMutations('agriSeafoodOpScreeningForm', ['setGettingForm']),
     ...mapActions('agriSeafoodOpScreeningForm', ['getForm']),
-    locationDateDisplay(ldate) {
-      return ldate ? moment(ldate).format('MMMM D YYYY') : 'N/A';
-    },
     refreshNotes() {
       this.$refs.notesPanel.getNotes();
     }
@@ -107,13 +82,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.heading-detail {
-  margin-top: 0.5em;
-}
-
-.heading-detail span {
-  font-weight: lighter;
-}
-</style>
