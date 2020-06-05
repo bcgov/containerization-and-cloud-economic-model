@@ -51,7 +51,7 @@ class EmailService{
 
   async sendNotificationEmail(submission) {
     try {
-      const settings = await this._commonDataService.readSettings('notificationEmail');
+      const settings = await this._commonDataService.readSettings('confirmationEmail');
       if (settings && settings.enabled) {
         if (!this._notificationEmailBody) {
           this._notificationEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
@@ -78,7 +78,7 @@ class EmailService{
         return false;
       }
     } catch (err) {
-      log.error('sendSubmissionEmail', `Error: ${err.message}.`);
+      log.error('sendNotificationEmail', `Error: ${err.message}.`);
       log.error(err);
       throw err;
     }

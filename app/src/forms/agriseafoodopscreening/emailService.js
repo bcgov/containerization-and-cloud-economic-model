@@ -80,7 +80,7 @@ class EmailService {
         return false;
       }
     } catch (err) {
-      log.error('sendSubmissionEmail', `Error: ${err.message}.`);
+      log.error('sendConfirmationEmail', `Error: ${err.message}.`);
       log.error(err);
       throw err;
     }
