@@ -4,10 +4,10 @@ const path = require('path');
 const router = require('express').Router();
 const yaml = require('js-yaml');
 
-const agriSeafoodOpScreening = require('../forms/agriseafoodopscreening');
-const forestrySectorOperatorScreening = require('../forms/forestrysectoroperatorscreening');
+const agriSeafoodOpScreening = require('../forms/attestations/agriseafoodopscreening');
+const forestrySectorOperatorScreening = require('../forms/attestations/forestrysectoroperatorscreening');
 const form = require('../forms/form');
-const minesOperatorScreening = require('../forms/minesoperatorscreening');
+const minesOperatorScreening = require('../forms/attestations/minesoperatorscreening');
 const testCase = require('../forms/testcase');
 
 const getSpec = () => {

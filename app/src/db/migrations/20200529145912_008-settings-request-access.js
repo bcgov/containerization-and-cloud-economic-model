@@ -1,4 +1,4 @@
-const PREFIX = require('../../forms/minesoperatorscreening/constants').PREFIX;
+const PREFIX = require('../../forms/attestations/minesoperatorscreening/constants').PREFIX;
 
 exports.up = function(knex) {
   return Promise.resolve()

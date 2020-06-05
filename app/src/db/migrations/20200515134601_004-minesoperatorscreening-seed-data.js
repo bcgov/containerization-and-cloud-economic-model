@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
-const PREFIX = require('../../forms/minesoperatorscreening/constants').PREFIX;
-const SLUG = require('../../forms/minesoperatorscreening/constants').SLUG;
+const PREFIX = require('../../forms/attestations/minesoperatorscreening/constants').PREFIX;
+const SLUG = require('../../forms/attestations/minesoperatorscreening/constants').SLUG;
 const CREATED_BY = 'migration-004';
 
 const statusCodes = [
