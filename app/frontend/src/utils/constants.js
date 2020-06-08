@@ -1,8 +1,17 @@
+// Registered Form Names
 const FormNames = Object.freeze({
   AGRISEAFOODOPSCREENING: 'agriseafoodopscreening',
   FORESTRYSECTOROPSCREENING: 'forestrysectoropscreening',
   MINESOPERATORSCREENING: 'minesoperatorscreening'
 });
+
+/**
+ * @function isValidForm
+ * Checks if `form` is a valid form name
+ * @param {string} form The form name
+ * @returns {boolean} True if `form` is valid form
+ */
+const isValidForm = form => Object.values(FormNames).includes(form);
 
 // Add slash prefix to FormNames values
 const ApiRoutes = Object.freeze(
@@ -18,6 +27,7 @@ const AppClients = Object.freeze(
     ...Object.entries(FormNames).map(([k, v]) => ({ [k]: `comfort-${v}` })))
 );
 
+// Registered Application Roles
 const AppRoles = Object.freeze({
   ADMIN: 'admin',
   EDITOR: 'editor',
@@ -26,4 +36,4 @@ const AppRoles = Object.freeze({
   VIEWER: 'viewer'
 });
 
-export { FormNames, ApiRoutes, AppClients, AppRoles };
+export { FormNames, isValidForm, ApiRoutes, AppClients, AppRoles };
