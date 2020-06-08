@@ -128,6 +128,26 @@ export default {
   },
 
   //
+  // Submissions
+  //
+
+  /**
+   * @function getAllSubmissionData
+   * Fetch the contents of all attestation submissions
+   * @param {string} form The form name
+   * @param {boolean} [metaOnly=false] Request only basic metadata
+   * @returns {Promise} An axios response
+   */
+  getAllSubmissionData(form, metaOnly = false) {
+    const params = {};
+
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
+    if (metaOnly) params.tiny = true;
+
+    return appAxios().get(`${form}/submissions`, { params });
+  },
+
+  //
   // Team Management
   //
 
