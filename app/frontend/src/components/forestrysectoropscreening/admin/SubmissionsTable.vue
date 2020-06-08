@@ -106,7 +106,7 @@ export default {
     // get table data from frontend service layer
     getData() {
       commonFormService
-        .getAllSubmissionData(FormNames.FORESTRYSECTOROPSCREENING, true)
+        .getAllSubmissionData(FormNames.FORESTRYSECTOROPSCREENING)
         .then(response => {
           const data = response.data;
 

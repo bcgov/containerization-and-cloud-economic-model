@@ -19,6 +19,21 @@ export default {
   },
 
   //
+  // Form
+  //
+
+  /**
+   * @function getTypes
+   * Fetch a list of supported form types
+   * @param {string} form The form name
+   * @returns {Promise} An axios response
+   */
+  getTypes(form) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
+    return appAxios().get(`${form}/types`);
+  },
+
+  //
   // Notes
   //
 
@@ -103,6 +118,18 @@ export default {
   },
 
   /**
+   * @function getStatusCodes
+   * Fetch the contents of the Status Codes lookup table
+   * @param {string} form The form name
+   * @param {object} content An object containing the updated content for `form`
+   * @returns {Promise} An axios response
+   */
+  updateStatusCodes(form, content) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
+    return appAxios().put(`${form}/current/statusCodes`, content);
+  },
+
+  /**
    * @function getSubmissionStatuses
    * Fetch the inspection statuses of a specific attestation form submission
    * @param {string} form The form name
@@ -133,16 +160,16 @@ export default {
 
   /**
    * @function getAllSubmissionData
-   * Fetch the contents of all attestation submissions
+   * Fetch the contents of all attestation submission metadata
    * @param {string} form The form name
-   * @param {boolean} [metaOnly=false] Request only basic metadata
+   * @param {boolean} [complete=false] Request complete metadata
    * @returns {Promise} An axios response
    */
-  getAllSubmissionData(form, metaOnly = false) {
+  getAllSubmissionData(form, complete = false) {
     const params = {};
 
     if (!isValidForm(form)) return Promise.reject('Invalid form specified');
-    if (metaOnly) params.tiny = true;
+    if (!complete) params.tiny = true;
 
     return appAxios().get(`${form}/submissions`, { params });
   },
@@ -160,6 +187,18 @@ export default {
   },
 
   /**
+   * @function removeSubmission
+   * Deletes a single attestation form submission
+   * @param {string} form The form name
+   * @param {string} submissionId the guid of a submission in the database
+   * @returns {Promise} An axios response
+   */
+  removeSubmission(form, submissionId) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
+    return appAxios().delete(`${form}/submissions/${submissionId}`);
+  },
+
+  /**
    * @function sendSubmission
    * Sends a single attestation form submission
    * @param {string} form The form name
@@ -169,6 +208,19 @@ export default {
   sendSubmission(form, content) {
     if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().post(`${form}/submissions`, content);
+  },
+
+  /**
+   * @function updateSubmission
+   * Edits a single attestation form submission
+   * @param {string} form The form name
+   * @param {string} submissionId the guid of a submission in the database
+   * @param {object} content An object containing the updated content for the `submissionId` form
+   * @returns {Promise} An axios response
+   */
+  updateSubmission(form, submissionId, content) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
+    return appAxios().put(`${form}/submissions/${submissionId}`, content);
   },
 
   //
