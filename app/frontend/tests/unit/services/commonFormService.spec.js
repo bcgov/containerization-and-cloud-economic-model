@@ -321,18 +321,17 @@ describe('Submissions', () => {
       const result = await commonFormService.getAllSubmissionData(form);
       expect(result).toBeTruthy();
       expect(mockAxios.history.get).toHaveLength(1);
-      expect(Object.keys(mockAxios.history.get[0].params)).toHaveLength(1);
-      expect(mockAxios.history.get[0].params.tiny).toBeTruthy();
+      expect(Object.keys(mockAxios.history.get[0].params)).toHaveLength(0);
     });
 
-    it('calls all submission data endpoint with complete option', async () => {
+    it('calls all submission data endpoint with tiny set to false', async () => {
       mockAxios.onGet(endpoint).reply(200);
 
-      const result = await commonFormService.getAllSubmissionData(form, true);
+      const result = await commonFormService.getAllSubmissionData(form, { tiny: false });
       expect(result).toBeTruthy();
       expect(mockAxios.history.get).toHaveLength(1);
-      expect(Object.keys(mockAxios.history.get[0].params)).toHaveLength(0);
-
+      expect(Object.keys(mockAxios.history.get[0].params)).toHaveLength(1);
+      expect(mockAxios.history.get[0].params.tiny).toEqual(false);
     });
   });
 

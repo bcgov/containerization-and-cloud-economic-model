@@ -164,15 +164,13 @@ export default {
    * @function getAllSubmissionData
    * Fetch the contents of all attestation submission metadata
    * @param {string} form The form name
-   * @param {boolean} [complete=false] Request complete metadata
+   * @param {object} [params={}] Optional request parameters. Given an empty object, assume the following attribute defaults as endpoint behaviors
+   * @param {boolean} [params.deleted=false] Set to true to include all deleted records
+   * @param {boolean} [params.tiny=true] Set to false to get complete data
    * @returns {Promise} An axios response
    */
-  getAllSubmissionData(form, complete = false) {
-    const params = {};
-
+  getAllSubmissionData(form, params = {}) {
     if (!isValidForm(form)) return Promise.reject('Invalid form specified');
-    if (!complete) params.tiny = true;
-
     return appAxios().get(`${form}/submissions`, { params });
   },
 
