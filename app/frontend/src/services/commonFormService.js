@@ -147,6 +147,18 @@ export default {
     return appAxios().get(`${form}/submissions`, { params });
   },
 
+  /**
+   * @function getSubmission
+   * Fetch the contents of a single attestation form submission
+   * @param {string} form The form name
+   * @param {string} submissionId the guid of a submission in the database
+   * @returns {Promise} An axios response
+   */
+  getSubmission(form, submissionId) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
+    return appAxios().get(`${form}/submissions/${submissionId}`);
+  },
+
   //
   // Team Management
   //

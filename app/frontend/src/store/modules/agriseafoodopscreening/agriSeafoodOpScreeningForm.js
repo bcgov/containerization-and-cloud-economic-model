@@ -1,6 +1,7 @@
 import moment from 'moment';
 
-import agriSeafoodOpScreeningService from '@/services/agriSeafoodOpScreeningService';
+import commonFormService from '@/services/commonFormService';
+import { FormNames } from '@/utils/constants';
 import { SampleData, RandomCities } from './sampleData.js';
 
 // Change the supplied state to the exact format required by the API endpoint
@@ -236,7 +237,7 @@ export default {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await agriSeafoodOpScreeningService.getSubmission(id);
+        const response = await commonFormService.getSubmission(FormNames.AGRISEAFOODOPSCREENING, id);
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
@@ -261,7 +262,7 @@ export default {
       commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
-        const response = await agriSeafoodOpScreeningService.sendSubmission(body);
+        const response = await commonFormService.sendSubmission(body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

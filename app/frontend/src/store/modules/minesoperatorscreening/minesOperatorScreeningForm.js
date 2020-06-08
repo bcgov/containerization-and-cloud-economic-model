@@ -1,6 +1,7 @@
 import moment from 'moment';
 
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import commonFormService from '@/services/commonFormService';
+import { FormNames } from '@/utils/constants';
 import { SampleData, RandomCities } from './sampleData.js';
 
 // Change the supplied state to the exact format required by the API endpoint
@@ -16,10 +17,10 @@ function transformToPost(state) {
   //   .reduce((a, [k, v]) => (v === '' ? a : { ...a, [k]: v }), {});
 
   // Sanitize the optional fields in case they get checked, filled out, unchecked
-  if(!copy.location.accTents) {
+  if (!copy.location.accTents) {
     delete copy.location.tentDetails;
   }
-  if(!copy.location.accMotel) {
+  if (!copy.location.accMotel) {
     delete copy.location.motelName;
     delete copy.location.motelAddressLine1;
     delete copy.location.motelAddressLine2;
@@ -235,7 +236,7 @@ export default {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await minesOperatorScreeningService.getSubmission(id);
+        const response = await commonFormService.getSubmission(FormNames.MINESOPERATORSCREENING, id);
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
@@ -260,7 +261,7 @@ export default {
       try {
         const body = transformToPost(state);
 
-        const response = await minesOperatorScreeningService.sendSubmission(body);
+        const response = await commonFormService.sendSubmission(body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

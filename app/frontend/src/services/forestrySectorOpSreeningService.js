@@ -19,15 +19,5 @@ export default {
    */
   sendSubmission(content) {
     return appAxios().post(`${ApiRoutes.FORESTRYSECTOROPSCREENING}/submissions`, content);
-  },
-
-  /**
-   * @function getSubmission
-   * Fetch the contents of a single attestation form submission
-   * @param {string} ipcPlanId the guid of a submission from the database
-   * @returns {Promise} An axios response
-   */
-  getSubmission(submissionId) {
-    return appAxios().get(`${ApiRoutes.FORESTRYSECTOROPSCREENING}/submissions/${submissionId}`);
   }
 };
