@@ -28,7 +28,8 @@
 
 <script>
 import moment from 'moment';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import commonFormService from '@/services/commonFormService';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'StatusTable',
@@ -61,8 +62,8 @@ export default {
       return date ? moment(date).format('MMMM D YYYY'): '';
     },
     getData() {
-      minesOperatorScreeningService
-        .getSubmissionStatuses(this.submissionId)
+      commonFormService
+        .getSubmissionStatuses(FormNames.MINESOPERATORSCREENING, this.submissionId)
         .then(response => {
           this.statuses = response.data;
           if (!this.statuses.length) {

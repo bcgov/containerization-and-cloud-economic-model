@@ -159,6 +159,18 @@ export default {
     return appAxios().get(`${form}/submissions/${submissionId}`);
   },
 
+  /**
+   * @function sendSubmission
+   * Sends a single attestation form submission
+   * @param {string} form The form name
+   * @param {object} content An object with business, contacts and attestation attributes
+   * @returns {Promise} An axios response
+   */
+  sendSubmission(form, content) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
+    return appAxios().post(`${form}/submissions`, content);
+  },
+
   //
   // Team Management
   //

@@ -9,15 +9,5 @@ export default {
    */
   getTypes() {
     return appAxios().get(`${ApiRoutes.FORESTRYSECTOROPSCREENING}/types`);
-  },
-
-  /**
-   * @function sendSubmission
-   * Sends a submission
-   * @param {object} content An object with business, contacts and attestation attributes
-   * @returns {Promise} An axios response
-   */
-  sendSubmission(content) {
-    return appAxios().post(`${ApiRoutes.FORESTRYSECTOROPSCREENING}/submissions`, content);
   }
 };

@@ -257,7 +257,7 @@ export default {
       commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
-        const response = await commonFormService.sendSubmission(body);
+        const response = await commonFormService.sendSubmission(FormNames.FORESTRYSECTOROPSCREENING, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

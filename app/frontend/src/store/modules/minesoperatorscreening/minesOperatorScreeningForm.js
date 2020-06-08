@@ -261,7 +261,7 @@ export default {
       try {
         const body = transformToPost(state);
 
-        const response = await commonFormService.sendSubmission(body);
+        const response = await commonFormService.sendSubmission(FormNames.MINESOPERATORSCREENING, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

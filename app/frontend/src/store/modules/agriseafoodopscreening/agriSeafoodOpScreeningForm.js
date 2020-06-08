@@ -17,10 +17,10 @@ function transformToPost(state) {
   //   .reduce((a, [k, v]) => (v === '' ? a : { ...a, [k]: v }), {});
 
   // Sanitize the optional fields in case they get checked, filled out, unchecked
-  if(!copy.location.accTents) {
+  if (!copy.location.accTents) {
     delete copy.location.tentDetails;
   }
-  if(!copy.location.accMotel) {
+  if (!copy.location.accMotel) {
     delete copy.location.motelName;
     delete copy.location.motelAddressLine1;
     delete copy.location.motelAddressLine2;
@@ -262,7 +262,7 @@ export default {
       commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
-        const response = await commonFormService.sendSubmission(body);
+        const response = await commonFormService.sendSubmission(FormNames.AGRISEAFOODOPSCREENING, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }
