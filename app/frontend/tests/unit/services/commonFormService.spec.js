@@ -24,6 +24,13 @@ describe('Email', () => {
       mockAxios.reset();
     });
 
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.requestReceiptEmail(undefined, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
     it('calls email endpoint', async () => {
       const data = {
         submissionId: 'TEST',
@@ -39,12 +46,44 @@ describe('Email', () => {
   });
 });
 
+describe('Form', () => {
+  describe('getTypes', () => {
+    const endpoint = `${form}/types`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getTypes(undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
+    it('calls types endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getTypes(form);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+    });
+  });
+});
+
 describe('Notes', () => {
   describe('getNotes', () => {
     const endpoint = `${form}/submissions/${zeroUuid}/notes`;
 
     beforeEach(() => {
       mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getNotes(undefined, zeroUuid);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
     });
 
     it('calls note endpoint', async () => {
@@ -61,6 +100,14 @@ describe('Notes', () => {
 
     beforeEach(() => {
       mockAxios.reset();
+    });
+
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.addNote(undefined, zeroUuid, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.post).toHaveLength(0);
     });
 
     it('calls add note endpoint', async () => {
@@ -80,6 +127,13 @@ describe('Notes', () => {
 
     beforeEach(() => {
       mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.addNoteToStatus(undefined, zeroUuid, statusId, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.post).toHaveLength(0);
     });
 
     it('calls add status note endpoint', async () => {
@@ -102,6 +156,13 @@ describe('Settings', () => {
       mockAxios.reset();
     });
 
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getSettings(undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
     it('calls settings endpoint', async () => {
       mockAxios.onGet(endpoint).reply(200);
 
@@ -119,10 +180,17 @@ describe('Settings', () => {
       mockAxios.reset();
     });
 
-    it('returns a promise reject when invalid form specified', () => {
+    it('rejects when invalid form specified', () => {
       const result = commonFormService.getNamedSetting(undefined, name);
       expect(result).rejects.toBeTruthy();
       expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
+    it('rejects when invalid name specified', () => {
+      const result = commonFormService.getNamedSetting(form, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid name specified');
       expect(mockAxios.history.get).toHaveLength(0);
     });
 
@@ -144,6 +212,13 @@ describe('Statuses', () => {
       mockAxios.reset();
     });
 
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getStatusCodes(undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
     it('calls status codes endpoint', async () => {
       mockAxios.onGet(endpoint).reply(200);
 
@@ -153,11 +228,42 @@ describe('Statuses', () => {
     });
   });
 
+  describe('updateStatusCodes', () => {
+    const endpoint = `${form}/current/statusCodes`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.updateStatusCodes(undefined, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.put).toHaveLength(0);
+    });
+
+    it('calls update status codes endpoint', async () => {
+      const data = { test: 'testdata' };
+      mockAxios.onPut(endpoint).reply(200, data);
+
+      const result = await commonFormService.updateStatusCodes(form, data);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.put).toHaveLength(1);
+    });
+  });
+
   describe('getSubmissionStatuses', () => {
     const endpoint = `${form}/submissions/${zeroUuid}/statuses`;
 
     beforeEach(() => {
       mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getSubmissionStatuses(undefined, zeroUuid);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
     });
 
     it('calls submission statuses endpoint', async () => {
@@ -176,6 +282,13 @@ describe('Statuses', () => {
       mockAxios.reset();
     });
 
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.sendSubmissionStatuses(undefined, zeroUuid, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.post).toHaveLength(0);
+    });
+
     it('calls send submission endpoint', async () => {
       const data = { test: 'testdata' };
       mockAxios.onPost(endpoint).reply(201, data);
@@ -187,12 +300,150 @@ describe('Statuses', () => {
   });
 });
 
+describe('Submissions', () => {
+  describe('getAllSubmissionData', () => {
+    const endpoint = `${form}/submissions`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getAllSubmissionData(undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
+    it('calls all submission data endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getAllSubmissionData(form);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+      expect(Object.keys(mockAxios.history.get[0].params)).toHaveLength(1);
+      expect(mockAxios.history.get[0].params.tiny).toBeTruthy();
+    });
+
+    it('calls all submission data endpoint with complete option', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getAllSubmissionData(form, true);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+      expect(Object.keys(mockAxios.history.get[0].params)).toHaveLength(0);
+
+    });
+  });
+
+  describe('getSubmission', () => {
+    const endpoint = `${form}/submissions/${zeroUuid}`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getSubmission(undefined, zeroUuid);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
+    it('calls submission endpoint', async () => {
+      mockAxios.onGet(endpoint).reply(200);
+
+      const result = await commonFormService.getSubmission(form, zeroUuid);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.get).toHaveLength(1);
+    });
+  });
+
+  describe('removeSubmission', () => {
+    const endpoint = `${form}/submissions/${zeroUuid}`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.removeSubmission(undefined, zeroUuid);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.delete).toHaveLength(0);
+    });
+
+    it('calls submission endpoint', async () => {
+      mockAxios.onDelete(endpoint).reply(200);
+
+      const result = await commonFormService.removeSubmission(form, zeroUuid);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.delete).toHaveLength(1);
+    });
+  });
+
+  describe('sendSubmission', () => {
+    const endpoint = `${form}/submissions`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.sendSubmission(undefined, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.post).toHaveLength(0);
+    });
+
+    it('calls submit submission endpoint', async () => {
+      const data = { test: 'testdata' };
+      mockAxios.onPost(endpoint).reply(201);
+
+      const result = await commonFormService.sendSubmission(form, data);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.post).toHaveLength(1);
+    });
+  });
+
+  describe('updateSubmission', () => {
+    const endpoint = `${form}/submissions/${zeroUuid}`;
+
+    beforeEach(() => {
+      mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.updateSubmission(undefined, zeroUuid, undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.put).toHaveLength(0);
+    });
+
+    it('calls update submission endpoint', async () => {
+      const data = { test: 'testdata' };
+      mockAxios.onPut(endpoint).reply(201);
+
+      const result = await commonFormService.updateSubmission(form, zeroUuid, data);
+      expect(result).toBeTruthy();
+      expect(mockAxios.history.put).toHaveLength(1);
+    });
+  });
+});
+
 describe('Team Management', () => {
   describe('getTeamRoles', () => {
     const endpoint = `${form}/team/roles`;
 
     beforeEach(() => {
       mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getTeamRoles(undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
     });
 
     it('calls team roles endpoint', async () => {
@@ -220,6 +471,13 @@ describe('Team Management', () => {
 
     beforeEach(() => {
       mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.getTeamUsers(undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
     });
 
     it('calls team users endpoint', async () => {
@@ -254,6 +512,13 @@ describe('Team Management', () => {
       mockAxios.reset();
     });
 
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.updateTeamUserRole(undefined, zeroUuid, data);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.put).toHaveLength(0);
+    });
+
     it('calls team user role update endpoint', async () => {
       mockAxios.onPut(endpoint).reply(200, [data]);
 
@@ -269,6 +534,13 @@ describe('Team Management', () => {
 
     beforeEach(() => {
       mockAxios.reset();
+    });
+
+    it('rejects when invalid form specified', () => {
+      const result = commonFormService.requestTeamAccess(undefined);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.post).toHaveLength(0);
     });
 
     it('calls request team access endpoint', async () => {
