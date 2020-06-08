@@ -1,4 +1,5 @@
 import { appAxios } from '@/services/interceptors';
+import { isValidForm } from '@/utils/constants';
 
 export default {
   //
@@ -13,6 +14,7 @@ export default {
    * @returns {Promise} An axios response
    */
   requestReceiptEmail(form, content) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().post(`${form}/submissions/email`, content);
   },
 
@@ -28,6 +30,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getNotes(form, submissionId) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().get(`${form}/submissions/${submissionId}/notes`);
   },
 
@@ -40,6 +43,7 @@ export default {
    * @returns {Promise} An axios response
    */
   addNote(form, submissionId, content) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().post(`${form}/submissions/${submissionId}/notes`, content);
   },
 
@@ -53,6 +57,7 @@ export default {
    * @returns {Promise} An axios response
    */
   addNoteToStatus(form, submissionId, statusId, content) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().post(`${form}/submissions/${submissionId}/statuses/${statusId}/notes`, content);
   },
 
@@ -67,6 +72,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getSettings(form) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().get(`${form}/settings`);
   },
 
@@ -77,6 +83,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getDashboardSettings(form) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().get(`${form}/settings/dashboards`);
   },
 
@@ -91,6 +98,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getStatusCodes(form) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().get(`${form}/current/statusCodes`);
   },
 
@@ -102,6 +110,7 @@ export default {
    * @returns {Promise} An axios response
    */
   getSubmissionStatuses(form, submissionId) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().get(`${form}/submissions/${submissionId}/statuses`);
   },
 
@@ -114,6 +123,7 @@ export default {
    * @returns {Promise} An axios response
    */
   sendSubmissionStatuses(form, submissionId, content) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().post(`${form}/submissions/${submissionId}/statuses`, content);
   },
 
@@ -130,7 +140,10 @@ export default {
    */
   getTeamRoles(form, users = false) {
     const params = {};
+
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     if (users) params.users = true;
+
     return appAxios().get(`${form}/team/roles`, { params });
   },
 
@@ -143,7 +156,10 @@ export default {
    */
   getTeamUsers(form, roles = false) {
     const params = {};
+
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     if (roles) params.roles = true;
+
     return appAxios().get(`${form}/team/users`, { params });
   },
 
@@ -156,6 +172,7 @@ export default {
    * @returns {Promise} An axios response
    */
   updateTeamUserRole(form, user, roleArray) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().put(`${form}/team/users/${user}/roles`, roleArray);
   },
 
@@ -166,6 +183,7 @@ export default {
    * @returns {Promise} An axios response
    */
   requestTeamAccess(form) {
+    if (!isValidForm(form)) return Promise.reject('Invalid form specified');
     return appAxios().post(`${form}/team/access`);
   }
 };

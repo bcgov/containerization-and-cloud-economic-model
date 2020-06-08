@@ -2,11 +2,12 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import commonFormService from '@/services/commonFormService';
+import { FormNames } from '@/utils/constants';
 
 const mockInstance = axios.create();
 const mockAxios = new MockAdapter(mockInstance);
 
-const form = 'testForm';
+const form = FormNames.MINESOPERATORSCREENING;
 const zeroUuid = '00000000-0000-0000-0000-000000000000';
 
 jest.mock('@/services/interceptors', () => {
