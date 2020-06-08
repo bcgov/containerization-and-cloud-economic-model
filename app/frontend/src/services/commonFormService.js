@@ -92,14 +92,16 @@ export default {
   },
 
   /**
-   * @function getDashboardSettings
-   * Fetch a list of dashboard setting configurations
+   * @function getNamedSetting
+   * Fetch the setting configuration under `name`
    * @param {string} form The form name
+   * @param {string} name The namespace of the desired configuration
    * @returns {Promise} An axios response
    */
-  getDashboardSettings(form) {
+  getNamedSetting(form, name) {
     if (!isValidForm(form)) return Promise.reject('Invalid form specified');
-    return appAxios().get(`${form}/settings/dashboards`);
+    if (!name) return Promise.reject('Invalid name specified');
+    return appAxios().get(`${form}/settings/${name}`);
   },
 
   //

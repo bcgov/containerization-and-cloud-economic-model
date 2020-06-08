@@ -22,7 +22,7 @@
 <script>
 import Dashboard from '@/components/common/Dashboard.vue';
 import commonFormService from '@/services/commonFormService';
-import { AppClients, FormNames } from '@/utils/constants';
+import { AppClients, AppSettings, FormNames } from '@/utils/constants';
 
 export default {
   name: 'Dashboards',
@@ -43,7 +43,7 @@ export default {
     getDashboards() {
       this.loading = true;
       commonFormService
-        .getDashboardSettings(FormNames.MINESOPERATORSCREENING)
+        .getNamedSetting(FormNames.MINESOPERATORSCREENING, AppSettings.DASHBOARD)
         .then(response => {
           this.dashboards = response.data.config;
         })

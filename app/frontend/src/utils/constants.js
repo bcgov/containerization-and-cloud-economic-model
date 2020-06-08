@@ -36,4 +36,14 @@ const AppRoles = Object.freeze({
   VIEWER: 'viewer'
 });
 
-export { FormNames, isValidForm, ApiRoutes, AppClients, AppRoles };
+// Registered Application Setting Names
+const AppSettings = Object.freeze({
+  DASHBOARD: 'dashboards',
+  EMAILACCESSREQUESTED: 'accessRequestedEmail',
+  EMAILCONFIRMATION: 'confirmationEmail',
+  EMAILSTATUSASSIGNMENT: 'statusAssignmentEmail',
+  EMAILSUBMISSION: 'submissionEmail',
+  GENERATESUBMISSIONPDF: 'generateSubmissionPdf'
+});
+
+export { FormNames, isValidForm, ApiRoutes, AppClients, AppRoles, AppSettings };

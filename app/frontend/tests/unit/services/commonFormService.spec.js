@@ -2,7 +2,7 @@ import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import commonFormService from '@/services/commonFormService';
-import { FormNames } from '@/utils/constants';
+import { AppSettings, FormNames } from '@/utils/constants';
 
 const mockInstance = axios.create();
 const mockAxios = new MockAdapter(mockInstance);
@@ -111,17 +111,25 @@ describe('Settings', () => {
     });
   });
 
-  describe('getDashboardSettings', () => {
-    const endpoint = `${form}/settings/dashboards`;
+  describe('getNamedSetting', () => {
+    const name = AppSettings.DASHBOARD;
+    const endpoint = `${form}/settings/${name}`;
 
     beforeEach(() => {
       mockAxios.reset();
     });
 
+    it('returns a promise reject when invalid form specified', () => {
+      const result = commonFormService.getNamedSetting(undefined, name);
+      expect(result).rejects.toBeTruthy();
+      expect(result).rejects.toMatch('Invalid form specified');
+      expect(mockAxios.history.get).toHaveLength(0);
+    });
+
     it('calls dashboard settings endpoint', async () => {
       mockAxios.onGet(endpoint).reply(200);
 
-      const result = await commonFormService.getDashboardSettings(form);
+      const result = await commonFormService.getNamedSetting(form, name);
       expect(result).toBeTruthy();
       expect(mockAxios.history.get).toHaveLength(1);
     });

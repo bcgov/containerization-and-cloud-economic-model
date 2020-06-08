@@ -56,3 +56,17 @@ describe('AppRoles', () => {
     });
   });
 });
+
+describe('AppSettings', () => {
+  it('is defined correctly', () => {
+    expect(constants.AppSettings).toBeTruthy();
+    expect(constants.AppSettings).toMatchObject({
+      DASHBOARD: 'dashboards',
+      EMAILACCESSREQUESTED: 'accessRequestedEmail',
+      EMAILCONFIRMATION: 'confirmationEmail',
+      EMAILSTATUSASSIGNMENT: 'statusAssignmentEmail',
+      EMAILSUBMISSION: 'submissionEmail',
+      GENERATESUBMISSIONPDF: 'generateSubmissionPdf'
+    });
+  });
+});
