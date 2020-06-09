@@ -122,7 +122,7 @@
               <v-card v-if="historyDialog">
                 <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
 
-                <StatusTable :submissionId="submissionId" :formName="formName" :resource="resource" class="my-4" />
+                <StatusTable :submissionId="submissionId" :formName="formName" class="my-4" />
 
                 <v-divider></v-divider>
                 <v-card-actions>
@@ -163,10 +163,6 @@ export default {
   },
   props: {
     formName: {
-      type: String,
-      required: true
-    },
-    resource: {
       type: String,
       required: true
     },
@@ -226,7 +222,7 @@ export default {
         : 'N/A';
     },
     hasReviewer() {
-      return this.hasResourceRoles(this.resource, [AppRoles.REVIEWER]);
+      return this.hasResourceRoles(`comfort-${this.formName}`, [AppRoles.REVIEWER]);
     }
   },
   methods: {

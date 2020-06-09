@@ -38,10 +38,6 @@ export default {
       type: String,
       required: true
     },
-    resource: {
-      type: String,
-      required: true
-    },
     submissionId: {
       required: true,
       type: String

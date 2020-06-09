@@ -71,10 +71,6 @@ export default {
       type: String,
       required: true
     },
-    resource: {
-      type: String,
-      required: true
-    },
     submissionId: {
       required: true,
       type: String
@@ -92,7 +88,7 @@ export default {
   computed: {
     ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
     hasReviewer() {
-      return this.hasResourceRoles(this.resource, [
+      return this.hasResourceRoles(`comfort-${this.formName}`, [
         AppRoles.REVIEWER
       ]);
     }
