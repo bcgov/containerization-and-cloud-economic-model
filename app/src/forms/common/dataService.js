@@ -38,6 +38,23 @@ class DataService {
     return form;
   }
 
+  async validateCreateSubmissionStatus(obj, submissionId) {
+    const submission = await this.getSubmission(submissionId);
+    const currentStatusCode = submission.statuses[0].statusCode;
+    // only allow currently active statuses...
+    const statusCode = await this._checkStatusCode(obj.code);
+    if (!statusCode) {
+      throw new Problem(422, 'Invalid Status Code', {detail: `${obj.code} is not a valid, enabled code.`});
+    }
+    // check that if a classification is set, that it is allowed for this status code...
+    if (!await this._checkClassification(statusCode, obj.classification)) {
+      throw new Problem(422, 'Invalid Classification', {detail: `${obj.classification} is not valid for status code ${statusCode.display}.`});
+    }
+    if (!currentStatusCode.nextCodes.includes(statusCode.code)) {
+      throw new Problem(422, 'Invalid Next Code', {detail: `Cannot change state from ${currentStatusCode.display} to ${statusCode.display}.`});
+    }
+  }
+
   async createSubmissionStatus(obj, submissionId, user) {
     if (!obj) {
       throw Error('Status cannot be created without data');
@@ -165,36 +182,6 @@ class DataService {
       .throwIfNotFound();
   }
 
-  async validateStatusCode(code) {
-    if (code === undefined || code === null) return null;
-    const statusCodes = await this.readCurrentStatusCodes(true);
-    return statusCodes.find(x => x.code === code);
-  }
-
-  async validateClassification(code, classification) {
-    if (classification === undefined || classification === null) return true;
-
-    const classifications = code.allowedClassifications || [];
-    return classifications.includes(classification);
-  }
-
-  async validateCreateSubmissionStatus(obj, submissionId) {
-    const submission = await this.getSubmission(submissionId);
-    const currentStatusCode = submission.statuses[0].statusCode;
-    // only allow currently active statuses...
-    const statusCode = await this.validateStatusCode(obj.code);
-    if (!statusCode) {
-      throw new Problem(422, 'Invalid Status Code', {detail: `${obj.code} is not a valid, enabled code.`});
-    }
-    // check that if a classification is set, that it is allowed for this status code...
-    if (!await this.validateClassification(statusCode, obj.classification)) {
-      throw new Problem(422, 'Invalid Classification', {detail: `${obj.classification} is not valid for status code ${statusCode.display}.`});
-    }
-    if (!currentStatusCode.nextCodes.includes(statusCode.code)) {
-      throw new Problem(422, 'Invalid Next Code', {detail: `Cannot change state from ${currentStatusCode.display} to ${statusCode.display}.`});
-    }
-  }
-
   async updateCurrentStatusCodes (obj, user){
     if (!obj || !Array.isArray(obj)) {
       throw Error('Status Codes cannot be updated without data');
@@ -297,6 +284,19 @@ class DataService {
     return this._models.Settings.query()
       .modify('filterEnabled', enabled)
       .modify('orderDescending');
+  }
+
+  async _checkStatusCode(code) {
+    if (code === undefined || code === null) return null;
+    const statusCodes = await this.readCurrentStatusCodes(true);
+    return statusCodes.find(x => x.code === code);
+  }
+
+  async _checkClassification(code, classification) {
+    if (classification === undefined || classification === null) return true;
+
+    const classifications = code.allowedClassifications || [];
+    return classifications.includes(classification);
   }
 
 }

@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
-const PREFIX = require('../../forms/agriseafoodopscreening/constants').PREFIX;
-const SLUG = require('../../forms/agriseafoodopscreening/constants').SLUG;
+const PREFIX = require('../../forms/attestations/agriseafoodopscreening/constants').PREFIX;
+const SLUG = require('../../forms/attestations/agriseafoodopscreening/constants').SLUG;
 const CREATED_BY = 'migration-011';
 
 const FORM_NAME = 'Agriculture/Seafood Operator Screening';

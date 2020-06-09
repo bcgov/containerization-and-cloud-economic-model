@@ -1,7 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 
-const PREFIX = require('../../forms/forestrysectoroperatorscreening/constants').PREFIX;
-const SLUG = require('../../forms/forestrysectoroperatorscreening/constants').SLUG;
+const PREFIX = require('../../forms/attestations/forestrysectoroperatorscreening/constants').PREFIX;
+const SLUG = require('../../forms/attestations/forestrysectoroperatorscreening/constants').SLUG;
 const CREATED_BY = 'migration-010';
 
 const FORM_NAME = 'Forestry Sector Operator Screening';
