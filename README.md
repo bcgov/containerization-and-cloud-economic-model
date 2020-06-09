@@ -51,6 +51,12 @@ If you would like to contribute, please see our [contributing](CONTRIBUTING.md) 
 
 Please note that this project is released with a [Contributor Code of Conduct](CODE-OF-CONDUCT.md). By participating in this project you agree to abide by its terms.
 
+## Testing Thanks
+
+Thanks to BrowserStack for Testing Tool support via OpenSource Licensing
+
+[![BrowserStack](browserstack-logo-white-small.png)](http://browserstack.com/)
+
 ## License
 
     Copyright 2020 Province of British Columbia
