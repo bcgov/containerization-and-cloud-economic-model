@@ -1,17 +1,13 @@
+//
+// Constants
+//
+
 // Registered Form Names
 const FormNames = Object.freeze({
   AGRISEAFOODOPSCREENING: 'agriseafoodopscreening',
   FORESTRYSECTOROPSCREENING: 'forestrysectoropscreening',
   MINESOPERATORSCREENING: 'minesoperatorscreening'
 });
-
-/**
- * @function isValidForm
- * Checks if `form` is a valid form name
- * @param {string} form The form name
- * @returns {boolean} True if `form` is valid form
- */
-const isValidForm = form => Object.values(FormNames).includes(form);
 
 // Add slash prefix to FormNames values
 const ApiRoutes = Object.freeze(
@@ -46,4 +42,27 @@ const AppSettings = Object.freeze({
   GENERATESUBMISSIONPDF: 'generateSubmissionPdf'
 });
 
-export { FormNames, isValidForm, ApiRoutes, AppClients, AppRoles, AppSettings };
+//
+// Utility Functions
+//
+
+/**
+ * @function getAppClient
+ * Returns the AppClient associated with `formName`
+ * @param {string} formName The form name
+ * @returns {string} The equivalent AppClient for `formName` if it exists, undefined otherwise
+ */
+const getAppClient = formName => {
+  const key = Object.keys(FormNames).find(e => FormNames[e] === formName);
+  return AppClients[key];
+};
+
+/**
+ * @function isValidForm
+ * Checks if `form` is a valid form name
+ * @param {string} form The form name
+ * @returns {boolean} True if `form` is valid form
+ */
+const isValidForm = form => Object.values(FormNames).includes(form);
+
+export { FormNames, ApiRoutes, AppClients, AppRoles, AppSettings, getAppClient, isValidForm };
