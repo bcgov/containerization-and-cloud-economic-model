@@ -1,0 +1,15 @@
+build
+.gradle
+.settings
+.vscode
+*.log
+.DS_Store
+*.ipr
+*.iml
+*.iws
+.env
+out
+.idea
+images
+examples
+.project
