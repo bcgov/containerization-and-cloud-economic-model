@@ -60,7 +60,7 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import commonFormService from '@/services/commonFormService';
-import { AppClients, AppRoles, FormNames } from '@/utils/constants';
+import { AppRoles } from '@/utils/constants';
 
 export default {
   name: 'NotesPanel',

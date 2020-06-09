@@ -30,7 +30,6 @@
 import moment from 'moment';
 
 import commonFormService from '@/services/commonFormService';
-import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'StatusTable',
