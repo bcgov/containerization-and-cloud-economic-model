@@ -5,7 +5,7 @@ class SubmissionSearch {
     this.business = undefined;
     this.city = undefined;
     this.deleted = false;
-    this.tiny = undefined;
+    this.tiny = true;
   }
 
   get ints() {
@@ -17,7 +17,7 @@ class SubmissionSearch {
   }
 
   get booleans() {
-    return ['deleted', 'tiny'];
+    return ['deleted', 'full'];
   }
 }
 

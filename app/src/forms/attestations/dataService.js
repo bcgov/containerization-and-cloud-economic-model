@@ -461,7 +461,8 @@ class OperationTypesDataService extends FormDataService {
           city: d.location.city,
           status: d.statuses[0].statusCode.display,
           assignedTo: d.statuses[0].assignedTo,
-          type: d.operationType.display
+          type: d.operationType.display,
+          deleted: d.deleted
         };
       });
     };
@@ -482,7 +483,7 @@ class OperationTypesDataService extends FormDataService {
       .modify('filterDeleted', params.deleted)
       .modify('orderDescending');
 
-    return params.tiny ? tiny(submissions) : submissions;
+    return (params.tiny && params.tiny === true) ? tiny(submissions) : submissions;
   }
 
 }
