@@ -2,7 +2,7 @@
   <header class="gov-header">
     <v-toolbar color="#003366" flat>
       <!-- Navbar content -->
-      <a href="https://www2.gov.bc.ca">
+      <a href="https://www2.gov.bc.ca" data-e2e="header-logo">
         <v-img
           alt="B.C. Government Logo"
           contain
@@ -11,7 +11,7 @@
           width="10rem"
         />
       </a>
-      <v-toolbar-title class="title">{{ appTitle }}</v-toolbar-title>
+      <v-toolbar-title data-e2e="header-title" class="title">{{ appTitle }}</v-toolbar-title>
       <v-spacer />
       <BaseAuthButton />
     </v-toolbar>

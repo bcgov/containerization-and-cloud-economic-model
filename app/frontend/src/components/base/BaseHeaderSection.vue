@@ -1,7 +1,7 @@
 <template functional>
   <div>
     <h2 class="mb-5">
-      <strong>{{ props.text}}</strong>
+      <strong>{{ props.text }}</strong>
     </h2>
 
     <hr class="orange" />
