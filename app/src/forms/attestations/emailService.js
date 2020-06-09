@@ -55,7 +55,8 @@ class EmailService {
     }
   }
 
-  async _getConfirmationEmailContexts(settings, submission, to) {
+  async _getConfirmationEmailContexts(settings, submission) {
+    const to = settings.config.to.split(',').filter(x => x);
     return [
       {
         context: {
@@ -76,9 +77,8 @@ class EmailService {
         if (!this._confirmationEmailBody) {
           this._confirmationEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
-        const to = settings.config.to.split(',').filter(x => x);
 
-        const contexts = await this._getConfirmationEmailContexts(settings, submission, to);
+        const contexts = await this._getConfirmationEmailContexts(settings, submission);
 
         const data = {
           body: this._confirmationEmailBody,
@@ -91,14 +91,13 @@ class EmailService {
         return false;
       }
     } catch (err) {
-      log.error('sendSubmissionEmail', `Error: ${err.message}.`);
+      log.error('sendConfirmationEmail', `Error: ${err.message}.`);
       log.error(err);
       throw err;
     }
   }
 
-  async _getStatusAssignmentEmailContexts(settings, statusUpdate) {
-    const submission = await this._dataService.readSubmission(statusUpdate.submissionId);
+  async _getStatusAssignmentEmailContexts(settings, submission, statusUpdate) {
     const statusCodes = await this._dataService.readCurrentStatusCodes();
     const statusCode = statusCodes.find(x => x.code === statusUpdate.code);
     return [
@@ -125,7 +124,8 @@ class EmailService {
           this._statusAssignmentEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
 
-        const contexts = await this._getStatusAssignmentEmailContexts(settings, statusUpdate);
+        const submission = await this._dataService.readSubmission(statusUpdate.submissionId);
+        const contexts = await this._getStatusAssignmentEmailContexts(settings, submission, statusUpdate);
 
         const data = {
           body: this._statusAssignmentEmailBody,
@@ -144,7 +144,8 @@ class EmailService {
     }
   }
 
-  async _getAccessRequestedEmailContexts(settings, accessRequest, to) {
+  async _getAccessRequestedEmailContexts(settings, accessRequest) {
+    const to = settings.config.to.split(',').filter(x => x);
     return [
       {
         context: {
@@ -166,9 +167,8 @@ class EmailService {
         if (!this._accessRequestedEmailBody) {
           this._accessRequestedEmailBody = fs.readFileSync(`${this._assetsPath}/${settings.config.template}`, 'utf8');
         }
-        const to = settings.config.to.split(',').filter(x => x);
 
-        const contexts = await this._getAccessRequestedEmailContexts(settings, accessRequest, to);
+        const contexts = await this._getAccessRequestedEmailContexts(settings, accessRequest);
 
         const data = {
           body: this._accessRequestedEmailBody,
@@ -195,54 +195,21 @@ class OperationTypesEmailService extends EmailService {
   }
 
   async _getSubmissionEmailContexts(settings, submission, to) {
-    return [
-      {
-        context: {
-          confirmationNumber: submission.confirmationId,
-          title: settings.config.title,
-          operationType: submission.operationType.display,
-          messageLinkText: settings.config.messageLinkText,
-          messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
-        },
-        to: [to]
-      }
-    ];
+    const result = await super._getSubmissionEmailContexts(settings, submission, to);
+    result.every(x => x.context.operationType = submission.operationType.display);
+    return result;
   }
 
-  async _getConfirmationEmailContexts(settings, submission, to) {
-    return [
-      {
-        context: {
-          confirmationNumber: submission.confirmationId,
-          operationType: submission.operationType.display,
-          title: settings.config.title,
-          messageLinkText: settings.config.messageLinkText,
-          messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
-        },
-        to: to
-      }
-    ];
+  async _getConfirmationEmailContexts(settings, submission) {
+    const result = await super._getConfirmationEmailContexts(settings, submission);
+    result.every(x => x.context.operationType = submission.operationType.display);
+    return result;
   }
 
-  async _getStatusAssignmentEmailContexts(settings, statusUpdate) {
-    const submission = await this._dataService.readSubmission(statusUpdate.submissionId);
-    const statusCodes = await this._dataService.readCurrentStatusCodes();
-    const statusCode = statusCodes.find(x => x.code === statusUpdate.code);
-    return [
-      {
-        context: {
-          confirmationNumber: submission.confirmationId,
-          operationType: submission.operationType.display,
-          business: submission.business.name,
-          status: statusCode.display,
-          message: settings.config.message,
-          title: settings.config.title,
-          messageLinkText: settings.config.messageLinkText,
-          messageLinkUrl: `${settings.config.messageLinkUrl}/${submission.submissionId}`
-        },
-        to: [statusUpdate.assignedToEmail]
-      }
-    ];
+  async _getStatusAssignmentEmailContexts(settings, submission, statusUpdate) {
+    const result = await super._getStatusAssignmentEmailContexts(settings, submission, statusUpdate);
+    result.every(x => x.context.operationType = submission.operationType.display);
+    return result;
   }
 
 }
