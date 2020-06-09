@@ -18,7 +18,7 @@ import geb.Page
 
 class LoginPage extends Page {
   static at = { title == 'Government of British Columbia' }
-  
+
   static content = {
     pageTitle { $('#login-to').text() == 'Log in to sfs7.gov.bc.ca' }
 
@@ -30,6 +30,6 @@ class LoginPage extends Page {
 
     void logIn() {
         logInButton.click()
-    }   
+    }
 
 }

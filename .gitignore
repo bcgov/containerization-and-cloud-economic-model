@@ -36,3 +36,15 @@ yarn-error.log*
 # temp office files
 ~$*
 *.*.bak
+
+# bddstack files
+build
+.settings
+*.log
+.DS_Store
+*.ipr
+*.iml
+*.iws
+.env
+.idea
+.project

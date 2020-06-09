@@ -76,7 +76,6 @@ environments {
 		}
 	}
 
-
 	remoteChrome {
 		driver = {
 			DesiredCapabilities caps = new DesiredCapabilities();
