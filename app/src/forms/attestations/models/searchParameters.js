@@ -17,7 +17,7 @@ class SubmissionSearch {
   }
 
   get booleans() {
-    return ['deleted', 'full'];
+    return ['deleted', 'tiny'];
   }
 }
 
