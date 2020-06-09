@@ -67,6 +67,14 @@ export default {
   components: {
   },
   props: {
+    formName: {
+      type: String,
+      required: true
+    },
+    resource: {
+      type: String,
+      required: true
+    },
     submissionId: {
       required: true,
       type: String
@@ -84,7 +92,7 @@ export default {
   computed: {
     ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
     hasReviewer() {
-      return this.hasResourceRoles(AppClients.AGRISEAFOODOPSCREENING, [
+      return this.hasResourceRoles(this.resource, [
         AppRoles.REVIEWER
       ]);
     }
@@ -99,7 +107,7 @@ export default {
     getNotes() {
       this.loading = true;
       commonFormService
-        .getNotes(FormNames.AGRISEAFOODOPSCREENING, this.submissionId)
+        .getNotes(this.formName, this.submissionId)
         .then(response => {
           this.notes = response.data;
         })
@@ -117,7 +125,7 @@ export default {
           createdBy: this.fullName,
           note: this.newNote
         };
-        const response = await commonFormService.addNote(FormNames.AGRISEAFOODOPSCREENING, this.submissionId, body);
+        const response = await commonFormService.addNote(this.formName, this.submissionId, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

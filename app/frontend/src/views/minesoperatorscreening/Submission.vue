@@ -18,9 +18,9 @@
             <AdminReviewSubmission />
           </v-col>
           <v-col cols="12" md="4" class="pl-0 d-print-none" order="first" order-md="last">
-            <InspectionPanel :submissionId="submissionId" v-on:note-updated="refreshNotes" />
+            <InspectionPanel :submissionId="submissionId" v-on:note-updated="refreshNotes" :formName="formName" :resource="resource" />
 
-            <NotesPanel :submissionId="submissionId" ref="notesPanel" />
+            <NotesPanel :submissionId="submissionId" ref="notesPanel" :formName="formName" :resource="resource" />
           </v-col>
         </v-row>
       </div>
@@ -32,10 +32,10 @@
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
-import InspectionPanel from '@/components/minesoperatorscreening/admin/inspection/InspectionPanel.vue';
-import NotesPanel from '@/components/minesoperatorscreening/admin/inspection/NotesPanel.vue';
+import InspectionPanel from '@/components/common/admin/inspection/InspectionPanel.vue';
+import NotesPanel from '@/components/common/admin/inspection/NotesPanel.vue';
 import SubmissionHeader from '@/components/common/admin/SubmissionHeader.vue';
-import { AppClients } from '@/utils/constants';
+import { AppClients, FormNames } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -63,6 +63,9 @@ export default {
       'attestation'
     ]),
     ...mapGetters('auth', ['hasResourceRoles', 'token']),
+    formName() {
+      return FormNames.MINESOPERATORSCREENING;
+    },
     resource() {
       return AppClients.MINESOPERATORSCREENING;
     }

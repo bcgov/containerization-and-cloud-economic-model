@@ -20,13 +20,18 @@
 <script>
 
 import commonFormService from '@/services/commonFormService';
-import SettingItem from '@/components/minesoperatorscreening/admin/settings/SettingItem.vue';
-import { FormNames } from '@/utils/constants';
+import SettingItem from '@/components/common/admin/settings/SettingItem.vue';
 
 export default {
   name: 'SettingsPanel',
   components: {
     SettingItem
+  },
+  props: {
+    formName: {
+      type: String,
+      required: true
+    }
   },
   data: () => ({
     error: false,
@@ -39,7 +44,7 @@ export default {
       this.gettingSettings = true;
       try {
         const response = await commonFormService.getSettings(
-          FormNames.MINESOPERATORSCREENING
+          this.formName
         );
         this.settings = response.data;
       } catch (error) {
