@@ -21,8 +21,8 @@
 
 <script>
 import Dashboard from '@/components/common/Dashboard.vue';
-import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
-import { AppClients } from '@/utils/constants';
+import commonFormService from '@/services/commonFormService';
+import { AppClients, AppSettings, FormNames } from '@/utils/constants';
 
 export default {
   name: 'Dashboards',
@@ -42,8 +42,8 @@ export default {
   methods: {
     getDashboards() {
       this.loading = true;
-      forestrySectorOpSreeningService
-        .getDashboardSettings()
+      commonFormService
+        .getNamedSetting(FormNames.FORESTRYSECTOROPSCREENING, AppSettings.DASHBOARD)
         .then(response => {
           this.dashboards = response.data.config;
         })

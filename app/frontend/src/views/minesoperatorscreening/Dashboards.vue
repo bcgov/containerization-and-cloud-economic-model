@@ -21,8 +21,8 @@
 
 <script>
 import Dashboard from '@/components/common/Dashboard.vue';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
-import { AppClients } from '@/utils/constants';
+import commonFormService from '@/services/commonFormService';
+import { AppClients, AppSettings, FormNames } from '@/utils/constants';
 
 export default {
   name: 'Dashboards',
@@ -42,8 +42,8 @@ export default {
   methods: {
     getDashboards() {
       this.loading = true;
-      minesOperatorScreeningService
-        .getDashboardSettings()
+      commonFormService
+        .getNamedSetting(FormNames.MINESOPERATORSCREENING, AppSettings.DASHBOARD)
         .then(response => {
           this.dashboards = response.data.config;
         })

@@ -1,6 +1,7 @@
 import moment from 'moment';
 
-import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
+import commonFormService from '@/services/commonFormService';
+import { FormNames } from '@/utils/constants';
 import { SampleData, RandomCities } from './sampleData.js';
 
 // Change the supplied state to the exact format required by the API endpoint
@@ -231,7 +232,7 @@ export default {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await forestrySectorOpSreeningService.getSubmission(id);
+        const response = await commonFormService.getSubmission(FormNames.FORESTRYSECTOROPSCREENING, id);
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
@@ -256,7 +257,7 @@ export default {
       commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
-        const response = await forestrySectorOpSreeningService.sendSubmission(body);
+        const response = await commonFormService.sendSubmission(FormNames.FORESTRYSECTOROPSCREENING, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

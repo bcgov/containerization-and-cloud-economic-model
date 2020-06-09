@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import AdminNavBar from '@/components/common/AdminNavBar.vue';
+import AdminNavBar from '@/components/common/admin/AdminNavBar.vue';
 import agriSeafoodOpScreeningForm from '@/store/modules/agriseafoodopscreening/agriSeafoodOpScreeningForm.js';
 import { AppClients, FormNames } from '@/utils/constants';
 

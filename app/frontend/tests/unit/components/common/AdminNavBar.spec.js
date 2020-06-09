@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 
-import AdminNavBar from '@/components/common/AdminNavBar.vue';
+import AdminNavBar from '@/components/common/admin/AdminNavBar.vue';
 import getRouter from '@/router';
 
 const router = getRouter();

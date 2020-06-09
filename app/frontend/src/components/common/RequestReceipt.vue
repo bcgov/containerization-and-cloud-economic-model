@@ -62,11 +62,6 @@ import commonFormService from '@/services/commonFormService';
 
 export default {
   name: 'RequestReceipt',
-  computed: {
-    formName() {
-      return this.$route.path.split('/')[1];
-    }
-  },
   data: () => ({
     emailRules: [
       v => !!v || 'E-mail is required',
@@ -119,6 +114,10 @@ export default {
   },
   props: {
     email: {
+      type: String,
+      required: true
+    },
+    formName: {
       type: String,
       required: true
     },

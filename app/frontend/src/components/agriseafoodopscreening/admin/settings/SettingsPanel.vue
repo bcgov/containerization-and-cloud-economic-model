@@ -18,9 +18,9 @@
 </template>
 
 <script>
-
-import agriSeafoodOpScreeningService from '@/services/agriSeafoodOpScreeningService';
+import commonFormService from '@/services/commonFormService';
 import SettingItem from '@/components/agriseafoodopscreening/admin/settings/SettingItem.vue';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'SettingsPanel',
@@ -37,7 +37,9 @@ export default {
       this.error = '';
       this.gettingSettings = true;
       try {
-        const response = await agriSeafoodOpScreeningService.getSettings();
+        const response = await commonFormService.getSettings(
+          FormNames.AGRISEAFOODOPSCREENING
+        );
         this.settings = response.data;
       } catch (error) {
         console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
@@ -53,7 +55,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .v-expansion-panel-header {
   font-weight: bold;
   color: #003366 !important;

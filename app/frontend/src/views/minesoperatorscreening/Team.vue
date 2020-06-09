@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { AppClients } from '@/utils/constants';
+import { AppClients, FormNames } from '@/utils/constants';
 import TeamTable from '@/components/common/TeamTable';
 
 export default {
@@ -18,7 +18,7 @@ export default {
   },
   computed: {
     formName() {
-      return this.$route.path.split('/')[1];
+      return FormNames.MINESOPERATORSCREENING;
     },
     resource() {
       return AppClients.MINESOPERATORSCREENING;

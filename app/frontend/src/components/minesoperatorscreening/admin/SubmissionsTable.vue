@@ -48,7 +48,8 @@
 
 <script>
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import commonFormService from '@/services/commonFormService';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'MinesSubmissionsTable',
@@ -104,8 +105,8 @@ export default {
     },
     // get table data from frontend service layer
     getData() {
-      minesOperatorScreeningService
-        .getAllSubmissionMetaData()
+      commonFormService
+        .getAllSubmissionData(FormNames.MINESOPERATORSCREENING)
         .then(response => {
           const data = response.data;
 

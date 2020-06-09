@@ -48,7 +48,8 @@
 
 <script>
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import forestrySectorOpSreeningService from '@/services/forestrySectorOpSreeningService';
+import commonFormService from '@/services/commonFormService';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'SubmissionsTable',
@@ -104,8 +105,8 @@ export default {
     },
     // get table data from frontend service layer
     getData() {
-      forestrySectorOpSreeningService
-        .getAllSubmissionMetaData()
+      commonFormService
+        .getAllSubmissionData(FormNames.FORESTRYSECTOROPSCREENING)
         .then(response => {
           const data = response.data;
 

@@ -19,8 +19,9 @@
 
 <script>
 
-import minesOperatorScreeningService from '@/services/minesOperatorScreeningService';
+import commonFormService from '@/services/commonFormService';
 import SettingItem from '@/components/minesoperatorscreening/admin/settings/SettingItem.vue';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'SettingsPanel',
@@ -37,7 +38,9 @@ export default {
       this.error = '';
       this.gettingSettings = true;
       try {
-        const response = await minesOperatorScreeningService.getSettings();
+        const response = await commonFormService.getSettings(
+          FormNames.MINESOPERATORSCREENING
+        );
         this.settings = response.data;
       } catch (error) {
         console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
