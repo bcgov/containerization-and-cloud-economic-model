@@ -15,13 +15,13 @@
         >Industrial Camps Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
         <v-checkbox
           v-model="educationSignage"
-          data-e2e="form-educationSignage"
+          data-test="form-educationSignage"
           :readonly="reviewMode"
           label="I have signage in place in the appropriate language on how employees can protect themselves from COVID-19"
         ></v-checkbox>
         <v-checkbox
           v-model="educationContactPersonnel"
-          data-e2e="form-educationContactPersonnel"
+          data-test="form-educationContactPersonnel"
           :readonly="reviewMode"
           label="I have someone identified that workers can go to if they have questions on COVID-19"
         ></v-checkbox>
@@ -36,31 +36,31 @@
         >Industrial Camp Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
         <v-checkbox
           v-model="trainingCovid19"
-          data-e2e="form-trainingCovid19"
+          data-test="form-trainingCovid19"
           :readonly="reviewMode"
           label="I have materials ready on the risk of exposure of COVID-19 and the signs and symptoms of the disease"
         ></v-checkbox>
         <v-checkbox
           v-model="trainingEtiquette"
-          data-e2e="form-trainingEtiquette"
+          data-test="form-trainingEtiquette"
           :readonly="reviewMode"
           label="I have materials ready on hand washing, physical distancing, and cough/sneeze etiquette"
         ></v-checkbox>
         <v-checkbox
           v-model="trainingLocations"
-          data-e2e="form-trainingLocations"
+          data-test="form-trainingLocations"
           :readonly="reviewMode"
           label="I can provide locations of washing facilities, including dispensing stations for alcohol-based hand rubs"
         ></v-checkbox>
         <v-checkbox
           v-model="trainingFirstAid"
-          data-e2e="form-trainingFirstAid"
+          data-test="form-trainingFirstAid"
           :readonly="reviewMode"
           label="I have materials ready on how to seek first aid"
         ></v-checkbox>
         <v-checkbox
           v-model="trainingReporting"
-          data-e2e="form-trainingReporting"
+          data-test="form-trainingReporting"
           :readonly="reviewMode"
           label="I have materials ready on how to report an exposure to or symptoms of COVID-19"
         ></v-checkbox>
@@ -76,19 +76,19 @@
         </div>
         <v-checkbox
           v-model="mealsDistancing"
-          data-e2e="form-mealsDistancing"
+          data-test="form-mealsDistancing"
           :readonly="reviewMode"
           label="I have schedules in place for kitchen/eating areas to limit contact and maintain 2 metre physical distancing"
         ></v-checkbox>
         <v-checkbox
           v-model="mealsDishware"
-          data-e2e="form-mealsDishware"
+          data-test="form-mealsDishware"
           :readonly="reviewMode"
           label="Each employee has their own dishware, utensils and drinking cup"
         ></v-checkbox>
         <v-checkbox
           v-model="mealsDishwashing"
-          data-e2e="form-mealsDishwashing"
+          data-test="form-mealsDishwashing"
           :readonly="reviewMode"
           label="Used dishware will be washed immediately"
         ></v-checkbox>
@@ -98,8 +98,8 @@
     <div class="hide-on-review">
       <hr />
 
-      <v-btn color="primary" @click="setStep(5)" data-e2e="form-to-step-five">Go to Step 5</v-btn>
-      <v-btn text @click="setStep(3)" data-e2e="form-to-previous-step">Back</v-btn>
+      <v-btn color="primary" @click="setStep(5)" data-test="form-to-step-five">Go to Step 5</v-btn>
+      <v-btn text @click="setStep(3)" data-test="form-to-previous-step">Back</v-btn>
     </div>
   </v-container>
 </template>

@@ -1,24 +1,24 @@
 <template>
   <v-footer class="gov-footer">
-    <v-btn text data-e2e="footer-home" href="https://www.gov.bc.ca/">
+    <v-btn text data-test="footer-home" href="https://www.gov.bc.ca/">
       <span>Home</span>
     </v-btn>
-    <v-btn text data-e2e="footer-about" href="https://www2.gov.bc.ca/gov/content/about-gov-bc-ca">
+    <v-btn text data-test="footer-about" href="https://www2.gov.bc.ca/gov/content/about-gov-bc-ca">
       <span>About gov.bc.ca</span>
     </v-btn>
-    <v-btn text data-e2e="footer-disclaimer" href="http://gov.bc.ca/disclaimer">
+    <v-btn text data-test="footer-disclaimer" href="http://gov.bc.ca/disclaimer">
       <span>Disclaimer</span>
     </v-btn>
-    <v-btn text data-e2e="footer-privacy" href="http://gov.bc.ca/privacy">
+    <v-btn text data-test="footer-privacy" href="http://gov.bc.ca/privacy">
       <span>Privacy</span>
     </v-btn>
-    <v-btn text data-e2e="footer-accessibility" href="http://gov.bc.ca/webaccessibility">
+    <v-btn text data-test="footer-accessibility" href="http://gov.bc.ca/webaccessibility">
       <span>Accessibility</span>
     </v-btn>
-    <v-btn text data-e2e="footer-copyright" href="http://gov.bc.ca/copyright">
+    <v-btn text data-test="footer-copyright" href="http://gov.bc.ca/copyright">
       <span>Copyright</span>
     </v-btn>
-    <v-btn text data-e2e="footer-contact" href="https://www2.gov.bc.ca/gov/content/home/contact-us">
+    <v-btn text data-test="footer-contact" href="https://www2.gov.bc.ca/gov/content/home/contact-us">
       <span>Contact Us</span>
     </v-btn>
   </v-footer>

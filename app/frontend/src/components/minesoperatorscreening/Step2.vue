@@ -7,7 +7,7 @@
         outlined
         color="primary"
         @click="sampleData"
-        data-e2e="form-test-data"
+        data-test="form-test-data"
       >FOR TEST ONLY - FILL SAMPLE DATA</v-btn>
       <h2 class="pb-8">Provide Your Business Contact Information</h2>
       <hr class="orange" />
@@ -30,7 +30,7 @@
               outlined
               solo
               v-model="businessName"
-              data-e2e="form-businessName"
+              data-test="form-businessName"
               :rules="businessNameRules"
             />
           </v-col>
@@ -48,7 +48,7 @@
               outlined
               solo
               v-model="firstName"
-              data-e2e="form-firstName"
+              data-test="form-firstName"
               :rules="firstNameRules"
             />
           </v-col>
@@ -60,7 +60,7 @@
               outlined
               solo
               v-model="lastName"
-              data-e2e="form-lastName"
+              data-test="form-lastName"
               :rules="lastNameRules"
             />
           </v-col>
@@ -78,7 +78,7 @@
               :rules="phone1Rules"
               prepend-inner-icon="phone"
               v-model="phone1"
-              data-e2e="form-phone1"
+              data-test="form-phone1"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
@@ -91,7 +91,7 @@
               placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="phone2"
-              data-e2e="form-phone2"
+              data-test="form-phone2"
               :rules="phone2Rules"
             />
           </v-col>
@@ -109,7 +109,7 @@
               :rules="emailRules"
               prepend-inner-icon="email"
               v-model="email"
-              data-e2e="form-email"
+              data-test="form-email"
             />
           </v-col>
         </v-row>
@@ -126,7 +126,7 @@
               outlined
               solo
               v-model="businessAddressLine1"
-              data-e2e="form-businessAddressLine1"
+              data-test="form-businessAddressLine1"
               :rules="businessAddressLine1Rules"
             />
           </v-col>
@@ -138,7 +138,7 @@
               outlined
               solo
               v-model="businessAddressLine2"
-              data-e2e="form-businessAddressLine2"
+              data-test="form-businessAddressLine2"
               :rules="businessAddressLine2Rules"
             />
           </v-col>
@@ -153,7 +153,7 @@
               outlined
               solo
               v-model="businessAddressCity"
-              data-e2e="form-businessAddressCity"
+              data-test="form-businessAddressCity"
               :rules="businessAddressCityRules"
             />
           </v-col>
@@ -168,7 +168,7 @@
               single-line
               label="Select"
               v-model="businessAddressProvince"
-              data-e2e="form-businessAddressProvince"
+              data-test="form-businessAddressProvince"
               :rules="businessAddressProvinceRules"
             />
           </v-col>
@@ -183,7 +183,7 @@
               outlined
               solo
               v-model="businessAddressPostalCode"
-              data-e2e="form-businessAddressPostalCode"
+              data-test="form-businessAddressPostalCode"
               :rules="businessAddressPostalCodeRules"
             />
           </v-col>
@@ -201,7 +201,7 @@
               outlined
               solo
               v-model="covidFirstName"
-              data-e2e="form-covidFirstName"
+              data-test="form-covidFirstName"
               :rules="covidFirstNameRules"
             />
           </v-col>
@@ -213,7 +213,7 @@
               outlined
               solo
               v-model="covidLastName"
-              data-e2e="form-covidLastName"
+              data-test="form-covidLastName"
               :rules="covidLastNameRules"
             />
           </v-col>
@@ -230,7 +230,7 @@
               placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="covidPhone1"
-              data-e2e="form-covidPhone1"
+              data-test="form-covidPhone1"
               :rules="covidPhone1Rules"
             />
           </v-col>
@@ -244,7 +244,7 @@
               placeholder="000-000-0000"
               prepend-inner-icon="phone"
               v-model="covidPhone2"
-              data-e2e="form-covidPhone2"
+              data-test="form-covidPhone2"
               :rules="covidPhone2Rules"
             />
           </v-col>
@@ -261,7 +261,7 @@
               placeholder="john.doe@example.com"
               prepend-inner-icon="email"
               v-model="covidEmail"
-              data-e2e="form-covidEmail"
+              data-test="form-covidEmail"
               :rules="covidEmailRules"
             />
           </v-col>
@@ -274,7 +274,7 @@
           <v-col cols="12" sm="6" lg="5">
             <v-menu
               v-model="startDateMenu"
-              data-e2e="form-startDateMenu"
+              data-test="form-startDateMenu"
               :close-on-content-click="true"
               :nudge-right="40"
               transition="scale-transition"
@@ -285,7 +285,7 @@
                 <label>Operation Start Date</label>
                 <v-text-field
                   v-model="startDate"
-                  data-e2e="form-startDate"
+                  data-test="form-startDate"
                   :rules="startDateRules"
                   placeholder="yyyy-mm-dd"
                   append-icon="event"
@@ -300,7 +300,7 @@
               </template>
               <v-date-picker
                 v-model="startDate"
-                data-e2e="form-startDate-picker"
+                data-test="form-startDate-picker"
                 @input="startDateMenu = false"
                 :readonly="reviewMode"
               ></v-date-picker>
@@ -310,7 +310,7 @@
           <v-col cols="12" sm="6" lg="5">
             <v-menu
               v-model="endDateMenu"
-              data-e2e="form-endDateMenu"
+              data-test="form-endDateMenu"
               :close-on-content-click="true"
               :nudge-right="40"
               transition="scale-transition"
@@ -321,7 +321,7 @@
                 <label>Operation End Date</label>
                 <v-text-field
                   v-model="endDate"
-                  data-e2e="form-endDate"
+                  data-test="form-endDate"
                   :rules="endDateRules"
                   placeholder="yyyy-mm-dd"
                   append-icon="event"
@@ -336,7 +336,7 @@
               </template>
               <v-date-picker
                 v-model="endDate"
-                data-e2e="form-endDate-picker"
+                data-test="form-endDate-picker"
                 @input="endDateMenu = false"
                 :readonly="reviewMode"
               ></v-date-picker>
@@ -361,11 +361,11 @@
               outlined
               solo
               v-model="locationCity"
-              data-e2e="form-locationCity"
+              data-test="form-locationCity"
               :rules="locationCityRules"
             />
-            <v-text-field v-model="cityLatitude" data-e2e="form-cityLatitude" class="d-none" />
-            <v-text-field v-model="cityLongitude" data-e2e="form-cityLongitude" class="d-none" />
+            <v-text-field v-model="cityLatitude" data-test="form-cityLatitude" class="d-none" />
+            <v-text-field v-model="cityLongitude" data-test="form-cityLongitude" class="d-none" />
           </v-col>
         </v-row>
 
@@ -374,7 +374,7 @@
             <label>Number of workers at this location</label>
             <v-text-field
               v-model="numberOfWorkers"
-              data-e2e="form-numberOfWorkers"
+              data-test="form-numberOfWorkers"
               :rules="numberOfWorkersRules"
               type="number"
               min="1"
@@ -390,7 +390,7 @@
 
         <v-checkbox
           v-model="accTents"
-          data-e2e="form-accTents"
+          data-test="form-accTents"
           :readonly="reviewMode"
           label="Tents and trailers near worksite"
         ></v-checkbox>
@@ -404,7 +404,7 @@
               </label>
               <v-text-field
                 v-model="tentDetails"
-                data-e2e="form-tentDetails"
+                data-test="form-tentDetails"
                 :rules="tentDetailsRules"
                 dense
                 flat
@@ -417,7 +417,7 @@
 
         <v-checkbox
           v-model="accMotel"
-          data-e2e="form-accMotel"
+          data-test="form-accMotel"
           :readonly="reviewMode"
           label="Motel / Hotel in town"
         ></v-checkbox>
@@ -427,7 +427,7 @@
               <label>Name</label>
               <v-text-field
                 v-model="motelName"
-                data-e2e="form-motelName"
+                data-test="form-motelName"
                 :rules="motelNameRules"
                 dense
                 flat
@@ -442,7 +442,7 @@
               <label>Address line 1</label>
               <v-text-field
                 v-model="motelAddressLine1"
-                data-e2e="form-motelAddressLine1"
+                data-test="form-motelAddressLine1"
                 :rules="motelAddressLine1Rules"
                 dense
                 flat
@@ -455,7 +455,7 @@
               <label>Address line 2 (Optional)</label>
               <v-text-field
                 v-model="motelAddressLine2"
-                data-e2e="form-motelAddressLine2"
+                data-test="form-motelAddressLine2"
                 :rules="motelAddressLine2Rules"
                 dense
                 flat
@@ -470,7 +470,7 @@
               <label>City</label>
               <v-text-field
                 v-model="motelCity"
-                data-e2e="form-motelCity"
+                data-test="form-motelCity"
                 :rules="motelCityRules"
                 dense
                 flat
@@ -488,7 +488,7 @@
                 single-line
                 label="select"
                 v-model="motelProvince"
-                data-e2e="form-motelProvince"
+                data-test="form-motelProvince"
                 :items="provinces"
               />
             </v-col>
@@ -499,7 +499,7 @@
               <label>Postal Code</label>
               <v-text-field
                 v-model="motelPostalCode"
-                data-e2e="form-motelPostalCode"
+                data-test="form-motelPostalCode"
                 :rules="motelPostalCodeRules"
                 dense
                 flat
@@ -512,7 +512,7 @@
 
         <v-checkbox
           v-model="accWorkersHome"
-          data-e2e="form-accWorkersHome"
+          data-test="form-accWorkersHome"
           :readonly="reviewMode"
           label="Worker's home in community"
         ></v-checkbox>
@@ -541,7 +541,7 @@
               outlined
               solo
               v-model="permitNumber"
-              data-e2e="form-permitNumber"
+              data-test="form-permitNumber"
               :rules="permitNumberRules"
             />
           </v-col>
@@ -552,8 +552,8 @@
     <div class="hide-on-review">
       <hr />
 
-      <v-btn color="primary" @click="submit" data-e2e="form-to-step-three">Go to Step 3</v-btn>
-      <v-btn text @click="setStep(1)" data-e2e="form-to-previous-step">Back</v-btn>
+      <v-btn color="primary" @click="submit" data-test="form-to-step-three">Go to Step 3</v-btn>
+      <v-btn text @click="setStep(1)" data-test="form-to-previous-step">Back</v-btn>
     </div>
   </v-container>
 </template>

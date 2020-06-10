@@ -37,7 +37,7 @@
             <a
               href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-natural-resource-sector-work-camps.pdf"
               target="_blank"
-              data-e2e="form-health-pdf-link"
+              data-test="form-health-pdf-link"
             >Download PDF</a>
           </p>
         </v-col>
@@ -126,7 +126,7 @@
               color="white"
               href="https://www2.gov.bc.ca/gov/content/industry/mineral-exploration-mining/further-information/office-chief-inspector"
               target="_blank"
-              data-e2e="form-empr-office-link"
+              data-test="form-empr-office-link"
             >EMPR Regional Office</a> &nbsp;
             <v-icon small color="primary">open_in_new</v-icon>
           </h3>
@@ -142,7 +142,7 @@
         <h3>If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
       </BaseWarningCard>
 
-      <v-btn color="primary" @click="setStep(2)" data-e2e="form-to-step-two">Go to Step 2</v-btn>
+      <v-btn color="primary" @click="setStep(2)" data-test="form-to-step-two">Go to Step 2</v-btn>
     </div>
   </v-container>
 </template>
