@@ -21,3 +21,11 @@ indent_size = 2
 [Jenkinsfile*]
 indent_style = space
 indent_size = 2
+
+[*.groovy]
+indent_style = space
+indent_size = 2
+
+[*.gradle]
+indent_style = space
+indent_size = 2
