@@ -25,7 +25,7 @@
                   v-on="on"
                   color="primary"
                   class="ml-5 mr-10"
-                  data-test="form-generate-pdf"
+                  data-test="btn-form-generate-pdf"
                   fab
                   large
                 >
@@ -50,7 +50,7 @@
           <a
             href="#"
             @click="refresh"
-            data-test="form-restart"
+            data-test="btn-form-restart"
           >
             click here
             <v-icon small color="primary">refresh</v-icon>
@@ -72,6 +72,7 @@
               v-if="!submissionComplete"
               color="primary"
               class="mx-5"
+              data-test="btn-form-to-step-one"
               fab
               x-small
               @click="setStep(1)"
@@ -89,6 +90,7 @@
               v-if="!submissionComplete"
               color="primary"
               class="mx-5"
+              data-test="btn-form-to-step-two"
               fab
               x-small
               @click="setStep(2)"
@@ -106,6 +108,7 @@
               v-if="!submissionComplete"
               color="primary"
               class="mx-5"
+              data-test="btn-form-to-step-three"
               fab
               x-small
               @click="setStep(3)"
@@ -123,6 +126,7 @@
               v-if="!submissionComplete"
               color="primary"
               class="mx-5"
+              data-test="btn-form-to-step-four"
               fab
               x-small
               @click="setStep(4)"
@@ -140,6 +144,7 @@
               v-if="!submissionComplete"
               color="primary"
               class="mx-5"
+              data-test="btn-form-to-step-five"
               fab
               x-small
               @click="setStep(5)"
@@ -157,19 +162,25 @@
         <v-checkbox
           :rules="[v => !!v || 'You must certify to continue']"
           v-model="certifyAccurateInformation"
+          data-test="cb-form-certifyAccurateInformation"
           label="I certify this information to be accurate"
         ></v-checkbox>
         <v-checkbox
           :rules="[v => !!v || 'You must agree to continue']"
           v-model="agreeToInspection"
+          data-test="cb-form-agreeToInspection"
           label="I agree that my Industrial Camps will be subject to a site inspection"
         ></v-checkbox>
       </v-form>
     </div>
 
     <div v-if="!submissionComplete">
-      <v-btn color="primary" :disabled="!step6Valid" @click="submit">Submit</v-btn>
-      <v-btn text @click="setStep(5)">Back</v-btn>
+      <v-btn color="primary" data-test="btn-form-submit" :disabled="!step6Valid" @click="submit">
+        <span>Submit</span>
+      </v-btn>
+      <v-btn text @click="setStep(5)" data-test="btn-form-to-previous-step">
+        <span>Back</span>
+      </v-btn>
     </div>
 
     <v-dialog v-model="submitting" hide-overlay persistent width="300">

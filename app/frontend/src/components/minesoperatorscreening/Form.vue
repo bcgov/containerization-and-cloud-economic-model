@@ -7,7 +7,7 @@
             <v-stepper-header class="elevation-0 hidden-xs-only">
               <v-stepper-step
                 :complete="step > 1"
-                data-test="stepper-one"
+                data-test="btn-stepper-one"
                 edit-icon="check"
                 :editable="step > 1"
                 step="1"
@@ -17,7 +17,7 @@
 
               <v-stepper-step
                 :complete="step > 2"
-                data-test="stepper-two"
+                data-test="btn-stepper-two"
                 edit-icon="check"
                 :editable="step > 2"
                 step="2"
@@ -27,7 +27,7 @@
 
               <v-stepper-step
                 :complete="step > 3"
-                data-test="stepper-three"
+                data-test="btn-stepper-three"
                 edit-icon="check"
                 :editable="step > 3"
                 step="3"
@@ -37,7 +37,7 @@
 
               <v-stepper-step
                 :complete="step > 4"
-                data-test="stepper-four"
+                data-test="btn-stepper-four"
                 edit-icon="check"
                 :editable="step > 4"
                 step="4"
@@ -47,7 +47,7 @@
 
               <v-stepper-step
                 :complete="step > 5"
-                data-test="stepper-five"
+                data-test="btn-stepper-five"
                 edit-icon="check"
                 :editable="step > 5"
                 step="5"
@@ -55,7 +55,7 @@
 
               <v-divider></v-divider>
 
-              <v-stepper-step step="6" data-test="stepper-six">Review</v-stepper-step>
+              <v-stepper-step step="6" data-test="btn-stepper-six">Review</v-stepper-step>
             </v-stepper-header>
           </v-col>
         </v-row>
@@ -116,15 +116,14 @@ export default {
     Step5,
     Step6
   },
-  data () {
-    return {
-    };
+  data() {
+    return {};
   },
   computed: {
-    ...mapGetters('form', ['step', 'submissionComplete']),
+    ...mapGetters('form', ['step', 'submissionComplete'])
   },
   methods: {
-    ...mapMutations('form', ['setStep']),
+    ...mapMutations('form', ['setStep'])
   }
 };
 </script>
