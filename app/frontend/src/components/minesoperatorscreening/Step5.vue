@@ -20,26 +20,31 @@
         </p>
         <v-checkbox
           v-model="infectionSeparation"
+          data-e2e="form-infectionSeparation"
           :readonly="reviewMode"
           label="I am prepared to promptly separate the individual from others in their own accommodation"
         ></v-checkbox>
         <v-checkbox
           v-model="infectionSymptoms"
+          data-e2e="form-infectionSymptoms"
           :readonly="reviewMode"
           label="I am prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose."
         ></v-checkbox>
         <v-checkbox
           v-model="infectionHeathLinkBC"
+          data-e2e="form-infectionHeathLinkBC"
           :readonly="reviewMode"
           label="I am prepared to direct the person to call  HealthLinkBC (8-1-1)."
         ></v-checkbox>
         <v-checkbox
           v-model="infectionSanitization"
+          data-e2e="form-infectionSanitization"
           :readonly="reviewMode"
           label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
         ></v-checkbox>
         <v-checkbox
           v-model="infectionAccommodation"
+          data-e2e="form-infectionAccommodation"
           :readonly="reviewMode"
           label="If commercial accommodation is being used to self-isolate, then I will inform management of the situation and necessary requirements."
         ></v-checkbox>
@@ -52,6 +57,7 @@
         <a
           target="_blank"
           href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
+          data-e2e="form-disease-control-link"
         >BC Centre for Disease Control <v-icon small color="primary">open_in_new</v-icon></a> guidance.
       </h3>
     </BaseWarningCard>
@@ -61,6 +67,7 @@
       <div class="questions">
         <v-checkbox
           v-model="infectedFeeding"
+          data-e2e="form-infectedFeeding"
           :readonly="reviewMode"
           label="I am able to provide food in a safe manner to a self-isolated worker"
         ></v-checkbox>
@@ -80,6 +87,7 @@
       <div class="questions">
         <v-checkbox
           v-model="infectedHousekeeping"
+          data-e2e="form-infectedHousekeeping"
           :readonly="reviewMode"
           label="I am able to perform adequate housekeeping for a self isolated worker"
         ></v-checkbox>
@@ -102,6 +110,7 @@
       <div class="questions">
         <v-checkbox
           v-model="infectedWaste"
+          data-e2e="form-infectedWaste"
           :readonly="reviewMode"
           label="I am able to perform waste management for supporting a self-isolated worker"
         ></v-checkbox>
@@ -117,8 +126,8 @@
     <div class="hide-on-review">
       <hr class="mt-5" />
 
-      <v-btn color="primary" @click="setStep(6)">Go to Step 6</v-btn>
-      <v-btn text @click="setStep(4)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(6)" data-e2e="form-to-step-six">Go to Step 6</v-btn>
+      <v-btn text @click="setStep(4)" data-e2e="form-to-previous-step">Back</v-btn>
     </div>
   </v-container>
 </template>

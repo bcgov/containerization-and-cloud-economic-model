@@ -5,6 +5,7 @@
         <v-btn
           v-on="on"
           color="primary"
+          data-e2e="form-request-receipt"
           :disabled="success"
           fab
           large
@@ -34,6 +35,7 @@
                 :rules="emailRules"
                 prepend-inner-icon="email"
                 v-model="to"
+                data-e2e="form-to"
               />
             </v-form>
           </template>

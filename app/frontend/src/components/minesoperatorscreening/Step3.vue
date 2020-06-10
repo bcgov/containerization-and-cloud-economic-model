@@ -19,11 +19,13 @@
 
         <v-checkbox
           v-model="protectionSignage"
+          data-e2e="form-protectionSignage"
           :readonly="reviewMode"
           label="I have signage in place in the appropriate language on how employees can protect themselves from COVID-19 "
         ></v-checkbox>
         <v-checkbox
           v-model="workerContactPersonnel"
+          data-e2e="form-workerContactPersonnel"
           :readonly="reviewMode"
           label="I have someone identified that workers can go to if they have questions on COVID-19"
         ></v-checkbox>
@@ -40,7 +42,7 @@
 
         <p>1) Do your Common areas allow for physical distancing of 2m / 6ft at all times?</p>
         <div class="pl-4">
-          <v-radio-group :readonly="reviewMode" v-model="commonAreaDistancing" :mandatory="true">
+          <v-radio-group :readonly="reviewMode" v-model="commonAreaDistancing" data-e2e="form-commonAreaDistancing" :mandatory="true">
             <v-radio label="Yes" value="yes"></v-radio>
             <v-radio label="No" value="no"></v-radio>
           </v-radio-group>
@@ -48,7 +50,7 @@
 
         <p>2) Do you have individual/single beds or shared sleeping areas?</p>
         <div class="pl-4">
-          <v-radio-group :readonly="reviewMode" v-model="sleepingAreaType" :mandatory="true">
+          <v-radio-group :readonly="reviewMode" v-model="sleepingAreaType" data-e2e="form-sleepingAreaType" :mandatory="true">
             <v-radio label="Individual Beds or Single beds" value="SINGLE"></v-radio>
             <v-radio label="Shared sleeping areas" value="SHARED"></v-radio>
           </v-radio-group>
@@ -58,6 +60,7 @@
               <v-col cols="12" md="8" lg="3">
                 <v-combobox
                   v-model="sharedSleepingPerRoom"
+                  data-e2e="form-sharedSleepingPerRoom"
                   :readonly="reviewMode"
                   :items="numbers"
                   label="How many people are in a room?"
@@ -66,6 +69,7 @@
             </v-row>
             <v-checkbox
               v-model="sharedSleepingDistancing"
+              data-e2e="form-sharedSleepingDistancing"
               :readonly="reviewMode"
               label="Beds in the head-to-toe configuration with the 2m distance apart"
             ></v-checkbox>
@@ -81,11 +85,13 @@
       <div class="questions">
         <v-checkbox
           v-model="selfIsolateUnderstood"
+          data-e2e="form-selfIsolateUnderstood"
           :readonly="reviewMode"
           label="I understand what is needed for a person to self-isolate."
         ></v-checkbox>
         <v-checkbox
           v-model="selfIsolateAccommodation"
+          data-e2e="form-selfIsolateAccommodation"
           :readonly="reviewMode"
           label="I have the accommodation to let a worker self-isolate in a separate accommodation than other workers or arrange for separate accommodation."
         ></v-checkbox>
@@ -100,6 +106,7 @@
         >Laundry must be performed properly to reduce the risk of disease transmission of COVID-19, including using hot water for laundry machines and having adequate supply of detergent.</p>
         <v-checkbox
           v-model="laundryServices"
+          data-e2e="form-laundryServices"
           :readonly="reviewMode"
           label="I have laundry services available for regular use"
         ></v-checkbox>
@@ -114,16 +121,19 @@
         >Proper collection and removal of garbage is crucial to reducing the risk of disease transmission. This includes wearing disposable gloves to remove waste from rooms and common areas and using sturdy, leak resistant garbage bags for containing waste.</p>
         <v-checkbox
           v-model="wasteManagementGloves"
+          data-e2e="form-wasteManagementGloves"
           :readonly="reviewMode"
           label="I have disposable gloves for the handling of garbage"
         ></v-checkbox>
         <v-checkbox
           v-model="wasteManagementSchedule"
+          data-e2e="form-wasteManagementSchedule"
           :readonly="reviewMode"
           label="I have a waste removal schedule"
         ></v-checkbox>
         <v-checkbox
           v-model="wasteManagementBags"
+          data-e2e="form-wasteManagementBags"
           :readonly="reviewMode"
           label="I have sturdy, leak resistant garbage bags"
         ></v-checkbox>
@@ -140,26 +150,31 @@
         >Helping workers to engage in hand hygiene prevents or reduces the spread of COVID-19 and other illnesses. Industrial Camp Operators should ensure easy access to hand hygiene facilities either through hand hygiene stations or the provisions of hand sanitizer at the work site and at the accommodation site.</p>
         <v-checkbox
           v-model="handWashingStations"
+          data-e2e="form-handWashingStations"
           :readonly="reviewMode"
           label="I have an adequate number of hand washing stations (either permanent or portable) available to workers"
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingSoapWater"
+          data-e2e="form-handWashingSoapWater"
           :readonly="reviewMode"
           label="There is an appropriate supply of soap and water "
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingWaterless"
+          data-e2e="form-handWashingWaterless"
           :readonly="reviewMode"
           label="I have supplemented with waterless hand sanitizers with a min of 60% alcohol where appropriate"
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingPaperTowels"
+          data-e2e="form-handWashingPaperTowels"
           :readonly="reviewMode"
           label="I have provided disposable paper towels"
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingSignage"
+          data-e2e="form-handWashingSignage"
           :readonly="reviewMode"
           label="I have put up signs to promote regular hand washing"
         ></v-checkbox>
@@ -175,11 +190,13 @@
         </div>
         <v-checkbox
           v-model="distancingMaintained"
+          data-e2e="form-distancingMaintained"
           :readonly="reviewMode"
           label="I have taken steps to ensure physical distancing can be maintained during work and after work."
         ></v-checkbox>
         <v-checkbox
           v-model="distancingFaceShields"
+          data-e2e="form-distancingFaceShields"
           :readonly="reviewMode"
           label="I have physical barriers like face shields or masks for situations where physical distancing is not possible."
         ></v-checkbox>
@@ -192,6 +209,7 @@
         <p>All common areas and surfaces should be cleaned at the start and end of each day. Examples of common areas and surfaces include washrooms, common tables, desks, light switches, and door handles. Regular household cleaners are effective against COVID-19, following the instructions on the label.</p>
         <v-checkbox
           v-model="disinfectingSchedule"
+          data-e2e="form-disinfectingSchedule"
           :readonly="reviewMode"
           label="I have a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end of each day"
         ></v-checkbox>
@@ -205,32 +223,38 @@
         <div class="questions-check-group">
           <v-checkbox
             v-model="transportationSingleOccupant"
+            data-e2e="form-transportationSingleOccupant"
             :readonly="reviewMode"
             label="One person per vehicle"
           ></v-checkbox>
           <v-checkbox
             v-model="transportationBusesVans"
+            data-e2e="form-transportationBusesVans"
             :readonly="reviewMode"
             label="Buses or Vans"
           ></v-checkbox>
           <v-checkbox
             v-model="transportationTrucksCars"
+            data-e2e="form-transportationTrucksCars"
             :readonly="reviewMode"
             label="Trucks and Cars"
           ></v-checkbox>
           <v-checkbox
             v-model="transportationHelicopter"
+            data-e2e="form-transportationHelicopter"
             :readonly="reviewMode"
             label="Helicopter"
           ></v-checkbox>
         </div>
         <v-checkbox
           v-model="transportationTravelPod"
+          data-e2e="form-transportationTravelPod"
           :readonly="reviewMode"
           label="I have made arrangements so that where workers are required to travel together in vehicles or helicopters to the work site, workers will travel with their work pod."
         ></v-checkbox>
         <v-checkbox
           v-model="transportationCleaningDistancing"
+          data-e2e="form-transportationCleaningDistancing"
           :readonly="reviewMode"
           label="Procedures for frequent vehicle cleaning and physical distancing or use personal protective equipment have been developed and communicated to the workers prior to being transported to the worksite."
         ></v-checkbox>
@@ -240,8 +264,8 @@
     <div class="hide-on-review">
       <hr />
 
-      <v-btn color="primary" @click="setStep(4)">Go to Step 4</v-btn>
-      <v-btn text @click="setStep(2)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(4)" data-e2e="form-to-step-four">Go to Step 4</v-btn>
+      <v-btn text @click="setStep(2)" data-e2e="form-to-previous-step">Back</v-btn>
     </div>
   </v-container>
 </template>

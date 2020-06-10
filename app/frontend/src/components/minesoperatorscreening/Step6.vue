@@ -21,7 +21,14 @@
           <GeneratePdfButton :submissionId="this.submissionDetails.submissionId">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <v-btn v-on="on" color="primary" class="ml-5 mr-10" fab large>
+                <v-btn
+                  v-on="on"
+                  color="primary"
+                  class="ml-5 mr-10"
+                  data-e2e="form-generate-pdf"
+                  fab
+                  large
+                >
                   <v-icon>picture_as_pdf</v-icon>
                 </v-btn>
               </template>
@@ -43,6 +50,7 @@
           <a
             href="#"
             @click="refresh"
+            data-e2e="form-restart"
           >
             click here
             <v-icon small color="primary">refresh</v-icon>
@@ -247,7 +255,11 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'setSubmissionError', 'updateAttestation']),
+    ...mapMutations('form', [
+      'setStep',
+      'setSubmissionError',
+      'updateAttestation'
+    ]),
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();

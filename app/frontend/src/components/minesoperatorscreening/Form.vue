@@ -7,6 +7,7 @@
             <v-stepper-header class="elevation-0 hidden-xs-only">
               <v-stepper-step
                 :complete="step > 1"
+                data-e2e="stepper-one"
                 edit-icon="check"
                 :editable="step > 1"
                 step="1"
@@ -16,6 +17,7 @@
 
               <v-stepper-step
                 :complete="step > 2"
+                data-e2e="stepper-two"
                 edit-icon="check"
                 :editable="step > 2"
                 step="2"
@@ -25,6 +27,7 @@
 
               <v-stepper-step
                 :complete="step > 3"
+                data-e2e="stepper-three"
                 edit-icon="check"
                 :editable="step > 3"
                 step="3"
@@ -34,6 +37,7 @@
 
               <v-stepper-step
                 :complete="step > 4"
+                data-e2e="stepper-four"
                 edit-icon="check"
                 :editable="step > 4"
                 step="4"
@@ -43,6 +47,7 @@
 
               <v-stepper-step
                 :complete="step > 5"
+                data-e2e="stepper-five"
                 edit-icon="check"
                 :editable="step > 5"
                 step="5"
@@ -50,7 +55,7 @@
 
               <v-divider></v-divider>
 
-              <v-stepper-step step="6">Review</v-stepper-step>
+              <v-stepper-step step="6" data-e2e="stepper-six">Review</v-stepper-step>
             </v-stepper-header>
           </v-col>
         </v-row>
