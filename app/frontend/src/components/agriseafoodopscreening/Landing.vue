@@ -28,6 +28,7 @@
               <a
                 href="https://www2.gov.bc.ca/gov/content/industry/agriculture-seafood/covid-19-response/temporary-foreign-farmworkers#inspections"
                 target="_blank"
+                data-test="btn-form-complete-site-inspection"
               >
                 Temporary Foreign Workers and have already completed a site inspection,
                 <v-icon color="primary">open_in_new</v-icon>
@@ -54,6 +55,7 @@
                   <a
                     href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-farms-farm-workers.pdf"
                     target="_blank"
+                    data-test="btn-form-health-pdf-link"
                   >
                     Download PDF
                     <v-icon small color="primary">open_in_new</v-icon>
@@ -175,6 +177,7 @@
                     item-text="display"
                     item-value="type"
                     v-model="opType"
+                    data-test="select-form-opType"
                     :rules="[v => !!v || 'Type is required']"
                     dense
                     flat
@@ -185,7 +188,9 @@
                 </v-col>
               </v-row>
               <div class="text-center my-6">
-                <v-btn class="px-12" color="primary" @click="startForm">Start</v-btn>
+                <v-btn class="px-12" color="primary" @click="startForm">
+                  <span>Start</span>
+                </v-btn>
               </div>
             </v-form>
           </div>
@@ -202,28 +207,36 @@ export default {
   name: 'AgriSeaLanding',
   data() {
     return {
-      docTitle: 'Protecting Farm Workers and Temporary Foreign Workers During the COVID-19 Pandemic',
+      docTitle:
+        'Protecting Farm Workers and Temporary Foreign Workers During the COVID-19 Pandemic',
       docShortTitle: 'COVID-19 guidance for farms and farm workers',
       landingValid: false,
 
       // TODO: fetch this from API
       operationTypes: [
-        { type:'AGRICULTURE', display: 'Agriculture', enabled: true },
-        { type:'SEAFOOD', display: 'Seafood', enabled: true }
+        { type: 'AGRICULTURE', display: 'Agriculture', enabled: true },
+        { type: 'SEAFOOD', display: 'Seafood', enabled: true }
       ]
     };
   },
   computed: {
     ...mapGetters('agriSeafoodOpScreeningForm', ['operationType']),
     opType: {
-      get() { return this.operationType; },
-      set(value) { this.setOperationType(value); }
+      get() {
+        return this.operationType;
+      },
+      set(value) {
+        this.setOperationType(value);
+      }
     }
   },
   methods: {
-    ...mapMutations('agriSeafoodOpScreeningForm', ['setStep', 'setOperationType']),
+    ...mapMutations('agriSeafoodOpScreeningForm', [
+      'setStep',
+      'setOperationType'
+    ]),
     startForm() {
-      if(this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
         this.setStep(1);
       }
     }

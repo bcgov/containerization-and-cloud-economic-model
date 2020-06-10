@@ -15,6 +15,7 @@
           <a
             target="_blank"
             href="https://www2.gov.bc.ca/gov/content/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/medical-health-officers"
+            data-test="btn-form-health-officer"
           >
             Medical Health Officer
             <v-icon small color="primary">open_in_new</v-icon>
@@ -22,26 +23,31 @@
         </p>
         <v-checkbox
           v-model="infectionSeparation"
+          data-test="cb-form-infectionSeparation"
           :readonly="reviewMode"
           label="I am prepared to promptly separate the individual from others in their own accommodation"
         ></v-checkbox>
         <v-checkbox
           v-model="infectionSymptoms"
+          data-test="cb-form-infectionSymptoms"
           :readonly="reviewMode"
           label="I am prepared to provide individuals exhibiting symptoms of COVID-19 with a surgical/procedural mask or tissues to cover their mouth and nose."
         ></v-checkbox>
         <v-checkbox
           v-model="infectionHeathLinkBC"
+          data-test="cb-form-infectionHeathLinkBC"
           :readonly="reviewMode"
           label="I am prepared to direct the person to call  HealthLinkBC (8-1-1)."
         ></v-checkbox>
         <v-checkbox
           v-model="infectionSanitization"
+          data-test="cb-form-infectionSanitization"
           :readonly="reviewMode"
           label="I am prepared to clean and disinfect any rooms that the person has been in while symptomatic."
         ></v-checkbox>
         <v-checkbox
           v-model="infectionAccommodation"
+          data-test="cb-form-infectionAccommodation"
           :readonly="reviewMode"
           label="If commercial accommodation is being used to self-isolate, then I will inform management of the situation and necessary requirements."
         ></v-checkbox>
@@ -53,6 +59,7 @@
       <a
         target="_blank"
         href="http://www.bccdc.ca/health-info/diseases-conditions/covid-19/about-covid-19"
+        data-test="btn-form-cdc"
       >BC Centre for Disease Control</a>
       <v-icon small>open_in_new</v-icon>guidance.
     </BaseWarningCardNew>
@@ -62,6 +69,7 @@
       <div class="questions">
         <v-checkbox
           v-model="infectedFeeding"
+          data-test="cb-form-infectedFeeding"
           :readonly="reviewMode"
           label="I am able to provide food in a safe manner to a self-isolated worker"
         ></v-checkbox>
@@ -81,6 +89,7 @@
       <div class="questions">
         <v-checkbox
           v-model="infectedHousekeeping"
+          data-test="cb-form-infectedHousekeeping"
           :readonly="reviewMode"
           label="I am able to perform adequate housekeeping for a self isolated worker"
         ></v-checkbox>
@@ -103,6 +112,7 @@
       <div class="questions">
         <v-checkbox
           v-model="infectedWaste"
+          data-test="cb-form-infectedWaste"
           :readonly="reviewMode"
           label="I am able to perform waste management for supporting a self-isolated worker"
         ></v-checkbox>
@@ -116,8 +126,12 @@
     </div>
 
     <div class="hide-on-review">
-      <v-btn color="primary" @click="setStep(5)">Go to Step 5</v-btn>
-      <v-btn text @click="setStep(3)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(5)" data-test="btn-form-to-next-step">
+        <span>Go to Step 5</span>
+      </v-btn>
+      <v-btn text @click="setStep(3)" data-test="btn-form-to-previous-step">
+        <span>Back</span>
+      </v-btn>
     </div>
   </v-container>
 </template>
@@ -135,46 +149,81 @@ export default {
 
     // Infection
     infectionSeparation: {
-      get() { return this.attestation.infectionSeparation; },
-      set(value) { this.updateAttestation({['infectionSeparation']: value}); }
+      get() {
+        return this.attestation.infectionSeparation;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectionSeparation']: value });
+      }
     },
     infectionSymptoms: {
-      get() { return this.attestation.infectionSymptoms; },
-      set(value) { this.updateAttestation({['infectionSymptoms']: value}); }
+      get() {
+        return this.attestation.infectionSymptoms;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectionSymptoms']: value });
+      }
     },
     infectionHeathLinkBC: {
-      get() { return this.attestation.infectionHeathLinkBC; },
-      set(value) { this.updateAttestation({['infectionHeathLinkBC']: value}); }
+      get() {
+        return this.attestation.infectionHeathLinkBC;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectionHeathLinkBC']: value });
+      }
     },
     infectionSanitization: {
-      get() { return this.attestation.infectionSanitization; },
-      set(value) { this.updateAttestation({['infectionSanitization']: value}); }
+      get() {
+        return this.attestation.infectionSanitization;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectionSanitization']: value });
+      }
     },
     infectionAccommodation: {
-      get() { return this.attestation.infectionAccommodation; },
-      set(value) { this.updateAttestation({['infectionAccommodation']: value}); }
+      get() {
+        return this.attestation.infectionAccommodation;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectionAccommodation']: value });
+      }
     },
 
     // Food
     infectedFeeding: {
-      get() { return this.attestation.infectedFeeding; },
-      set(value) { this.updateAttestation({['infectedFeeding']: value}); }
+      get() {
+        return this.attestation.infectedFeeding;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectedFeeding']: value });
+      }
     },
 
     // HouseKeeping
     infectedHousekeeping: {
-      get() { return this.attestation.infectedHousekeeping; },
-      set(value) { this.updateAttestation({['infectedHousekeeping']: value}); }
+      get() {
+        return this.attestation.infectedHousekeeping;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectedHousekeeping']: value });
+      }
     },
 
     // Waste
     infectedWaste: {
-      get() { return this.attestation.infectedWaste; },
-      set(value) { this.updateAttestation({['infectedWaste']: value}); }
-    },
+      get() {
+        return this.attestation.infectedWaste;
+      },
+      set(value) {
+        this.updateAttestation({ ['infectedWaste']: value });
+      }
+    }
   },
   methods: {
-    ...mapMutations('agriSeafoodOpScreeningForm', ['setStep', 'updateAttestation']),
+    ...mapMutations('agriSeafoodOpScreeningForm', [
+      'setStep',
+      'updateAttestation'
+    ])
   }
 };
 </script>

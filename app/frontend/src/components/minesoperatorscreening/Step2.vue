@@ -8,7 +8,9 @@
         color="primary"
         @click="sampleData"
         data-test="btn-form-test-data"
-      >FOR TEST ONLY - FILL SAMPLE DATA</v-btn>
+      >
+        <span>FOR TEST ONLY - FILL SAMPLE DATA</span>
+      </v-btn>
       <h2 class="pb-8">Provide Your Business Contact Information</h2>
       <hr class="orange" />
     </div>
