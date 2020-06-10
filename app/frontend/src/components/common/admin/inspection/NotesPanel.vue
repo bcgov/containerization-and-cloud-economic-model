@@ -60,13 +60,17 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import commonFormService from '@/services/commonFormService';
-import { AppClients, AppRoles, FormNames } from '@/utils/constants';
+import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'NotesPanel',
   components: {
   },
   props: {
+    formName: {
+      type: String,
+      required: true
+    },
     submissionId: {
       required: true,
       type: String
@@ -84,7 +88,7 @@ export default {
   computed: {
     ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
     hasReviewer() {
-      return this.hasResourceRoles(AppClients.AGRISEAFOODOPSCREENING, [
+      return this.hasResourceRoles(getAppClient(this.formName), [
         AppRoles.REVIEWER
       ]);
     }
@@ -99,7 +103,7 @@ export default {
     getNotes() {
       this.loading = true;
       commonFormService
-        .getNotes(FormNames.AGRISEAFOODOPSCREENING, this.submissionId)
+        .getNotes(this.formName, this.submissionId)
         .then(response => {
           this.notes = response.data;
         })
@@ -117,7 +121,7 @@ export default {
           createdBy: this.fullName,
           note: this.newNote
         };
-        const response = await commonFormService.addNote(FormNames.AGRISEAFOODOPSCREENING, this.submissionId, body);
+        const response = await commonFormService.addNote(this.formName, this.submissionId, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

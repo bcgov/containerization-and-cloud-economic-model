@@ -35,7 +35,7 @@
       </template>
       <template v-slot:item.details="{ item }">
         <router-link
-          :to="{ name: 'AgriSeafoodOpScreeningSubmission', params: { submissionId: item.submissionId } }"
+          :to="{ path: `admin/submission/${item.submissionId}` }"
         >
           <v-btn text small color="textLink">
             <v-icon class="mr-1">remove_red_eye</v-icon>VIEW
@@ -49,12 +49,17 @@
 <script>
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import commonFormService from '@/services/commonFormService';
-import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'SubmissionsTable',
   components: {
     GeneratePdfButton
+  },
+  props: {
+    formName: {
+      type: String,
+      required: true
+    }
   },
   computed: {
     responsiveCell() {
@@ -106,7 +111,7 @@ export default {
     // get table data from frontend service layer
     getData() {
       commonFormService
-        .getAllSubmissionData(FormNames.AGRISEAFOODOPSCREENING)
+        .getAllSubmissionData(this.formName)
         .then(response => {
           const data = response.data;
 

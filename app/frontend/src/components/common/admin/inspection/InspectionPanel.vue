@@ -122,7 +122,7 @@
               <v-card v-if="historyDialog">
                 <v-card-title class="headline grey lighten-3" primary-title>Status History</v-card-title>
 
-                <StatusTable :submissionId="submissionId" class="my-4" />
+                <StatusTable :submissionId="submissionId" :formName="formName" class="my-4" />
 
                 <v-divider></v-divider>
                 <v-card-actions>
@@ -152,9 +152,9 @@
 import moment from 'moment';
 import { mapGetters } from 'vuex';
 
-import StatusTable from '@/components/agriseafoodopscreening/admin/inspection/StatusTable.vue';
+import StatusTable from '@/components/common/admin/inspection/StatusTable.vue';
 import commonFormService from '@/services/commonFormService';
-import { AppClients, AppRoles, FormNames } from '@/utils/constants';
+import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'InspectionPanel',
@@ -162,6 +162,10 @@ export default {
     StatusTable
   },
   props: {
+    formName: {
+      type: String,
+      required: true
+    },
     submissionId: {
       required: true,
       type: String
@@ -218,28 +222,21 @@ export default {
         : 'N/A';
     },
     hasReviewer() {
-      return this.hasResourceRoles(AppClients.AGRISEAFOODOPSCREENING, [
-        AppRoles.REVIEWER
-      ]);
+      return this.hasResourceRoles(getAppClient(this.formName), [AppRoles.REVIEWER]);
     }
   },
   methods: {
     async getInspectionData() {
       this.loading = true;
       try {
-        const statuses = await commonFormService.getSubmissionStatuses(
-          FormNames.AGRISEAFOODOPSCREENING,
-          this.submissionId
-        );
+        const statuses = await commonFormService.getSubmissionStatuses(this.formName, this.submissionId);
         this.statusHistory = statuses.data;
         if (!this.statusHistory.length || !this.statusHistory[0]) {
           this.error = 'No inspection statuses found';
         } else {
           // Statuses are returned in date precedence, the 0th item in the array is the current status
           this.currentStatus = this.statusHistory[0];
-          const scRes = await commonFormService.getStatusCodes(
-            FormNames.AGRISEAFOODOPSCREENING
-          );
+          const scRes = await commonFormService.getStatusCodes(this.formName);
           const statusCodes = scRes.data;
           if (!statusCodes.length) {
             throw new Error('error finding status codes');
@@ -288,11 +285,7 @@ export default {
           if (this.actionDate && this.showActionDate) {
             statusBody.actionDate = this.actionDate;
           }
-          const statusResponse = await commonFormService.sendSubmissionStatuses(
-            FormNames.AGRISEAFOODOPSCREENING,
-            this.submissionId,
-            statusBody
-          );
+          const statusResponse = await commonFormService.sendSubmissionStatuses(this.formName, this.submissionId, statusBody);
           if (!statusResponse.data) {
             throw new Error(
               'No response data from API while submitting status update form'
@@ -305,12 +298,7 @@ export default {
               submissionStatusId: submissionStatusId,
               note: this.note
             };
-            const response = await commonFormService.addNoteToStatus(
-              FormNames.AGRISEAFOODOPSCREENING,
-              this.submissionId,
-              submissionStatusId,
-              noteBody
-            );
+            const response = await commonFormService.addNoteToStatus(this.formName, this.submissionId, submissionStatusId, noteBody);
             if (!response.data) {
               throw new Error(
                 'No response data from API while submitting note for status update'

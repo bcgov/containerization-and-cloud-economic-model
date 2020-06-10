@@ -30,11 +30,14 @@
 import moment from 'moment';
 
 import commonFormService from '@/services/commonFormService';
-import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'StatusTable',
   props:{
+    formName: {
+      type: String,
+      required: true
+    },
     submissionId: {
       required: true,
       type: String
@@ -64,7 +67,7 @@ export default {
     },
     getData() {
       commonFormService
-        .getSubmissionStatuses(FormNames.FORESTRYSECTOROPSCREENING, this.submissionId)
+        .getSubmissionStatuses(this.formName, this.submissionId)
         .then(response => {
           this.statuses = response.data;
           if (!this.statuses.length) {

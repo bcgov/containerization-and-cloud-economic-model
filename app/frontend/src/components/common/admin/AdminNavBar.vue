@@ -19,14 +19,14 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import { AppRoles } from '@/utils/constants';
+import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'AdminNavBar',
   computed: {
     ...mapGetters('auth', ['hasResourceRoles']),
     isAdmin() {
-      return this.hasResourceRoles(this.resource, [AppRoles.ADMIN]);
+      return this.hasResourceRoles(getAppClient(this.formName), [AppRoles.ADMIN]);
     },
     isAdminPage() {
       return this.$route.path.match(/\/admin/g);
@@ -34,10 +34,6 @@ export default {
   },
   props: {
     formName: {
-      type: String,
-      required: true
-    },
-    resource: {
       type: String,
       required: true
     }
