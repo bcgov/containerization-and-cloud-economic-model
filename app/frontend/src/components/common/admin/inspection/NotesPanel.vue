@@ -60,7 +60,7 @@ import moment from 'moment';
 import { mapGetters } from 'vuex';
 
 import commonFormService from '@/services/commonFormService';
-import { AppRoles } from '@/utils/constants';
+import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'NotesPanel',
@@ -88,7 +88,7 @@ export default {
   computed: {
     ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
     hasReviewer() {
-      return this.hasResourceRoles(`comfort-${this.formName}`, [
+      return this.hasResourceRoles(getAppClient(this.formName), [
         AppRoles.REVIEWER
       ]);
     }

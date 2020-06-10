@@ -154,7 +154,7 @@ import { mapGetters } from 'vuex';
 
 import StatusTable from '@/components/common/admin/inspection/StatusTable.vue';
 import commonFormService from '@/services/commonFormService';
-import { AppRoles } from '@/utils/constants';
+import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'InspectionPanel',
@@ -222,7 +222,7 @@ export default {
         : 'N/A';
     },
     hasReviewer() {
-      return this.hasResourceRoles(`comfort-${this.formName}`, [AppRoles.REVIEWER]);
+      return this.hasResourceRoles(getAppClient(this.formName), [AppRoles.REVIEWER]);
     }
   },
   methods: {

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <AdminNavBar :formName="formName" :resource="resource" />
+    <AdminNavBar :formName="formName" />
     <transition name="component-fade" mode="out-in">
       <router-view />
     </transition>
@@ -10,7 +10,7 @@
 <script>
 import AdminNavBar from '@/components/common/admin/AdminNavBar.vue';
 import agriSeafoodOpScreeningForm from '@/store/modules/agriseafoodopscreening/agriSeafoodOpScreeningForm.js';
-import { AppClients, FormNames } from '@/utils/constants';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'AgricultureSeafoodOperatorScreening',
@@ -23,9 +23,6 @@ export default {
   computed: {
     formName() {
       return FormNames.AGRISEAFOODOPSCREENING;
-    },
-    resource() {
-      return AppClients.AGRISEAFOODOPSCREENING;
     }
   },
   created() {
