@@ -18,11 +18,13 @@
 
         <v-checkbox
           v-model="protectionSignage"
+          data-test="cb-form-protectionSignage"
           :readonly="reviewMode"
           label="I have signage in place in the appropriate language on how employees can protect themselves from COVID-19 "
         ></v-checkbox>
         <v-checkbox
           v-model="workerContactPersonnel"
+          data-test="cb-form-workerContactPersonnel"
           :readonly="reviewMode"
           label="I have someone identified that workers can go to if they have questions on COVID-19"
         ></v-checkbox>
@@ -39,7 +41,12 @@
 
         <p>1) Do your Common areas allow for physical distancing of 2m / 6ft at all times?</p>
         <div class="pl-4">
-          <v-radio-group :readonly="reviewMode" v-model="commonAreaDistancing" :mandatory="true">
+          <v-radio-group
+            :readonly="reviewMode"
+            v-model="commonAreaDistancing"
+            data-test="radio-form-commonAreaDistancing"
+            :mandatory="true"
+          >
             <v-radio label="Yes" value="yes"></v-radio>
             <v-radio label="No" value="no"></v-radio>
           </v-radio-group>
@@ -47,7 +54,12 @@
 
         <p>2) Do you have individual/single beds or shared sleeping areas?</p>
         <div class="pl-4">
-          <v-radio-group :readonly="reviewMode" v-model="sleepingAreaType" :mandatory="true">
+          <v-radio-group
+            :readonly="reviewMode"
+            v-model="sleepingAreaType"
+            data-test="radio-form-sleepingAreaType"
+            :mandatory="true"
+          >
             <v-radio label="Individual Beds or Single beds" value="SINGLE"></v-radio>
             <v-radio label="Shared sleeping areas" value="SHARED"></v-radio>
           </v-radio-group>
@@ -57,6 +69,7 @@
               <v-col cols="12" md="8" lg="3">
                 <v-combobox
                   v-model="sharedSleepingPerRoom"
+                  data-test="select-form-sharedSleepingPerRoom"
                   :readonly="reviewMode"
                   :items="numbers"
                   label="How many people are in a room?"
@@ -65,6 +78,7 @@
             </v-row>
             <v-checkbox
               v-model="sharedSleepingDistancing"
+              data-test="cb-form-sharedSleepingDistancing"
               :readonly="reviewMode"
               label="Beds in the head-to-toe configuration with the 2m distance apart"
             ></v-checkbox>
@@ -80,11 +94,13 @@
       <div class="questions">
         <v-checkbox
           v-model="selfIsolateUnderstood"
+          data-test="cb-form-selfIsolateUnderstood"
           :readonly="reviewMode"
           label="I understand what is needed for a person to self-isolate."
         ></v-checkbox>
         <v-checkbox
           v-model="selfIsolateAccommodation"
+          data-test="cb-form-selfIsolateAccommodation"
           :readonly="reviewMode"
           label="I have the accommodation to let a worker self-isolate in a separate accommodation than other workers or arrange for separate accommodation."
         ></v-checkbox>
@@ -99,6 +115,7 @@
         >Laundry must be performed properly to reduce the risk of disease transmission of COVID-19, including using hot water for laundry machines and having adequate supply of detergent.</p>
         <v-checkbox
           v-model="laundryServices"
+          data-test="cb-form-laundryServices"
           :readonly="reviewMode"
           label="I have laundry services available for regular use"
         ></v-checkbox>
@@ -113,16 +130,19 @@
         >Proper collection and removal of garbage is crucial to reducing the risk of disease transmission. This includes wearing disposable gloves to remove waste from rooms and common areas and using sturdy, leak resistant garbage bags for containing waste.</p>
         <v-checkbox
           v-model="wasteManagementGloves"
+          data-test="cb-form-wasteManagementGloves"
           :readonly="reviewMode"
           label="I have disposable gloves for the handling of garbage"
         ></v-checkbox>
         <v-checkbox
           v-model="wasteManagementSchedule"
+          data-test="cb-form-wasteManagementSchedule"
           :readonly="reviewMode"
           label="I have a waste removal schedule"
         ></v-checkbox>
         <v-checkbox
           v-model="wasteManagementBags"
+          data-test="cb-form-wasteManagementBags"
           :readonly="reviewMode"
           label="I have sturdy, leak resistant garbage bags"
         ></v-checkbox>
@@ -139,26 +159,31 @@
         >Helping workers to engage in hand hygiene prevents or reduces the spread of COVID-19 and other illnesses. Industrial Camp Operators should ensure easy access to hand hygiene facilities either through hand hygiene stations or the provisions of hand sanitizer at the work site and at the accommodation site.</p>
         <v-checkbox
           v-model="handWashingStations"
+          data-test="cb-form-handWashingStations"
           :readonly="reviewMode"
           label="I have an adequate number of hand washing stations (either permanent or portable) available to workers"
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingSoapWater"
+          data-test="cb-form-handWashingSoapWater"
           :readonly="reviewMode"
           label="There is an appropriate supply of soap and water "
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingWaterless"
+          data-test="cb-form-handWashingWaterless"
           :readonly="reviewMode"
           label="I have supplemented with waterless hand sanitizers with a min of 60% alcohol where appropriate"
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingPaperTowels"
+          data-test="cb-form-handWashingPaperTowels"
           :readonly="reviewMode"
           label="I have provided disposable paper towels"
         ></v-checkbox>
         <v-checkbox
           v-model="handWashingSignage"
+          data-test="cb-form-handWashingSignage"
           :readonly="reviewMode"
           label="I have put up signs to promote regular hand washing"
         ></v-checkbox>
@@ -174,11 +199,13 @@
         </div>
         <v-checkbox
           v-model="distancingMaintained"
+          data-test="cb-form-distancingMaintained"
           :readonly="reviewMode"
           label="I have taken steps to ensure physical distancing can be maintained during work and after work."
         ></v-checkbox>
         <v-checkbox
           v-model="distancingFaceShields"
+          data-test="cb-form-distancingFaceShields"
           :readonly="reviewMode"
           label="I have physical barriers like face shields or masks for situations where physical distancing is not possible."
         ></v-checkbox>
@@ -191,6 +218,7 @@
         <p>All common areas and surfaces should be cleaned at the start and end of each day. Examples of common areas and surfaces include washrooms, common tables, desks, light switches, and door handles. Regular household cleaners are effective against COVID-19, following the instructions on the label.</p>
         <v-checkbox
           v-model="disinfectingSchedule"
+          data-test="cb-form-disinfectingSchedule"
           :readonly="reviewMode"
           label="I have a schedule to ensure common and high touch areas are cleaned or disinfected at the start and end of each day"
         ></v-checkbox>
@@ -198,8 +226,12 @@
     </div>
 
     <div class="hide-on-review">
-      <v-btn color="primary" @click="setStep(3)">Go to Step 3</v-btn>
-      <v-btn text @click="setStep(1)">Back</v-btn>
+      <v-btn color="primary" @click="setStep(3)" data-test="btn-form-to-next-step">
+        <span>Go to Step 3</span>
+      </v-btn>
+      <v-btn text @click="setStep(1)" data-test="btn-form-to-previous-step">
+        <span>Back</span>
+      </v-btn>
     </div>
   </v-container>
 </template>
@@ -214,7 +246,7 @@ export default {
   },
   data() {
     return {
-      numbers: [1,2,3,4,5,6,7,8,9,10]
+      numbers: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
     };
   },
   computed: {
@@ -222,103 +254,185 @@ export default {
 
     // COVID 19 info
     protectionSignage: {
-      get() { return this.attestation.protectionSignage; },
-      set(value) { this.updateAttestation({['protectionSignage']: value}); }
+      get() {
+        return this.attestation.protectionSignage;
+      },
+      set(value) {
+        this.updateAttestation({ ['protectionSignage']: value });
+      }
     },
     workerContactPersonnel: {
-      get() { return this.attestation.workerContactPersonnel; },
-      set(value) { this.updateAttestation({['workerContactPersonnel']: value}); }
+      get() {
+        return this.attestation.workerContactPersonnel;
+      },
+      set(value) {
+        this.updateAttestation({ ['workerContactPersonnel']: value });
+      }
     },
 
     // Lodging
     commonAreaDistancing: {
-      get() { return this.attestation.commonAreaDistancing ? 'yes' : 'no'; },
-      set(value) { this.updateAttestation({['commonAreaDistancing']: value === 'yes'}); }
+      get() {
+        return this.attestation.commonAreaDistancing ? 'yes' : 'no';
+      },
+      set(value) {
+        this.updateAttestation({ ['commonAreaDistancing']: value === 'yes' });
+      }
     },
     sleepingAreaType: {
-      get() { return this.attestation.sleepingAreaType; },
-      set(value) { this.updateAttestation({['sleepingAreaType']: value}); }
+      get() {
+        return this.attestation.sleepingAreaType;
+      },
+      set(value) {
+        this.updateAttestation({ ['sleepingAreaType']: value });
+      }
     },
     sharedSleepingPerRoom: {
-      get() { return this.attestation.sharedSleepingPerRoom; },
-      set(value) { this.updateAttestation({['sharedSleepingPerRoom']: value}); }
+      get() {
+        return this.attestation.sharedSleepingPerRoom;
+      },
+      set(value) {
+        this.updateAttestation({ ['sharedSleepingPerRoom']: value });
+      }
     },
     sharedSleepingDistancing: {
-      get() { return this.attestation.sharedSleepingDistancing; },
-      set(value) { this.updateAttestation({['sharedSleepingDistancing']: value}); }
+      get() {
+        return this.attestation.sharedSleepingDistancing;
+      },
+      set(value) {
+        this.updateAttestation({ ['sharedSleepingDistancing']: value });
+      }
     },
 
     // Self-isolation
     selfIsolateUnderstood: {
-      get() { return this.attestation.selfIsolateUnderstood; },
-      set(value) { this.updateAttestation({['selfIsolateUnderstood']: value}); }
+      get() {
+        return this.attestation.selfIsolateUnderstood;
+      },
+      set(value) {
+        this.updateAttestation({ ['selfIsolateUnderstood']: value });
+      }
     },
     selfIsolateAccommodation: {
-      get() { return this.attestation.selfIsolateAccommodation; },
-      set(value) { this.updateAttestation({['selfIsolateAccommodation']: value}); }
+      get() {
+        return this.attestation.selfIsolateAccommodation;
+      },
+      set(value) {
+        this.updateAttestation({ ['selfIsolateAccommodation']: value });
+      }
     },
 
     // Laundry
     laundryServices: {
-      get() { return this.attestation.laundryServices; },
-      set(value) { this.updateAttestation({['laundryServices']: value}); }
+      get() {
+        return this.attestation.laundryServices;
+      },
+      set(value) {
+        this.updateAttestation({ ['laundryServices']: value });
+      }
     },
 
     // Waste mgmt
     wasteManagementGloves: {
-      get() { return this.attestation.wasteManagementGloves; },
-      set(value) { this.updateAttestation({['wasteManagementGloves']: value}); }
+      get() {
+        return this.attestation.wasteManagementGloves;
+      },
+      set(value) {
+        this.updateAttestation({ ['wasteManagementGloves']: value });
+      }
     },
     wasteManagementSchedule: {
-      get() { return this.attestation.wasteManagementSchedule; },
-      set(value) { this.updateAttestation({['wasteManagementSchedule']: value}); }
+      get() {
+        return this.attestation.wasteManagementSchedule;
+      },
+      set(value) {
+        this.updateAttestation({ ['wasteManagementSchedule']: value });
+      }
     },
     wasteManagementBags: {
-      get() { return this.attestation.wasteManagementBags; },
-      set(value) { this.updateAttestation({['wasteManagementBags']: value}); }
+      get() {
+        return this.attestation.wasteManagementBags;
+      },
+      set(value) {
+        this.updateAttestation({ ['wasteManagementBags']: value });
+      }
     },
 
     // Hand-washing
     handWashingStations: {
-      get() { return this.attestation.handWashingStations; },
-      set(value) { this.updateAttestation({['handWashingStations']: value}); }
+      get() {
+        return this.attestation.handWashingStations;
+      },
+      set(value) {
+        this.updateAttestation({ ['handWashingStations']: value });
+      }
     },
     handWashingSoapWater: {
-      get() { return this.attestation.handWashingSoapWater; },
-      set(value) { this.updateAttestation({['handWashingSoapWater']: value}); }
+      get() {
+        return this.attestation.handWashingSoapWater;
+      },
+      set(value) {
+        this.updateAttestation({ ['handWashingSoapWater']: value });
+      }
     },
     handWashingWaterless: {
-      get() { return this.attestation.handWashingWaterless; },
-      set(value) { this.updateAttestation({['handWashingWaterless']: value}); }
+      get() {
+        return this.attestation.handWashingWaterless;
+      },
+      set(value) {
+        this.updateAttestation({ ['handWashingWaterless']: value });
+      }
     },
     handWashingPaperTowels: {
-      get() { return this.attestation.handWashingPaperTowels; },
-      set(value) { this.updateAttestation({['handWashingPaperTowels']: value}); }
+      get() {
+        return this.attestation.handWashingPaperTowels;
+      },
+      set(value) {
+        this.updateAttestation({ ['handWashingPaperTowels']: value });
+      }
     },
     handWashingSignage: {
-      get() { return this.attestation.handWashingSignage; },
-      set(value) { this.updateAttestation({['handWashingSignage']: value}); }
+      get() {
+        return this.attestation.handWashingSignage;
+      },
+      set(value) {
+        this.updateAttestation({ ['handWashingSignage']: value });
+      }
     },
-
 
     // Phyisical Distancing
     distancingMaintained: {
-      get() { return this.attestation.distancingMaintained; },
-      set(value) { this.updateAttestation({['distancingMaintained']: value}); }
+      get() {
+        return this.attestation.distancingMaintained;
+      },
+      set(value) {
+        this.updateAttestation({ ['distancingMaintained']: value });
+      }
     },
     distancingFaceShields: {
-      get() { return this.attestation.distancingFaceShields; },
-      set(value) { this.updateAttestation({['distancingFaceShields']: value}); }
+      get() {
+        return this.attestation.distancingFaceShields;
+      },
+      set(value) {
+        this.updateAttestation({ ['distancingFaceShields']: value });
+      }
     },
 
     // Cleaning/Disinfecting
     disinfectingSchedule: {
-      get() { return this.attestation.disinfectingSchedule; },
-      set(value) { this.updateAttestation({['disinfectingSchedule']: value}); }
+      get() {
+        return this.attestation.disinfectingSchedule;
+      },
+      set(value) {
+        this.updateAttestation({ ['disinfectingSchedule']: value });
+      }
     }
   },
   methods: {
-    ...mapMutations('forestrySectorOpScreeningForm', ['setStep', 'updateAttestation']),
+    ...mapMutations('forestrySectorOpScreeningForm', [
+      'setStep',
+      'updateAttestation'
+    ])
   }
 };
 </script>

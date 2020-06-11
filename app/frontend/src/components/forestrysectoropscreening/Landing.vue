@@ -42,6 +42,7 @@
                   <a
                     href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-work-camps-silviculture.pdf"
                     target="_blank"
+                    data-test="btn-form-health-pdf-link"
                   >
                     Download PDF
                     <v-icon small color="primary">open_in_new</v-icon>
@@ -182,6 +183,7 @@
                     item-text="display"
                     item-value="type"
                     v-model="opType"
+                    data-test="select-form-opType"
                     :rules="[v => !!v || 'Type is required']"
                     dense
                     flat

@@ -147,6 +147,7 @@
                   <br />Toll-free: 1-877-533-1789 | Email:
                   <a
                     href="mailto:Contact@AgSafeBC.ca"
+                    data-test="btn-form-contact-email"
                   >Contact@AgSafeBC.ca</a>
                 </h4>
               </BaseInfoCard>
