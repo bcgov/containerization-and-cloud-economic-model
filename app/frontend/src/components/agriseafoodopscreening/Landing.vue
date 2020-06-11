@@ -26,7 +26,7 @@
             <BaseInfoCard class="my-8 hide-on-review">
               If you employ
               <a
-                href="https://www2.qa.gov.bc.ca/gov/content/industry/agriculture-seafood/covid-19-response/temporary-foreign-farmworkers#inspections"
+                href="https://www2.gov.bc.ca/gov/content/industry/agriculture-seafood/covid-19-response/temporary-foreign-farmworkers#inspections"
                 target="_blank"
               >
                 Temporary Foreign Workers and have already completed a site inspection,
@@ -142,7 +142,10 @@
                 <h4>
                   The following contacts are available if you need assistance completing these risk assessment or infection prevention tasks:
                   <br />
-                  <br />Toll-free: 1-877-533-1789 | Email: Contact@AgSafeBC.ca : ??? Confirm later
+                  <br />Toll-free: 1-877-533-1789 | Email:
+                  <a
+                    href="mailto:AGRI.AgricultureandSeafoodOperator.IPCP@gov.bc.ca"
+                  >AGRI.AgricultureandSeafoodOperator.IPCP@gov.bc.ca</a>
                 </h4>
               </BaseInfoCard>
             </div>
