@@ -4,21 +4,18 @@
 
     <v-alert v-if="error" type="error" tile dense>{{ error }}</v-alert>
 
-    <div v-if="!gettingSettings">
-      <v-expansion-panels>
-        <v-expansion-panel v-for="item in settings" :key="item.name">
-          <v-expansion-panel-header>{{ item.name }}</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            <SettingItem :item="item" />
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-      </v-expansion-panels>
-    </div>
+    <v-expansion-panels v-if="!gettingSettings">
+      <v-expansion-panel v-for="item in settings" :key="item.name">
+        <v-expansion-panel-header :data-test="`btn-panel-${item.name}`">{{ item.name }}</v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <SettingItem :item="item" />
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
   </div>
 </template>
 
 <script>
-
 import commonFormService from '@/services/commonFormService';
 import SettingItem from '@/components/common/admin/settings/SettingItem.vue';
 
@@ -43,9 +40,7 @@ export default {
       this.error = '';
       this.gettingSettings = true;
       try {
-        const response = await commonFormService.getSettings(
-          this.formName
-        );
+        const response = await commonFormService.getSettings(this.formName);
         this.settings = response.data;
       } catch (error) {
         console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
@@ -61,7 +56,7 @@ export default {
 };
 </script>
 
-<style  scoped>
+<style scoped>
 .v-expansion-panel-header {
   font-weight: bold;
   color: #003366 !important;

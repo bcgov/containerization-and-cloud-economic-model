@@ -53,7 +53,7 @@
           <v-col cols="12" sm="10" lg="11">
             <v-expansion-panels>
               <v-expansion-panel>
-                <v-expansion-panel-header>
+                <v-expansion-panel-header data-test="btn-form-panel-camp-order">
                   <strong>Complete a COVID-19 risk assessment of your Industrial Camps by following the directions in the guidance document.</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -93,7 +93,7 @@
           <v-col cols="12" sm="10" lg="11">
             <v-expansion-panels>
               <v-expansion-panel>
-                <v-expansion-panel-header>
+                <v-expansion-panel-header data-test="btn-form-panel-ipc-protocol">
                   <strong>Create your Infection Prevention and Control protocol.</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
