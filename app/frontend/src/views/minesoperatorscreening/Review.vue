@@ -7,8 +7,9 @@
     <v-row v-if="!getFormError">
       <v-col cols="12" md="8" offset-md="2">
         <GeneratePdfButton :submissionId="submissionId">
-          <v-btn text small color="textLink" class="pl-0">
-            <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF of Submission
+          <v-btn color="textLink" class="pl-0" data-test="btn-form-generate-pdf" text small>
+            <v-icon class="mr-1">picture_as_pdf</v-icon>
+            <span>Generate PDF of Submission</span>
           </v-btn>
         </GeneratePdfButton>
         <AdminReviewSubmission />
