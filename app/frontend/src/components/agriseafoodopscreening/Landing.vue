@@ -144,8 +144,8 @@
                   <br />
                   <br />Toll-free: 1-877-533-1789 | Email:
                   <a
-                    href="mailto:AGRI.AgricultureandSeafoodOperator.IPCP@gov.bc.ca"
-                  >AGRI.AgricultureandSeafoodOperator.IPCP@gov.bc.ca</a>
+                    href="Contact@AgSafeBC.ca"
+                  >Contact@AgSafeBC.ca</a>
                 </h4>
               </BaseInfoCard>
             </div>
