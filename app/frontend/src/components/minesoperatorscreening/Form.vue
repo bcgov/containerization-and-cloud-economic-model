@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-stepper v-model="step" alt-labels class="silv-stepper elevation-0" @change="setStep">
+    <v-stepper v-model="step" alt-labels class="form-stepper elevation-0" @change="setStep">
       <v-container v-if="!submissionComplete" fluid class="pa-0">
         <v-row class="header-row" no-gutters>
           <v-col cols="12" xl="10" offset-xl="1">

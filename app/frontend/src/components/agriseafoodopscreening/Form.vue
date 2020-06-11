@@ -1,7 +1,7 @@
 <template>
   <div>
     <Landing v-if="step < 1" />
-    <v-stepper v-else v-model="step" alt-labels class="silv-stepper elevation-0" @change="setStep">
+    <v-stepper v-else v-model="step" alt-labels class="form-stepper elevation-0" @change="setStep">
       <v-container v-if="!submissionComplete" fluid class="pa-0">
         <v-row class="header-row" no-gutters>
           <v-col cols="12" xl="8" offset-xl="2">
