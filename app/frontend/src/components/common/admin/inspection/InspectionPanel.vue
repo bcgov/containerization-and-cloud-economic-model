@@ -150,9 +150,9 @@
 
                 <StatusTable :submissionId="submissionId" :formName="formName" class="my-4" />
 
-                <v-divider></v-divider>
+                <v-divider />
                 <v-card-actions>
-                  <v-spacer></v-spacer>
+                  <v-spacer />
                   <v-btn
                     @click="historyDialog = false"
                     color="primary"

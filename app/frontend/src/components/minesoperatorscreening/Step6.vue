@@ -198,9 +198,9 @@
           <v-icon color="red">error</v-icon>Error
         </v-card-title>
         <v-card-text>{{ submissionError }}</v-card-text>
-        <v-divider></v-divider>
+        <v-divider />
         <v-card-actions>
-          <v-spacer></v-spacer>
+          <v-spacer />
           <v-btn color="red" data-test="btn-form-error-ok" text @click="setSubmissionError('')">OK</v-btn>
         </v-card-actions>
       </v-card>

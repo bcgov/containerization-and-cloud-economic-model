@@ -13,7 +13,7 @@
                 step="1"
               >Before You Begin</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step
                 :complete="step > 2"
@@ -23,7 +23,7 @@
                 step="2"
               >Contact Information</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step
                 :complete="step > 3"
@@ -33,7 +33,7 @@
                 step="3"
               >Before Operations Begin</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step
                 :complete="step > 4"
@@ -43,7 +43,7 @@
                 step="4"
               >After Workers Arrive</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step
                 :complete="step > 5"
@@ -53,7 +53,7 @@
                 step="5"
               >If Workers Become Ill</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step step="6" data-test="btn-stepper-six">Review</v-stepper-step>
             </v-stepper-header>
