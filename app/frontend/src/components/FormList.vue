@@ -51,7 +51,7 @@ export default {
     // TODO: Consider loading part of this from API?
     forms: [
       {
-        enabled: false,
+        enabled: true,
         linkAdminName: 'AgriSeafoodOpScreeningAdmin',
         linkName: 'AgriSeafoodOpScreeningForm',
         resource: AppClients.AGRISEAFOODOPSCREENING,

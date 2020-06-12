@@ -157,15 +157,36 @@
           <div class="hide-on-review">
             <div class="my-12">
               <BaseInfoCard>
-                <h4>
-                  The following contacts are available if you need assistance completing these risk assessment or infection prevention tasks:
-                  <br />
-                  <br />Toll-free: 1-877-533-1789 | Email:
-                  <a
-                    href="mailto:Contact@AgSafeBC.ca"
-                    data-test="btn-form-contact-email"
-                  >Contact@AgSafeBC.ca</a>
-                </h4>
+                <h4>The following contacts are available if you need assistance completing these risk assessment or infection prevention tasks:</h4>
+                <v-container class="pl-0 pb-0">
+                  <v-row>
+                    <v-col cols="12" sm="6" lg="4">
+                      <h4>Agriculture Operators contact</h4>
+                      <p class="mb-0 pb-0">
+                        AgSafeBC
+                        <br />Toll-free: 1-877-533-1789
+                        <br />Email:
+                        <a
+                          href="mailto:Contact@AgSafeBC.ca"
+                          data-test="btn-form-contact-email-1"
+                        >Contact@AgSafeBC.ca</a>
+                      </p>
+                    </v-col>
+                    <v-col cols="12" sm="6" lg="4">
+                      <h4>Seafood Operators contact</h4>
+                      <p class="mb-0 pb-0">
+                        WorksSafeBC
+                        <br />Toll-free: 1-888-621-7233 (1-888-621-SAFE)
+                        <br />Email WorksafeBC:
+                        <a
+                          target="_blank"
+                          href="https://gems.online.worksafebc.com/emailus?_ga=2.36658272.1710059602.1591993589-423167262.1587748063"
+                          data-test="btn-form-contact-email-2"
+                        >Contact Us Form <v-icon small color="primary">open_in_new</v-icon></a>
+                      </p>
+                    </v-col>
+                  </v-row>
+                </v-container>
               </BaseInfoCard>
             </div>
 
