@@ -19,7 +19,7 @@ docker-compose --env-file=default.env build
 
 #### Stand up services
 ```
-docker-compose --env-file=default.env up -d  
+docker-compose --env-file=default.env up -d postgres keycloak 
 ```
 Note that the node_migrate service does not continually run on up.  We run it only to populate the database. See below.  
 
