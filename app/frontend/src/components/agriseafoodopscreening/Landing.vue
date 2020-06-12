@@ -28,6 +28,7 @@
               <a
                 href="https://www2.gov.bc.ca/gov/content/industry/agriculture-seafood/covid-19-response/temporary-foreign-farmworkers#inspections"
                 target="_blank"
+                data-test="btn-form-complete-site-inspection"
               >
                 Temporary Foreign Workers and have already completed a site inspection,
                 <v-icon color="primary">open_in_new</v-icon>
@@ -54,6 +55,7 @@
                   <a
                     href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-farms-farm-workers.pdf"
                     target="_blank"
+                    data-test="btn-form-health-pdf-link"
                   >
                     Download PDF
                     <v-icon small color="primary">open_in_new</v-icon>
@@ -75,7 +77,7 @@
                 <v-col cols="12" sm="10" lg="11">
                   <v-expansion-panels>
                     <v-expansion-panel>
-                      <v-expansion-panel-header>
+                      <v-expansion-panel-header data-test="btn-form-panel-camp-order">
                         <strong>Complete a COVID-19 risk assessment to comply with the Industrial Camp Health Order by following the directions in the guidance document.</strong>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
@@ -115,7 +117,7 @@
                 <v-col cols="12" sm="10" lg="11">
                   <v-expansion-panels>
                     <v-expansion-panel>
-                      <v-expansion-panel-header>
+                      <v-expansion-panel-header data-test="btn-form-panel-ipc-protocol">
                         <strong>Create your Infection Prevention and Control protocol.</strong>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
@@ -145,6 +147,7 @@
                   <br />Toll-free: 1-877-533-1789 | Email:
                   <a
                     href="mailto:Contact@AgSafeBC.ca"
+                    data-test="btn-form-contact-email"
                   >Contact@AgSafeBC.ca</a>
                 </h4>
               </BaseInfoCard>
@@ -175,6 +178,7 @@
                     item-text="display"
                     item-value="type"
                     v-model="opType"
+                    data-test="select-form-opType"
                     :rules="[v => !!v || 'Type is required']"
                     dense
                     flat
@@ -185,7 +189,9 @@
                 </v-col>
               </v-row>
               <div class="text-center my-6">
-                <v-btn class="px-12" color="primary" @click="startForm">Start</v-btn>
+                <v-btn class="px-12" color="primary" @click="startForm">
+                  <span>Start</span>
+                </v-btn>
               </div>
             </v-form>
           </div>
@@ -202,28 +208,36 @@ export default {
   name: 'AgriSeaLanding',
   data() {
     return {
-      docTitle: 'Protecting Farm Workers and Temporary Foreign Workers During the COVID-19 Pandemic',
+      docTitle:
+        'Protecting Farm Workers and Temporary Foreign Workers During the COVID-19 Pandemic',
       docShortTitle: 'COVID-19 guidance for farms and farm workers',
       landingValid: false,
 
       // TODO: fetch this from API
       operationTypes: [
-        { type:'AGRICULTURE', display: 'Agriculture', enabled: true },
-        { type:'SEAFOOD', display: 'Seafood', enabled: true }
+        { type: 'AGRICULTURE', display: 'Agriculture', enabled: true },
+        { type: 'SEAFOOD', display: 'Seafood', enabled: true }
       ]
     };
   },
   computed: {
     ...mapGetters('agriSeafoodOpScreeningForm', ['operationType']),
     opType: {
-      get() { return this.operationType; },
-      set(value) { this.setOperationType(value); }
+      get() {
+        return this.operationType;
+      },
+      set(value) {
+        this.setOperationType(value);
+      }
     }
   },
   methods: {
-    ...mapMutations('agriSeafoodOpScreeningForm', ['setStep', 'setOperationType']),
+    ...mapMutations('agriSeafoodOpScreeningForm', [
+      'setStep',
+      'setOperationType'
+    ]),
     startForm() {
-      if(this.$refs.form.validate()) {
+      if (this.$refs.form.validate()) {
         this.setStep(1);
       }
     }

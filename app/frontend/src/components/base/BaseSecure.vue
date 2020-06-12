@@ -7,7 +7,7 @@
       <h1 class="my-8">Thank you for logging in.</h1>
       <h3 class="mb-8">You have not been granted access to this feature yet.</h3>
 
-      <v-btn color="primary" @click="requestAccess" :disabled="success" large>
+      <v-btn color="primary" data-test="btn-base-secure-request-access" @click="requestAccess" :disabled="success" large>
         <span v-if="success">Request Sent</span>
         <span v-else>Request Access</span>
       </v-btn>
@@ -23,7 +23,7 @@
   </div>
   <div v-else class="text-center">
     <h1 class="my-8">You must be logged in to use this feature.</h1>
-    <v-btn v-if="keycloakReady" color="primary" class="login-btn" @click="login" large>
+    <v-btn v-if="keycloakReady" color="primary" data-test="btn-base-secure-login" @click="login" large>
       <span>Login</span>
     </v-btn>
   </div>

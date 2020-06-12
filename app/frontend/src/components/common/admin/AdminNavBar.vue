@@ -3,13 +3,19 @@
     <div class="container">
       <ul>
         <li>
-          <router-link :to="{ path: `/${formName}/admin` }">Submissions</router-link>
+          <router-link
+            data-test="btn-navbar-submissions"
+            :to="{ path: `/${formName}/admin` }"
+          >Submissions</router-link>
         </li>
         <li>
-          <router-link :to="{ path: `/${formName}/admin/dashboard` }">Dashboards</router-link>
+          <router-link
+            data-test="btn-navbar-dashboards"
+            :to="{ path: `/${formName}/admin/dashboard` }"
+          >Dashboards</router-link>
         </li>
         <li v-if="isAdmin">
-          <router-link :to="{ path: `/${formName}/admin/team` }">Team</router-link>
+          <router-link data-test="btn-navbar-team" :to="{ path: `/${formName}/admin/team` }">Team</router-link>
         </li>
       </ul>
     </div>
@@ -26,7 +32,9 @@ export default {
   computed: {
     ...mapGetters('auth', ['hasResourceRoles']),
     isAdmin() {
-      return this.hasResourceRoles(getAppClient(this.formName), [AppRoles.ADMIN]);
+      return this.hasResourceRoles(getAppClient(this.formName), [
+        AppRoles.ADMIN
+      ]);
     },
     isAdminPage() {
       return this.$route.path.match(/\/admin/g);

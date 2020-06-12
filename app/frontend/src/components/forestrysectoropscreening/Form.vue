@@ -1,48 +1,52 @@
 <template>
   <div>
     <Landing v-if="step < 1" />
-    <v-stepper v-else v-model="step" alt-labels class="silv-stepper elevation-0" @change="setStep">
+    <v-stepper v-else v-model="step" alt-labels class="form-stepper elevation-0" @change="setStep">
       <v-container v-if="!submissionComplete" fluid class="pa-0">
         <v-row class="header-row" no-gutters>
           <v-col cols="12" xl="8" offset-xl="2">
             <v-stepper-header class="elevation-0 hidden-xs-only">
               <v-stepper-step
                 :complete="step > 1"
+                data-test="btn-stepper-one"
                 edit-icon="check"
                 :editable="step > 1"
                 step="1"
               >Contact Information</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step
                 :complete="step > 2"
+                data-test="btn-stepper-two"
                 edit-icon="check"
                 :editable="step > 2"
                 step="2"
               >Before Operations Begin</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step
                 :complete="step > 3"
+                data-test="btn-stepper-three"
                 edit-icon="check"
                 :editable="step > 3"
                 step="3"
               >After Workers Arrive</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
               <v-stepper-step
                 :complete="step > 4"
+                data-test="btn-stepper-four"
                 edit-icon="check"
                 :editable="step > 4"
                 step="4"
               >If Workers Become Ill</v-stepper-step>
 
-              <v-divider></v-divider>
+              <v-divider />
 
-              <v-stepper-step step="5">Review</v-stepper-step>
+              <v-stepper-step step="5" data-test="btn-stepper-five">Review</v-stepper-step>
             </v-stepper-header>
           </v-col>
         </v-row>

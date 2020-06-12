@@ -33,7 +33,7 @@ import commonFormService from '@/services/commonFormService';
 
 export default {
   name: 'StatusTable',
-  props:{
+  props: {
     formName: {
       type: String,
       required: true
@@ -43,27 +43,25 @@ export default {
       type: String
     }
   },
-  data() {
-    return {
-      headers: [
-        { text: 'Status', value: 'code' },
-        { text: 'Date Status Changed', align: 'start', value: 'createdAt' },
-        { text: 'Assignee', value: 'assignedTo' },
-        { text: 'Effective Date', value: 'actionDate' },
-      ],
-      statuses: [],
-      loading: true,
-      showAlert: false,
-      alertType: null,
-      alertMessage: ''
-    };
-  },
+  data: () => ({
+    headers: [
+      { text: 'Status', value: 'code' },
+      { text: 'Date Status Changed', align: 'start', value: 'createdAt' },
+      { text: 'Assignee', value: 'assignedTo' },
+      { text: 'Effective Date', value: 'actionDate' }
+    ],
+    statuses: [],
+    loading: true,
+    showAlert: false,
+    alertType: null,
+    alertMessage: ''
+  }),
   methods: {
     formatDateTime(date) {
       return date ? new Date(date).toLocaleString() : '';
     },
     formatDate(date) {
-      return date ? moment(date).format('MMMM D YYYY'): '';
+      return date ? moment(date).format('MMMM D YYYY') : '';
     },
     getData() {
       commonFormService

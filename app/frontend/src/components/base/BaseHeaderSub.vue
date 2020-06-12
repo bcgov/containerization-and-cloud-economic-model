@@ -1,6 +1,6 @@
 <template functional>
   <div class="header">
-    <strong>{{ props.text}}</strong>
+    <strong>{{ props.text }}</strong>
   </div>
 </template>
 

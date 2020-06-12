@@ -24,19 +24,19 @@
       </div>
       <v-card-actions class="justify-center">
         <div v-if="type === 'OK'">
-          <v-btn class="mb-5" color="primary" depressed @click="closeDialog">
+          <v-btn class="mb-5" data-test="btn-base-dialog-ok" color="primary" depressed @click="closeDialog">
             <slot name="button-text">
               <span>OK</span>
             </slot>
           </v-btn>
         </div>
         <div v-else-if="type === 'CONTINUE'">
-          <v-btn class="mb-5 mr-5" outlined @click="closeDialog">
+          <v-btn class="mb-5 mr-5" data-test="btn-base-dialog-cancel" outlined @click="closeDialog">
             <slot name="button-text-cancel">
               <span>Cancel</span>
             </slot>
           </v-btn>
-          <v-btn class="mb-5" color="primary" depressed @click="continueDialog">
+          <v-btn class="mb-5" color="primary" data-test="btn-base-dialog-continue" depressed @click="continueDialog">
             <slot name="button-text-continue">
               <span>Continue</span>
             </slot>

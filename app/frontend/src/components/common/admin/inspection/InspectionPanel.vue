@@ -35,6 +35,7 @@
               item-text="display"
               item-value="code"
               v-model="statusToSet"
+              data-test="select-inspection-statusToSet"
               :rules="[v => !!v || 'Status is required']"
               :disabled="!hasReviewer"
               @change="statusFields = true"
@@ -45,6 +46,7 @@
                 <label>Effective Date (Optional)</label>
                 <v-menu
                   v-model="actionDateMenu"
+                  data-test="menu-inspection-actionDateMenu"
                   :close-on-content-click="true"
                   :nudge-right="40"
                   transition="scale-transition"
@@ -54,6 +56,7 @@
                   <template v-slot:activator="{ on }">
                     <v-text-field
                       v-model="actionDate"
+                      data-test="text-inspection-actionDate"
                       placeholder="yyyy-mm-dd"
                       append-icon="event"
                       v-on:click:append="actionDateMenu=true"
@@ -63,9 +66,13 @@
                       flat
                       outlined
                       solo
-                    ></v-text-field>
+                    />
                   </template>
-                  <v-date-picker v-model="actionDate" @input="actionDateMenu = false"></v-date-picker>
+                  <v-date-picker
+                    v-model="actionDate"
+                    data-test="picker-inspection-actionDate"
+                    @input="actionDateMenu = false"
+                  />
                 </v-menu>
               </div>
 
@@ -73,6 +80,7 @@
                 <label>Assignee Name</label>
                 <v-text-field
                   v-model="assignedTo"
+                  data-test="text-inspection-assignedTo"
                   :rules="[v => !!v || 'Name is required']"
                   dense
                   flat
@@ -81,7 +89,14 @@
                 />
 
                 <label>Assignee Email (Optional)</label>
-                <v-text-field v-model="assignedToEmail" dense flat outlined solo />
+                <v-text-field
+                  v-model="assignedToEmail"
+                  data-test="text-inspection-assignedToEmail"
+                  dense
+                  flat
+                  outlined
+                  solo
+                />
 
                 <div class="text-right">
                   <v-btn
@@ -90,8 +105,10 @@
                     color="primary"
                     class="pl-0 my-0 text-end"
                     @click="assignToCurrentUser"
+                    data-test="btn-inspection-assign-self"
                   >
-                    <v-icon class="mr-1">person</v-icon>ASSIGN TO ME
+                    <v-icon class="mr-1">person</v-icon>
+                    <span>ASSIGN TO ME</span>
                   </v-btn>
                 </div>
               </div>
@@ -99,6 +116,7 @@
               <label>Note (Optional)</label>
               <v-textarea
                 v-model="note"
+                data-test="text-inspection-note"
                 :rules="[v => v.length <= 4000 || 'Max 4000 characters']"
                 rows="1"
                 counter
@@ -116,7 +134,15 @@
           <v-col cols="12" sm="6" xl="4" offset-xl="2">
             <v-dialog v-model="historyDialog" width="1200">
               <template v-slot:activator="{ on }">
-                <v-btn block outlined color="textLink" v-on="on">VIEW HISTORY</v-btn>
+                <v-btn
+                  block
+                  outlined
+                  color="textLink"
+                  data-test="btn-inspection-view-history"
+                  v-on="on"
+                >
+                  <span>VIEW HISTORY</span>
+                </v-btn>
               </template>
 
               <v-card v-if="historyDialog">
@@ -124,10 +150,17 @@
 
                 <StatusTable :submissionId="submissionId" :formName="formName" class="my-4" />
 
-                <v-divider></v-divider>
+                <v-divider />
                 <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="primary" text @click="historyDialog = false">CLOSE</v-btn>
+                  <v-spacer />
+                  <v-btn
+                    @click="historyDialog = false"
+                    color="primary"
+                    data-test="btn-inspection-close-status-table"
+                    text
+                  >
+                    <span>CLOSE</span>
+                  </v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -137,10 +170,13 @@
             <v-btn
               block
               color="primary"
+              data-test="btn-inspection-update-status"
+              :disabled="!hasReviewer"
               v-on="on"
               @click="updateStatus"
-              :disabled="!hasReviewer"
-            >UPDATE</v-btn>
+            >
+              <span>UPDATE</span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -222,14 +258,19 @@ export default {
         : 'N/A';
     },
     hasReviewer() {
-      return this.hasResourceRoles(getAppClient(this.formName), [AppRoles.REVIEWER]);
+      return this.hasResourceRoles(getAppClient(this.formName), [
+        AppRoles.REVIEWER
+      ]);
     }
   },
   methods: {
     async getInspectionData() {
       this.loading = true;
       try {
-        const statuses = await commonFormService.getSubmissionStatuses(this.formName, this.submissionId);
+        const statuses = await commonFormService.getSubmissionStatuses(
+          this.formName,
+          this.submissionId
+        );
         this.statusHistory = statuses.data;
         if (!this.statusHistory.length || !this.statusHistory[0]) {
           this.error = 'No inspection statuses found';
@@ -285,7 +326,11 @@ export default {
           if (this.actionDate && this.showActionDate) {
             statusBody.actionDate = this.actionDate;
           }
-          const statusResponse = await commonFormService.sendSubmissionStatuses(this.formName, this.submissionId, statusBody);
+          const statusResponse = await commonFormService.sendSubmissionStatuses(
+            this.formName,
+            this.submissionId,
+            statusBody
+          );
           if (!statusResponse.data) {
             throw new Error(
               'No response data from API while submitting status update form'
@@ -298,7 +343,12 @@ export default {
               submissionStatusId: submissionStatusId,
               note: this.note
             };
-            const response = await commonFormService.addNoteToStatus(this.formName, this.submissionId, submissionStatusId, noteBody);
+            const response = await commonFormService.addNoteToStatus(
+              this.formName,
+              this.submissionId,
+              submissionStatusId,
+              noteBody
+            );
             if (!response.data) {
               throw new Error(
                 'No response data from API while submitting note for status update'

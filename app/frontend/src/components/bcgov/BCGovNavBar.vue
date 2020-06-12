@@ -3,7 +3,7 @@
     <div class="container">
       <ul>
         <li>
-          <router-link :to="{ name: 'Home' }">Home</router-link>
+          <router-link data-test="btn-navbar-home" :to="{ name: 'Home' }">Home</router-link>
         </li>
       </ul>
     </div>

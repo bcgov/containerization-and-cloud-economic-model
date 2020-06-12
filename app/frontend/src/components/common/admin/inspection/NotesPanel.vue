@@ -12,10 +12,12 @@
         small
         color="primary"
         class="pl-0"
+        data-test="btn-new-note"
         :disabled="!hasReviewer"
         @click="showNoteField = true"
       >
-        <v-icon class="mr-1">add</v-icon>NEW NOTE
+        <v-icon class="mr-1">add</v-icon>
+        <span>NEW NOTE</span>
       </v-btn>
 
       <v-form v-if="showNoteField">
@@ -24,6 +26,7 @@
             <label>Note</label>
             <v-textarea
               v-model="newNote"
+              data-test="text-newNote"
               :rules="[v => v.length <= 4000 || 'Max 4000 characters']"
               counter
               auto-grow
@@ -36,10 +39,26 @@
         </v-row>
         <v-row>
           <v-col cols="12" sm="6" xl="4" offset-xl="2">
-            <v-btn outlined block color="primary" @click="showNoteField=false">Cancel</v-btn>
+            <v-btn
+              block
+              color="primary"
+              @click="showNoteField=false"
+              data-test="btn-cancel-note"
+              outlined
+            >
+              <span>Cancel</span>
+            </v-btn>
           </v-col>
           <v-col cols="12" sm="6" xl="4" order="first" order-sm="last">
-            <v-btn block color="primary" :disabled="!newNote || !hasReviewer" @click="addNote">ADD NOTE</v-btn>
+            <v-btn
+              block
+              color="primary"
+              data-test="btn-add-note"
+              :disabled="!newNote || !hasReviewer"
+              @click="addNote"
+            >
+              <span>ADD NOTE</span>
+            </v-btn>
           </v-col>
         </v-row>
       </v-form>
@@ -64,8 +83,7 @@ import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'NotesPanel',
-  components: {
-  },
+  components: {},
   props: {
     formName: {
       type: String,
@@ -74,7 +92,7 @@ export default {
     submissionId: {
       required: true,
       type: String
-    },
+    }
   },
   data() {
     return {
@@ -121,7 +139,11 @@ export default {
           createdBy: this.fullName,
           note: this.newNote
         };
-        const response = await commonFormService.addNote(this.formName, this.submissionId, body);
+        const response = await commonFormService.addNote(
+          this.formName,
+          this.submissionId,
+          body
+        );
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }
@@ -132,7 +154,7 @@ export default {
         console.error(`Error adding note: ${error}`); // eslint-disable-line no-console
         this.error = 'An error occured while trying to add the note';
       }
-    },
+    }
   },
   created() {
     this.getNotes();

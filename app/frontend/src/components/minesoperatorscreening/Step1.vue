@@ -37,6 +37,7 @@
             <a
               href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-natural-resource-sector-work-camps.pdf"
               target="_blank"
+              data-test="btn-form-health-pdf-link"
             >Download PDF</a>
           </p>
         </v-col>
@@ -55,7 +56,7 @@
           <v-col cols="12" sm="10" lg="11">
             <v-expansion-panels>
               <v-expansion-panel>
-                <v-expansion-panel-header>
+                <v-expansion-panel-header data-test="btn-form-panel-camp-order">
                   <strong>Complete a COVID-19 risk assessment of your Industrial Camps by following the directions in the guidance document.</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -95,7 +96,7 @@
           <v-col cols="12" sm="10" lg="11">
             <v-expansion-panels>
               <v-expansion-panel>
-                <v-expansion-panel-header>
+                <v-expansion-panel-header data-test="btn-form-panel-ipc-protocol">
                   <strong>Create your Infection Prevention and Control protocol.</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
@@ -125,6 +126,7 @@
               color="white"
               href="https://www2.gov.bc.ca/gov/content/industry/mineral-exploration-mining/further-information/office-chief-inspector"
               target="_blank"
+              data-test="btn-form-empr-office-link"
             >EMPR Regional Office</a> &nbsp;
             <v-icon small color="primary">open_in_new</v-icon>
           </h3>
@@ -140,7 +142,9 @@
         <h3>If you fail to comply with these requirements, the Provincial Health Officer order enables the authority to take enforcement action against you under Part 4, Division 6 of the Public Health Act.</h3>
       </BaseWarningCard>
 
-      <v-btn color="primary" @click="setStep(2)">Go to Step 2</v-btn>
+      <v-btn color="primary" @click="setStep(2)" data-test="btn-form-to-next-step">
+        <span>Go to Step 2</span>
+      </v-btn>
     </div>
   </v-container>
 </template>
@@ -152,12 +156,13 @@ export default {
   name: 'MinesAttestationStep1',
   data() {
     return {
-      docTitle: 'Protecting Workers, Contractors, and Employers Working in the Natural Resource Sector During the COVID-19 Pandemic',
+      docTitle:
+        'Protecting Workers, Contractors, and Employers Working in the Natural Resource Sector During the COVID-19 Pandemic',
       docShortTitle: 'COVID-19 Guidelines for Natural Resource Sector'
     };
   },
   methods: {
-    ...mapMutations('form', ['setStep']),
+    ...mapMutations('form', ['setStep'])
   }
 };
 </script>
