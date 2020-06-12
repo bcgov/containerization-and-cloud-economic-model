@@ -1,0 +1,54 @@
+# Local Infrastructure for COMFORT
+The following will guide you through standing up a database (with current data) and a keycloak realm (with users) for local development/testing purposes.  
+Follow these instructions, stand up Postgres and Keycloak, then configure your application (either through environment variables or config files - see [README](../app/README.md)).    
+
+This will **NOT** stand up the email service (CHES) or the document generation service (CDOGS).
+
+## Environment variables
+We provide a default set of environment variables [default.env](default.env); these are used in this guide. 
+You can create your own .env file and pass in as the --env-file parameter, or set environment variables in your shell/terminal.
+
+### Prerequisite
+You have docker installed, and able to run docker-compose.  
+
+#### Build
+The node_migrate service image must be built first. This will be used to seed/update the database.    
+```
+docker-compose --env-file=default.env build 
+```
+
+#### Stand up services
+```
+docker-compose --env-file=default.env up -d  
+```
+Note that the node_migrate service does not continually run on up.  We run it only to populate the database. See below.  
+
+#### Run database migrations
+Must wait for the postgres service to be started and accepting connections.  
+Since node_migrate service is **NOT** running, we use the run command to start a new container and then run our migration script.   
+```
+docker-compose --env-file=default.env run node_migrate sh /opt/app-root/src/bin/run-migrations.sh
+```
+
+#### Add users to keycloak
+You must wait for the keycloak service to be up and running.  Since keycloak service is running, we can just execute our create users script in the running container.  
+```
+docker-compose --env-file=default.env exec keycloak bash /tmp/keycloak-local-user.sh
+```
+
+#### Using default.env
+Postgres available at: postgresql://localhost:25432/comfort, connect with app/password123  
+Keycloak available at: http://localhost:28080, log in with admin/admin  
+
+Users available in all forms are:    
+- csst_role_1/password123 : Form Administrator
+- csst_role_2/password123 : Form Editor
+- csst_role_3/password123 : Form Reviewer
+- csst_role_4/password123 : Form Viewer
+- csst_role_5/password123 : Request Access
+
+#### Stop the services
+Data in the services (the migration data in postgres, the user data in keycloak) is not persisted.  You will need to run database migrations and add users to keycloak each time you bring the services up.    
+```
+docker-compose --env-file=default.env down
+```

@@ -1,0 +1,55 @@
+version: '3.1'
+
+networks:
+  comfort-net:
+    driver: "bridge"
+
+services:
+
+  postgres:
+    container_name: comfort_postgres
+    image: postgres:10
+    restart: always
+    environment:
+      - "POSTGRES_PASSWORD=${DB_PASSWORD}"
+      - "POSTGRES_USER=${DB_USERNAME}"
+      - "POSTGRES_DB=${DB_DATABASE}"
+    ports:
+      - "${POSTGRES_HOST_PORT}:5432"
+    networks:
+      - comfort-net
+
+  keycloak:
+    container_name: comfort_keycloak
+    image: quay.io/keycloak/keycloak:7.0.1
+    restart: always
+    environment:
+      - "KEYCLOAK_USER=${KEYCLOAK_USER}"
+      - "KEYCLOAK_PASSWORD=${KEYCLOAK_PASSWORD}"
+      - DB_VENDOR=h2
+      - KEYCLOAK_IMPORT=/tmp/keycloak-local-realm.json -Dkeycloak.profile.feature.upload_scripts=enabled
+    volumes:
+      - ./settings/keycloak-local-realm.json:/tmp/keycloak-local-realm.json
+      - ./settings/keycloak-local-user.sh:/tmp/keycloak-local-user.sh
+    ports:
+      - "${KEYCLOAK_HOST_HTTP_PORT}:8080"
+      - "${KEYCLOAK_HOST_HTTPS_PORT}:8443"
+    networks:
+      - comfort-net
+
+  node_migrate:
+    depends_on:
+      - postgres
+    container_name: comfort_node_migrate
+    restart: on-failure
+    build:
+      context: ../app
+      dockerfile: migration.Dockerfile
+    environment:
+      - "DB_DATABASE=${DB_DATABASE}"
+      - "DB_HOST=${DB_HOST}"
+      - "DB_USERNAME=${DB_USERNAME}"
+      - "DB_PASSWORD=${DB_PASSWORD}"
+      - "DB_PORT=${DB_PORT}"
+    networks:
+      - comfort-net

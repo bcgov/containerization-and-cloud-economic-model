@@ -3,7 +3,8 @@
     "database": "DB_DATABASE",
     "host": "DB_HOST",
     "username": "DB_USERNAME",
-    "password": "DB_PASSWORD"
+    "password": "DB_PASSWORD",
+    "port": "DB_PORT"
   },
   "frontend": {
     "apiPath": "FRONTEND_APIPATH",
