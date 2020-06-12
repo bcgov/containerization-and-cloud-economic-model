@@ -35,7 +35,8 @@ module.exports = {
     host: config.get('db.host'),
     user: config.get('db.username'),
     password: config.get('db.password'),
-    database: config.get('db.database')
+    database: config.get('db.database'),
+    port: config.get('db.port')
   },
   debug: ['silly', 'verbose'].includes(config.get('server.logLevel')),
   migrations: {

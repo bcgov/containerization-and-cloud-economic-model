@@ -48,3 +48,5 @@ build
 .env
 .idea
 .project
+
+!local-infrastructure/.env

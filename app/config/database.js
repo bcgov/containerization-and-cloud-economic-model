@@ -7,6 +7,7 @@ module.exports = {
   password: config.get('db.password'),
   database: config.get('db.database'),
   host: config.get('db.host'),
+  port: config.get('db.port'),
   define: {
     charset: 'utf8',
     freezeTableName: true,
