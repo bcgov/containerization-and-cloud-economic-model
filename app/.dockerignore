@@ -1,4 +1,5 @@
 coverage
+config/local.json
 node_modules
 frontend/coverage
 frontend/dist

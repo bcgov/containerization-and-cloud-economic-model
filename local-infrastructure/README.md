@@ -14,6 +14,8 @@ docker-compose --env-file=<your env file> <commands>
 ### Prerequisite
 You have docker installed, and able to run docker-compose.  
 
+**IMPORTANT**: If you are on Windows, you _MUST_ either use CMD or Powershell to execute these commands. Mingw64 based environments will not work.  
+
 #### Build
 The node_migrate service image must be built first. This will be used to seed/update the database.    
 ```
@@ -50,8 +52,25 @@ Users available in all forms are:
 - csst_role_4/password123 : Form Viewer
 - csst_role_5/password123 : Request Access
 
+## Running local application.
+If running postgres and keycloak with the default configuration... the following will stand up the application.  
+
+_NOTE_: you may want to set the serviceClient/commonServices configuration before copying over.  
+
+```
+cp local.json ../app/config
+cd ../app
+npm run all:fresh-start
+```  
+
 #### Stop the services
-Data in the services (the migration data in postgres, the user data in keycloak) is not persisted.  You will need to run database migrations and add users to keycloak each time you bring the services up.    
+You can stop the services (and preserve their current state) with stop.  This will allow you to bring them back up with data.  
+```
+docker-compose stop postgres keycloak
+```
+
+#### Remove the services
+Data in the services (the migration data in postgres, the user data in keycloak) is not persisted on down.  You will need to run database migrations and add users to keycloak each time you bring the services up.    
 ```
 docker-compose down
 ```
