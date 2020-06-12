@@ -175,7 +175,7 @@
                     <v-col cols="12" sm="6" lg="4">
                       <h4>Seafood Operators contact</h4>
                       <p class="mb-0 pb-0">
-                        WorksSafeBC
+                        WorkSafeBC
                         <br />Toll-free: 1-888-621-7233 (1-888-621-SAFE)
                         <br />Email WorkSafeBC:
                         <a
