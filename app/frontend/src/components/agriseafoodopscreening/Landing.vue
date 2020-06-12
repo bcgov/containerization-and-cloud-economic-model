@@ -177,7 +177,7 @@
                       <p class="mb-0 pb-0">
                         WorksSafeBC
                         <br />Toll-free: 1-888-621-7233 (1-888-621-SAFE)
-                        <br />Email WorksafeBC:
+                        <br />Email WorkSafeBC:
                         <a
                           target="_blank"
                           href="https://gems.online.worksafebc.com/emailus?_ga=2.36658272.1710059602.1591993589-423167262.1587748063"
