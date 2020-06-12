@@ -106,33 +106,34 @@ export default {
     formatDate(date) {
       return date ? new Date(date).toLocaleString() : 'N/A';
     },
-    // get table data from frontend service layer
-    getData() {
-      commonFormService
-        .getAllSubmissionData(this.formName)
-        .then(response => {
-          const data = response.data;
+    async getData() {
+      try {
+        const response = await commonFormService.getAllSubmissionData(
+          this.formName
+        );
+        const data = response.data;
 
-          const submissions = Object.keys(data).map(k => {
-            let submission = data[k];
-            return {
-              submissionId: submission.submissionId,
-              name: submission.businessName,
-              created: this.formatDate(submission.createdAt),
-              confirmationId: submission.confirmationId,
-              inspectionStatus: submission.status,
-              assignedTo: submission.assignedTo ? submission.assignedTo : '-'
-            };
-          });
-          if (!submissions.length) {
-            this.showTableAlert('info', 'No Submissions found');
-          }
-          this.submissions = submissions;
-        })
-        .catch(error => {
-          console.error(`Error getting submissions: ${error}`); // eslint-disable-line no-console
-          this.showTableAlert('error', 'No response from server');
+        const submissions = Object.keys(data).map(k => {
+          let submission = data[k];
+          return {
+            submissionId: submission.submissionId,
+            name: submission.businessName,
+            created: this.formatDate(submission.createdAt),
+            confirmationId: submission.confirmationId,
+            inspectionStatus: submission.status,
+            assignedTo: submission.assignedTo ? submission.assignedTo : '-'
+          };
         });
+        if (!submissions.length) {
+          this.showTableAlert('info', 'No Submissions found');
+        }
+        this.submissions = submissions;
+      } catch (error) {
+        console.error(`Error getting submissions: ${error}`); // eslint-disable-line no-console
+        this.showTableAlert('error', 'No response from server');
+      } finally {
+        this.loading = false;
+      }
     },
     showTableAlert(typ, msg) {
       this.alertShow = true;
@@ -143,12 +144,6 @@ export default {
   },
   mounted() {
     this.getData();
-  },
-  watch: {
-    // hide data table progress bar when submissions have been returned from backend
-    submissions() {
-      this.loading = false;
-    }
   }
 };
 </script>

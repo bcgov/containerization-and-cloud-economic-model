@@ -82,26 +82,23 @@ export default {
     displayDialog() {
       this.showDialog = true;
     },
-    requestReceipt() {
+    async requestReceipt() {
       if (this.valid) {
-        commonFormService
-          .requestReceiptEmail(this.formName, {
+        try {
+          await commonFormService.requestReceiptEmail(this.formName, {
             submissionId: this.submissionId,
             to: this.to
-          })
-          .then(() => {
-            this.success = true;
-            this.resultDialogMsg = `An email has been sent to ${this.to}.`;
-          })
-          .catch(() => {
-            this.success = false;
-            this.resultDialogMsg =
-              'An error occured while attempting to send your email.';
-          })
-          .finally(() => {
-            this.showDialog = false;
-            this.resultDialog = true;
           });
+          this.success = true;
+          this.resultDialogMsg = `An email has been sent to ${this.to}.`;
+        } catch {
+          this.success = false;
+          this.resultDialogMsg =
+            'An error occured while attempting to send your email.';
+        } finally {
+          this.showDialog = false;
+          this.resultDialog = true;
+        }
       }
     },
     resetDialog() {

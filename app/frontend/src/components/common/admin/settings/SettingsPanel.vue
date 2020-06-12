@@ -32,13 +32,13 @@ export default {
   },
   data: () => ({
     error: false,
-    gettingSettings: false,
+    loading: true,
     settings: []
   }),
   methods: {
     async getSettings() {
       this.error = '';
-      this.gettingSettings = true;
+      this.loading = true;
       try {
         const response = await commonFormService.getSettings(this.formName);
         this.settings = response.data;
@@ -46,7 +46,7 @@ export default {
         console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
         this.error = 'Failed to fetch Settings from the Database';
       } finally {
-        this.gettingSettings = false;
+        this.loading = false;
       }
     }
   },
