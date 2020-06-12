@@ -40,6 +40,7 @@ You must wait for the keycloak service to be up and running.  Since keycloak ser
 ```
 docker-compose exec keycloak bash /tmp/keycloak-local-user.sh
 ```
+If you attempt to add users multiple times, expect to see error messages.  No harm will be done.  
 
 #### Using default.env
 Postgres available at: postgresql://localhost:25432/comfort, connect with app/password123  
