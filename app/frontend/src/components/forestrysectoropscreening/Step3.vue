@@ -4,9 +4,9 @@
       <BaseHeaderSection :text="'After workers arrive at the Industrial Camp'" />
     </div>
 
-    <p>Once your workers arrive at the location, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
+    <p>Once your workers arrive at the location, you are expected to continue your work enacting an an infection prevention and control protocol and minimize the risk of transmission of COVID-19 through the following key activities.</p>
 
-  <div class="question-series">
+    <div class="question-series">
       <h3 class="question-head">1. Implement COVID-19 Employee Education</h3>
       <div class="questions">
         <p
@@ -99,7 +99,7 @@
         <span>Go to Step 4</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
-        <span>Back</span>
+        <span>Back+</span>
       </v-btn>
     </div>
   </v-container>
