@@ -11,7 +11,7 @@
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camps Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
+        >Agriculture and Seafood Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
         <v-checkbox
           v-model="educationSignage"
           data-test="cb-form-educationSignage"
@@ -32,7 +32,7 @@
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camp Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
+        >Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
         <v-checkbox
           v-model="trainingCovid19"
           data-test="cb-form-trainingCovid19"

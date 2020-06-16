@@ -15,7 +15,7 @@
           <div class="hide-on-review">
             <p
               class="mt-3"
-            >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Industrial Camp Operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
+            >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Agriculture and Seafood Operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
 
             <BaseImportantCard class="mt-6 mb-9">
               <span>Important: This attestation form must be completed once for each accommodation location.</span>
@@ -108,7 +108,7 @@
                           </p>
                           <p
                             class="mb-0"
-                          >Industrial Camps Operators can take practical actions to reduce the risk of disease transmission (see section 7 of document).</p>
+                          >Operators can take practical actions to reduce the risk of disease transmission (see section 7 of document).</p>
                         </BaseInfoCard>
 
                         <p class="mt-5">
