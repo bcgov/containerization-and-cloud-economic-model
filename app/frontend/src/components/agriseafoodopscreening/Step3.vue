@@ -4,14 +4,14 @@
       <BaseHeaderSection :text="'After workers arrive at the Industrial Camp'" />
     </div>
 
-    <p>Once your workers arrive at the location, you are expected to continue your work enacting an infection control plan and minimize the risk of transmission of COVID-19 through the following key activities.</p>
+    <p>Once your workers arrive at the location, you are expected to continue your work enacting an infection prevention and control protocol and minimize the risk of transmission of COVID-19 through the following key activities.</p>
 
     <div class="question-series">
       <h3 class="question-head">1. Implement COVID-19 Employee Education</h3>
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camps Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
+        >Agriculture and Seafood Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
         <v-checkbox
           v-model="educationSignage"
           data-test="cb-form-educationSignage"
@@ -32,7 +32,7 @@
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camp Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
+        >Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
         <v-checkbox
           v-model="trainingCovid19"
           data-test="cb-form-trainingCovid19"
@@ -99,7 +99,7 @@
         <span>Go to Step 4</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
-        <span>Bac</span>
+        <span>Back</span>
       </v-btn>
     </div>
   </v-container>

@@ -9,7 +9,7 @@
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camp Operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority.</p>
+        >Agriculture and Seafood Operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority.</p>
         <p>
           If two or more workers become sick, you must notify the local
           <a
