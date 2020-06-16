@@ -22,8 +22,7 @@ describe('FormList.vue', () => {
     store.registerModule('auth', {
       namespaced: true,
       getters: {
-        hasResourceRoles: () => () => true,
-        keycloakReady: () => true
+        hasResourceRoles: () => () => true
       }
     });
 
