@@ -89,9 +89,8 @@ export default {
   },
   methods: {
     apiURL() {
-      if (this.$config) {
-        const config = this.$config;
-        return config.geocoder.endpoint;
+      if (this.$config && this.$config.geocoder) {
+        return this.$config.geocoder.endpoint;
       } else {
         throw new Error('Settings object is missing.');
       }

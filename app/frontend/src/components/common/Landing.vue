@@ -144,12 +144,11 @@
 <script>
 export default {
   name: 'Landing',
-  data() {
-    return {
-      docTitle: 'Protecting Workers, Contractors, and Employers Working in the Natural Resource Sector During the COVID-19 Pandemic',
-      docShortTitle: 'COVID-19 Guidelines for Natural Resource Sector'
-    };
-  }
+  data: () => ({
+    docTitle:
+      'Protecting Workers, Contractors, and Employers Working in the Natural Resource Sector During the COVID-19 Pandemic',
+    docShortTitle: 'COVID-19 Guidelines for Natural Resource Sector'
+  })
 };
 </script>
 
