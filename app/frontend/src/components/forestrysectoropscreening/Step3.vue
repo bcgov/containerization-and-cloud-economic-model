@@ -99,7 +99,7 @@
         <span>Go to Step 4</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
-        <span>Back+</span>
+        <span>Back</span>
       </v-btn>
     </div>
   </v-container>
