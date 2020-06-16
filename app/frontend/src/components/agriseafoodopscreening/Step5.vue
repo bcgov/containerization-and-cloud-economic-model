@@ -18,7 +18,7 @@
         <h3 class="my-4">Download a PDF or email yourself a copy of your form submission</h3>
 
         <v-row class="mb-6">
-          <GeneratePdfButton :submissionId="this.submissionDetails.submissionId">
+          <GeneratePdfButton :formName="formName" :submissionId="submissionDetails.submissionId">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
                 <v-btn
@@ -37,9 +37,9 @@
           </GeneratePdfButton>
 
           <RequestReceipt
-            :email="this.submissionDetails.contacts[0].email"
-            :formName="this.formName"
-            :submissionId="this.submissionDetails.submissionId"
+            :email="submissionDetails.contacts[0].email"
+            :formName="formName"
+            :submissionId="submissionDetails.submissionId"
           />
         </v-row>
 

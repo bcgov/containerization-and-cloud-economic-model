@@ -20,7 +20,7 @@
       </h4>
     </v-col>
     <v-col cols="12" sm="4" lg="2" class="text-sm-right d-print-none">
-      <GeneratePdfButton :submissionId="submissionId">
+      <GeneratePdfButton :formName="formName" :submissionId="submissionId">
         <v-btn class="pl-0" color="textLink" data-test="btn-form-generate-pdf" text small>
           <v-icon class="mr-1">picture_as_pdf</v-icon>
           <span>Generate PDF</span>
@@ -47,6 +47,10 @@ export default {
     },
     business: {
       type: Object,
+      required: true
+    },
+    formName: {
+      type: String,
       required: true
     },
     location: {

@@ -1,5 +1,8 @@
-<template>
-  <a v-on:click="generatePdf()" target="_blank">
+<template functional>
+  <a
+    :href="`${parent.$config.basePath}/${parent.$config.apiPath}/${props.formName}/submissions/${props.submissionId}/pdf`"
+    target="_blank"
+  >
     <slot />
   </a>
 </template>
@@ -7,18 +10,11 @@
 <script>
 export default {
   name: 'GeneratePdfButton',
-  computed: {
-    formName() {
-      return this.$route.path.split('/')[1];
-    }
-  },
-  methods: {
-    generatePdf() {
-      const pdf = `${this.$config.basePath}/${this.$config.apiPath}/${this.formName}/submissions/${this.submissionId}/pdf`;
-      window.open(pdf, '_blank');
-    }
-  },
   props: {
+    formName: {
+      type: String,
+      required: true
+    },
     submissionId: {
       type: String,
       required: true
