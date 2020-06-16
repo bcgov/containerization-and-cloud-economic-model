@@ -94,15 +94,13 @@ export default {
       type: String
     }
   },
-  data() {
-    return {
-      error: '',
-      loading: true,
-      newNote: '',
-      notes: [],
-      showNoteField: false
-    };
-  },
+  data: () => ({
+    error: '',
+    loading: true,
+    newNote: '',
+    notes: [],
+    showNoteField: false
+  }),
   computed: {
     ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
     hasReviewer() {
@@ -118,19 +116,19 @@ export default {
     formatDate(date) {
       return moment(date).format('MMMM D YYYY, h:mm:ss a');
     },
-    getNotes() {
+    async getNotes() {
       this.loading = true;
-      commonFormService
-        .getNotes(this.formName, this.submissionId)
-        .then(response => {
-          this.notes = response.data;
-        })
-        .catch(error => {
-          this.error = error.message;
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      try {
+        const response = await commonFormService.getNotes(
+          this.formName,
+          this.submissionId
+        );
+        this.notes = response.data;
+      } catch (error) {
+        this.error = error.message;
+      } finally {
+        this.loading = false;
+      }
     },
     async addNote() {
       try {

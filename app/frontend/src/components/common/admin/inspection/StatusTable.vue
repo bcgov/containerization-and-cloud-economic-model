@@ -63,21 +63,22 @@ export default {
     formatDate(date) {
       return date ? moment(date).format('MMMM D YYYY') : '';
     },
-    getData() {
-      commonFormService
-        .getSubmissionStatuses(this.formName, this.submissionId)
-        .then(response => {
-          this.statuses = response.data;
-          if (!this.statuses.length) {
-            this.showTableAlert('warning', 'No statuses found');
-          }
-        })
-        .catch(error => {
-          this.showTableAlert('error', error.message);
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+    async getData() {
+      this.loading = true;
+      try {
+        const response = await commonFormService.getSubmissionStatuses(
+          this.formName,
+          this.submissionId
+        );
+        this.statuses = response.data;
+        if (!this.statuses.length) {
+          this.showTableAlert('warning', 'No statuses found');
+        }
+      } catch (error) {
+        this.showTableAlert('error', error.message);
+      } finally {
+        this.loading = false;
+      }
     },
     showTableAlert(typ, msg) {
       this.showAlert = true;

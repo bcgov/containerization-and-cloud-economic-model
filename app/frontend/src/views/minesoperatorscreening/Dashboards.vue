@@ -40,19 +40,19 @@ export default {
     tab: null
   }),
   methods: {
-    getDashboards() {
+    async getDashboards() {
       this.loading = true;
-      commonFormService
-        .getNamedSetting(FormNames.MINESOPERATORSCREENING, AppSettings.DASHBOARD)
-        .then(response => {
-          this.dashboards = response.data.config;
-        })
-        .catch(error => {
-          console.error(`Error getting dashboard settings: ${error}`); // eslint-disable-line no-console
-        })
-        .finally(() => {
-          this.loading = false;
-        });
+      try {
+        const response = await commonFormService.getNamedSetting(
+          FormNames.MINESOPERATORSCREENING,
+          AppSettings.DASHBOARD
+        );
+        this.dashboards = response.data.config;
+      } catch (error) {
+        console.error(`Error getting dashboard settings: ${error}`); // eslint-disable-line no-console
+      } finally {
+        this.loading = false;
+      }
     }
   },
   mounted() {
