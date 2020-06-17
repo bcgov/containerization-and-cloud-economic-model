@@ -12,7 +12,7 @@ exports.up = function (knex) {
       table.dropColumn('commonAreaDistancing');
     }))
     .then(() => knex.schema.alterTable(`${AGRI_PREFIX}_submission_attestation`, table => {
-      table.boolean('sharedSleepingCommunication').notNullable().defaultTo(false);
+      table.boolean('sharedSleepingCommunication').notNullable().alter();
       table.boolean('sharedSleepingProvidedAccomodations').notNullable().alter();
     }));
 };
