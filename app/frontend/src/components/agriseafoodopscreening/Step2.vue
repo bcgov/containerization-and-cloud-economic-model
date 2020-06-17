@@ -55,8 +55,8 @@
         ></v-checkbox>
 
         <v-checkbox
-          v-model="sharedSleepingProvidedAccomodations"
-          data-test="cb-form-sharedSleepingProvidedAccomodations"
+          v-model="sharedSleepingProvidedAccommodations"
+          data-test="cb-form-sharedSleepingProvidedAccommodations"
           :readonly="reviewMode"
           label="Accommodations that are provided have been oriented to allow 2 m physical distance between beds, head-to-toe orientation, and/or are separated by impermeable barriers."
         ></v-checkbox>
@@ -308,12 +308,12 @@ export default {
         this.updateAttestation({ ['sharedSleepingCommunication']: value });
       }
     },
-    sharedSleepingProvidedAccomodations: {
+    sharedSleepingProvidedAccommodations: {
       get() {
-        return this.attestation.sharedSleepingProvidedAccomodations;
+        return this.attestation.sharedSleepingProvidedAccommodations;
       },
       set(value) {
-        this.updateAttestation({ ['sharedSleepingProvidedAccomodations']: value });
+        this.updateAttestation({ ['sharedSleepingProvidedAccommodations']: value });
       }
     },
 
