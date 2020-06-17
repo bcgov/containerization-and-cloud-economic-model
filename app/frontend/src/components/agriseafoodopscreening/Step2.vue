@@ -37,7 +37,7 @@
       <div class="questions">
         <p class="hide-on-review">
           Operators that are providing accommodation must minimize crowding by determining accommodation capacity that allows for sufficient physical distance
-          (individual tents or beds 2m apart and head-to-toe in shared accommodation.
+          (individual tents or beds 2m apart and head-to-toe in shared accommodation).
         </p>
 
         <v-checkbox
