@@ -101,7 +101,7 @@ class Submission extends AttestationModels.Submission {
 
 }
 
-class Attestation extends AttestationModels.Attestation {
+class Attestation extends AttestationModels.AttestationTransportation {
   static get tablePrefix() {
     return PREFIX;
   }
