@@ -304,7 +304,7 @@ class OperationType extends CommonModels.Timestamps(Model) {
 }
 
 const AttestationSchema = {
-  required: ['attestationId', 'submissionId', 'sleepingAreaType', 'sharedSleepingPerRoom'],
+  required: ['attestationId', 'submissionId'],
   properties: {
     attestationId: {type: 'string', pattern: constants.UUID_REGEX},
     submissionId: {type: 'string', pattern: constants.UUID_REGEX},
@@ -317,6 +317,7 @@ const AttestationSchema = {
     workerContactPersonnel: {type: 'boolean'},
     commonAreaDistancing: {type: 'boolean'},
     sharedSleepingDistancing: {type: 'boolean'},
+    sharedSleepingCommunication: {type: 'boolean'},
     selfIsolateUnderstood: {type: 'boolean'},
     selfIsolateAccommodation: {type: 'boolean'},
     laundryServices: {type: 'boolean'},
