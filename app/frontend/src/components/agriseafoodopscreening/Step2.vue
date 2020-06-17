@@ -41,15 +41,15 @@
         </p>
 
         <v-checkbox
-          v-model="workerContactPersonnel"
-          data-test="cb-form-workerContactPersonnel"
+          v-model="sharedSleepingDistancing"
+          data-test="cb-form-sharedSleepingDistancing"
           :readonly="reviewMode"
           label="I understand the physical distancing requirements between tents and have communicated to employees the expectation to maximize spacing between beds within tents (2m or head-to-toe)."
         ></v-checkbox>
 
         <v-checkbox
-          v-model="workerContactPersonnel"
-          data-test="cb-form-workerContactPersonnel"
+          v-model="sharedSleepingCommunication"
+          data-test="cb-form-sharedSleepingCommunication"
           :readonly="reviewMode"
           label="I have a plan to communicate physical distancing requirements to my employees (e.g. posting physical distancing signs in the accommodation area)."
         ></v-checkbox>
@@ -285,36 +285,20 @@ export default {
     },
 
     // Lodging
-    commonAreaDistancing: {
-      get() {
-        return this.attestation.commonAreaDistancing ? 'yes' : 'no';
-      },
-      set(value) {
-        this.updateAttestation({ ['commonAreaDistancing']: value === 'yes' });
-      }
-    },
-    sleepingAreaType: {
-      get() {
-        return this.attestation.sleepingAreaType;
-      },
-      set(value) {
-        this.updateAttestation({ ['sleepingAreaType']: value });
-      }
-    },
-    sharedSleepingPerRoom: {
-      get() {
-        return this.attestation.sharedSleepingPerRoom;
-      },
-      set(value) {
-        this.updateAttestation({ ['sharedSleepingPerRoom']: value });
-      }
-    },
     sharedSleepingDistancing: {
       get() {
         return this.attestation.sharedSleepingDistancing;
       },
       set(value) {
         this.updateAttestation({ ['sharedSleepingDistancing']: value });
+      }
+    },
+    sharedSleepingCommunication: {
+      get() {
+        return this.attestation.sharedSleepingCommunication;
+      },
+      set(value) {
+        this.updateAttestation({ ['sharedSleepingCommunication']: value });
       }
     },
 
