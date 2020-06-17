@@ -304,7 +304,6 @@ class OperationType extends CommonModels.Timestamps(Model) {
 }
 
 const AttestationSchema = {
-  required: ['attestationId', 'submissionId'],
   properties: {
     attestationId: {type: 'string', pattern: constants.UUID_REGEX},
     submissionId: {type: 'string', pattern: constants.UUID_REGEX},
@@ -317,7 +316,6 @@ const AttestationSchema = {
     workerContactPersonnel: {type: 'boolean'},
     commonAreaDistancing: {type: 'boolean'},
     sharedSleepingDistancing: {type: 'boolean'},
-    sharedSleepingCommunication: {type: 'boolean'},
     selfIsolateUnderstood: {type: 'boolean'},
     selfIsolateAccommodation: {type: 'boolean'},
     laundryServices: {type: 'boolean'},
@@ -351,13 +349,7 @@ const AttestationSchema = {
     infectedHousekeeping: {type: 'boolean'},
     infectedWaste: {type: 'boolean'},
     certifyAccurateInformation: {type: 'boolean'},
-    agreeToInspection: {type: 'boolean'},
-    transportationSingleOccupant: {type: 'boolean'},
-    transportationBusesVans: {type: 'boolean'},
-    transportationTrucksCars: {type: 'boolean'},
-    transportationHelicopter: {type: 'boolean'},
-    transportationTravelPod: {type: 'boolean'},
-    transportationCleaningDistancing: {type: 'boolean'}
+    agreeToInspection: {type: 'boolean'}
   }
 };
 
@@ -373,7 +365,7 @@ class Attestation extends CommonModels.Timestamps(Model) {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: AttestationSchema.required,
+      required: Object.keys(AttestationSchema.properties).map(x => x),
       properties: {
         ...AttestationSchema.properties,
         ...CommonModels.stamps
@@ -383,19 +375,25 @@ class Attestation extends CommonModels.Timestamps(Model) {
   }
 }
 
+const AttestationTransportationSchema = {
+  properties: {
+    ...AttestationSchema.properties,
+    transportationSingleOccupant: {type: 'boolean'},
+    transportationBusesVans: {type: 'boolean'},
+    transportationTrucksCars: {type: 'boolean'},
+    transportationHelicopter: {type: 'boolean'},
+    transportationTravelPod: {type: 'boolean'},
+    transportationCleaningDistancing: {type: 'boolean'}
+  }
+};
+
 class AttestationTransportation extends Attestation {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: AttestationSchema.required,
+      required: Object.keys(AttestationTransportationSchema.properties).map(x => x),
       properties: {
-        ...AttestationSchema.properties,
-        transportationSingleOccupant: {type: 'boolean'},
-        transportationBusesVans: {type: 'boolean'},
-        transportationTrucksCars: {type: 'boolean'},
-        transportationHelicopter: {type: 'boolean'},
-        transportationTravelPod: {type: 'boolean'},
-        transportationCleaningDistancing: {type: 'boolean'},
+        ...AttestationTransportationSchema.properties,
         ...CommonModels.stamps
       },
       additionalProperties: false
@@ -551,7 +549,9 @@ class LocationMines extends Location {
 
 module.exports = {
   Attestation: Attestation,
+  AttestationSchema: AttestationSchema,
   AttestationTransportation: AttestationTransportation,
+  AttestationTransportationSchema: AttestationTransportationSchema,
   Business: Business,
   Contact: Contact,
   Location: Location,
