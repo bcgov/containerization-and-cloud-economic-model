@@ -1,5 +1,5 @@
-<template>
-  <a v-on:click="printScreen()" target="_blank">
+<template functional>
+  <a v-on:click="$options.printScreen()" target="_blank">
     <slot />
   </a>
 </template>
@@ -7,10 +7,8 @@
 <script>
 export default {
   name: 'PrintScreenButton',
-  methods: {
-    printScreen(){
-      window.print();
-    }
+  printScreen() {
+    window.print();
   }
 };
 </script>
