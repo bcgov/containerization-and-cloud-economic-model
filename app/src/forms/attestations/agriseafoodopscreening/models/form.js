@@ -127,8 +127,9 @@ class Attestation extends AttestationModels.AttestationTransportation {
     delete schemaProperties.sharedSleepingPerRoom;
     delete schemaProperties.sleepingAreaType;
     delete schemaProperties.commonAreaDistancing;
-    // and add the new one.
+    // and add the new ones.
     schemaProperties.sharedSleepingCommunication = {type: 'boolean'};
+    schemaProperties.sharedSleepingProvidedAccomodations = {type: 'boolean'};
     return {
       type: 'object',
       required: Object.keys(schemaProperties).map(x => x),

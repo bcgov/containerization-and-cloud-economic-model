@@ -53,6 +53,13 @@
           :readonly="reviewMode"
           label="I have a plan to communicate physical distancing requirements to my employees (e.g. posting physical distancing signs in the accommodation area)."
         ></v-checkbox>
+
+        <v-checkbox
+          v-model="sharedSleepingProvidedAccomodations"
+          data-test="cb-form-sharedSleepingProvidedAccomodations"
+          :readonly="reviewMode"
+          label="Accommodations that are provided have been oriented to allow 2 m physical distance between beds, head-to-toe orientation, and/or are separated by impermeable barriers."
+        ></v-checkbox>
       </div>
     </div>
 
@@ -299,6 +306,14 @@ export default {
       },
       set(value) {
         this.updateAttestation({ ['sharedSleepingCommunication']: value });
+      }
+    },
+    sharedSleepingProvidedAccomodations: {
+      get() {
+        return this.attestation.sharedSleepingProvidedAccomodations;
+      },
+      set(value) {
+        this.updateAttestation({ ['sharedSleepingProvidedAccomodations']: value });
       }
     },
 

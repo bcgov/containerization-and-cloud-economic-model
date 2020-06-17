@@ -125,6 +125,7 @@ export default {
       workerContactPersonnel: false,
       sharedSleepingDistancing: false,
       sharedSleepingCommunication: false,
+      sharedSleepingProvidedAccomodations: false,
       selfIsolateUnderstood: false,
       selfIsolateAccommodation: false,
       laundryServices: false,
