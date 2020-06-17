@@ -35,55 +35,24 @@
       <h3 class="question-head">2. Provide safe lodging and accommodation: General Worker</h3>
 
       <div class="questions">
-        <p
-          class="hide-on-review"
-        >Operators must be able to provide accommodations that minimize crowding, social interactions, and provide sufficient physical distance (individual tents or beds 2m apart and head-to-toe in shared accommodations).</p>
+        <p class="hide-on-review">
+          Operators that are providing accommodation must minimize crowding by determining accommodation capacity that allows for sufficient physical distance
+          (individual tents or beds 2m apart and head-to-toe in shared accommodation.
+        </p>
 
-        <p>1) Do your Common areas allow for physical distancing of 2m / 6ft at all times?</p>
-        <div class="pl-4">
-          <v-radio-group
-            :readonly="reviewMode"
-            v-model="commonAreaDistancing"
-            data-test="radio-form-commonAreaDistancing"
-            :mandatory="true"
-          >
-            <v-radio label="Yes" value="yes"></v-radio>
-            <v-radio label="No" value="no"></v-radio>
-          </v-radio-group>
-        </div>
+        <v-checkbox
+          v-model="workerContactPersonnel"
+          data-test="cb-form-workerContactPersonnel"
+          :readonly="reviewMode"
+          label="I understand the physical distancing requirements between tents and have communicated to employees the expectation to maximize spacing between beds within tents (2m or head-to-toe)."
+        ></v-checkbox>
 
-        <p>2) Do you have individual/single beds or shared sleeping areas?</p>
-        <div class="pl-4">
-          <v-radio-group
-            :readonly="reviewMode"
-            v-model="sleepingAreaType"
-            data-test="radio-form-sleepingAreaType"
-            :mandatory="true"
-          >
-            <v-radio label="Individual Beds or Single beds" value="SINGLE"></v-radio>
-            <v-radio label="Shared sleeping areas" value="SHARED"></v-radio>
-          </v-radio-group>
-
-          <div v-if="sleepingAreaType === 'SHARED'">
-            <v-row no-gutters>
-              <v-col cols="12" md="8" lg="3">
-                <v-combobox
-                  v-model="sharedSleepingPerRoom"
-                  data-test="select-form-sharedSleepingPerRoom"
-                  :readonly="reviewMode"
-                  :items="numbers"
-                  label="How many people are in a room?"
-                ></v-combobox>
-              </v-col>
-            </v-row>
-            <v-checkbox
-              v-model="sharedSleepingDistancing"
-              data-test="cb-form-sharedSleepingDistancing"
-              :readonly="reviewMode"
-              label="Beds in the head-to-toe configuration with the 2m distance apart"
-            ></v-checkbox>
-          </div>
-        </div>
+        <v-checkbox
+          v-model="workerContactPersonnel"
+          data-test="cb-form-workerContactPersonnel"
+          :readonly="reviewMode"
+          label="I have a plan to communicate physical distancing requirements to my employees (e.g. posting physical distancing signs in the accommodation area)."
+        ></v-checkbox>
       </div>
     </div>
 
