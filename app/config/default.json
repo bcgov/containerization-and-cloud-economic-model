@@ -10,7 +10,7 @@
     "basePath" : "/app",
     "env": "dev",
     "geocoder": {
-      "endpoint": "https://apps.gov.bc.ca/pub/geocoder"
+      "endpoint": "https://geocoder.api.gov.bc.ca"
     },
     "keycloak": {
       "clientId": "comfort-frontend",
