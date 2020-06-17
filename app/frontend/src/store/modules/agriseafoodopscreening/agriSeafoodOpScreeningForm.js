@@ -118,16 +118,14 @@ export default {
       accWorkersHome: false
     },
     attestation: {
-      sleepingAreaType: 'SINGLE',
-      sharedSleepingPerRoom: 1,
-      sharedSleepingDistancing: false,
-
       guidelinesRead: false,
       assessmentCompleted: false,
       developedPlan: false,
       protectionSignage: false,
       workerContactPersonnel: false,
-      commonAreaDistancing: false,
+      sharedSleepingDistancing: false,
+      sharedSleepingCommunication: false,
+      sharedSleepingProvidedAccommodations: false,
       selfIsolateUnderstood: false,
       selfIsolateAccommodation: false,
       laundryServices: false,
