@@ -1,14 +1,14 @@
-<template>
+<template functional>
   <div>
     <p>
       <strong>Last Updated:</strong>
-      {{ updatedAtDisplay }}
+      {{ $options.updatedAtDisplay(props.item.updatedAt, props.item.updatedBy) }}
       <br />
       <strong>Enabled:</strong>
-      {{ item.enabled }}
+      {{ props.item.enabled }}
     </p>
     <strong>Config:</strong>
-    <pre>{{ JSON.stringify(item.config, null, 2) }}</pre>
+    <pre>{{ JSON.stringify(props.item.config, null, 2) }}</pre>
   </div>
 </template>
 
@@ -23,10 +23,8 @@ export default {
       type: Object,
     }
   },
-  computed: {
-    updatedAtDisplay() {
-      return `${moment(this.item.updatedAt).format('MMMM D YYYY, h:mm:ss a')}${this.item.updatedBy ? ' - ' + this.item.updatedBy : ''}`;
-    }
+  updatedAtDisplay(updatedAt, updatedBy) {
+    return `${moment(updatedAt).format('MMMM D YYYY, h:mm:ss a')}${updatedBy ? ' - ' + updatedBy : ''}`;
   }
 };
 </script>
