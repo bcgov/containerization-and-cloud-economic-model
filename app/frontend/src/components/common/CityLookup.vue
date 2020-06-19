@@ -5,9 +5,10 @@
     flat
     solo
     v-model="fieldModel"
-    :rules="rules"
+    data-test="text-form-city-lookup-fieldModel"
+    :rules="fieldRules"
     :items="items"
-    :loading="isLoading"
+    :loading="loading"
     :search-input.sync="search"
     v-on:change="change"
     clearable
@@ -17,29 +18,27 @@
     placeholder="Start typing to search for cities in BC"
     prepend-inner-icon="search"
     append-icon
-  ></v-combobox>
+  />
 </template>
 
 <script>
-import Vue from 'vue';
+import axios from 'axios';
 
 export default {
   name: 'CityLookup',
   props: {
     fieldModel: String,
-    fieldRules: Array,
+    fieldRules: Array
   },
-  data() {
-    return {
-      isLoading: false,
-      features: [],
-      search: null,
-      rules: this.fieldRules,
-    };
-  },
+  data: () => ({
+    count: 0,
+    loading: false,
+    features: [],
+    search: null
+  }),
   computed: {
     items() {
-      return this.features.map((feature) => {
+      return this.features.map(feature => {
         /* Example result.
           {
             "type": "Feature",
@@ -79,25 +78,24 @@ export default {
             }
           },
          */
-        return Object.assign({
+        return {
           text: feature.properties.fullAddress,
           value: feature.properties.fullAddress,
           cityLatitude: feature.geometry.coordinates[1],
           cityLongitude: feature.geometry.coordinates[0]
-        });
+        };
       });
-    },
+    }
+  },
+  methods: {
     apiURL() {
-      if (Vue.prototype.$config) {
-        const config = Vue.prototype.$config;
-        return config.geocoder.endpoint;
+      if (this.$config && this.$config.geocoder) {
+        return this.$config.geocoder.endpoint;
       } else {
         throw new Error('Settings object is missing.');
       }
     },
-  },
-  methods: {
-    change: function (value) {
+    change(value) {
       this.$emit(
         'update:field-model',
         typeof value === 'object' && value !== null ? value.text : value
@@ -111,35 +109,38 @@ export default {
         'update:longitude',
         typeof value === 'object' && value !== null ? value.cityLongitude : null
       );
-    },
+    }
   },
   watch: {
-    search(val) {
+    async search(val) {
       // Minimum search length is 1 character
       if (!val || val.length < 1) return;
 
       // A search has already been started
-      if (this.isLoading) return;
-
-      this.isLoading = true;
+      if (this.loading) return;
 
       // Lazily load results
-      fetch(
-        `${this.apiURL}/addresses.json?autocomplete=true&addressString=${encodeURIComponent(
-          val
-        )}&minScore=50&maxResults=5&echo=false&brief=true`
-      )
-        .then((res) => res.json())
-        .then((res) => {
-          this.count = res.features.length;
-          this.features = res.features;
-        })
-        .catch((err) => {
-          // eslint-disable-next-line
-            console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
-    },
-  },
+      this.loading = true;
+      try {
+        const response = await axios.get(`${this.apiURL()}/addresses.json`, {
+          params: {
+            addressString: encodeURIComponent(val),
+            autocomplete: true,
+            brief: true,
+            echo: false,
+            maxResults: 5,
+            minScore: 50
+          }
+        });
+        const data = response.data;
+        this.count = data.features.length;
+        this.features = data.features;
+      } catch (err) {
+        console.log(err); // eslint-disable-line no-console
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
 };
 </script>

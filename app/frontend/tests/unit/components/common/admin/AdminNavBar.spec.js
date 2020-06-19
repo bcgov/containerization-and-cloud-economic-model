@@ -28,31 +28,7 @@ describe('AdminNavBar.vue', () => {
     expect(wrapper.text()).toBeFalsy();
   });
 
-  // TODO: Figure out how to properly mock $route.path to correct value
-  it.skip('renders non-admin buttons when on admin page', async () => {
-    store.registerModule('auth', {
-      namespaced: true,
-      getters: {
-        hasResourceRoles: () => () => false
-      }
-    });
-
-    const wrapper = shallowMount(AdminNavBar, {
-      localVue,
-      mocks: {
-        $route: { path: '/admin' }
-      },
-      propsData: { formName: formName, resource: resource },
-      router,
-      stubs: ['router-link']
-    });
-
-    expect(wrapper.html()).toContain('Submissions');
-    expect(wrapper.text()).toContain('Dashboards');
-  });
-
-  // TODO: Figure out how to properly mock $route.path to correct value
-  it.skip('renders admin buttons when on admin page', () => {
+  it('isAdmin can determine if user is an administrator', async () => {
     store.registerModule('auth', {
       namespaced: true,
       getters: {
@@ -62,16 +38,12 @@ describe('AdminNavBar.vue', () => {
 
     const wrapper = shallowMount(AdminNavBar, {
       localVue,
-      mocks: {
-        $route: { path: '/admin' }
-      },
       propsData: { formName: formName, resource: resource },
       router,
+      store,
       stubs: ['router-link']
     });
 
-    expect(wrapper.text()).toContain('Submissions');
-    expect(wrapper.text()).toContain('Dashboards');
-    expect(wrapper.text()).toContain('Team');
+    expect(wrapper.vm.isAdmin).toBeTruthy();
   });
 });

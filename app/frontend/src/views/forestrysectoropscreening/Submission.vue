@@ -9,6 +9,7 @@
         <SubmissionHeader
           :attestation="attestation"
           :business="business"
+          :formName="formName"
           :location="location"
           :submissionId="submissionId"
           :operationType="operationType"

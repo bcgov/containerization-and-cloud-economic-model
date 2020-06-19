@@ -6,9 +6,10 @@
 
     <v-row v-if="!getFormError">
       <v-col cols="12" md="8" offset-md="2">
-        <GeneratePdfButton :submissionId="submissionId">
+        <GeneratePdfButton :formName="formName" :submissionId="submissionId">
           <v-btn text small color="textLink" class="pl-0">
-            <v-icon class="mr-1">picture_as_pdf</v-icon>Generate PDF of Submission
+            <v-icon class="mr-1">picture_as_pdf</v-icon>
+            <span>Generate PDF of Submission</span>
           </v-btn>
         </GeneratePdfButton>
         <AdminReviewSubmission />
@@ -23,6 +24,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import AdminReviewSubmission from '@/components/forestrysectoropscreening/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'Review',
@@ -51,6 +53,9 @@ export default {
       return this.attestation && this.attestation.createdAt
         ? moment(this.attestation.createdAt).format('MMMM D YYYY, h:mm:ss a')
         : 'N/A';
+    },
+    formName() {
+      return FormNames.FORESTRYSECTOROPSCREENING;
     }
   },
   methods: {

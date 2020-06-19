@@ -6,9 +6,10 @@
       flat
       solo
       v-model="fieldModel"
-      :rules="rules"
+      data-test="text-form-orgbook-search-fieldModel"
+      :rules="fieldRules"
       :items="items"
-      :loading="isLoading"
+      :loading="loading"
       :search-input.sync="search"
       v-on:change="change"
       clearable
@@ -18,7 +19,7 @@
       placeholder="Start typing to search the OrgBook database"
       prepend-inner-icon="mdi-database-search"
       append-icon
-    ></v-combobox>
+    />
     <!-- Org Book help message -->
     <BaseInfoCard v-if="showOrgBookHelp" class="ml-8 mb-5">
       <p>Business Name Not Found. Try searching again?</p>
@@ -41,27 +42,27 @@ export default {
   name: 'OrgBookSearch',
   props: {
     fieldModel: String,
-    fieldRules: Array,
+    fieldRules: Array
   },
-  data() {
-    return {
-      isLoading: false,
-      entries: [],
-      search: null,
-      rules: this.fieldRules,
-      showOrgBookHelp: false,
-    };
-  },
+  data: () => ({
+    count: 0,
+    entries: [],
+    loading: false,
+    search: null,
+    showOrgBookHelp: false
+  }),
   computed: {
     items() {
-      return this.entries.map((entry) => {
+      return this.entries.map(entry => {
         // there will only ever be 1 result in the names array
-        return Object.assign({
+        return {
           text: entry.names[0].text,
-          value: entry.names[0].text,
-        });
+          value: entry.names[0].text
+        };
       });
-    },
+    }
+  },
+  methods: {
     apiURL() {
       if (this.$config && this.$config.orgbook) {
         return this.$config.orgbook.endpoint;
@@ -69,9 +70,7 @@ export default {
         throw new Error('Settings object is missing.');
       }
     },
-  },
-  methods: {
-    change: function (value) {
+    change(value) {
       this.$emit(
         'update:field-model',
         // For this use, want to emit just the text
@@ -79,42 +78,44 @@ export default {
       );
 
       // show Org Book warning and help message when user enters a business name not found in the Org Book
-      this.showOrgBookHelp = (value && !this.foundInOrgBook(value.text));
+      this.showOrgBookHelp = value && !this.foundInOrgBook(value.text);
     },
     // Check if user input matched an Org Book suggestion
-    foundInOrgBook(inputValue){
-      const arrayOfOrgBookValues = this.entries.map( result => {
+    foundInOrgBook(inputValue) {
+      const arrayOfOrgBookValues = this.entries.map(result => {
         return result.names[0].text;
       });
       return arrayOfOrgBookValues.includes(inputValue);
     }
   },
   watch: {
-    search(val) {
+    async search(val) {
       // Minimum search length is 1 character
       if (!val || val.length < 1) return;
 
       // A search has already been started
-      if (this.isLoading) return;
-
-      this.isLoading = true;
+      if (this.loading) return;
 
       // Lazily load results
-      axios.get(
-        `${this.apiURL}/search/autocomplete?q=${encodeURIComponent(
-          val
-        )}&inactive=false&latest=true&revoked=false`
-      )
-        .then((res) => {
-          this.count = res.data.results.length;
-          this.entries = res.data.results;
-        })
-        .catch((err) => {
-          // eslint-disable-next-line
-          console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
-    },
-  },
+      this.loading = true;
+      try {
+        const response = await axios.get(`${this.apiURL()}/search/autocomplete`, {
+          params: {
+            inactive: false,
+            latest: true,
+            q: encodeURIComponent(val),
+            revoked: false
+          }
+        });
+        const data = response.data;
+        this.count = data.results.length;
+        this.entries = data.results;
+      } catch (err) {
+        console.log(err); // eslint-disable-line no-console
+      } finally {
+        this.loading = false;
+      }
+    }
+  }
 };
 </script>

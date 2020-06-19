@@ -27,7 +27,7 @@
       :options="options"
     >
       <template v-slot:item.download="{ item }">
-        <GeneratePdfButton :submissionId="item.submissionId">
+        <GeneratePdfButton :formName="formName" :submissionId="item.submissionId">
           <v-btn color="textLink" :data-test="`btn-pdf-${item.confirmationId}`" text small>
             <v-icon class="mr-1">picture_as_pdf</v-icon>
             <span>PDF</span>
