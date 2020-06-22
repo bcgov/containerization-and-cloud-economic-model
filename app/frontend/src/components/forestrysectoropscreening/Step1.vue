@@ -411,13 +411,13 @@
 
         <hr />
 
-        <h3>Type of accommodation for workers at this location (check all that apply)</h3>
+        <h3>Type of accommodations provided by employers for workers at this location (check all that apply)</h3>
 
         <v-checkbox
           v-model="accTents"
           data-test="cb-form-accTents"
           :readonly="reviewMode"
-          label="Tents and trailers near worksite"
+          label="Tent or trailer sites"
         ></v-checkbox>
 
         <div v-if="accTents">
@@ -446,7 +446,7 @@
           v-model="accMotel"
           data-test="cb-form-accMotel"
           :readonly="reviewMode"
-          label="Motel / Hotel in town"
+          label="Worker's lodging location (Motel, hotel, or other lodging)"
         ></v-checkbox>
         <div v-if="accMotel">
           <v-row>

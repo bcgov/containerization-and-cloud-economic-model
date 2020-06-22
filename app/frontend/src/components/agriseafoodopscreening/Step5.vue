@@ -1,62 +1,7 @@
 <template>
   <v-container>
     <div v-if="submissionComplete">
-      <h1 class="pb-8">
-        <v-icon color="success">check_circle</v-icon>Your form has submitted successfully.
-      </h1>
-      <p>
-        Please record the following
-        <em>confirmation id</em> in your records:
-      </p>
-      <h2 class="mb-10">
-        <blockquote>{{ submissionDetails.confirmationId }}</blockquote>
-      </h2>
-
-      <div class="d-print-none">
-        <hr />
-
-        <h3 class="my-4">Download a PDF or email yourself a copy of your form submission</h3>
-
-        <v-row class="mb-6">
-          <GeneratePdfButton :formName="formName" :submissionId="submissionDetails.submissionId">
-            <v-tooltip bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn
-                  v-on="on"
-                  color="primary"
-                  class="ml-5 mr-10"
-                  data-test="btn-form-generate-pdf"
-                  fab
-                  large
-                >
-                  <v-icon>picture_as_pdf</v-icon>
-                </v-btn>
-              </template>
-              <span>Download PDF</span>
-            </v-tooltip>
-          </GeneratePdfButton>
-
-          <RequestReceipt
-            :email="submissionDetails.contacts[0].email"
-            :formName="formName"
-            :submissionId="submissionDetails.submissionId"
-          />
-        </v-row>
-
-        <hr />
-
-        <p class="my-10">
-          To start again and submit another form you can refresh this page (or
-          <a
-            href="#"
-            @click="refresh"
-            data-test="btn-form-restart"
-          >
-            click here
-            <v-icon small color="primary">refresh</v-icon>
-          </a>)
-        </p>
-      </div>
+      <SubmissionConfirmation :formName="formName" :completedSubmission="submissionDetails" />
     </div>
     <div v-else>
       <BaseHeaderSection :text="'Please review your answers'" />
@@ -192,8 +137,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
-import RequestReceipt from '@/components/common/RequestReceipt.vue';
+import SubmissionConfirmation from '@/components/common/attestation/SubmissionConfirmation.vue';
 import Step1 from '@/components/agriseafoodopscreening/Step1.vue';
 import Step2 from '@/components/agriseafoodopscreening/Step2.vue';
 import Step3 from '@/components/agriseafoodopscreening/Step3.vue';
@@ -203,8 +147,7 @@ import { FormNames } from '@/utils/constants';
 export default {
   name: 'AgriSeaStep5',
   components: {
-    GeneratePdfButton,
-    RequestReceipt,
+    SubmissionConfirmation,
     Step1,
     Step2,
     Step3,
@@ -257,9 +200,6 @@ export default {
         // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
         window.onbeforeunload = null;
       }
-    },
-    refresh() {
-      location.reload();
     }
   },
   mounted() {
