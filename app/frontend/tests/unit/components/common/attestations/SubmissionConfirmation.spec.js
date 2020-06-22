@@ -2,7 +2,6 @@ import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuetify from 'vuetify';
 
 import SubmissionConfirmation from '@/components/common/attestation/SubmissionConfirmation.vue';
-import SubmissionConfirmation from '@/components/common/attestation/SubmissionConfirmation.vue';
 
 const localVue = createLocalVue();
 localVue.use(Vuetify);
