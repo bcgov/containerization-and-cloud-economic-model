@@ -86,7 +86,7 @@ export default {
         this.success = true;
         this.resultDialogMsg =
           'Your access request has been submitted. Please check back later.';
-      } catch {
+      } catch (error) {
         this.success = false;
         this.resultDialogMsg =
           'An error occured while attempting to request access.';

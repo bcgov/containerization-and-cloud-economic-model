@@ -91,7 +91,7 @@ export default {
           });
           this.success = true;
           this.resultDialogMsg = `An email has been sent to ${this.to}.`;
-        } catch {
+        } catch (error) {
           this.success = false;
           this.resultDialogMsg =
             'An error occured while attempting to send your email.';
