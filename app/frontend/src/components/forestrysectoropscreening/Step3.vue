@@ -1,17 +1,17 @@
 <template>
   <v-container>
     <div class="hide-on-review">
-      <BaseHeaderSection :text="'After workers arrive at the Industrial Camp'" />
+      <BaseHeaderSection :text="'After workers arrive at the Forestry Operation'" />
     </div>
 
-    <p>Once your workers arrive at the location, you are expected to continue your work enacting an an infection prevention and control protocol and minimize the risk of transmission of COVID-19 through the following key activities.</p>
+    <p>Once your workers arrive at the location, you are expected to continue your work enacting an infection prevention and control protocol and minimize the risk of transmission of COVID-19 through the following key activities.</p>
 
     <div class="question-series">
-      <h3 class="question-head">1. Implement COVID-19 Employee Education</h3>
+      <h3 class="question-head">1. Implement COVID-19 employee education</h3>
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camps Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
+        >Forestry Sector Operators need to make workers aware of the risks of COVID-19 and be prepared if workers have questions about COVID-19</p>
         <v-checkbox
           v-model="educationSignage"
           data-test="cb-form-educationSignage"
@@ -32,7 +32,7 @@
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camp Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
+        >Operators must provide workers with training in their language about the risk of COVID-19, safe work practices, and how to report symptoms.</p>
         <v-checkbox
           v-model="trainingCovid19"
           data-test="cb-form-trainingCovid19"
@@ -67,7 +67,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="question-head">3. Meals Preparation: Practice safe food handling</h3>
+      <h3 class="question-head">3. Meals preparation: practice safe food handling</h3>
       <div class="questions">
         <div class="hide-on-review">
           <p>All employers and employees must practice good food handling and hygiene practices.</p>

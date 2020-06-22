@@ -4,7 +4,7 @@
       <v-container>
         <v-row>
           <v-col cols="12" xl="8" offset-xl="2">
-            <h2>Protecting Silviculture Employees, Contractors, and Employers During the COVID-19 Pandemic</h2>
+            <h2>Protect employees, contractors, and employers, during the COVID-19 pandemic</h2>
           </v-col>
         </v-row>
       </v-container>
@@ -15,7 +15,7 @@
           <div class="hide-on-review">
             <p
               class="mt-3"
-            >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Silviculture and Planting operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
+            >The Province of British Columbia has initiated emergency measures to slow the spread of COVID-19. Forestry Sector Operators must ensure a safe workplace for their workers and demonstrate proof of an Infection Prevention Control protocol (IPCP).</p>
 
             <BaseImportantCard class="mt-6 mb-9">
               <span>Important: This attestation form must be completed once for each accommodation location.</span>
@@ -65,7 +65,7 @@
                   <v-expansion-panels>
                     <v-expansion-panel>
                       <v-expansion-panel-header data-test="btn-form-panel-camp-order">
-                        <strong>Complete a COVID-19 risk assessment of your silviculture camps by following the directions in the guidance document.</strong>
+                        <strong>Complete a COVID-19 risk assessment of your forestry camps by following the directions in the guidance document.</strong>
                       </v-expansion-panel-header>
                       <v-expansion-panel-content>
                         <p>
@@ -79,7 +79,7 @@
                           </p>
                           <p
                             class="mb-0"
-                          >Silviculture and Planting operators can take practical actions to reduce the risk of disease transmission (see section 7 of document).</p>
+                          >Forestry Sector Operators can take practical actions to reduce the risk of disease transmission (see section 7 of document).</p>
                         </BaseInfoCard>
 
                         <p class="mt-5">
@@ -128,32 +128,10 @@
           <div class="hide-on-review">
             <div class="my-12">
               <BaseInfoCard>
-                <h4
-                  class="mb-3"
-                >The following contacts are available if you need assistance completing these risk assessment or infection prevention tasks:</h4>
-                <v-row>
-                  <v-col cols="12" sm="4">
-                    <h4>Coast:</h4>
-                    <p class="mb-0">
-                      Ritchard LaBoucane
-                      <br />250-739-8706
-                    </p>
-                  </v-col>
-                  <v-col cols="12" sm="4">
-                    <h4>North:</h4>
-                    <p class="mb-0">
-                      John Huybers
-                      <br />250-552-2364
-                    </p>
-                  </v-col>
-                  <v-col cols="12" sm="4">
-                    <h4>South:</h4>
-                    <p class="mb-0">
-                      Nina Sigloch
-                      <br />778-362-7213
-                    </p>
-                  </v-col>
-                </v-row>
+                <p>
+                  If you need assistance completing these risk assessment or infection prevention tasks, please email
+                  <strong>FP.Engagement@gov.bc.ca</strong>
+                </p>
               </BaseInfoCard>
             </div>
 
@@ -211,8 +189,8 @@ export default {
   name: 'ForestrySectorLanding',
   data() {
     return {
-      docTitle: 'Protecting Employees, Contractors, and Employers Working in the Silviculture Sector During the COVID-19 Pandemic',
-      docShortTitle: 'COVID-19 Guidelines for Silviculture Work Camps',
+      docTitle: 'Protecting Employees, Contractors, and Employers Working ... During the COVID-19 Pandemic',
+      docShortTitle: 'COVID-19 Guidelines for Forestry Sector Work Camps',
       landingValid: false,
 
       // TODO: fetch this from API
@@ -228,8 +206,7 @@ export default {
         { type:'SPACING', display: 'Spacing', enabled: true },
         { type:'SURVEYING', display: 'Surveying', enabled: true },
         { type:'VEGETATION_MANAGEMENT', display: 'Vegetation Management', enabled: true },
-        { type:'WILDFIRE_CAMPS', display: 'Wildfire Camps', enabled: true },
-        { type:'OTHER', display: 'Other', enabled: true }
+        { type:'WILDFIRE_CAMPS', display: 'Wildfire Camps', enabled: true }
       ]
     };
   },

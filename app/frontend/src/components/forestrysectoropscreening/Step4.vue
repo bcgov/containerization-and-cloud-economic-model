@@ -9,7 +9,7 @@
       <div class="questions">
         <p
           class="hide-on-review"
-        >Industrial Camp Operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority.</p>
+        >Forestry Sector Operators must have a plan and protocol to deal with workers demonstrating symptoms of COVID-19, including immediate self isolation of the worker and notifying the local health authority.</p>
         <p>
           If two or more workers become sick, you must notify the local
           <a
@@ -66,7 +66,7 @@
     </BaseWarningCardNew>
 
     <div class="question-series">
-      <h3 class="question-head">2. Providing Food for Ill Workers</h3>
+      <h3 class="question-head">2. Providing food for ill workers</h3>
       <div class="questions">
         <v-checkbox
           v-model="infectedFeeding"
@@ -86,7 +86,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="question-head">3. Housekeeping for Ill Workers</h3>
+      <h3 class="question-head">3. Housekeeping for ill workers</h3>
       <div class="questions">
         <v-checkbox
           v-model="infectedHousekeeping"
@@ -109,7 +109,7 @@
     </div>
 
     <div class="question-series">
-      <h3 class="question-head">4. Waste Management for Ill Workers</h3>
+      <h3 class="question-head">4. Waste management for ill workers</h3>
       <div class="questions">
         <v-checkbox
           v-model="infectedWaste"
