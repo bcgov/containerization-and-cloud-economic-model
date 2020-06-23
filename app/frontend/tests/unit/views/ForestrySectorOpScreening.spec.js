@@ -3,14 +3,14 @@ import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 
 import getRouter from '@/router';
-import MinesOperatorScreening from '@/views/MinesOperatorScreening.vue';
+import ForestrySectorOpScreening from '@/views/ForestrySectorOpScreening.vue';
 
 const localVue = createLocalVue();
 localVue.use(getRouter());
 localVue.use(Vuetify);
 localVue.use(Vuex);
 
-describe('MinesOperatorScreening.vue', () => {
+describe('ForestrySectorOpScreening.vue', () => {
   let store;
 
   beforeEach(() => {
@@ -18,7 +18,9 @@ describe('MinesOperatorScreening.vue', () => {
   });
 
   it('renders', () => {
-    const wrapper = shallowMount(MinesOperatorScreening, { localVue, store });
+    store.registerModule('forestrySectorOpScreeningForm', { namespaced: true });
+
+    const wrapper = shallowMount(ForestrySectorOpScreening, { localVue, store });
 
     expect(wrapper.html()).toMatch('router-view');
   });
