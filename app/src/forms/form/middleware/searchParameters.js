@@ -1,6 +1,10 @@
 const Problem = require('api-problem');
 const Models = require('../models');
 
+const isBoolean = x => {
+  return Object.prototype.toString.call(x) === '[object Boolean]';
+};
+
 const isString = x => {
   return Object.prototype.toString.call(x) === '[object String]';
 };
@@ -17,7 +21,9 @@ const verifyString = (obj, param, result, errors) => {
 
 const verifyBoolean = (obj, param, result, errors) => {
   if (obj[param]) {
-    if (isString(obj[param]) && ['true','false'].includes(obj[param].toLowerCase())) {
+    if (isBoolean(obj[param])) {
+      result[param] = obj[param];
+    } else if (isString(obj[param]) && ['true','false'].includes(obj[param].toLowerCase())) {
       result[param] = 'true' === obj[param].toLowerCase();
     } else {
       errors.push(`${param} parameter must be a boolean`);
