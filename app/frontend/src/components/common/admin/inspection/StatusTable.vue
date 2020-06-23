@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-alert v-if="showAlert" :type="alertType" tile dense>{{alertMessage}}</v-alert>
+    <v-alert v-if="showAlert" :type="alertType" tile dense>{{ alertMessage }}</v-alert>
 
     <v-data-table
       disable-pagination
