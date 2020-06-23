@@ -1,67 +1,14 @@
 const Problem = require('api-problem');
 
+// mock services...
+require('../attestationMocks');
+
 const Controller = require('../../../src/forms/attestations/controller').Controller;
 const OperationTypesController = require('../../../src/forms/attestations/controller').OperationTypesController;
-
 const FormDataService = require('../../../src/forms/attestations/dataService').FormDataService;
 const OperationTypesDataService = require('../../../src/forms/attestations/dataService').OperationTypesDataService;
-
 const EmailService = require('../../../src/forms/attestations/emailService').EmailService;
-
 const PdfService = require('../../../src/forms/attestations/pdfService').PdfService;
-
-jest.mock('../../../src/forms/attestations/dataService', () => {
-  return {
-    FormDataService: jest.fn().mockImplementation(() => {
-      return {
-        exists: jest.fn().mockResolvedValue(true),
-        current: jest.fn().mockResolvedValue({current: true}),
-        create: jest.fn().mockResolvedValue({create: true}),
-        read: jest.fn().mockResolvedValue({read: true}),
-        update: jest.fn().mockResolvedValue({update: true}),
-        searchSubmissions: jest.fn().mockResolvedValue({searchSubmissions: true}),
-        createSubmission: jest.fn().mockResolvedValue({createSubmission: true}),
-        readSubmission: jest.fn().mockResolvedValue({readSubmission: true}),
-        updateSubmission: jest.fn().mockResolvedValue({updateSubmission: true}),
-        deleteSubmission: jest.fn().mockResolvedValue({deleteSubmission: true})
-      };
-    }),
-    OperationTypesDataService: jest.fn().mockImplementation(() => {
-      return {
-        readTypes: jest.fn().mockResolvedValue({readTypes: true})
-      };
-    }),
-  };
-});
-
-jest.mock('../../../src/forms/attestations/emailService', () => {
-  return {
-    EmailService: jest.fn().mockImplementation(() => {
-      return {
-        sendConfirmationEmail: jest.fn().mockResolvedValue({sendConfirmationEmail: true}),
-        sendSubmissionEmail: jest.fn().mockResolvedValue({sendSubmissionEmail: true}),
-      };
-    })
-  };
-});
-
-jest.mock('../../../src/forms/attestations/pdfService', () => {
-  return {
-    PdfService: jest.fn().mockImplementation(() => {
-      return {
-        generateSubmissionPdf: jest.fn().mockResolvedValue({
-          headers: {
-            'Content-Disposition': 'a',
-            'Content-Type': 'b',
-            'Content-Length': 'c',
-            'Content-Transfer-Encoding': 'd'
-          },
-          data: {pdf: true}
-        })
-      };
-    }),
-  };
-});
 
 const mockResponse = () => {
   const res = {};

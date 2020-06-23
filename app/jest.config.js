@@ -11,7 +11,10 @@ module.exports = {
     '!src/forms/**/*.*',
     'src/forms/attestations/middleware/searchParameters.js',
     'src/forms/attestations/controller.js',
-    'src/forms/form/middleware/searchParameters.js'
+    'src/forms/attestations/router.js',
+    'src/forms/common/router.js',
+    'src/forms/form/middleware/searchParameters.js',
+    'src/forms/teammanagement/router.js',
   ],
   moduleFileExtensions: ['js', 'json'],
   moduleNameMapper: {
