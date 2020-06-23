@@ -65,4 +65,9 @@ describe(`Routes > ${baseName}`, () => {
       }
     }));
   });
+
+  it('can import all lazy-loaded components', () => {
+    expect(routes[0].component()).toBeTruthy();
+    expect(routes[0].children.map(c => c.component())).toBeTruthy();
+  });
 });

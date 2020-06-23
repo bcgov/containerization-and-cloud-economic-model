@@ -19,4 +19,8 @@ describe('Routes > Comfort ', () => {
       }
     }));
   });
+
+  it('can import all lazy-loaded components', () => {
+    expect(routes.map(c => c.component ? c.component() : undefined)).toBeTruthy();
+  });
 });
