@@ -1,10 +1,10 @@
 <template>
   <div>
-    <v-progress-linear indeterminate v-if="gettingSettings" color="primary" class="mb-2" />
-
     <v-alert v-if="error" type="error" tile dense>{{ error }}</v-alert>
 
-    <v-expansion-panels v-if="!gettingSettings">
+    <v-progress-linear indeterminate v-if="loading" color="primary" class="mb-2" />
+
+    <v-expansion-panels v-else>
       <v-expansion-panel v-for="item in settings" :key="item.name">
         <v-expansion-panel-header :data-test="`btn-panel-${item.name}`">{{ item.name }}</v-expansion-panel-header>
         <v-expansion-panel-content>
@@ -31,19 +31,18 @@ export default {
     }
   },
   data: () => ({
-    error: false,
+    error: '',
     loading: true,
     settings: []
   }),
   methods: {
     async getSettings() {
-      this.error = '';
       this.loading = true;
       try {
         const response = await commonFormService.getSettings(this.formName);
         this.settings = response.data;
       } catch (error) {
-        console.log(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
+        console.error(`Error occurred getting Settings: ${error}`); // eslint-disable-line no-console
         this.error = 'Failed to fetch Settings from the Database';
       } finally {
         this.loading = false;
