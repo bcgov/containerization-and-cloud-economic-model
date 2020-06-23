@@ -1,0 +1,63 @@
+ext {
+      // The drivers we want to use
+      drivers = ["chrome", "chromeHeadless", "firefox", "firefoxHeadless", "remoteEdge", "remoteFirefox", "remoteChrome"]
+
+      Map env = System.getenv()
+      groovyVersion = env['GROOVY_VERSION']
+      if (!groovyVersion) {
+            groovyVersion = '2.5.9'
+      }
+      gebVersion = env['GEB_VERSION']
+      if (!gebVersion) {
+            gebVersion = '3.4'
+      }  
+      spockVersion = env['SPOCK_VERSION']
+      if (!spockVersion) {
+            spockVersion = '1.3-groovy-2.5'
+      } 
+
+      seleniumVersion = env['SELENIUM_VERSION']
+      if (!seleniumVersion) {
+            seleniumVersion = '3.141.59'
+      }
+      chromeDriverVersion = env['CHROMEDRIVER_VERSION']
+      if (!chromeDriverVersion) {
+            chromeDriverVersion = '83.0.4103.39'
+      }
+      geckoDriverVersion = env['GECKODRIVER_VERSION']
+      if (!geckoDriverVersion) {
+            geckoDriverVersion = '0.26.0'
+      }
+      spockreportVersion = env['SPOCKREPORT_VERSION']
+      if (!spockreportVersion) {
+            spockreportVersion = '1.7.1'
+      }
+      httpbuilderVersion = env['HTTPBUILDER_VERSION']
+      if (!httpbuilderVersion) {
+            httpbuilderVersion = 'http-builder:0.7.1'
+      }
+      slf4jVersion = env['SLF4J_VERSION']
+      if (!slf4jVersion) {
+            slf4jVersion = '1.7.30'
+      }
+      browserstackVersion = env['BROWSERSTACK_VERSION']
+      if (!browserstackVersion) {
+            browserstackVersion = '1.0.3'
+      }
+      mysqlconnectorjavaVersion = env['MYSQLCONNECTORJAVA_VERSION']
+      if (!mysqlconnectorjavaVersion) {
+            mysqlconnectorjavaVersion = '8.0.19'
+      }
+
+      reportProjectName = 'Comfort'
+}
+
+// Latest Groovy version: https://mvnrepository.com/artifact/org.codehaus.groovy/groovy-all
+// Latest gebVersion: https://github.com/geb/geb/releases
+// Latest spockVersion: https://mvnrepository.com/artifact/org.spockframework/spock-core
+// Latest seleniumVersion: https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
+// Latest chromeDriverVersion: https://chromedriver.storage.googleapis.com/LATEST_RELEASE_<main version>
+// Latest geckoDriverVersion: https://github.com/mozilla/geckodriver/releases/latest
+// Latest spockreportVersion: https://mvnrepository.com/artifact/com.athaydes/spock-reports
+// Latest slf4jVersion: https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+// Latest browserstackVersion : https://mvnrepository.com/artifact/com.browserstack/browserstack-local-java

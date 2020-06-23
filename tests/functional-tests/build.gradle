@@ -1,39 +1,22 @@
-//import org.apache.tools.ant.taskdefs.condition.Os
-
 plugins {
-  id "idea"
-  id "groovy"
-  id "com.energizedwork.webdriver-binaries" version "1.4"
-  id "com.energizedwork.idea-base" version "1.4"
+    id "idea"
+    id "groovy"
+    id "com.energizedwork.webdriver-binaries" version "1.4"
+    id "com.energizedwork.idea-base" version "1.4"
+    id "io.qameta.allure" version "2.8.1"
 }
 
-ext {
-  // these names are arbitrary and can be changed or extended.
-  // configuration is in resources/GebConfig.groovy
-  // add them here and configure them there
-  drivers = ["remoteEdge", "remoteFirefox", "remoteChrome"]
+apply from: "gradle/versions.gradle"
 
-  ext {
-    //@changeme
-    reportProjectName = 'Comfort'
-
-    groovyVersion = '2.5.9'
-    gebVersion = '3.4'
-    spockCoreVersion = '1.3-groovy-2.5'
-    seleniumVersion = '3.141.59'
-    spockreportVersion = '1.7.1'
-    httpbuilderVersion = 'http-builder:0.7.1'
-    slf4jVersion = '1.7.30'
-  }
-}
-
+// Obtain all the environment variables needed.
 drivers.each { driver ->
   task "${driver}Test"(type: Test) {
     group JavaBasePlugin.VERIFICATION_GROUP
 
     outputs.upToDateWhen { false }  // Always run tests
-    systemProperty "geb.env", driver
-
+    
+    systemProperty "geb.env", driver    
+    systemProperty "geb.build.reportsDir", reporting.file("geb/$name")
     /*
      * Set environment variables from a .env file, if it exists.
      * Equals sign separated key value pairs, one per new line: SOME_KEY=some value
@@ -50,64 +33,99 @@ drivers.each { driver ->
     }
   }
 }
+
 repositories {
-  mavenCentral()
-  jcenter()
+    mavenCentral()
+    jcenter()
 }
 
 dependencies {
-   // Dependencies needed for building the listener functionality
-  compile "org.codehaus.groovy:groovy-all:$groovyVersion"
-  compile "org.gebish:geb-spock:$gebVersion"
-  compile("org.spockframework:spock-core:$spockCoreVersion") {
-    exclude group: "org.codehaus.groovy"
-  }
-  compile "org.codehaus.groovy.modules.http-builder:$httpbuilderVersion"
-  testCompile 'junit:junit:4.13'
+// Dependencies needed for building the listener functionality
+    compile "org.codehaus.groovy:groovy-all:$groovyVersion"
+    compile "org.gebish:geb-spock:$gebVersion"
+    compile("org.spockframework:spock-core:$spockVersion") {
+        exclude group: "org.codehaus.groovy"
+        }
+    compile "org.codehaus.groovy.modules.http-builder:$httpbuilderVersion"
+    compile group: 'com.browserstack', name: 'browserstack-local-java', version: "$browserstackVersion"
 
-  // Dependencies for running the tests
-  // If using Spock, need to depend on geb-spock
-  testCompile "org.gebish:geb-spock:$gebVersion"
-  testCompile("org.spockframework:spock-core:$spockCoreVersion") {
-    exclude group: "org.codehaus.groovy"
-  }
+    testCompile 'junit:junit:4.13'
+    
+    // The allure reports
+    testCompile 'com.aoe:geb-spock-reports:0.2.5'
 
-  testCompile "org.codehaus.groovy:groovy-all:$groovyVersion"
-  testCompile "org.codehaus.groovy.modules.http-builder:$httpbuilderVersion"
+    // If using Spock, need to depend on geb-spock
+    testImplementation "org.codehaus.groovy:groovy-all:$groovyVersion"
+    testImplementation "org.gebish:geb-spock:$gebVersion"
+    testImplementation("org.spockframework:spock-core:$spockVersion") {
+        exclude group: "org.codehaus.groovy"
+    }
+    testCompile "org.codehaus.groovy.modules.http-builder:$httpbuilderVersion"
 
-  // If using JUnit, need to depend on geb-junit (3 or 4)
-  testCompile "org.gebish:geb-junit4:$gebVersion"
+    // If using JUnit, need to depend on geb-junit (3 or 4)
+    testImplementation "org.gebish:geb-junit4:$gebVersion"
 
-  //Support
-  testCompile "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
-  testCompile "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
+    //Support
+    testImplementation "org.seleniumhq.selenium:selenium-support:$seleniumVersion"
+    testCompile "org.seleniumhq.selenium:selenium-java:$seleniumVersion"
 
-  // if you don't already have slf4j-api and an implementation of it in the classpath, add this!
-  testCompile "org.slf4j:slf4j-api:$slf4jVersion"
-  testCompile "org.slf4j:slf4j-simple:$slf4jVersion"
+    // Drivers
+    testImplementation "org.seleniumhq.selenium:selenium-chrome-driver:$seleniumVersion"
+    testImplementation "org.seleniumhq.selenium:selenium-firefox-driver:$seleniumVersion"
 
-  // Spock reports
-  testImplementation( "com.athaydes:spock-reports:$spockreportVersion" ) {
-      transitive = false // this avoids affecting your version of Groovy/Spock
-  }
+    // Spock reports
+    testImplementation( "com.athaydes:spock-reports:$spockreportVersion" ) {
+        transitive = false // this avoids affecting your version of Groovy/Spock
+    }
+    
+    // if you don't already have slf4j-api and an implementation of it in the classpath, add this!
+    testImplementation "org.slf4j:slf4j-api:$slf4jVersion"
+    testImplementation "org.slf4j:slf4j-simple:$slf4jVersion"
+
+    // Used for reading test data straight from a database
+    testImplementation "mysql:mysql-connector-java:$mysqlconnectorjavaVersion"
+}
+
+webdriverBinaries {
+    chromedriver chromeDriverVersion
+    geckodriver geckoDriverVersion
+}
+
+test {
+    dependsOn drivers.collect { tasks["${it}Test"] }
+    enabled = false
 }
 
 tasks.withType(Test) {
-  maxHeapSize = "1g"
-  jvmArgs '-XX:MaxMetaspaceSize=128m'
-  group JavaBasePlugin.VERIFICATION_GROUP
-
-  testLogging {
-    exceptionFormat = 'full'
-    showStandardStreams = true
-    systemProperty 'com.athaydes.spockframework.report.outputDir', 'build/reports/spock'
+    maxHeapSize = "1g"
+    jvmArgs '-XX:MaxMetaspaceSize=128m'
+    //group JavaBasePlugin.VERIFICATION_GROUP
+    
+    testLogging {
+        exceptionFormat = 'full'
+    }
     systemProperty 'com.athaydes.spockframework.report.internal.HtmlReportCreator.inlineCss', false
     systemProperty 'com.athaydes.spockframework.report.projectName',"$reportProjectName"
-  }
+    systemProperty 'com.athaydes.spockframework.report.showCodeBlocks', true //Set to true if you want to see the code in your Spock Report
 }
 
 tasks.withType(GroovyCompile) {
-  groovyOptions.forkOptions.memoryMaximumSize = '256m'
+    groovyOptions.forkOptions.memoryMaximumSize = '256m'
+}
+
+allure {
+    version = '2.7.0'
+    aspectjweaver = true
+    autoconfigure = true
+
+    resultsDir = file('allure-results')
+    reportDir = file('allure-reports')
+
+    useSpock {
+       version = '2.0-BETA12'
+    }
+
+    downloadLink = 'https://dl.bintray.com/qameta/generic/io/qameta/allure/allure/2.7.0/allure-2.7.0.zip'
 }
 
 sourceSets {

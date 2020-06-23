@@ -8,7 +8,8 @@ import geb.navigator.Navigator
  */
 class HeaderModule extends Module {
   static content = {
-    bcLogo { $('.navbar-brand') }
+    bcLogo { $('div.v-image__image.v-image__image--contain') }
+    headerTitle { $('div', "data-test":"btn-header-title", class:"v-toolbar__title title") }
 
     // non-responsive login button
     loginButton { $('#keycloak-auth-login-button') }
