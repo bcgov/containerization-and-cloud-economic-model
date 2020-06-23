@@ -1,7 +1,12 @@
 module.exports = {
   clearMocks: true,
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{js,vue}', '!src/main.js', '!src/plugins/*.*'],
+  collectCoverageFrom: [
+    'src/**/*.{js,vue}',
+    '!src/main.js',
+    '!src/components/{agriseafoodopscreening,forestrysectoropscreening,minesoperatorscreening}/**/*.*',
+    '!src/plugins/*.*'
+  ],
   moduleFileExtensions: ['js', 'json', 'vue', 'jsx'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1'
