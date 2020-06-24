@@ -103,7 +103,7 @@ export default {
           params: {
             inactive: false,
             latest: true,
-            q: encodeURIComponent(val),
+            q: val,
             revoked: false
           }
         });
