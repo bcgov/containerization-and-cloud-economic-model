@@ -124,7 +124,7 @@ export default {
       try {
         const response = await axios.get(`${this.apiURL()}/addresses.json`, {
           params: {
-            addressString: encodeURIComponent(val),
+            addressString: val,
             autocomplete: true,
             brief: true,
             echo: false,
