@@ -18,11 +18,15 @@ Common Forms Toolkit
     │   ├── src/               - Vue.js frontend web application
     │   └── tests/             - Vue.js frontend web application tests
     ├── src/                   - Node.js backend web application
-    │   ├── db/migrations      - data migration scripts 
+    │   ├── db/migrations      - data migration scripts
     │   ├── forms/             - Models, Controllers, Routes for the forms
-    │   │   ├── teammanagement - Common team mangement code
+    │   │   └── teammanagement - Common team mangement code
     └── tests/                 - Node.js backend web application tests
+    docs/                      - Documentation
     openshift/                 - OpenShift-deployment and shared pipeline files
+    CODE-OF-CONDUCT.md         - Code of Conduct
+    COMPLIANCE.yaml            - BCGov PIA/STRA compliance status
+    CONTRIBUTING.md            - Contributing Guidelines
     Jenkinsfile                - Top-level Pipeline
     Jenkinsfile.cicd           - Pull-Request Pipeline
     LICENSE                    - License
@@ -30,11 +34,15 @@ Common Forms Toolkit
 
 ## Documentation
 
+* [Overview](docs/OVERVIEW.md)
+* [Developer Guide](docs/DEVELOPER-GUIDE.md)
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)
 * [Team Management/Keycloak Setup](app/src/forms/teammanagement/README.md)
+* [Functional Tests Readme](tests/functional-tests/README.md)
 * [Devops Tools Setup](https://github.com/bcgov/nr-showcase-devops-tools)
+* [Showcase Team Roadmap](https://github.com/bcgov/nr-get-token/wiki/Product-Roadmap)
 
 ## Quick Start Dev Guide
 
