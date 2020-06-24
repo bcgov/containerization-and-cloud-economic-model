@@ -1,0 +1,29 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: e2e-test-pipeline
+    name: e2e-test-pipeline
+    template: e2e-test-pipeline
+  name: e2e-test-pipeline
+spec:
+  failedBuildsHistoryLimit: 5
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources: {}
+  runPolicy: Serial
+  source:
+    contextDir: openshift/pipelines
+    git:
+      ref: master
+      uri: "https://github.com/bcgov/ppr"
+    type: Git
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: E2E-Test-JenkinsFile
+    type: JenkinsPipeline
+  successfulBuildsHistoryLimit: 5
+  triggers: []
+status:
+  lastVersion:

@@ -1,43 +1,63 @@
-# BDDStack - Browserstack Support Version
+# Functional Tests
 
 ## Description
 
-This is an example of using Browserstack in conjunction with Geb/Spock tests as part of a gradle build.
+This is the functional automated test framework that runs our E2E tests.
+The framework is based on [Geb](https://gebish.org/) and [Spock](http://spockframework.org/) and it suited to support BDD.
 
-It works out of the box with Chrome, Edge, and Firefox on Windows 10, and can be readily configured to support many more
- browsers (even mobile devices) by adjusting the configuration in `src/test/resources/GebConfig.groovy`.
+## Usage (Local)
 
- It works equally well on Windows, Mac, and Linux hosts since tests run remotely, and it works well within an Openshift
-  or Jenkins pipeline.
-
-## Prerequisites
 1. Start the application under test
 2. Make sure you have Java installed (Min. Version 1.8)
-3. Make sure you have Gradle 4.2.1 installed: `choco install gradle --version=4.2.1`
+3. Make sure you have Gradle 4.2.1 installed: `choco install gradle --version=4.2.1` (Windows only - other options see: [Install Gradle](https://gradle.org/install/) )
+4. Copy the `env.local file` to `.env` and fill in the details required. (Updating the version numbers of the components is not recommended without guidance as complex interdependencies can cause issues.)
 
-## Usage
+The following commands will launch the tests with the **local browsers**:
 
-The following commands will launch the example tests with the individual browsers:
+    gradle chromeTest
+    gradle firefoxTest
 
+Local browser testing is suggested when developing tests or for developers to run a quick smoke test on their workstation.
+
+**[BrowserStack](https://www.browserstack.com/):**
+
+    gradle remoteEdgeTest
     gradle remoteFirefoxTest
     gradle remoteChromeTest
-    gradle remoteEdgeTest
 
-Test results will be available in your Browserstack Automate console and will include videos and detailed logs. JUnit test results are also generated for consumption by your test reporter of choice.
+Additional BrowserStack browsers are supported with additional configuration, this includes mobile platforms.
 
-## Adapting Tests
+BrowserStack testing is suggested for all cross browser testing needs and running tests as part of the build pipeline.
 
-Your Geb specs must extend from the special base class in `listeners.BrowserStackReportingSpec`, a subclass of `GebSpec` that provides support for reporting status information via the Browserstack API.
+**Headless** (for incorporation in your CI):
 
-## Configuration
+    gradle chromeHeadlessTest (recommended)
+    gradle firefoxHeadlessTest (will require additional set up)
 
-Two environment variables ___MUST___ be supplied for the tests to execute. They can be supplied via the `.env` file also.
+Headless testing is suggested for CI testing where there is a need to run the browser sessions on the CI server.    
 
-`BROWSERSTACK_USERNAME` and `BROWSERSTACK_TOKEN`.
+**Run All Tests on All Browsers (local, headless and remote)**
+    
+    gradle Test
 
-You'll find yours in the menu bar of BrowserStack under "ACCESS KEY" at: https://automate.browserstack.com/dashboard/v2
+Before deploying new test code, it is suggested to run your new tests on all platforms before submitting the PR.    
 
-Optionally, but recommended, is to add `BASEURL` as an environment variable or in the `.env` file
-Use the local.env as a template.
+## Test result reports
 
-Other optional configuration parameters are identified in `build.gradle` and `GebConfig.groovy` with the annotation `//@changeme`.
+After the tests have been run (example: chromeTest), you can find the test reports here:
+
+- build\reports\spock\index.html _Showing the BDD results per User Story (Business focused view)_
+- build\reports\tests\chromeTest\index.html _Showing the test results (more technical view)_
+- build\test-results\chromeTest _Contains individual XML test result files that can be consumed by Jenkins in the pipeline to provide consolidated test result reporting._
+
+Additionally, if you ran the tests on BrowserStack (remote...), you can obtain the test results on BrowserStack by going to your [**Automate** dashboard](https://automate.browserstack.com/dashboard/v2). These results allow you to review the test run by the captured video.
+
+## Key Locations
+
+**Tests:** src/test/groovy/specs
+**Page Definitions:** src/test/groovy/pages
+
+**Configuration Files:**  
+* build.gradle
+* gradle/versions.gradle
+* src/test/groovy/resources/GebConfig.groovy

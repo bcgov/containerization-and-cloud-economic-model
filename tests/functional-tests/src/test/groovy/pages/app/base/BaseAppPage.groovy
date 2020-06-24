@@ -3,8 +3,6 @@ package pages
 import geb.Page
 
 import modules.HeaderModule
-import modules.ModalModule
-import modules.CommonLinkModule
 import modules.FooterModule
 
 /**
@@ -15,8 +13,14 @@ import modules.FooterModule
 class BaseAppPage extends Page {
   static content = {
     headerModule { module(HeaderModule) }
-    modalModule { module(ModalModule) }
-    commonModule { module(CommonLinkModule) }
     footerModule { module(FooterModule) }
+  }
+
+// Utility Functions
+  def injectLibrary( library ){
+    js.exec("document.body.appendChild(document.createElement('script')).src='$library'")
+  }
+  void InjectjQuery(){
+    injectLibrary( 'https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js')
   }
 }
