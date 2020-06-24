@@ -4,7 +4,7 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
-    "build": "vue-cli-service build",
+    "build": "node --max_old_space_size=6144 node_modules/@vue/cli-service/bin/vue-cli-service.js build",
     "clean": "rm -rf coverage dist",
     "lint": "vue-cli-service lint",
     "lint:fix": "vue-cli-service lint --fix",
