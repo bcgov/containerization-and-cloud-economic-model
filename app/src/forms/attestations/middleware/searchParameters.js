@@ -13,12 +13,16 @@ const isString = x => {
   return Object.prototype.toString.call(x) === '[object String]';
 };
 
+const isBoolean = x => {
+  return Object.prototype.toString.call(x) === '[object Boolean]';
+};
+
 const verifyString = (obj, param, result, errors) => {
   if (obj[param]) {
     if (isString(obj[param])) {
       result[param] = obj[param];
     } else {
-      errors.push(`${param} parameter must be an string`);
+      errors.push(`${param} parameter must be a string`);
     }
   }
 };
@@ -35,7 +39,9 @@ const verifyInt = (obj, param, result, errors) => {
 
 const verifyBoolean = (obj, param, result, errors) => {
   if (obj[param]) {
-    if (isString(obj[param]) && ['true', 'false'].includes(obj[param].toLowerCase())) {
+    if (isBoolean(obj[param])) {
+      result[param] = obj[param];
+    } else if (isString(obj[param]) && ['true', 'false'].includes(obj[param].toLowerCase())) {
       result[param] = 'true' === obj[param].toLowerCase();
     } else {
       errors.push(`${param} parameter must be a boolean`);
