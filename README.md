@@ -8,7 +8,7 @@
 [![Lines](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/api/badges/measure?key=common-forms-toolkit-master&metric=lines)](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/dashboard?id=common-forms-toolkit-master)
 [![Duplication](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/api/badges/measure?key=common-forms-toolkit-master&metric=duplicated_lines_density)](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/dashboard?id=common-forms-toolkit-master)
 
-Common Forms Toolkit
+COMFORT is an opinionated toolkit approach to designing and managing multi-tenanted forms.
 
 ## Directory Structure
 
