@@ -18,6 +18,9 @@ Common Forms Toolkit
     │   ├── src/               - Vue.js frontend web application
     │   └── tests/             - Vue.js frontend web application tests
     ├── src/                   - Node.js backend web application
+    │   ├── db/migrations      - data migration scripts 
+    │   ├── forms/             - Models, Controllers, Routes for the forms
+    │   │   ├── teammanagement - Common team mangement code
     └── tests/                 - Node.js backend web application tests
     openshift/                 - OpenShift-deployment and shared pipeline files
     Jenkinsfile                - Top-level Pipeline
@@ -30,6 +33,7 @@ Common Forms Toolkit
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)
+* [Team Management/Keycloak Setup](app/src/forms/teammanagement/README.md)
 * [Devops Tools Setup](https://github.com/bcgov/nr-showcase-devops-tools)
 
 ## Quick Start Dev Guide
