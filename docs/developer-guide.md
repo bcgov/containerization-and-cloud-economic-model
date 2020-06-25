@@ -15,12 +15,24 @@ Before running this application, you will need to have the following installed o
 
 * Node.js 12.x or higher
 
-If you are looking to run this application on "bare-metal", you will also need the following:
+If you want to run the application prerequisites through Docker, you will need the following:
+
+* Docker Desktop Community Edition 2.3.x.x or higher
+
+If you want to run this application on "bare-metal", you will also need the following:
 
 * PostgreSQL 10.7 or higher
 * Keycloak 10 or higher
   * This can either be a hosted instance, or a locally run version
 
-If you want to run the application prerequisites through Docker instead, you will need the following:
+### Environment Setup
 
-* Docker Desktop Community Edition 2.3.x.x or higher
+Once you have your prerequisites handled, refer to the appropriate sections below on getting your environment set up depending on how you are running your application.
+
+#### Docker Setup
+
+If you are using Docker for your local infrastructure, refer to the [Local Infrastructure](../local-infrastructure/README.md) guide on how to setup and run the application.
+
+#### Bare Metal Setup
+
+TBD
