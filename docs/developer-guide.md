@@ -15,9 +15,17 @@ Before running this application, you will need to have the following installed o
 
 * Node.js 12.x or higher
 
+Once you have those prerequisites, refer to the appropriate sections below on getting your environment set up depending on how you are planning on locally running your application.
+
+#### Docker Setup
+
 If you want to run the application prerequisites through Docker, you will need the following:
 
 * Docker Desktop Community Edition 2.3.x.x or higher
+
+Refer to the [Local Infrastructure](../local-infrastructure/README.md) guide on how to setup and run the application.
+
+#### Bare Metal Setup
 
 If you want to run this application on "bare-metal", you will also need the following:
 
@@ -25,14 +33,29 @@ If you want to run this application on "bare-metal", you will also need the foll
 * Keycloak 10 or higher
   * This can either be a hosted instance, or a locally run version
 
-### Environment Setup
+If you are going the bare-metal route, you will need to ensure that both the database and Keycloak setup are managed before attempting to start the application.
 
-Once you have your prerequisites handled, refer to the appropriate sections below on getting your environment set up depending on how you are running your application.
+##### Postgres
 
-#### Docker Setup
+For the Postgres database, ensure you have created a database named `comfort` and have at least one Postgres account set up to have read and write access to the `comfort` database. Note these credentials down as you will need them for [Environment Setup](#environment-setup) later.
 
-If you are using Docker for your local infrastructure, refer to the [Local Infrastructure](../local-infrastructure/README.md) guide on how to setup and run the application.
-
-#### Bare Metal Setup
+##### Keycloak
 
 TBD
+
+[Team Management/Keycloak Setup](TEAM-MANAGEMENT.md)
+
+### Environment Setup
+
+Once you have your database and Keycloak instances set up, you will need to configure a `local.json` file under `/app/config` in order to let the application know how to reach the database and authentication systems.
+
+TBD
+
+### Application Quick Start
+
+You can quickly run this application in production mode after cloning with the following commands (assuming you have already set up local configuration as well). Refer to the [Application Readme](app/README.md) and [Frontend Readme](app/frontend/README.md) for more details.
+
+    cd app
+    npm run all:install
+    npm run all:build
+    npm run serve

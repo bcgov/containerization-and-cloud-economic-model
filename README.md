@@ -36,10 +36,10 @@ COMFORT is an opinionated toolkit approach to designing and managing multi-tenan
 
 * [Overview](docs/overview.md)
 * [Developer Guide](docs/developer-guide.md)
+* [Team Management/Keycloak Setup](docs/team-management.md)
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)
-* [Team Management/Keycloak Setup](app/src/forms/teammanagement/README.md)
 * [Functional Tests Readme](tests/functional-tests/README.md)
 * [Devops Tools Setup](https://github.com/bcgov/nr-showcase-devops-tools)
 * [Showcase Team Roadmap](https://github.com/bcgov/nr-get-token/wiki/Product-Roadmap)
