@@ -1,6 +1,6 @@
 ---
 title: Common Forms Toolkit Developer Guide
-description: Capabilities, Getting Started, API Endpoints, Example Code
+description: General developer instructions for getting COMFORT started from scratch
 ---
 
 The Common Forms Toolkit is a full-stack application for creating and managing multi-tenanted forms. The goal of this application is to provide a streamlined and pragmatic approach for creating and managing multiple forms, each with its own rich set of functionality and authorization structure.
@@ -41,21 +41,60 @@ For the Postgres database, ensure you have created a database named `comfort` an
 
 ##### Keycloak
 
-TBD
-
-[Team Management/Keycloak Setup](TEAM-MANAGEMENT.md)
+The Keycloak instance on the [Docker Setup](#docker-setup) path has been pre-configured to work with the application out of the box. However, setting up the roles, groups, and management manually is an involved process. For step by step details on this, check the [Team Management/Keycloak Setup](team-management.md) documentation.
 
 ### Environment Setup
 
-Once you have your database and Keycloak instances set up, you will need to configure a `local.json` file under `/app/config` in order to let the application know how to reach the database and authentication systems.
+Once you have your database and Keycloak instances set up, you will need to configure and save a `local.json` file under the `/app/config` directory in order to let the application know how to reach the database and authentication systems.
 
-TBD
+Below is a minimally viable `local.json` configuration file (with non-functional sample values included). Replace all of these placeholder values with their correct values as needed.
+
+```json
+{
+  "db": {
+    "username": "username",
+    "password": "password"
+  },
+  "frontend": {
+    "keycloak": {
+      "clientId": "clientId"
+    }
+  },
+  "server": {
+    "keycloak": {
+      "adminClientSecret": "00000000-0000-0000-0000-000000000000",
+      "clientSecret": "00000000-0000-0000-0000-000000000000"
+    },
+    "logLevel": "debug",
+    "morganFormat": "dev"
+  },
+  "serviceClient": {
+    "commonServices": {
+      "password": "00000000-0000-0000-0000-000000000000"
+    }
+  }
+}
+```
+
+For full details on all potential configuration values, refer to both the [custom-environment-variables.json](../app/config/custom-environment-variables.json) and [default.json](../app/config/default.json) files found under `/app/config`.
 
 ### Application Quick Start
 
-You can quickly run this application in production mode after cloning with the following commands (assuming you have already set up local configuration as well). Refer to the [Application Readme](app/README.md) and [Frontend Readme](app/frontend/README.md) for more details.
+Once you have your prerequisites and environment set up, you can proceed with running COMFORT. You can quickly run this application in `production` mode with the following commands.
 
-    cd app
-    npm run all:install
-    npm run all:build
-    npm run serve
+```sh
+cd app
+npm run all:install
+npm run all:build
+npm run serve
+```
+
+Refer to the [Application Readme](../app/README.md) and [Frontend Readme](../app/frontend/README.md) for more specific details on running the code.
+
+## API Endpoints
+
+COMFORT has a generalized API design which is documented in multiple formats.
+
+* [OpenAPI 3.0](../app/src/docs/v1.api-spec.yaml) YAML specification
+  * If COMFORT is running, you can view the OpenAPI spec through ReDocs at the `/app/api/v1/docs` path.
+* Postman Collections - can be found at [/app/tests/postman](../app/tests/postman)
