@@ -19,8 +19,8 @@ COMFORT is an opinionated toolkit approach to designing and managing multi-tenan
     │   └── tests/             - Vue.js frontend web application tests
     ├── src/                   - Node.js backend web application
     │   ├── db/migrations      - data migration scripts
-    │   ├── forms/             - Models, Controllers, Routes for the forms
-    │   │   └── teammanagement - Common team mangement code
+    │   └── forms/             - Models, Controllers, Routes for the forms
+    │       └── teammanagement - Common team mangement code
     └── tests/                 - Node.js backend web application tests
     docs/                      - Documentation
     openshift/                 - OpenShift-deployment and shared pipeline files
@@ -34,8 +34,8 @@ COMFORT is an opinionated toolkit approach to designing and managing multi-tenan
 
 ## Documentation
 
-* [Overview](docs/OVERVIEW.md)
-* [Developer Guide](docs/DEVELOPER-GUIDE.md)
+* [Overview](docs/overview.md)
+* [Developer Guide](docs/developer-guide.md)
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)
@@ -44,14 +44,9 @@ COMFORT is an opinionated toolkit approach to designing and managing multi-tenan
 * [Devops Tools Setup](https://github.com/bcgov/nr-showcase-devops-tools)
 * [Showcase Team Roadmap](https://github.com/bcgov/nr-get-token/wiki/Product-Roadmap)
 
-## Quick Start Dev Guide
+## Developer Quick Start
 
-You can quickly run this application in production mode after cloning with the following commands (assuming you have already set up local configuration as well). Refer to the [Application Readme](app/README.md) and [Frontend Readme](app/frontend/README.md) for more details.
-
-    cd app
-    npm run all:install
-    npm run all:build
-    npm run serve
+Check the [Developer Guide](docs/developer-guide.md) for instructions on how to quickly set up and run this application.
 
 ## Getting Help or Reporting an Issue
 
