@@ -36,6 +36,7 @@ COMFORT is an opinionated toolkit approach to designing and managing multi-tenan
 
 * [Overview](docs/overview.md)
 * [Developer Guide](docs/developer-guide.md)
+* [How-to Add a Form](docs/how-to-add-form.md)
 * [Team Management/Keycloak Setup](docs/team-management.md)
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
