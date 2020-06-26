@@ -238,6 +238,7 @@ const myformPath = myform.mount(router);
        myformPath
      ]
    });
+ });
 ```
 
 ## UI
