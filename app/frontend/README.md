@@ -18,6 +18,8 @@ npm install
 
 ### Compiles and hot-reloads for development
 
+*Note: Make sure the /app server is already running correctly first before starting this - otherwise the development frontend server may not host on the usual port 8081!*
+
 ``` sh
 npm run serve
 ```

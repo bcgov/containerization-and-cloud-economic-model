@@ -8,7 +8,7 @@
 [![Lines](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/api/badges/measure?key=common-forms-toolkit-master&metric=lines)](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/dashboard?id=common-forms-toolkit-master)
 [![Duplication](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/api/badges/measure?key=common-forms-toolkit-master&metric=duplicated_lines_density)](https://sonarqube-vmvfjv-tools.pathfinder.gov.bc.ca/dashboard?id=common-forms-toolkit-master)
 
-Common Forms Toolkit
+COMFORT is an opinionated toolkit approach to designing and managing multi-tenanted forms.
 
 ## Directory Structure
 
@@ -18,11 +18,15 @@ Common Forms Toolkit
     │   ├── src/               - Vue.js frontend web application
     │   └── tests/             - Vue.js frontend web application tests
     ├── src/                   - Node.js backend web application
-    │   ├── db/migrations      - data migration scripts 
-    │   ├── forms/             - Models, Controllers, Routes for the forms
-    │   │   ├── teammanagement - Common team mangement code
+    │   ├── db/migrations      - data migration scripts
+    │   └── forms/             - Models, Controllers, Routes for the forms
+    │       └── teammanagement - Common team mangement code
     └── tests/                 - Node.js backend web application tests
+    docs/                      - Documentation
     openshift/                 - OpenShift-deployment and shared pipeline files
+    CODE-OF-CONDUCT.md         - Code of Conduct
+    COMPLIANCE.yaml            - BCGov PIA/STRA compliance status
+    CONTRIBUTING.md            - Contributing Guidelines
     Jenkinsfile                - Top-level Pipeline
     Jenkinsfile.cicd           - Pull-Request Pipeline
     LICENSE                    - License
@@ -30,20 +34,20 @@ Common Forms Toolkit
 
 ## Documentation
 
+* [Overview](docs/overview.md)
+* [Developer Guide](docs/developer-guide.md)
+* [Team Management/Keycloak Setup](docs/team-management.md)
 * [Application Readme](app/README.md)
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)
-* [Team Management/Keycloak Setup](app/src/forms/teammanagement/README.md)
+* [Functional Tests Readme](tests/functional-tests/README.md)
+* [COMFORT Wiki](https://github.com/bcgov/common-forms-toolkit/wiki)
 * [Devops Tools Setup](https://github.com/bcgov/nr-showcase-devops-tools)
+* [Showcase Team Roadmap](https://github.com/bcgov/nr-get-token/wiki/Product-Roadmap)
 
-## Quick Start Dev Guide
+## Developer Quick Start
 
-You can quickly run this application in production mode after cloning with the following commands (assuming you have already set up local configuration as well). Refer to the [Application Readme](app/README.md) and [Frontend Readme](app/frontend/README.md) for more details.
-
-    cd app
-    npm run all:install
-    npm run all:build
-    npm run serve
+Check the [Developer Guide](docs/developer-guide.md) for instructions on how to quickly set up and run this application.
 
 ## Getting Help or Reporting an Issue
 
