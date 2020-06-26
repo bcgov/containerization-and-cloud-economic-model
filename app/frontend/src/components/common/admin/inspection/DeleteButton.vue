@@ -17,12 +17,10 @@
       @close-dialog="showDialog = false"
       @continue-dialog="deleteSubmission"
     >
-      <template v-slot:title>
-        Confirm Deletion
-      </template>
+      <template v-slot:title>Confirm Deletion</template>
       <template v-slot:text>
         <span>Are you sure you wish to delete this submission? This will remove it from the administrative application and any statistics.</span>
-        <v-alert v-if="error" type="error" tile dense>{{ error }}</v-alert>
+        <v-alert v-if="deleteError" type="error" tile dense>{{ deleteError }}</v-alert>
       </template>
     </BaseDialog>
   </v-btn>
@@ -48,6 +46,7 @@ export default {
   },
   data: () => ({
     showDialog: false,
+    deleteError: ''
   }),
   computed: {
     ...mapGetters('auth', ['hasResourceRoles']),
@@ -63,14 +62,15 @@ export default {
     },
     async deleteSubmission() {
       try {
-        this.error = '';
+        this.deleteError = '';
         await commonFormService.removeSubmission(
           this.formName,
           this.submissionId
         );
+        this.$router.push({ path: `/${this.formName}/admin` });
       } catch (error) {
         console.error(`Error deleting: ${error}`); // eslint-disable-line no-console
-        this.error = 'An error occured while trying to delete the submission.';
+        this.deleteError = 'An error occured while trying to delete the submission.';
       }
     }
   }
