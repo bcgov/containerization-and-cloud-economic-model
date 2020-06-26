@@ -14,7 +14,7 @@ In order to have new form hosted in COMFORT, you need to have the following:
 
 To better illustrate your coding responsibilities, and what is required, review the code under [sample](sample). This contains a set of migration scripts and API code. If you wanted to stand up the sample (myform), copy code under [sample](sample) to [src](../app/src)
 
-```shell script
+```sh
 cp -R sample/* ../app/src
 ```
 
@@ -33,7 +33,8 @@ Migration scripts are found under [migrations](../app/src/db/migrations).
 
 You will need to create a set of migration scripts for your application. 
 You will need to run your migrations before starting COMFORT.  
-```shell script
+
+```sh
 npm run migrate
 ```
 
@@ -168,6 +169,7 @@ Runtime configuration or settings for your forms, emails, etc.
 Sample [migrations](sample/db/migrations) illustrate adding your implementations of the 'common' tables, your form/business specific tables, and initializing the data (status codes, settings).  
 
 This assumes that the main Metadata/Form table has already been migrated to your database.
+
 ```js
 const stamps = require('../stamps');
 
