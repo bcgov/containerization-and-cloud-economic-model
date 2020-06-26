@@ -20,4 +20,5 @@ The Common Forms Toolkit (COMFORT) is an opinionated toolkit approach to designi
 ### Getting Started
 
 * [Learn more about COMFORT](../README.md)
+* [COMFORT Wiki](https://github.com/bcgov/common-forms-toolkit/wiki)
 * [Check the DevHub for other NRM Common Services](https://developer.gov.bc.ca) - Coming Soon

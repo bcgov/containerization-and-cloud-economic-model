@@ -41,6 +41,7 @@ COMFORT is an opinionated toolkit approach to designing and managing multi-tenan
 * [Frontend Readme](app/frontend/README.md)
 * [Openshift Readme](openshift/README.md)
 * [Functional Tests Readme](tests/functional-tests/README.md)
+* [COMFORT Wiki](https://github.com/bcgov/common-forms-toolkit/wiki)
 * [Devops Tools Setup](https://github.com/bcgov/nr-showcase-devops-tools)
 * [Showcase Team Roadmap](https://github.com/bcgov/nr-get-token/wiki/Product-Roadmap)
 
