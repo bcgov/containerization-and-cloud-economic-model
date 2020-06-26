@@ -1,0 +1,1205 @@
+{
+	"info": {
+		"_postman_id": "d55f32f6-d1a3-46e6-aec6-16dd6d6e9ce2",
+		"name": "MyForm_v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Search Forms",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "8b51ea90-f212-4928-942c-50a789134158",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(1);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/forms?slug=myform&public=true&active=true&name=my&keyword=example",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"forms"
+					],
+					"query": [
+						{
+							"key": "slug",
+							"value": "myform"
+						},
+						{
+							"key": "public",
+							"value": "true"
+						},
+						{
+							"key": "active",
+							"value": "true"
+						},
+						{
+							"key": "name",
+							"value": "my"
+						},
+						{
+							"key": "keyword",
+							"value": "example"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Current Form Definition",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "91521871-0c5b-49af-80d6-a210a21073c8",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('metadata');",
+							"    pm.expect(jsonData.metadata).to.have.property('slug');",
+							"    pm.expect(jsonData.metadata.slug).to.equal(pm.collectionVariables.get('slug'));",
+							"    pm.collectionVariables.set('formVersionId',jsonData.versions[0].formVersionId);",
+							"    pm.collectionVariables.set('formDefinition', JSON.stringify(jsonData));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/current",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"current"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Submission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "235530d7-1c54-4151-9e9a-caf32b8bea28",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.collectionVariables.set('submissionId', jsonData.submissionId);",
+							"    pm.collectionVariables.set('submission', jsonData);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"survey\": {\n\t\t\"submitter\": \"i am the submitter\",\n\t\t\"answer1\": \"This is my answer\",\n\t\t\"answer2\": \"and I am sticking with it\",\n\t\t\"answer3\": null\n\t}\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Submission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "efd25b00-a3ba-47c8-9977-0ab74563f667",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('survey');",
+							"",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.survey.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"",
+							"    pm.collectionVariables.set('formVersionId', jsonData.formVersionId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Submissions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c44c2082-56cb-4a2e-879b-f2ad1f0306c5",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(1);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('confirmationId');",
+							"    pm.expect(jsonData).to.have.property('type');",
+							"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get('operationTypeDisplay'));",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.confirmationId).to.equal(pm.collectionVariables.get('confirmationId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions?version={{formVersionId}}&city=Vic&business=ZZ&confirmationId={{confirmationId}}&type={{operationType}}&tiny=true",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions"
+					],
+					"query": [
+						{
+							"key": "version",
+							"value": "{{formVersionId}}"
+						},
+						{
+							"key": "city",
+							"value": "Vic"
+						},
+						{
+							"key": "business",
+							"value": "ZZ"
+						},
+						{
+							"key": "confirmationId",
+							"value": "{{confirmationId}}"
+						},
+						{
+							"key": "type",
+							"value": "{{operationType}}"
+						},
+						{
+							"key": "tiny",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Status (with notes)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f8a7bd1d-c12a-4633-8894-f2dc778ab13b",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('code');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.submissionStatusId).to.not.be.null;",
+							"    pm.expect(jsonData.code).to.equal('ASSIGNED');",
+							"    pm.expect(jsonData.notes).to.be.an('array');",
+							"    pm.expect(jsonData.notes).to.have.lengthOf(1);",
+							"    pm.expect(jsonData.notes[0].note).to.equal('Status level note for smoke testing.')",
+							"    pm.collectionVariables.set('submissionStatusId', jsonData.submissionStatusId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"John Doe\",\n\t\"assignedToEmail\": \"john.doe@not.here\",\n\t\"actionDate\": \"2020-06-01\",\n\t\"notes\": [\n\t\t{\n\t\t\t\"note\": \"Status level note for smoke testing.\"\n\t\t}\n\t]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Status (with invalid classification)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c564a9a-6eb1-4004-b9a9-7551f31e8abf",
+						"exec": [
+							"pm.test(\"422 response\", function () {",
+							"    pm.response.to.have.status(422);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\": \"COMPLETED\",\n\t\"assignedTo\": \"John Doe\",\n\t\"assignedToEmail\": \"john.doe@not.here\",\n\t\"actionDate\": \"2020-06-01\",\n\t\"notes\": [\n\t\t{\n\t\t\t\"note\": \"Status level note for smoke testing.\"\n\t\t}\n\t],\n\t\"classification\": \"This is a bad classification value\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Statuses",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "0286c228-4e33-4a7e-9dc9-87679ddafe4c",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Added status is first in list\", function () {",
+							"    // assumes this is run after Add Status (with notes)",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.submissionStatusId).to.equal(pm.collectionVariables.get('submissionStatusId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"ME!\",\n\t\"notes\": [{\"note\": \"voila!\"}]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}/statuses",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}",
+						"statuses"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Submission Note",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f0abd7d4-49e1-4714-86f5-b2c22230eca4",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('note');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.submissionStatusId).to.be.null;",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData.note).to.equal('Submission level note for smoke testing.');",
+							"    pm.collectionVariables.set('submissionNoteId', jsonData.noteId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"Submission level note for smoke testing.\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Submission Notes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "132e7cef-2756-49eb-9eb3-827e9b3b148f",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Added note is first in list\", function () {",
+							"    // assumes this is run after Add Submission Note",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData).to.have.property('noteId');",
+							"    pm.expect(jsonData.submissionId).to.not.be.null;",
+							"    pm.expect(jsonData.submissionStatusId).to.be.null;",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.noteId).to.equal(pm.collectionVariables.get('submissionNoteId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"this note is for the submission\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Status Note",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a49d6113-8ee2-4ee1-81a3-f117bea5d70c",
+						"exec": [
+							"pm.test(\"201 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns single item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData).to.have.property('noteId');",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData).to.have.property('note');",
+							"    pm.expect(jsonData.submissionStatusId).to.equal(pm.collectionVariables.get('submissionStatusId'));",
+							"    pm.expect(jsonData.submissionId).to.be.null;",
+							"    pm.expect(jsonData.note).to.equal('Additional Status level note.');",
+							"    pm.collectionVariables.set('statusNoteId', jsonData.noteId);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "22dde71a-f6c0-40b6-a7fe-9323382a67a2",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"note\": \"Additional Status level note.\"\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}/statuses/{{submissionStatusId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}",
+						"statuses",
+						"{{submissionStatusId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Status Notes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "aaf10dd4-37c7-4c89-9f91-f26c1bbf47f3",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Note belongs to status\", function () {",
+							"    // assumes this is run after Add Status Note",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData).to.have.property('submissionStatusId');",
+							"    pm.expect(jsonData).to.have.property('noteId');",
+							"    pm.expect(jsonData.submissionId).to.be.null;",
+							"    pm.expect(jsonData.submissionStatusId).to.not.be.null;",
+							"    pm.expect(jsonData.noteId).to.not.be.null;",
+							"    pm.expect(jsonData.submissionStatusId).to.equal(pm.collectionVariables.get('submissionStatusId'));",
+							"    pm.expect(jsonData.noteId).to.equal(pm.collectionVariables.get('statusNoteId'));",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"code\": \"ASSIGNED\",\n\t\"assignedTo\": \"ME!\",\n\t\"notes\": [{\"note\": \"voila!\"}]\n}"
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}/statuses/{{submissionStatusId}}/notes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}",
+						"statuses",
+						"{{submissionStatusId}}",
+						"notes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Status Codes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a31a257d-95de-4bb6-a88f-2e2c266af69f",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});",
+							"pm.test(\"Items are status codes\", function () {",
+							"    // assumes this is run after Add Status Note",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('code');",
+							"    pm.expect(jsonData).to.have.property('display');",
+							"    pm.expect(jsonData).to.have.property('enabled');",
+							"    pm.expect(jsonData).to.have.property('nextCodes');",
+							"    pm.expect(jsonData.code).to.not.be.null;",
+							"    pm.expect(jsonData.display).to.not.be.null;",
+							"    pm.expect(jsonData.enabled).to.not.be.null;",
+							"    pm.expect(jsonData.nextCodes).to.not.be.null;",
+							"    pm.expect(jsonData.enabled).to.be.an('boolean');",
+							"    pm.expect(jsonData.nextCodes).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/current/statusCodes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"current",
+						"statusCodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Status Codes",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "89b7e5c2-7ea5-4ebe-810d-dfc58f382c94",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "271d0ecf-3cee-4508-a43a-d9e4726ec1c1",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(201);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n    {\n        \"code\": \"SUBMITTED\",\n        \"display\": \"Submitted\",\n        \"enabled\": true,\n        \"nextCodes\": [\"ASSIGNED\",\"COMPLETED\"]\n    },\n    {\n        \"code\": \"ASSIGNED\",\n        \"display\": \"Assigned\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\"],\n        \"allowedClassifications\":[\"OK\"]\n    },\n    {\n        \"code\": \"COMPLETED\",\n        \"display\": \"Completed\",\n        \"enabled\": true,\n        \"nextCodes\": [],\n        \"allowedClassifications\":[\"Pass\",\"Fail\"]\n    },\n    {\n        \"code\": \"SMOKE_TEST_STATUS_A\",\n        \"display\": \"Smoke test Status A (enabled)\",\n        \"enabled\": true,\n        \"nextCodes\": [\"COMPLETED\",\"SMOKE_TEST_STATUS_B\"]\n    },\n    {\n        \"code\": \"SMOKE_TEST_STATUS_B\",\n        \"display\": \"Smoke test Status B (not enabled)\",\n        \"enabled\": false,\n        \"nextCodes\": [\"COMPLETED\",\"SMOKE_TEST_STATUS_A\",\"ONLY_REAL_CODES_ARE_ADDED\"]\n    }\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/current/statusCodes",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"current",
+						"statusCodes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Submission",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "d4cc0282-5513-4e06-815e-29eb2f7ba380",
+						"exec": [
+							"var submission = pm.collectionVariables.get('submission');",
+							"console.log(submission);",
+							"var data = submission;",
+							"data.survey.answer3='42';",
+							"console.log(data);",
+							"pm.collectionVariables.set(\"changedSubmission\", JSON.stringify(data));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "46be37c6-a6c7-42a3-b1bf-607a818cbe2b",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the updated item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    ",
+							"    pm.expect(jsonData.survey.answer3).to.equal('42');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{changedSubmission}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Settings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c9a16ae2-29e5-4746-a9ed-253c5883da89",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf.at.least(1);",
+							"});",
+							"pm.test(\"Returns the correct items\", function () {",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('name');",
+							"    pm.expect(jsonData).to.have.property('enabled');",
+							"    pm.expect(jsonData).to.have.property('config');",
+							"    pm.expect(jsonData.config).to.be.an('object');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/settings",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"settings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Setting someConfiguration",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5f67e01f-7706-4f36-873c-15e8a4202aa2",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns object\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object');",
+							"    pm.expect(jsonData).to.have.property('name');",
+							"    pm.expect(jsonData).to.have.property('enabled');",
+							"    pm.expect(jsonData).to.have.property('config');",
+							"    pm.expect(jsonData.config).to.be.an('object');",
+							"    pm.expect(jsonData.name).to.equal('someConfiguration');",
+							"    pm.collectionVariables.set('someConfiguration', JSON.stringify(jsonData));",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/settings/someConfiguration",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"settings",
+						"someConfiguration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Setting someConfiguration",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "fcf587c9-3d2c-4b2a-ab5f-77cc2463054d",
+						"exec": [
+							"var someConfiguration = pm.collectionVariables.get('someConfiguration');",
+							"console.log(someConfiguration);",
+							"var data = JSON.parse(someConfiguration);",
+							"data.enabled = false;",
+							"data.config.data = 'updated value';",
+							"data.config.newField ='Ignore this please';",
+							"console.log(data);",
+							"pm.collectionVariables.set(\"changedSetting\", JSON.stringify(data));"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "14840249-ff66-4556-b1e9-a5f78a914551",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.name).to.equal('someConfiguration');",
+							"    pm.expect(jsonData.enabled).to.equal(false);",
+							"    pm.expect(jsonData.config.data).to.equal('updated value');",
+							"    pm.expect(jsonData.config.newField).to.equal('Ignore this please');",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{{changedSetting}}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/settings/someConfiguration",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"settings",
+						"someConfiguration"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Submission",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "5c2e5862-bebc-4478-be2f-0461cb6db30d",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.deleted).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions/{{submissionId}}",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions",
+						"{{submissionId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Search Submissions (Deleted)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f1f3f03-027a-4a80-8ac3-716f0c287334",
+						"exec": [
+							"pm.test(\"200 response\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"pm.test(\"Returns array\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('array');",
+							"    pm.expect(jsonData).to.have.lengthOf(1);",
+							"});",
+							"pm.test(\"Returns the correct item\", function () {",
+							"    var jsonData = pm.response.json()[0];",
+							"    pm.expect(jsonData).to.have.property('submissionId');",
+							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
+							"    pm.expect(jsonData.deleted).to.equal(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}/{{path}}/api/v1/{{slug}}/submissions?deleted=true",
+					"host": [
+						"{{host}}"
+					],
+					"path": [
+						"{{path}}",
+						"api",
+						"v1",
+						"{{slug}}",
+						"submissions"
+					],
+					"query": [
+						{
+							"key": "deleted",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJrdFJRN3VLZ3hYVU91cjdiaDRseGl1TGlUdVhzM3FyZEpzZFBnLTdvY1FnIn0.eyJqdGkiOiJlNWI1NjAyNi1hZDZjLTQxMmYtYTE0MC03NWRiMDVkMWQ2OGMiLCJleHAiOjE1OTIzMzY3MDMsIm5iZiI6MCwiaWF0IjoxNTkyMzM2NDAzLCJpc3MiOiJodHRwczovL3Nzby1kZXYucGF0aGZpbmRlci5nb3YuYmMuY2EvYXV0aC9yZWFsbXMvY3AxcWx5MmQiLCJhdWQiOlsiY29tZm9ydCIsImNvbWZvcnQtZnJvbnRlbmQiLCJjb21mb3J0LWZyb250ZW5kLWxvY2FsIiwiY29tZm9ydC1mb3Jlc3RyeXNlY3Rvcm9wc2NyZWVuaW5nIiwiY29tZm9ydC10ZXN0Y2FzZSIsImNvbWZvcnQtbWluZXNvcGVyYXRvcnNjcmVlbmluZyIsImNvbWZvcnQtYWdyaXNlYWZvb2RvcHNjcmVlbmluZyJdLCJzdWIiOiI2OTM4NDVmZS05OGZmLTRjNzEtOGEwOS04NWEzNDYwZGQzNzIiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJjb21mb3J0LWZyb250ZW5kLWxvY2FsIiwibm9uY2UiOiIzN2Y0NjE5ZS1kYWNhLTQxNTgtODhlMi01YzY1ODFkM2NhZTkiLCJhdXRoX3RpbWUiOjE1OTIzMzY0MDEsInNlc3Npb25fc3RhdGUiOiJmYTRhYWYyMS0zNzRkLTQ2YjEtYWY2Ni0zZjc5YmJlMDA5ZmMiLCJhY3IiOiIxIiwicmVzb3VyY2VfYWNjZXNzIjp7ImNvbWZvcnQtZm9yZXN0cnlzZWN0b3JvcHNjcmVlbmluZyI6eyJyb2xlcyI6WyJlZGl0b3IiLCJ2aWV3ZXIiLCJhZG1pbiIsInJldmlld2VyIl19LCJjb21mb3J0LXRlc3RjYXNlIjp7InJvbGVzIjpbImVkaXRvciIsInZpZXdlciIsImFkbWluIiwicmV2aWV3ZXIiXX0sImNvbWZvcnQtZnJvbnRlbmQtbG9jYWwiOnsicm9sZXMiOlsiRnJvbnRlbmQgRGV2ZWxvcGVyIiwiZGV2ZWxvcGVyIl19LCJjb21mb3J0LW1pbmVzb3BlcmF0b3JzY3JlZW5pbmciOnsicm9sZXMiOlsidmlld2VyIiwiZWRpdG9yIiwiYWRtaW4iLCJyZXZpZXdlciJdfSwiY29tZm9ydC1hZ3Jpc2VhZm9vZG9wc2NyZWVuaW5nIjp7InJvbGVzIjpbImVkaXRvciIsInZpZXdlciIsImFkbWluIiwicmV2aWV3ZXIiXX0sImNvbWZvcnQiOnsicm9sZXMiOlsiYWRtaW4iLCJ1c2VyIl19fSwic2NvcGUiOiJvcGVuaWQgY29tZm9ydC1mcm9udGVuZCBjb21mb3J0IGNvbWZvcnQtZnJvbnRlbmQtbG9jYWwiLCJuYW1lIjoiSmFzb24gU2hlcm1hbiIsInByZWZlcnJlZF91c2VybmFtZSI6ImpzaGVybWFuQGlkaXIiLCJlbWFpbCI6ImpzaGVybWFuQHBhcmNzeXN0ZW1zLmNhIn0.y-umKKHZoRBnGQzUIudpEh1n3xAvuYIvDIylSuMExE4I7Yj_uBw2Sx07847cQR6gVSsL6PAI6DuHvkyu_Rp_Z8--2_GvMLWmdKxe4xb0U7BnbtTGB710CmreHY2q26aTjX718hy7--36oatfWpmgxc1YrtFLbXsXWGjiXkAidB_sXhg9-ptIZq3U1QXc7-aBQEze5luTMdQ_U6UgU0q6Fe0TcADjJsZcy_blN0zae38J_ZtDZJXro1yc5-xGfSi_g6_zvecdNcNCMEicohBklNJDTZa-nf4zgSB4EEkI7xnA2yneXjxe6H88shqrDnFzvIQFuKBNHGf7YFHAzEmsMw",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "f247639b-a0e9-4079-a99d-ca09efcca53d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "8d3ba7b9-7095-40b5-af8d-4a19b2d8690d",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "c87fa5c5-3896-4d9d-ae9a-4492e0621929",
+			"key": "host",
+			"value": "http://localhost:8080"
+		},
+		{
+			"id": "851514c5-8257-49da-8057-3a64135238bd",
+			"key": "path",
+			"value": "app"
+		},
+		{
+			"id": "b93c564d-2c4e-492f-9e7a-70cd6eb871e3",
+			"key": "slug",
+			"value": "myform"
+		}
+	],
+	"protocolProfileBehavior": {}
+}

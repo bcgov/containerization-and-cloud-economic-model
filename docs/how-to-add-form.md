@@ -240,3 +240,17 @@ const myformPath = myform.mount(router);
 
 ## UI
 Coming soon...
+
+## Test it out
+This assumes that you have [Postman](https://www.postman.com) installed and are familiar with the tool.  
+
+1. follow the Keycloak setup and install `myform`.
+2. copy the sample code into your app.  
+3. run the migration.  
+4. start the application.  
+5. (assuming all defaults)... login to your local [app](http://localhost:8080/app), grab your access token.
+6. open [Postman collection](sample/MyForm_v1.postman_collection.json)
+7. edit the collection
+8. paste your token into the Authorization tab's Token field
+9. Run the collection
+10. Review the calls, the bodies and responses.  
