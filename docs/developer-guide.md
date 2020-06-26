@@ -98,3 +98,6 @@ COMFORT has a generalized API design which is documented in multiple formats.
 * [OpenAPI 3.0](../app/src/docs/v1.api-spec.yaml) YAML specification
   * If COMFORT is running, you can view the OpenAPI spec through ReDocs at the `/app/api/v1/docs` path.
 * Postman Collections - can be found at [/app/tests/postman](../app/tests/postman)
+
+## Add a form
+To understand how you can add a new form to COMFORT, see [How-to Add a Form](docs/how-to-add-form.md).
