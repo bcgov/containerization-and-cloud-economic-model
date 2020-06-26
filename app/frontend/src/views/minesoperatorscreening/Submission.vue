@@ -63,7 +63,6 @@ export default {
       'getFormError',
       'attestation'
     ]),
-    ...mapGetters('auth', ['hasResourceRoles', 'token']),
     formName() {
       return FormNames.MINESOPERATORSCREENING;
     },

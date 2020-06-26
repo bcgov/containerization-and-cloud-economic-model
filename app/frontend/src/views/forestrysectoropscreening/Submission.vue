@@ -65,7 +65,6 @@ export default {
       'attestation',
       'operationType'
     ]),
-    ...mapGetters('auth', ['hasResourceRoles', 'token']),
     formName() {
       return FormNames.FORESTRYSECTOROPSCREENING;
     },
