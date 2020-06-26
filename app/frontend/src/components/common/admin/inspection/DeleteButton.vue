@@ -67,6 +67,7 @@ export default {
           this.formName,
           this.submissionId
         );
+        this.showDialog = false;
         this.$router.push({ path: `/${this.formName}/admin` });
       } catch (error) {
         console.error(`Error deleting: ${error}`); // eslint-disable-line no-console
