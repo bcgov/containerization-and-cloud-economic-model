@@ -20,7 +20,11 @@
             <AdminReviewSubmission />
           </v-col>
           <v-col cols="12" md="4" class="pl-0 d-print-none" order="first" order-md="last">
-            <InspectionPanel :submissionId="submissionId" v-on:note-updated="refreshNotes" :formName="formName" />
+            <InspectionPanel
+              :submissionId="submissionId"
+              v-on:note-updated="refreshNotes"
+              :formName="formName"
+            />
 
             <NotesPanel :submissionId="submissionId" ref="notesPanel" :formName="formName" />
           </v-col>
@@ -65,7 +69,6 @@ export default {
       'attestation',
       'operationType'
     ]),
-    ...mapGetters('auth', ['hasResourceRoles', 'token']),
     formName() {
       return FormNames.AGRISEAFOODOPSCREENING;
     },

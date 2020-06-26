@@ -1,43 +1,51 @@
 <template>
-  <v-row>
-    <v-col cols="12" sm="8" lg="10">
-      <h1>{{ business.name }}</h1>
-      <h4 class="heading-detail">
-        Submitted:
-        <span>{{ createdAtDisplay }}</span>
-      </h4>
-      <h4 class="heading-detail">
-        Confirmation ID:
-        <span>{{ submissionId.split('-')[0].toUpperCase() }}</span>
-      </h4>
-      <h4 v-if="operationType" class="heading-detail">
-        Operation Type:
-        <span>{{ operationType }}</span>
-      </h4>
-      <h4 class="heading-detail">
-        Operation Dates:
-        <span>{{ locationDateDisplay(location.startDate) }} - {{ locationDateDisplay(location.endDate) }}</span>
-      </h4>
-    </v-col>
-    <v-col cols="12" sm="4" lg="2" class="text-sm-right d-print-none">
-      <GeneratePdfButton :formName="formName" :submissionId="submissionId">
-        <v-btn class="pl-0" color="textLink" data-test="btn-form-generate-pdf" text small>
-          <v-icon class="mr-1">picture_as_pdf</v-icon>
-          <span>Generate PDF</span>
-        </v-btn>
-      </GeneratePdfButton>
-    </v-col>
-  </v-row>
+  <v-container>
+    <v-row no-gutters>
+      <v-col cols="12" md="8" xl="10" order="last" order-md="first">
+        <h1>{{ business.name }}</h1>
+      </v-col>
+      <v-col cols="6" md="2" xl="1" class="text-right d-print-none pr-2 pr-sm-10 pr-md-0 pb-4">
+        <GeneratePdfButton :formName="formName" :submissionId="submissionId">
+          <v-btn class="pl-0" color="textLink" data-test="btn-form-generate-pdf" text small>
+            <v-icon class="mr-1">picture_as_pdf</v-icon>
+            <span>Generate PDF</span>
+          </v-btn>
+        </GeneratePdfButton>
+      </v-col>
+      <v-col cols="6" md="2" xl="1" class="d-print-none pl-2 pl-sm-10 pl-md-0">
+        <DeleteButton :submissionId="submissionId" :formName="formName" />
+      </v-col>
+    </v-row>
+
+    <h4 class="heading-detail">
+      Submitted:
+      <span>{{ createdAtDisplay }}</span>
+    </h4>
+    <h4 class="heading-detail">
+      Confirmation ID:
+      <span>{{ submissionId.split('-')[0].toUpperCase() }}</span>
+    </h4>
+    <h4 v-if="operationType" class="heading-detail">
+      Operation Type:
+      <span>{{ operationType }}</span>
+    </h4>
+    <h4 class="heading-detail">
+      Operation Dates:
+      <span>{{ locationDateDisplay(location.startDate) }} - {{ locationDateDisplay(location.endDate) }}</span>
+    </h4>
+  </v-container>
 </template>
 
 <script>
 import moment from 'moment';
 
+import DeleteButton from '@/components/common/admin/inspection/DeleteButton.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 
 export default {
   name: 'SubmissionHeader',
   components: {
+    DeleteButton,
     GeneratePdfButton
   },
   props: {
