@@ -1,9 +1,11 @@
----
 openapi: 3.0.2
 info:
   version: 1.0.0
   title: Common Forms Toolkit API
-  description: An API for a Forms application that supports Form management and configuration, Submission functions such as Status changes, Notes as well as Admin Team management, Notifications and more.
+  description: >-
+    An API for a Forms application that supports Form management and
+    configuration, Submission functions such as Status changes, Notes as well as
+    Admin Team management, Notifications and more.
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
@@ -11,7 +13,7 @@ info:
     name: NR Common Service Showcase
     email: NR.CommonServiceShowcase@gov.bc.ca
 externalDocs:
-  description: "Project Readme's"
+  description: Project Readme's
   url: 'https://bcgov.github.io/common-forms-toolkit/'
 servers:
   - url: /api/v1
@@ -19,7 +21,6 @@ servers:
 security:
   - OpenID: []
 paths:
-
   /forms:
     get:
       summary: Form Meta-data
@@ -61,18 +62,14 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
                   $ref: '#/components/schemas/Form'
-        "403":
-          $ref: "#/components/responses/Forbidden"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
-
-  /{slug}/current:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/current':
     get:
       summary: Current Form Definition
       operationId: current
@@ -93,20 +90,20 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
                   $ref: '#/components/schemas/FormDefinition'
-        "403":
-          $ref: "#/components/responses/Forbidden"
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: '#/components/schemas/Error'
     put:
       summary: Update Form Definition
       tags:
         - Forms
+      security:
+        - OpenID:
+            - Form Administrator
       operationId: update
       parameters:
         - in: path
@@ -123,7 +120,6 @@ paths:
             schema:
               type: array
               items:
-                type: object
                 $ref: '#/components/schemas/ChangedFormDefinition'
       responses:
         '200':
@@ -132,22 +128,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/FormDefinition'
-        "401":
-          $ref: "#/components/responses/UnauthorizedError"
-        "403":
-          $ref: "#/components/responses/Forbidden"
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/Forbidden'
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
-
-
-  /{slug}/settings:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/settings':
     get:
       summary: All Form Settings
       operationId: allSettings
+      security:
+        - OpenID:
+            - Form Viewer
       tags:
         - Settings
       parameters:
@@ -165,8 +162,6 @@ paths:
               schema:
                 minItems: 3
                 $ref: '#/components/schemas/Settings'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
         default:
@@ -175,9 +170,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-  /{slug}/settings/{settingName}:
+  '/{slug}/settings/{settingName}':
     parameters:
       - in: path
         name: settingName
@@ -188,6 +181,9 @@ paths:
     get:
       summary: Single Form setting
       operationId: readSettings
+      security:
+        - OpenID:
+            - Form Viewer
       tags:
         - Settings
       parameters:
@@ -204,8 +200,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Setting'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
         default:
@@ -217,6 +211,9 @@ paths:
     put:
       summary: Update a Form Setting
       operationId: updateSettings
+      security:
+        - OpenID:
+            - Form Administrator
       tags:
         - Settings
       parameters:
@@ -227,14 +224,12 @@ paths:
           required: true
           description: a short name for the Form
       responses:
-        '200':
+        '201':
           description: Successful operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Setting'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
         default:
@@ -243,13 +238,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-
-  /{slug}/team/users/{userId}:
+  '/{slug}/team/users/{userId}':
     get:
       summary: A User and their role
       operationId: readUser
+      security:
+        - OpenID:
+            - Form Administrator
       tags:
         - Teams
       parameters:
@@ -273,10 +268,7 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
                   $ref: '#/components/schemas/UserWithRoles'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
         default:
@@ -285,12 +277,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-  /{slug}/team/users:
+  '/{slug}/team/users':
     get:
-      summary: Members of the Team, and their roles (optional)
+      summary: 'Members of the Team, and their roles'
       operationId: readUsers
+      security:
+        - OpenID:
+            - Form Administrator
       tags:
         - Teams
       parameters:
@@ -318,8 +311,6 @@ paths:
                   oneOf:
                     - $ref: '#/components/schemas/UserWithRoles'
                     - $ref: '#/components/schemas/User'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
         default:
@@ -328,82 +319,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-  /{slug}/team/roles/{roleId}/users:
-    get:
-      summary: Users that have a role
-      operationId: readRoleUsers
-      tags:
-        - Teams
-      parameters:
-        - in: path
-          name: slug
-          schema:
-            type: string
-          required: true
-          description: a short name for the Form
-        - in: path
-          name: roleId
-          schema:
-            type: string
-          required: true
-          description: a role ID
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  $ref: '#/components/schemas/User'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-    put:
-      summary: Update all users with this role
-      operationId: updateRoleUsers
-      tags:
-        - Teams
-      parameters:
-        - in: path
-          name: slug
-          schema:
-            type: string
-          required: true
-          description: a short name for the Form
-        - in: path
-          name: roleId
-          required: true
-          schema:
-            type: string
-          description: a role ID
-      responses:
-        '200':
-          description: Access requested
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: object
-                  $ref: '#/components/schemas/UserWithRoles'
-
-
-
-  /{slug}/team/roles:
+  '/{slug}/team/roles':
     get:
       summary: All roles
       operationId: readRoles
+      security:
+        - OpenID:
+            - Form Administrator
       tags:
         - Teams
       parameters:
@@ -431,11 +353,21 @@ paths:
                   oneOf:
                     - $ref: '#/components/schemas/RoleWithUsers'
                     - $ref: '#/components/schemas/Role'
-
-  /{slug}/team/roles/{roleId}:
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/team/roles/{roleId}':
     get:
       summary: Details of a role and users in the Team that have it
       operationId: readRole
+      security:
+        - OpenID:
+            - Form Administrator
       tags:
         - Teams
       parameters:
@@ -460,11 +392,100 @@ paths:
                 type: object
                 oneOf:
                   - $ref: '#/components/schemas/RoleWithUsers'
-
-  /{slug}/team/users/{userId}/roles:
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/team/roles/{roleId}/users':
+    get:
+      summary: Users that have a role
+      operationId: readRoleUsers
+      security:
+        - OpenID:
+            - Form Administrator
+      tags:
+        - Teams
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+        - in: path
+          name: roleId
+          schema:
+            type: string
+          required: true
+          description: a role ID
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update all users with this role
+      operationId: updateRoleUsers
+      security:
+        - OpenID:
+            - Form Administrator
+      tags:
+        - Teams
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+        - in: path
+          name: roleId
+          required: true
+          schema:
+            type: string
+          description: a role ID
+      responses:
+        '200':
+          description: Access requested
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/UserWithRoles'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/team/users/{userId}/roles':
     put:
       summary: Reset user to a specific role
       operationId: updateUserRoles
+      security:
+        - OpenID:
+            - Form Administrator
       tags:
         - Teams
       parameters:
@@ -488,15 +509,14 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
                   $ref: '#/components/schemas/Role'
-
-
-
-  /{slug}/team/access:
+  '/{slug}/team/access':
     post:
       summary: Resquest Access for a user
       operationId: processAccessRequest
+      security:
+        - OpenID:
+            - Form Administrator
       tags:
         - Teams
       parameters:
@@ -507,44 +527,12 @@ paths:
             type: string
           description: a short name for the Form
       responses:
-        '200':
+        '201':
           description: Access requested
           content:
             application/json:
               schema:
-                type: object
                 $ref: '#/components/schemas/UserWithRoles'
-
-
-
-  /{slug}/submissions/{submissionId}:
-    get:
-      summary: Get a form submission by ID
-      operationId: readSubmissionPublic
-      tags:
-        - Submissions
-      parameters:
-        - in: path
-          name: slug
-          schema:
-            type: string
-          required: true
-          description: a short name for the Form
-        - in: path
-          name: submissionId
-          schema:
-            type: string
-            format: uuid
-          required: true
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Submission'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
         default:
@@ -553,144 +541,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-    put:
-      summary: Update a form Submission
-      tags:
-        - Submissions
-      operationId: updateSubmission
-      parameters:
-      - in: path
-        name: slug
-        schema:
-          type: string
-        required: true
-        description: a short name for the Form
-      - in: path
-        name: submissionId
-        schema:
-          type: string
-          format: uuid
-        required: true
-      requestBody:
-        description: The form's data sent when the form is edited by a user
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-                $ref: '#/components/schemas/SubmissionPost'
-      responses:
-        '201':
-          description: Submission updated
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Submission'
-    delete:
-      tags:
-      - Submissions
-      parameters:
-        - in: path
-          name: slug
-          schema:
-            type: string
-          required: true
-          description: a short name for the Form
-        - in: path
-          name: submissionId
-          schema:
-            type: string
-            format: uuid
-          required: true
-      summary: Soft-deletes the submission with the specified ID.
-      responses:
-        '200':
-          description: Submission was deleted.
-
-
-  /{slug}/submissions/{submissionId}/pdf:
-    get:
-      summary: Generate a form submission as a PDF document
-      operationId: generateSubmissionPdf
-      tags:
-        - Submissions
-      parameters:
-        - in: path
-          name: slug
-          schema:
-            type: string
-          required: true
-          description: a short name for the Form
-        - in: path
-          name: submissionId
-          schema:
-            type: string
-            format: uuid
-          required: true
-      responses:
-        '201':
-          description: PDF file generated with the CDOGS API
-          content:
-            application/pdf:
-              schema:
-                type: string
-                format: binary
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-
-
-  /{slug}/submissions/email:
-    post:
-      summary: Send Email notification to Admin
-      operationId: sendSubmissionEmail
-      tags:
-        - Submissions
-      parameters:
-        - in: path
-          name: slug
-          schema:
-            type: string
-          required: true
-          description: a short name for the Form
-      requestBody:
-        description: A Submission object
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-                $ref: '#/components/schemas/Submission'
-      responses:
-        '200':
-          description: https://ches-master-9f0fbe-prod.pathfinder.gov.bc.ca/api/v1/docs#operation/postMerge
-
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-
-
-  /{slug}/submissions:
+  '/{slug}/submissions':
     get:
       summary: Get all form submissions that match the query parameters
       operationId: searchSubmissions
+      security:
+        - OpenID:
+            - Form Viewer
       tags:
         - Submissions
       parameters:
@@ -740,7 +597,6 @@ paths:
               schema:
                 type: array
                 items:
-                  type: object
                   $ref: '#/components/schemas/Submission'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
@@ -778,6 +634,181 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Submission'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/submissions/{submissionId}':
+    get:
+      summary: Get a form submission by ID
+      operationId: readSubmissionPublic
+      tags:
+        - Submissions
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+        - in: path
+          name: submissionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    put:
+      summary: Update a form Submission
+      security:
+        - OpenID:
+            - Form Editor
+      tags:
+        - Submissions
+      operationId: updateSubmission
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+        - in: path
+          name: submissionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      requestBody:
+        description: The form's data sent when the form is edited by a user
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/SubmissionPost'
+      responses:
+        '201':
+          description: Submission updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Submission'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      security:
+        - OpenID:
+            - Form Editor
+      tags:
+        - Submissions
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+        - in: path
+          name: submissionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      summary: Soft-deletes the submission with the specified ID.
+      responses:
+        '200':
+          description: Submission was deleted.
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/submissions/{submissionId}/pdf':
+    get:
+      summary: Generate a form submission as a PDF document
+      operationId: generateSubmissionPdf
+      tags:
+        - Submissions
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+        - in: path
+          name: submissionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '201':
+          description: PDF file generated with the CDOGS API
+          content:
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  '/{slug}/submissions/email':
+    post:
+      summary: Send Email notification to Admin
+      description: >-
+        Uses BC Gov Email Messaging API: <br />
+        https://ches-master-9f0fbe-prod.pathfinder.gov.bc.ca/api/v1/docs/#operation/postMerge
+      operationId: sendSubmissionEmail
+      tags:
+        - Submissions
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+      requestBody:
+        description: A Submission object
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Submission'
+      responses:
+        '200':
+          description: Returns an array of message correspondence ids
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '403':
@@ -788,13 +819,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-
-  /{slug}/submissions/{submissionId}/statuses:
+  '/{slug}/submissions/{submissionId}/statuses':
     get:
       summary: Get the related status history and notes for a form submission
       operationId: getStatuses
+      security:
+        - OpenID:
+            - Form Viewer
       tags:
         - Status
       parameters:
@@ -829,6 +860,9 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Add Status Change (with Notes)
+      security:
+        - OpenID:
+            - Form Reviewer
       tags:
         - Status
       operationId: createSubmissionStatus
@@ -869,12 +903,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-
-  /{slug}/current/statusCodes:
+  '/{slug}/current/statusCodes':
     put:
       summary: Update Status Codes for a form
+      security:
+        - OpenID:
+            - Form Reviewer
       tags:
         - Status
       operationId: updateCurrentStatusCodes
@@ -886,14 +920,15 @@ paths:
           required: true
           description: a short name for the Form
       requestBody:
-        description: All Status types, display  names, allowed status transitions, associated  classifications
+        description: >-
+          All Status types, display  names, allowed status transitions,
+          associated  classifications
         required: true
         content:
           application/json:
             schema:
               type: array
               items:
-                type: object
                 $ref: '#/components/schemas/StatusCodePost'
       responses:
         '201':
@@ -914,15 +949,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-
-
-
-
-  /{slug}/submissions/{submissionId}/statuses/{submissionStatusId}/notes:
+  '/{slug}/submissions/{submissionId}/statuses/{submissionStatusId}/notes':
     post:
       summary: Add Status Note
+      security:
+        - OpenID:
+            - Form Reviewer
       tags:
         - Notes
       operationId: createSubmissionStatusNote
@@ -969,11 +1001,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-  /{slug}/submissions/{submissionId}/notes:
+  '/{slug}/submissions/{submissionId}/notes':
     get:
       summary: Get Notes related to a form submission
       operationId: getNotes
+      security:
+        - OpenID:
+            - Form Viewer
       tags:
         - Notes
       parameters:
@@ -1008,6 +1042,9 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Add Submission Note
+      security:
+        - OpenID:
+            - Form Reviewer
       tags:
         - Notes
       operationId: createSubmissionNote
@@ -1048,9 +1085,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-  /{slug}/types:
+  '/{slug}/types':
     get:
       summary: Get Operation types for the business area
       operationId: getOperationTypes
@@ -1070,21 +1105,12 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/OperationType'
-        '401':
-          $ref: '#/components/responses/UnauthorizedError'
-        '403':
-          $ref: '#/components/responses/Forbidden'
         default:
           description: Unexpected error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-
-
-
-
-
 components:
   securitySchemes:
     BearerAuth:
@@ -1093,134 +1119,104 @@ components:
       bearerFormat: JWT
     OpenID:
       type: openIdConnect
-      openIdConnectUrl: 'https://example.com/.well-known/openid-configuration'
   schemas:
-
+    TimeStampUserData:
+      type: object
+      properties:
+        createdBy:
+          type: string
+          example: migration-011
+        createdAt:
+          type: string
+          example: 2020-06-04T18:49:20.672Z
+        updatedBy:
+          type: string
+          example: jsmith
+        updatedAt:
+          type: string
+          example: 2020-06-04T18:49:20.672Z
     Form:
-      type: object
-      properties:
-        formId:
-          type: string
-          example: aeb3b705-1de5-4f4e-a4e6-0716b7671034
-        name:
-          type: string
-          example: Business Form One
-        slug:
-          type: string
-          example: businessformone
-        public:
-          type: boolean
-        active:
-          type: boolean
-        keywords:
-          type: array
-          example: [contact, business, form]
-          items:
-            type: string
-        prefix:
-          type: string
-          example: bus_os
-        createdBy:
-          type: string
-          example: migration-004
-        createdAt:
-          type: string
-        updatedBy:
-          type: string
-        updatedAt:
-          type: string
-
+      allOf:
+        - type: object
+          properties:
+            formId:
+              type: string
+              example: aeb3b705-1de5-4f4e-a4e6-0716b7671034
+            name:
+              type: string
+              example: Business Form One
+            slug:
+              type: string
+              example: businessformone
+            public:
+              type: boolean
+            active:
+              type: boolean
+            keywords:
+              type: array
+              example:
+                - contact
+                - business
+                - form
+              items:
+                type: string
+            prefix:
+              type: string
+              example: bus_os
+        - $ref: '#/components/schemas/TimeStampUserData'
     FormDefinition:
-      type: object
-      properties:
-        formId:
-          type: string
-          example: d6944dd9-1c0c-4915-971d-542dda14eb7f
-        description:
-          type: string
-          example: This is an attestation form for Agriculture and Seafood
-        createdBy:
-          type: string
-          example: migration-011
-        createdAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-        updatedBy:
-          type: string
-          example: migration-012
-        updatedAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-        metadata:
-          type: object
-          $ref: '#/components/schemas/Form'
-        versions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/FormVersion'
-
+      allOf:
+        - type: object
+          properties:
+            formId:
+              type: string
+              example: d6944dd9-1c0c-4915-971d-542dda14eb7f
+            description:
+              type: string
+              example: This is an attestation form for Agriculture and Seafood
+            metadata:
+              $ref: '#/components/schemas/Form'
+            versions:
+              type: array
+              items:
+                $ref: '#/components/schemas/FormVersion'
+        - $ref: '#/components/schemas/TimeStampUserData'
     FormVersion:
-      type: object
-      properties:
-        formVersionId:
-          type: string
-          example: 1
-        formId:
-          type: string
-          example: d6944dd9-1c0c-4915-971d-542dda14eb7f
-        changes:
-          type: string
-          example: null
-        createdBy:
-          type: string
-          example: migration-011
-        createdAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-        updatedBy:
-          type: string
-          example: null
-        updatedAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-        statusCodes:
-            type: array
-            items:
-              type: object
-              $ref: '#/components/schemas/StatusCode'
-
+      allOf:
+        - type: object
+          properties:
+            formVersionId:
+              type: string
+              example: 1
+            formId:
+              type: string
+              example: d6944dd9-1c0c-4915-971d-542dda14eb7f
+            changes:
+              type: string
+              example: null
+            statusCodes:
+              type: array
+              items:
+                $ref: '#/components/schemas/StatusCode'
+        - $ref: '#/components/schemas/TimeStampUserData'
     ChangedFormDefinition:
-      type: object
-      description: Form definition updated
-      properties:
-        formId:
-          type: string
-          example: d6944dd9-1c0c-4915-971d-542dda14eb7f
-        description:
-          type: string
-          example: This is an attestation form for Agriculture and Seafood
-        createdBy:
-          type: string
-          example: migration-011
-        createdAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-        updatedBy:
-          type: string
-          example: migration-012
-        updatedAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-        metadata:
-          type: object
-          $ref: '#/components/schemas/Form'
-        versions:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/FormChanges'
-
+      allOf:
+        - type: object
+          description: Form definition updated
+          properties:
+            formId:
+              type: string
+              example: d6944dd9-1c0c-4915-971d-542dda14eb7f
+            description:
+              type: string
+              example: This is an attestation form for Agriculture and Seafood
+            metadata:
+              $ref: '#/components/schemas/Form'
+            versions:
+              type: array
+              items:
+                $ref: '#/components/schemas/FormChanges'
+        - $ref: '#/components/schemas/TimeStampUserData'
     FormChanges:
       type: object
       properties:
@@ -1232,51 +1228,37 @@ components:
           example: d6944dd9-1c0c-4915-971d-542dda14eb7f
         changes:
           type: string
-          example: 'this is a new version'
+          example: this is a new version
         statusCodes:
-            type: array
-            items:
-              type: object
-              $ref: '#/components/schemas/StatusCode'
-
-
-
+          type: array
+          items:
+            $ref: '#/components/schemas/StatusCode'
     StatusCode:
-      type: object
-      properties:
-        code:
-          type: string
-          example: SUBMITTED
-        display:
-          type: string
-          example: Submitted
-        enabled:
-          type: boolean
-          example: true
-        nextCodes:
-          type: array
-          items:
-            type: string
-          example: ['ASSIGNED', 'COMPLETED']
-        allowedClassifications:
-          type: array
-          items:
-            type: string
-          example: []
-        createdBy:
-          type: string
-          example: migration-011
-        createdAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-        updatedBy:
-          type: string
-          example: null
-        updatedAt:
-          type: string
-          example: 2020-06-04T18:49:20.672Z
-
-
+      allOf:
+        - type: object
+          properties:
+            code:
+              type: string
+              example: SUBMITTED
+            display:
+              type: string
+              example: Submitted
+            enabled:
+              type: boolean
+              example: true
+            nextCodes:
+              type: array
+              items:
+                type: string
+              example:
+                - ASSIGNED
+                - COMPLETED
+            allowedClassifications:
+              type: array
+              items:
+                type: string
+              example: []
+        - $ref: '#/components/schemas/TimeStampUserData'
     StatusPost:
       type: object
       properties:
@@ -1292,7 +1274,7 @@ components:
         actionDate:
           type: string
           format: date
-          example: 2020-06-01
+          example: 2020-06-01T00:00:00.000Z
         notes:
           type: array
           items:
@@ -1300,116 +1282,71 @@ components:
             properties:
               note:
                 type: string
-                example: 'This Client is ready for a phone call'
-
-
+                example: This Client is ready for a phone call
     NotePost:
-            type: object
-            properties:
-              note:
-                type: string
-                example: 'This Client is ready for a phone call'
-
-
-
-
+      type: object
+      properties:
+        note:
+          type: string
+          example: This Client is ready for a phone call
     Settings:
       type: array
       items:
-        type: object
         $ref: '#/components/schemas/Setting'
-
-
     Setting:
-      properties:
-        name:
-          type: string
-          description: "setting name"
-          example: 'confirmationEmail'
-        enabled:
-          type: boolean
-          description: "setting name"
-          example: 'generateSubmissionPdf'
-        config:
-          type: object
-          example:
-            to: NR.CommonServiceShowcase@gov.bc.ca
-            from: NR.CommonServiceShowcase@gov.bc.ca
-            title: Agriculture and Seafood Form Accepted
-            subject: Agriculture and Seafood Form Accepted
-            priority: normal
-            template: confirmation-number-email.html
-            messageLinkUrl: https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission
-            messageLinkText: Please login to view the details of this Agriculture and Seafood Attestation
-        createdBy:
-          type: string
-          description: "The migration file that created this setting"
-          example: migration-011
-        createdAt:
-          type: string
-          format: date-time
-          description: "the timestamp when this settings was added"
-          example: '2020-06-04 11:49:20'
-        updatedBy:
-          type: string
-          description: "user or system that updated this setting"
-          example: 'system'
-        updatedAt:
-          type: string
-          format: date-time
-          description: "the timestamp when this setting was updated"
-          example: '2020-06-04 11:49:21'
-
-
-
-
-
+      allOf:
+        - type: object
+          properties:
+            name:
+              type: string
+              description: setting name
+              example: confirmationEmail
+            enabled:
+              type: boolean
+              description: setting name
+              example: generateSubmissionPdf
+            config:
+              type: object
+              example:
+                to: NR.CommonServiceShowcase@gov.bc.ca
+                from: NR.CommonServiceShowcase@gov.bc.ca
+                title: Agriculture and Seafood Form Accepted
+                subject: Agriculture and Seafood Form Accepted
+                priority: normal
+                template: confirmation-number-email.html
+                messageLinkUrl: >-
+                  https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission
+                messageLinkText: >-
+                  Please login to view the details of this Agriculture and
+                  Seafood Attestation
+        - $ref: '#/components/schemas/TimeStampUserData'
     Statuses:
       type: array
       items:
-        type: object
-        properties:
-          submissionStatusId:
-            example: 2
-          submissionId:
-            example: 1ea77ee7-2234-44f8-8543-967674dcb825
-          code:
-            example: ASSIGNED
-          assignedTo:
-            example: John Smith
-          assignedToEmail:
-            example: jsmith@email.com
-          actionDate:
-            type: string
-            example: null
-          classification:
-            type: string
-            example: 'pass'
-          createdBy:
-            type: string
-            description: "User that added this status to the history"
-            example: jsmith@idir
-          createdAt:
-            type: string
-            description: "the timestamp when this status was added to the history"
-            format: date-time
-            example: '2020-06-04 11:49:20'
-          updatedBy:
-            type: string
-            description: "user or system that updated this status"
-            example: 'jsmith@idir'
-          updatedAt:
-            type: string
-            format: date-time
-            description: "the timestamp when this status was updated"
-            example: '2020-06-04 11:49:21'
-          notes:
-            type: array
-            items:
-              type: object
-              $ref: '#/components/schemas/Note'
-
-
+        allOf:
+          - type: object
+            properties:
+              submissionStatusId:
+                example: 2
+              submissionId:
+                example: 1ea77ee7-2234-44f8-8543-967674dcb825
+              code:
+                example: ASSIGNED
+              assignedTo:
+                example: John Smith
+              assignedToEmail:
+                example: jsmith@email.com
+              actionDate:
+                type: string
+                example: null
+              classification:
+                type: string
+                example: pass
+              notes:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+          - $ref: '#/components/schemas/TimeStampUserData'
     StatusCodePost:
       type: object
       properties:
@@ -1425,36 +1362,36 @@ components:
         nextCodes:
           type: array
           items:
-
-            example: ['ASSIGNED', 'COMPLETED']
+            example:
+              - ASSIGNED
+              - COMPLETED
         allowedClassifications:
           type: array
           items:
-            example: ['Pass', 'Fail']
-
-
+            example:
+              - Pass
+              - Fail
     User:
       type: object
       description: A user as represented by Keycloak
       properties:
-          id:
-            type: string
-            description: ID of the user
-            example: 5dad1ec9-d3c0-4b0f-8ead-cb4d9fa98987
-          username:
-            type: string
-            description: Username of this user
-            example: jsmith@idir
-          firstName:
-            type: string
-            example: Jane
-          lastName:
-            type: string
-            example: Smith
-          email:
-            type: string
-            example: jsmith@gov.bc.ca
-
+        id:
+          type: string
+          description: ID of the user
+          example: 5dad1ec9-d3c0-4b0f-8ead-cb4d9fa98987
+        username:
+          type: string
+          description: Username of this user
+          example: jsmith@idir
+        firstName:
+          type: string
+          example: Jane
+        lastName:
+          type: string
+          example: Smith
+        email:
+          type: string
+          example: jsmith@gov.bc.ca
     UserWithRoles:
       allOf:
         - $ref: '#/components/schemas/User'
@@ -1464,7 +1401,6 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/Role'
-
     Role:
       type: object
       description: The composite roles granted to the user
@@ -1475,10 +1411,12 @@ components:
         name:
           type: string
           description: The role name
-          example: 'Form Reviewer'
+          example: Form Reviewer
         description:
           type: string
-          example: 'Form Reviewers have all the permissions of Form Viewer. Elevated permissions include adding notes and assignments to a submission.'
+          example: >-
+            Form Reviewers have all the permissions of Form Viewer. Elevated
+            permissions include adding notes and assignments to a submission.
         composite:
           type: boolean
           default: true
@@ -1487,8 +1425,7 @@ components:
           default: true
         containerId:
           type: string
-          example: '8baa6eaf-d1bf-4a85-b807-a4de5e9214ec'
-
+          example: 8baa6eaf-d1bf-4a85-b807-a4de5e9214ec
     RoleWithUsers:
       allOf:
         - $ref: '#/components/schemas/Role'
@@ -1498,63 +1435,44 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/User'
-
     Submission:
-      type: object
-      description: Submission details
-      properties:
-        submissionId:
-          type: string
-          format: uuid
-          description: "The Submission ID"
-          example: 1ea77ee7-2234-44f8-8543-967674dcb825
-        formVersionId:
-          type: string
-          description: "the form version"
-          example: 1
-        confirmationId:
-          type: string
-          description: "The first 8 characters of the submissionId in uppercase"
-          example: 1EA77EE7
-        type:
-          type: string
-          description: "The Operation Type chosen by the operator filling the form"
-          example: AGRICULTURE
-        deleted:
-          type: boolean
-          description: "If this submission has been soft-deleted"
-        createdBy:
-          type: string
-          description: "The user or system that created the Submission"
-          example: jsmith@idir
-        createdAt:
-          type: string
-          description: "the timestamp when this submission was updated"
-          format: date-time
-          example: '2020-06-04T18:49:20.672Z'
-        updatedBy:
-          type: string
-          description: "TThe user or system that updated the Submission"
-          example: public
-        updatedAt:
-          type: string
-          description: "the timestamp when this submission was updated"
-          format: date-time
-          example: '2020-06-04T18:49:20.672Z'
-        operationType:
-          $ref: '#/components/schemas/OperationType'
-        attestation:
-          $ref: '#/components/schemas/Attestation'
-        business:
-          $ref: '#/components/schemas/Business'
-        location:
-          $ref: '#/components/schemas/Location'
-        contacts:
-          type: array
-          items:
-            type: object
-            $ref: '#/components/schemas/Contact'
-
+      allOf:
+        - type: object
+          description: Submission details
+          properties:
+            submissionId:
+              type: string
+              format: uuid
+              description: The Submission ID
+              example: 1ea77ee7-2234-44f8-8543-967674dcb825
+            formVersionId:
+              type: string
+              description: the form version
+              example: 1
+            confirmationId:
+              type: string
+              description: The first 8 characters of the submissionId in uppercase
+              example: 1EA77EE7
+            type:
+              type: string
+              description: The Operation Type chosen by the operator filling the form
+              example: AGRICULTURE
+            deleted:
+              type: boolean
+              description: If this submission has been soft-deleted
+            operationType:
+              $ref: '#/components/schemas/OperationType'
+            attestation:
+              $ref: '#/components/schemas/Attestation'
+            business:
+              $ref: '#/components/schemas/Business'
+            location:
+              $ref: '#/components/schemas/Location'
+            contacts:
+              type: array
+              items:
+                $ref: '#/components/schemas/Contact'
+        - $ref: '#/components/schemas/TimeStampUserData'
     SubmissionPost:
       type: object
       properties:
@@ -1565,25 +1483,25 @@ components:
           properties:
             name:
               type: string
-              example: 'ZZ Smoke Testing'
+              example: ZZ Smoke Testing
             orgBookId:
               type: string
               nullable: true
             addressLine1:
               type: string
-              example: '1234 Here St'
+              example: 1234 Here St
             addressLine2:
               type: string
               nullable: true
             city:
               type: string
-              example: 'Saanich'
+              example: Saanich
             province:
               type: string
-              example: 'BC'
+              example: BC
             postalCode:
               type: string
-              example: 'ABCDEF'
+              example: ABCDEF
         contacts:
           type: array
           items:
@@ -1617,12 +1535,12 @@ components:
             startDate:
               type: string
               format: date
-              example: 2020-05-10
+              example: 2020-05-10T00:00:00.000Z
               nullable: true
             endDate:
               type: string
               format: date
-              example: 2020-07-30
+              example: 2020-07-30T00:00:00.000Z
               nullable: true
             city:
               type: string
@@ -1640,40 +1558,24 @@ components:
               type: boolean
             accWorkersHome:
               type: boolean
-
-
-
     OperationType:
-      type: object
-      additionalProperties: true
-      description: Operation Type details
-      properties:
-        type:
-          type: string
-          description: "The Operation Type chosen by the operator filling the form"
-          example: AGRICULTURE
-        display:
-          type: string
-          description: "The human-readable text for this operation type"
-          example: Agriculture
-        enabled:
-          type: boolean
-          description: "If this operation type is enabled in the form"
-        createdBy:
-          type: string
-          description: "The migration file that created this field in the model"
-          example: migration-011
-        updatedBy:
-          type: string
-          format: date-time
-          description: "user or system that updated this option in the form"
-          example: 'system'
-        updatedAt:
-          type: string
-          format: date-time
-          description: "the timestamp when this form option was updated"
-          example: '2020-06-04 11:49:20'
-
+      allOf:
+        - type: object
+          additionalProperties: true
+          description: Operation Type details
+          properties:
+            type:
+              type: string
+              description: The Operation Type chosen by the operator filling the form
+              example: AGRICULTURE
+            display:
+              type: string
+              description: The human-readable text for this operation type
+              example: Agriculture
+            enabled:
+              type: boolean
+              description: If this operation type is enabled in the form
+        - $ref: '#/components/schemas/TimeStampUserData'
     Attestation:
       type: object
       additionalProperties: true
@@ -1682,14 +1584,13 @@ components:
         attestationId:
           type: string
           format: uuid
-          description: "the primary key for the attestations record"
+          description: the primary key for the attestations record
           example: 2sq87fr5-2234-44f8-8543-967674dgh3jh2
         submissionId:
           type: string
           format: uuid
-          description: "The Submission ID"
+          description: The Submission ID
           example: 1ea77ee7-2234-44f8-8543-967674dcb825
-
     Business:
       type: object
       additionalProperties: true
@@ -1697,9 +1598,8 @@ components:
       properties:
         name:
           type: string
-          description: "The business name"
+          description: The business name
           example: Timber Sales Inc.
-
     Location:
       type: object
       additionalProperties: true
@@ -1707,9 +1607,8 @@ components:
       properties:
         cityLatitude:
           type: integer
-          description: "Latitude of the location"
+          description: Latitude of the location
           example: '-119'
-
     Contact:
       type: object
       additionalProperties: true
@@ -1717,41 +1616,26 @@ components:
       properties:
         contactType:
           type: string
-          description: "The type of contact"
-          example: 'COVID_COORDINATOR'
-
+          description: The type of contact
+          example: COVID_COORDINATOR
     Note:
-      type: object
-      description: Note attached to a form submission
-      properties:
-        noteId:
-          type: integer
-          description: "Primary key of the note"
-          example: 1
-        submissionId:
-          type: string
-          format: uuid
-          description: "The Submission ID"
-          example: 1ea77ee7-2234-44f8-8543-967674dcb825
-        note:
-          type: string
-          example: 'This form submission was processed!'
-        createdBy:
-          type: string
-          description: "The user that created this note"
-          example: jsmith@idir
-        updatedBy:
-          type: string
-          description: "The user that updated this note"
-          example: jsmith@idir
-        updatedAt:
-          type: string
-          description: "the timestamp when this note was updated"
-          format: date-time
-          example: '2020-06-04 11:49:20'
-
-
-
+      allOf:
+        - type: object
+          description: Note attached to a form submission
+          properties:
+            noteId:
+              type: integer
+              description: Primary key of the note
+              example: 1
+            submissionId:
+              type: string
+              format: uuid
+              description: The Submission ID
+              example: 1ea77ee7-2234-44f8-8543-967674dcb825
+            note:
+              type: string
+              example: This form submission was processed!
+        - $ref: '#/components/schemas/TimeStampUserData'
     BadRequest:
       allOf:
         - $ref: '#/components/schemas/Problem'
@@ -1843,7 +1727,6 @@ components:
               example: Unprocessable Entity
             type:
               example: 'https://httpstatuses.com/422'
-
   responses:
     Accepted:
       description: Accepted
