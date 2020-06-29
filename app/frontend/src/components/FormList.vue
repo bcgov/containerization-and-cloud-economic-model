@@ -59,7 +59,7 @@ export default {
         title: 'Agriculture and Seafood Operator Screening'
       },
       {
-        enabled: false,
+        enabled: true,
         linkAdminName: 'ForestrySectorOpScreeningAdmin',
         linkName: 'ForestrySectorOpScreeningForm',
         resource: AppClients.FORESTRYSECTOROPSCREENING,
