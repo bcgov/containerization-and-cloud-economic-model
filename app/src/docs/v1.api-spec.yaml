@@ -1,3 +1,4 @@
+---
 openapi: 3.0.2
 info:
   version: 1.0.0
@@ -13,7 +14,7 @@ info:
     name: NR Common Service Showcase
     email: NR.CommonServiceShowcase@gov.bc.ca
 externalDocs:
-  description: Project Readme's
+  description: Project Readmes
   url: 'https://bcgov.github.io/common-forms-toolkit/'
 servers:
   - url: /api/v1
@@ -103,7 +104,7 @@ paths:
         - Forms
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       operationId: update
       parameters:
         - in: path
@@ -144,7 +145,7 @@ paths:
       operationId: allSettings
       security:
         - OpenID:
-            - Form Viewer
+            - viewer
       tags:
         - Settings
       parameters:
@@ -183,7 +184,7 @@ paths:
       operationId: readSettings
       security:
         - OpenID:
-            - Form Viewer
+            - viewer
       tags:
         - Settings
       parameters:
@@ -215,7 +216,7 @@ paths:
       operationId: updateSettings
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Settings
       parameters:
@@ -246,7 +247,7 @@ paths:
       operationId: readUser
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -287,7 +288,7 @@ paths:
       operationId: readUsers
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -329,7 +330,7 @@ paths:
       operationId: readRoles
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -371,7 +372,7 @@ paths:
       operationId: readRole
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -412,7 +413,7 @@ paths:
       operationId: readRoleUsers
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -454,7 +455,7 @@ paths:
       operationId: updateRoleUsers
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -495,7 +496,7 @@ paths:
       operationId: updateUserRoles
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -532,11 +533,11 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/{slug}/team/access':
     post:
-      summary: Resquest Access for a user
+      summary: Request Access for a user
       operationId: processAccessRequest
       security:
         - OpenID:
-            - Form Administrator
+            - admin
       tags:
         - Teams
       parameters:
@@ -567,7 +568,7 @@ paths:
       operationId: searchSubmissions
       security:
         - OpenID:
-            - Form Viewer
+            - viewer
       tags:
         - Submissions
       parameters:
@@ -698,7 +699,7 @@ paths:
       summary: Update a form Submission
       security:
         - OpenID:
-            - Form Editor
+            - editor
       tags:
         - Submissions
       operationId: updateSubmission
@@ -742,7 +743,7 @@ paths:
     delete:
       security:
         - OpenID:
-            - Form Editor
+            - editor
       tags:
         - Submissions
       parameters:
@@ -851,7 +852,7 @@ paths:
       operationId: getStatuses
       security:
         - OpenID:
-            - Form Viewer
+            - viewer
       tags:
         - Status
       parameters:
@@ -890,7 +891,7 @@ paths:
       summary: Add Status Change (with Notes)
       security:
         - OpenID:
-            - Form Reviewer
+            - reviewer
       tags:
         - Status
       operationId: createSubmissionStatus
@@ -936,7 +937,7 @@ paths:
       summary: Update Status Codes for a form
       security:
         - OpenID:
-            - Form Reviewer
+            - reviewer
       tags:
         - Status
       operationId: updateCurrentStatusCodes
@@ -949,8 +950,8 @@ paths:
           description: a short name for the Form
       requestBody:
         description: >-
-          All Status types, display  names, allowed status transitions,
-          associated  classifications
+          All Status types, display names, allowed status transitions,
+          associated classifications
         required: true
         content:
           application/json:
@@ -982,7 +983,7 @@ paths:
       summary: Add Status Note
       security:
         - OpenID:
-            - Form Reviewer
+            - reviewer
       tags:
         - Notes
       operationId: createSubmissionStatusNote
@@ -1035,7 +1036,7 @@ paths:
       operationId: getNotes
       security:
         - OpenID:
-            - Form Viewer
+            - viewer
       tags:
         - Notes
       parameters:
@@ -1074,7 +1075,7 @@ paths:
       summary: Add Submission Note
       security:
         - OpenID:
-            - Form Reviewer
+            - reviewer
       tags:
         - Notes
       operationId: createSubmissionNote
@@ -1442,7 +1443,7 @@ components:
         name:
           type: string
           description: The role name
-          example: Form Reviewer
+          example: reviewer
         description:
           type: string
           example: >-
