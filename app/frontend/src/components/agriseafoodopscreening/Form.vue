@@ -28,7 +28,7 @@
           </v-row>
         </v-container>
         <div class="text-center my-6">
-          <v-btn class="px-12" color="primary" @click="startForm">
+          <v-btn class="px-12" color="primary" @click="startForm" data-test="btn-start">
             <span>Start</span>
           </v-btn>
         </div>
