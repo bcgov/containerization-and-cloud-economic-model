@@ -27,7 +27,9 @@
             </v-col>
           </v-row>
           <div class="text-center my-6">
-            <v-btn class="px-12" color="primary" @click="startForm">Start</v-btn>
+            <v-btn class="px-12" color="primary" @click="startForm" data-test="btn-start">
+              <span>Start</span>
+            </v-btn>
           </div>
         </v-container>
       </v-form>
@@ -137,29 +139,37 @@ export default {
     Step4,
     Step5
   },
-  data () {
+  data() {
     return {
       landingValid: false,
 
       // TODO: fetch this from API
       operationTypes: [
-        { type:'BRUSHING', display: 'Brushing', enabled: true },
-        { type:'CONE_PICKING', display: 'Cone Picking', enabled: true },
-        { type:'ENGINEERING', display: 'Engineering', enabled: true },
-        { type:'LAYOUT', display: 'Layout/Timber Cruising', enabled: true },
-        { type:'LOGGING', display: 'Logging', enabled: true },
-        { type:'PRUNING', display: 'Pruning', enabled: true },
-        { type:'RESEARCH', display: 'Research', enabled: true },
-        { type:'SILVICULTURE', display: 'Silviculture', enabled: true },
-        { type:'SPACING', display: 'Spacing', enabled: true },
-        { type:'SURVEYING', display: 'Surveying', enabled: true },
-        { type:'VEGETATION_MANAGEMENT', display: 'Vegetation Management', enabled: true },
-        { type:'WILDFIRE_CAMPS', display: 'Wildfire Camps', enabled: true }
+        { type: 'BRUSHING', display: 'Brushing', enabled: true },
+        { type: 'CONE_PICKING', display: 'Cone Picking', enabled: true },
+        { type: 'ENGINEERING', display: 'Engineering', enabled: true },
+        { type: 'LAYOUT', display: 'Layout/Timber Cruising', enabled: true },
+        { type: 'LOGGING', display: 'Logging', enabled: true },
+        { type: 'PRUNING', display: 'Pruning', enabled: true },
+        { type: 'RESEARCH', display: 'Research', enabled: true },
+        { type: 'SILVICULTURE', display: 'Silviculture', enabled: true },
+        { type: 'SPACING', display: 'Spacing', enabled: true },
+        { type: 'SURVEYING', display: 'Surveying', enabled: true },
+        {
+          type: 'VEGETATION_MANAGEMENT',
+          display: 'Vegetation Management',
+          enabled: true
+        },
+        { type: 'WILDFIRE_CAMPS', display: 'Wildfire Camps', enabled: true }
       ]
     };
   },
   computed: {
-    ...mapGetters('forestrySectorOpScreeningForm', ['operationType', 'step', 'submissionComplete']),
+    ...mapGetters('forestrySectorOpScreeningForm', [
+      'operationType',
+      'step',
+      'submissionComplete'
+    ]),
     formName() {
       return FormNames.FORESTRYSECTOROPSCREENING;
     },
@@ -173,7 +183,10 @@ export default {
     }
   },
   methods: {
-    ...mapMutations('forestrySectorOpScreeningForm', ['setOperationType', 'setStep']),
+    ...mapMutations('forestrySectorOpScreeningForm', [
+      'setOperationType',
+      'setStep'
+    ]),
     startForm() {
       if (this.$refs.opTypeForm.validate()) {
         this.setStep(1);
