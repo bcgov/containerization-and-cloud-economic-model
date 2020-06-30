@@ -20,7 +20,7 @@
           width="10rem"
         />
       </a>
-      <v-toolbar-title data-test="btn-header-title" class="title">{{ appTitle }}</v-toolbar-title>
+      <div data-test="btn-header-title" class="title">{{ appTitle }}</div>
       <v-spacer />
       <BaseAuthButton />
     </v-toolbar>
@@ -45,6 +45,7 @@ export default {
   border-bottom: 2px solid #fcba19;
   .title {
     color: #ffffff;
+    overflow: hidden;
     padding: 1rem;
   }
 }
