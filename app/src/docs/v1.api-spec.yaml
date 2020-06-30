@@ -1506,14 +1506,17 @@ components:
               example: 1ea77ee7-2234-44f8-8543-967674dcb825
             formVersionId:
               type: string
-              description: the form version
+              description: Form version
               example: 1
             deleted:
               type: boolean
               description: If this submission has been soft-deleted
+            formData:
+              $ref: '#/components/schemas/FormData'
         - $ref: '#/components/schemas/TimeStampUserData'
-    SubmissionPost:
+    FormData:
       type: object
+      description: Your Form data
     Note:
       allOf:
         - type: object
