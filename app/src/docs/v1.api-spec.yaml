@@ -4,11 +4,11 @@ info:
   version: 1.0.0
   title: Common Forms Toolkit API
   description: >-
-    An API for a Forms application. This API supports a complete set of Form
-    Management functions, ranging from the validation and capture of form data
-    to Administrative feature such as form submission Status changes, assigning
+    An API for a Forms application. This API supports an extensive set of Form
+    Management features, ranging from the validation and capture of form data
+    to Administrative actions such as form submission Status changes, assigning
     users or adding Notes. The toolkit also offers Team access management,
-    Notifications, Document generation and Reporting.
+    Notifications, Document Generation and Reporting.
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
@@ -681,8 +681,6 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Submission'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -728,6 +726,8 @@ paths:
                 $ref: '#/components/schemas/Submission'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -794,8 +794,6 @@ paths:
               schema:
                 type: string
                 format: binary
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -834,6 +832,8 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -873,8 +873,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -920,6 +918,8 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -1016,8 +1016,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -1070,6 +1068,8 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -1112,8 +1112,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
-        '422':
-          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -1160,6 +1158,8 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -1363,8 +1363,8 @@ components:
               example: confirmationEmail
             enabled:
               type: boolean
-              description: setting name
-              example: generateSubmissionPdf
+              description: Is this setting enabled?
+              example: true
             config:
               type: object
               example:
