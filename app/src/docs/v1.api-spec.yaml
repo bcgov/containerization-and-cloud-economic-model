@@ -4,7 +4,11 @@ info:
   version: 1.0.0
   title: Common Forms Toolkit API
   description: >-
-    An API for a Forms application. This API supports a complete set of Form Management functions, ranging from the validation and capture of form data to Administrative feature such as form submission Status changes, assigning users or adding Notes. The toolkit also offers Team access management, Notifications, Document generation and Reporting.
+    An API for a Forms application. This API supports a complete set of Form
+    Management functions, ranging from the validation and capture of form data
+    to Administrative feature such as form submission Status changes, assigning
+    users or adding Notes. The toolkit also offers Team access management,
+    Notifications, Document generation and Reporting.
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
@@ -711,10 +715,10 @@ paths:
         required: true
         content:
           application/json:
-              example:
-                FormFieldOne: Mrs
-                FormFieldTwo: Jane
-                FormFieldThree: Smith
+            example:
+              FormFieldOne: Mrs
+              FormFieldTwo: Jane
+              FormFieldThree: Smith
       responses:
         '201':
           description: Submission updated
@@ -1326,7 +1330,7 @@ components:
         actionDate:
           type: string
           format: date
-          pattern: "YYYY-MM-DD"
+          pattern: YYYY-MM-DD
           example: '2020-06-01'
         notes:
           type: array
@@ -1365,15 +1369,13 @@ components:
               type: object
               example:
                 to: parking-staff@example.com
-                from: the-application@exaample.com
+                from: the-application@example.com
                 title: Parking Form Accepted
                 subject: Parking Form Accepted
                 priority: normal
                 template: confirmation-number-email.html
-                messageLinkUrl: >-
-                  https://form-url/app/parking/admin/submission
-                messageLinkText: >-
-                  Please login to view the details of this submission
+                messageLinkUrl: 'https://form-url/app/parking/admin/submission'
+                messageLinkText: Please login to view the details of this submission
         - $ref: '#/components/schemas/TimeStampUserData'
     Statuses:
       type: array
@@ -1394,7 +1396,7 @@ components:
               actionDate:
                 type: string
                 format: date
-                pattern: "YYYY-MM-DD"
+                pattern: YYYY-MM-DD
                 example: '2020-06-01'
               classification:
                 type: string
