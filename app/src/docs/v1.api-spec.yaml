@@ -4,9 +4,7 @@ info:
   version: 1.0.0
   title: Common Forms Toolkit API
   description: >-
-    An API for a Forms application that supports Form management and
-    configuration, Submission functions such as Status changes, Notes as well as
-    Admin Team management, Notifications and more.
+    An API for a Forms application. This API supports a complete set of Form Management functions, ranging from the validation and capture of form data to Administrative feature such as form submission Status changes, assigning users or adding Notes. The toolkit also offers Team access management, Notifications, Document generation and Reporting.
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
@@ -585,18 +583,6 @@ paths:
           description: the form version
           required: false
         - in: query
-          name: confirmationId
-          schema:
-            type: string
-          description: the submission confirmation ID
-          required: false
-        - in: query
-          name: type
-          schema:
-            type: string
-          description: operation types offered by the business area
-          required: false
-        - in: query
           name: tiny
           schema:
             type: boolean
@@ -646,8 +632,10 @@ paths:
         required: true
         content:
           application/json:
-            schema:
-              $ref: '#/components/schemas/SubmissionPost'
+            example:
+              FormFieldOne: Ms
+              FormFieldTwo: Jane
+              FormFieldThree: Smith
       responses:
         '201':
           description: Submission created
@@ -655,6 +643,8 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Submission'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -721,10 +711,10 @@ paths:
         required: true
         content:
           application/json:
-            schema:
-              type: array
-              items:
-                $ref: '#/components/schemas/SubmissionPost'
+              example:
+                FormFieldOne: Mrs
+                FormFieldTwo: Jane
+                FormFieldThree: Smith
       responses:
         '201':
           description: Submission updated
@@ -972,6 +962,8 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
         default:
           description: Unexpected error
           content:
@@ -979,8 +971,58 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
   '/{slug}/submissions/{submissionId}/statuses/{submissionStatusId}/notes':
+    get:
+      summary: Get Status Notes
+      description: Get Notes that have been added to a Status update
+      operationId: readSubmissionStatusNotes
+      security:
+        - OpenID:
+            - viewer
+      tags:
+        - Notes
+      parameters:
+        - in: path
+          name: slug
+          schema:
+            type: string
+          required: true
+          description: a short name for the Form
+        - in: path
+          name: submissionId
+          schema:
+            type: string
+            format: uuid
+          required: true
+        - in: path
+          name: submissionStatusId
+          schema:
+            type: string
+            format: uuid
+          required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
     post:
       summary: Add Status Note
+      description: Add a new Note related to a Status update
       security:
         - OpenID:
             - reviewer
@@ -1032,7 +1074,8 @@ paths:
                 $ref: '#/components/schemas/Error'
   '/{slug}/submissions/{submissionId}/notes':
     get:
-      summary: Get Notes related to a form submission
+      summary: Get Submission Notes
+      description: Get Notes that have been added to a Submission
       operationId: getNotes
       security:
         - OpenID:
@@ -1058,7 +1101,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Note'
+                type: array
+                items:
+                  $ref: '#/components/schemas/Note'
         '401':
           $ref: '#/components/responses/UnauthorizedError'
         '403':
@@ -1073,6 +1118,7 @@ paths:
                 $ref: '#/components/schemas/Error'
     post:
       summary: Add Submission Note
+      description: Add a new Note related to a Submission
       security:
         - OpenID:
             - reviewer
@@ -1110,32 +1156,6 @@ paths:
           $ref: '#/components/responses/UnauthorizedError'
         '403':
           $ref: '#/components/responses/Forbidden'
-        default:
-          description: Unexpected error
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  '/{slug}/types':
-    get:
-      summary: Get Operation types for the business area
-      operationId: getOperationTypes
-      tags:
-        - Submissions
-      parameters:
-        - in: path
-          name: slug
-          schema:
-            type: string
-          required: true
-          description: a short name for the Form
-      responses:
-        '200':
-          description: Successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/OperationType'
         default:
           description: Unexpected error
           content:
@@ -1205,7 +1225,7 @@ components:
               example: d6944dd9-1c0c-4915-971d-542dda14eb7f
             description:
               type: string
-              example: This is an attestation form for Agriculture and Seafood
+              example: This is a form for your business
             metadata:
               $ref: '#/components/schemas/Form'
             versions:
@@ -1241,7 +1261,7 @@ components:
               example: d6944dd9-1c0c-4915-971d-542dda14eb7f
             description:
               type: string
-              example: This is an attestation form for Agriculture and Seafood
+              example: This is an updated form for your business
             metadata:
               $ref: '#/components/schemas/Form'
             versions:
@@ -1306,7 +1326,8 @@ components:
         actionDate:
           type: string
           format: date
-          example: 2020-06-01T00:00:00.000Z
+          pattern: "YYYY-MM-DD"
+          example: '2020-06-01'
         notes:
           type: array
           items:
@@ -1315,6 +1336,9 @@ components:
               note:
                 type: string
                 example: This Client is ready for a phone call
+        classification:
+          type: string
+          example: Pass or fail
     NotePost:
       type: object
       properties:
@@ -1340,17 +1364,16 @@ components:
             config:
               type: object
               example:
-                to: NR.CommonServiceShowcase@gov.bc.ca
-                from: NR.CommonServiceShowcase@gov.bc.ca
-                title: Agriculture and Seafood Form Accepted
-                subject: Agriculture and Seafood Form Accepted
+                to: parking-staff@example.com
+                from: the-application@exaample.com
+                title: Parking Form Accepted
+                subject: Parking Form Accepted
                 priority: normal
                 template: confirmation-number-email.html
                 messageLinkUrl: >-
-                  https://comfort-dev.pathfinder.gov.bc.ca/app/agriseafoodopscreening/admin/submission
+                  https://form-url/app/parking/admin/submission
                 messageLinkText: >-
-                  Please login to view the details of this Agriculture and
-                  Seafood Attestation
+                  Please login to view the details of this submission
         - $ref: '#/components/schemas/TimeStampUserData'
     Statuses:
       type: array
@@ -1370,7 +1393,9 @@ components:
                 example: jsmith@email.com
               actionDate:
                 type: string
-                example: null
+                format: date
+                pattern: "YYYY-MM-DD"
+                example: '2020-06-01'
               classification:
                 type: string
                 example: pass
@@ -1481,175 +1506,12 @@ components:
               type: string
               description: the form version
               example: 1
-            confirmationId:
-              type: string
-              description: The first 8 characters of the submissionId in uppercase
-              example: 1EA77EE7
-            type:
-              type: string
-              description: The Operation Type chosen by the operator filling the form
-              example: AGRICULTURE
             deleted:
               type: boolean
               description: If this submission has been soft-deleted
-            operationType:
-              $ref: '#/components/schemas/OperationType'
-            attestation:
-              $ref: '#/components/schemas/Attestation'
-            business:
-              $ref: '#/components/schemas/Business'
-            location:
-              $ref: '#/components/schemas/Location'
-            contacts:
-              type: array
-              items:
-                $ref: '#/components/schemas/Contact'
         - $ref: '#/components/schemas/TimeStampUserData'
     SubmissionPost:
       type: object
-      properties:
-        attestation:
-          type: object
-        business:
-          type: object
-          properties:
-            name:
-              type: string
-              example: ZZ Smoke Testing
-            orgBookId:
-              type: string
-              nullable: true
-            addressLine1:
-              type: string
-              example: 1234 Here St
-            addressLine2:
-              type: string
-              nullable: true
-            city:
-              type: string
-              example: Saanich
-            province:
-              type: string
-              example: BC
-            postalCode:
-              type: string
-              example: ABCDEF
-        contacts:
-          type: array
-          items:
-            type: object
-            properties:
-              contactType:
-                type: string
-                example: PRIMARY
-              firstName:
-                type: string
-                example: Jane
-              lastName:
-                type: string
-                example: Doe
-              phone1:
-                type: string
-                example: 1234567890
-              phone2:
-                type: string
-              email:
-                type: string
-                example: jane@doe.com
-          minItems: 2
-          maxItems: 2
-        type:
-          type: string
-          example: SEAFOOD
-        location:
-          type: object
-          properties:
-            startDate:
-              type: string
-              format: date
-              example: 2020-05-10T00:00:00.000Z
-              nullable: true
-            endDate:
-              type: string
-              format: date
-              example: 2020-07-30T00:00:00.000Z
-              nullable: true
-            city:
-              type: string
-              example: Victoria BC
-            cityLatitude:
-              type: string
-              nullable: true
-            cityLongitude:
-              type: string
-              nullable: true
-            numberOfWorkers:
-              type: integer
-              example: 10
-            accTents:
-              type: boolean
-            accWorkersHome:
-              type: boolean
-    OperationType:
-      allOf:
-        - type: object
-          additionalProperties: true
-          description: Operation Type details
-          properties:
-            type:
-              type: string
-              description: The Operation Type chosen by the operator filling the form
-              example: AGRICULTURE
-            display:
-              type: string
-              description: The human-readable text for this operation type
-              example: Agriculture
-            enabled:
-              type: boolean
-              description: If this operation type is enabled in the form
-        - $ref: '#/components/schemas/TimeStampUserData'
-    Attestation:
-      type: object
-      additionalProperties: true
-      description: checkboxes selected in form
-      properties:
-        attestationId:
-          type: string
-          format: uuid
-          description: the primary key for the attestations record
-          example: 2sq87fr5-2234-44f8-8543-967674dgh3jh2
-        submissionId:
-          type: string
-          format: uuid
-          description: The Submission ID
-          example: 1ea77ee7-2234-44f8-8543-967674dcb825
-    Business:
-      type: object
-      additionalProperties: true
-      description: details of the operating business
-      properties:
-        name:
-          type: string
-          description: The business name
-          example: Timber Sales Inc.
-    Location:
-      type: object
-      additionalProperties: true
-      description: Physical Location of the operating business and dates at this location
-      properties:
-        cityLatitude:
-          type: integer
-          description: Latitude of the location
-          example: '-119'
-    Contact:
-      type: object
-      additionalProperties: true
-      description: Contact details of the people related to the operation
-      properties:
-        contactType:
-          type: string
-          description: The type of contact
-          example: COVID_COORDINATOR
     Note:
       allOf:
         - type: object
