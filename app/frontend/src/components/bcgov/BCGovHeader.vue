@@ -5,9 +5,18 @@
       <a href="https://www2.gov.bc.ca" data-test="btn-header-logo">
         <v-img
           alt="B.C. Government Logo"
+          class="d-flex d-md-none"
           contain
           height="3.5rem"
-          src="@/assets/images/17_gov3_bc_logo.svg"
+          src="@/assets/images/bc_logo_square.svg"
+          width="3.5rem"
+        />
+        <v-img
+          alt="B.C. Government Logo"
+          class="d-none d-md-flex"
+          contain
+          height="3.5rem"
+          src="@/assets/images/bc_logo.svg"
           width="10rem"
         />
       </a>
