@@ -1,7 +1,7 @@
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import Vuex from 'vuex';
 import Vuetify from 'vuetify';
-import VueRouter from 'vue-router'
+import VueRouter from 'vue-router';
 
 import commonFormService from '@/services/commonFormService';
 import DeleteButton from '@/components/common/admin/inspection/DeleteButton.vue';
