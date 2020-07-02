@@ -16,6 +16,6 @@ describe('Secure.vue', () => {
       stubs: ['BaseSecure', 'BCGovFooter', 'BCGovHeader', 'router-view']
     });
 
-    expect(wrapper.text()).toMatch('');
+    expect(wrapper.html()).toMatch('v-main');
   });
 });
