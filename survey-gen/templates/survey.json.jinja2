@@ -1,0 +1,43 @@
+{
+  "title": "{{ survey_meta.title }}",
+	{%  if questions|length -%}
+  "pages": [
+	{% for topic, topic_questions in questions|groupby("topic") %}
+    {
+      "name": "{{ topic }}",
+      "title": "{{ topic }}",
+	  {% if topic_questions|length -%}
+      "elements": [
+		  {% for question in topic_questions -%}
+        {
+          "type": "radiogroup",
+          "name": "{{ question['slug'] }}",
+          "title": "{{ question.question_text }}",
+          "isRequired": true,
+          "colCount": 3,
+          "choices": [
+            {
+			  "value": 1,
+			  "text": "{{ question.risky_answer }}"
+		    },
+		  	{
+			  "value": 2,
+			  "text": "{{ question.ok_answer }}"
+			},
+			{
+			  "value": 3,
+			  "text": "{{ question.best_answer }}"
+			}
+          ]
+        }{{ "," if not loop.last }}
+	  {% endfor -%}
+      ]
+	{%- endif %}
+    }{{ "," if not loop.last }}
+	{%  endfor -%}
+  ],
+  {%- endif %}
+  "completedHtml": "<h2>Thanks for playing!</h2>",
+  "showQuestionNumbers": "off",
+  "requiredText": ""
+}
