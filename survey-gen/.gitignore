@@ -128,7 +128,9 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /.idea/
-/client_secret.json
 
 # App output
 survey.json
+
+# Client secret
+client_secret.json
