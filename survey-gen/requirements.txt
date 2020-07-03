@@ -2,7 +2,7 @@ awesome-slugify==1.6.5
 certifi==2019.11.28
 chardet==3.0.4
 gspread==3.3.0
-httplib2==0.17.0
+httplib2==0.18.0
 idna==2.9
 Jinja2==2.11.1
 MarkupSafe==1.1.1
