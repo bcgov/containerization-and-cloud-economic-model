@@ -2,11 +2,11 @@
   <v-app>
     <BCGovHeader />
 
-    <v-content>
+    <v-main>
       <transition name="component-fade" mode="out-in">
         <router-view />
       </transition>
-    </v-content>
+    </v-main>
 
     <BCGovFooter />
   </v-app>
