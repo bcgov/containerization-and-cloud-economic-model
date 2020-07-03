@@ -1,18 +1,16 @@
 package specs
 
-import geb.spock.GebReportingSpec
-import listeners.BrowserStackReportingSpec
 import pages.MinesOperatorPage
 import org.openqa.selenium.Keys
-//GebReportingSpec
+import specs.traits.Utils
+import geb.Module
 
-
-class MinesOperatorSpec extends BrowserStackReportingSpec {
+class MinesOperatorSpec extends BaseSpec implements Utils {
 
     def "As a user, I want to fill in the Mines Operator Form."() {
         when: 'I enter the url for the Form'
           to MinesOperatorPage
-          InjectjQuery()
+          injectjQuery()
         then: 'I arrive at the correct page'
           at MinesOperatorPage
         when: 'I click on the -Go to Step 2- Button'
@@ -21,60 +19,63 @@ class MinesOperatorSpec extends BrowserStackReportingSpec {
           assert lowerTitle
 
           //Registered Business Name
-          registeredBusinessName.value("STENS CONSULTING INC.")
+          setRegisteredBusinessName(randomBusinessName())
 
           //Primary Contact
-          firstName.value("First Name")
-          lastName.value("Last Name")
-          phoNe1.value("1234567890")
-          phoNe2.value("3335551234")
-          eMail.value("fake@email.com")
+          setFirstName(randomFirstName())
+          setLastName(randomLastName())
+          setPhone(randomPhoneNumber())
+          setAlternativePhone(randomPhoneNumber())
+          setEmail(randomEmail())
 
           //Business Address
-          businessAddressLine1.value("BA Line 1")
-          businessAddressLine2.value("BA line 2")
-          businessAddressCity.value("BA City")
-          businessAddressProvince << "AB"
-          businessAddressPostalCode.value("X9X9X9")
+          businessAddressLine1.value(randomStreetName())
+          businessAddressLine2.value(randomStreetName())
+          businessAddressCity.value(randomCityName())
+          businessAddressProvince << randomProvince()
+          businessAddressPostalCode.value(randomPostalCode())
 
           //COVID-19 Coordinator
-          covidFirstName.value("covid First Name")
-          covidLastName.value("covid Last Name")
-          covidPhone1.value("123456789")
-          covidPhone2.value("9087654321")
-          covidEmail.value("covid@email.com")
+          covidFirstName.value(randomFirstName())
+          covidLastName.value(randomLastName())
+          covidPhone1.value(randomPhoneNumber())
+          covidPhone2.value(randomPhoneNumber())
+          covidEmail.value(randomEmail())
 
           //Provide your accommodation details
           startDate.click()
-          //Thread.sleep(500)
-          startDate.jquery.removeAttr("readonly") //Nasty Hack to make the dates working
-          startDate << "2020-06-15"
+          basestartDate.jquery.removeAttr("readonly") //Nasty Hack to make the dates working
+          basestartDate << "2020-07-15"
+          basestartDate.jquery.attr("readonly","readonly") //Nasty Hack to make the dates working
 
           endDate.click()
-          //Thread.sleep(500)
-          endDate.jquery.removeAttr("readonly") //Nasty Hack to make the dates working
-          endDate << "2021-07-15"
+          baseendDate.jquery.removeAttr("readonly") //Nasty Hack to make the dates working
+          baseendDate << "2021-07-15"
+          baseendDate.jquery.attr("readonly","readonly") //Nasty Hack to make the dates working
 
           closestCity.click()
-          closestCity.value("Langley, BC")
+          closestCity.value(randomCityName() +', ' + randomProvince())
 
-          numberOfWorkers.value("999")
+          numberOfWorkers.value(Math.abs(new Random().nextInt() % 600) + 1)
 
           //Type of accommodation for workers at this location (check all that apply)
-          cbFormaccTents.jquery.click()
-          tentDetails.value("Test Details")
-          cbFormaccMotel.jquery.click()
-          motelName.value("Motel Name")
-          motelAddressLine1.value("Motel Line 1")
-          motelAddressLine2.value("Motel Line 2")
-          motelCity.value("Motel City")
-          motelProvince << "AB"
-          motelPostalCode.value("X9X9X9")
-          accWorkersHome.jquery.click()
+          accTents.click()
+          tentDetails.value(randomDescription())
+
+          accMotel.click()
+
+          motelName.value(randomFirstName() + ' Motel')
+          motelAddressLine1.value(randomStreetName())
+          motelAddressLine2.value(randomStreetName())
+          motelCity.value(randomCityName())
+          motelProvince << randomProvince()
+          motelPostalCode.value(randomPostalCode())
+
+          accWorkersHome.click()
 
           //Authorization Information
-          mineNumber.value(Math.abs(new Random().nextInt(999999) + 1000000))
-          permitNumber.value("123456")
+          setMineNumber()
+          setPermitNumber()
           permitNumber.click()
           permitNumber << Keys.chord(Keys.TAB)
         when: 'I click on the -Go to Step 3- Button'
@@ -120,10 +121,56 @@ class MinesOperatorSpec extends BrowserStackReportingSpec {
           waitFor { nextStep.displayed }
           nextStep.click()
 
+        when: 'I am at step 4, I can fill out the details'
           at MinesOperatorPage
-          Thread.sleep(5000)
+          educationSignage.jquery.click()
+          educationContactPersonnel.jquery.click()
 
-          waitFor { previousStep.displayed }
-          previousStep.click()
+          //Train workers on COVID-19 infection control
+          trainingCovid19.jquery.click()
+          trainingEtiquette.jquery.click()
+          trainingLocations.jquery.click()
+          trainingFirstAid.jquery.click()
+          trainingReporting.jquery.click()
+
+          //Meals Preparation: Practice safe food handling
+          mealsDistancing.jquery.click()
+          mealsDishware.jquery.click()
+          mealsDishwashing.jquery.click()
+        then: 'I can continue to the next page'
+          waitFor { nextStep.displayed }
+          nextStep.click()
+
+        when: 'I am at step 5, I can fill out the details'
+          at MinesOperatorPage
+          infectionSeparation.jquery.click()
+          infectionSymptoms.jquery.click()
+          infectionHeathLinkBC.jquery.click()
+          infectionSanitization.jquery.click()
+          infectionAccommodation.jquery.click()
+
+          //Providing Food for Ill Workers
+          infectedFeeding.jquery.click()
+
+          //Housekeeping for Ill Workers
+          infectedHousekeeping.jquery.click()
+
+          //Waste Management for Ill Workers
+          infectedWaste.jquery.click()
+
+        then: 'I can continue to the next page'
+          waitFor { nextStep.displayed }
+          nextStep.click()
+
+        when: 'I am at step 6, I can fill out the details'
+          at MinesOperatorPage
+          certifyAccurateInformation.jquery.click()
+          agreeToInspection.jquery.click()
+          waitFor { subMit.displayed }
+          waitFor { subMit.click() }
+
+        then: 'I can continue to the next page'
+          waitFor { $("h1", class:"pb-8", text: contains("successfully") ) }
+          waitFor { $("h2", class: "mb-10") }
       }
 }

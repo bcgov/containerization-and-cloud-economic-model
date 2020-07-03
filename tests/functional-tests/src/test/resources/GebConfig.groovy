@@ -1,6 +1,6 @@
 /*
 	This is the Geb configuration file.
-	
+
 	See: http://www.gebish.org/manual/current/#configuration
 */
 
@@ -45,7 +45,7 @@ atCheckWaiting = [20, 1]
 String buildId = SessionIdHolder.instance.buildId
 
 environments {
-	
+
 	// See: https://github.com/SeleniumHQ/selenium/wiki/ChromeDriver
 	ChromeOptions o = new ChromeOptions()
 	o.addArguments('no-sandbox')
@@ -60,8 +60,8 @@ environments {
 	o.setPageLoadStrategy(PageLoadStrategy.NONE)
 
 	chrome {
-		driver = { 
-			driver = new ChromeDriver(o) 
+		driver = {
+			driver = new ChromeDriver(o)
 
             return driver
 			}
@@ -72,31 +72,31 @@ environments {
 		driver = {
 			o.addArguments('headless')
 			driver = new ChromeDriver(o)
-            
+
             return driver
 		}
 	}
-	
+
 	// See: https://github.com/SeleniumHQ/selenium/wiki/FirefoxDriver
 	firefox {
 		driver = { new FirefoxDriver() }
 	}
-		
+
 	firefoxHeadless {
 		driver = {
 			FirefoxOptions fo = new FirefoxOptions()
 			fo.addArguments('-headless')
 			driver = new FirefoxDriver(fo)
-           
+
             return driver
 		}
 	}
 
 	remoteFirefox {
 		driver = {
-			DesiredCapabilities caps = new DesiredCapabilities();
+      DesiredCapabilities caps = new DesiredCapabilities();
 			caps.setCapability("browser", "Firefox")
-			caps.setCapability("browser_version", "67.0")
+			caps.setCapability("browser_version", "77.0")
 			caps.setCapability("os", "Windows")
 			caps.setCapability("os_version", "10")
 			caps.setCapability("resolution", "1920x1200")
@@ -151,7 +151,7 @@ environments {
 		}
 	}
 }
-	
+
 // To run the tests with all browsers just run “./gradlew test”
 baseNavigatorWaiting = true
 

@@ -14,8 +14,8 @@ drivers.each { driver ->
     group JavaBasePlugin.VERIFICATION_GROUP
 
     outputs.upToDateWhen { false }  // Always run tests
-    
-    systemProperty "geb.env", driver    
+
+    systemProperty "geb.env", driver
     systemProperty "geb.build.reportsDir", reporting.file("geb/$name")
     /*
      * Set environment variables from a .env file, if it exists.
@@ -48,9 +48,10 @@ dependencies {
         }
     compile "org.codehaus.groovy.modules.http-builder:$httpbuilderVersion"
     compile group: 'com.browserstack', name: 'browserstack-local-java', version: "$browserstackVersion"
+    compile group: 'com.github.javafaker', name: 'javafaker', version: '0.15'
 
     testCompile 'junit:junit:4.13'
-    
+
     // The allure reports
     testCompile 'com.aoe:geb-spock-reports:0.2.5'
 
@@ -77,13 +78,14 @@ dependencies {
     testImplementation( "com.athaydes:spock-reports:$spockreportVersion" ) {
         transitive = false // this avoids affecting your version of Groovy/Spock
     }
-    
+
     // if you don't already have slf4j-api and an implementation of it in the classpath, add this!
     testImplementation "org.slf4j:slf4j-api:$slf4jVersion"
     testImplementation "org.slf4j:slf4j-simple:$slf4jVersion"
 
     // Used for reading test data straight from a database
     testImplementation "mysql:mysql-connector-java:$mysqlconnectorjavaVersion"
+
 }
 
 webdriverBinaries {
@@ -100,7 +102,7 @@ tasks.withType(Test) {
     maxHeapSize = "1g"
     jvmArgs '-XX:MaxMetaspaceSize=128m'
     //group JavaBasePlugin.VERIFICATION_GROUP
-    
+
     testLogging {
         exceptionFormat = 'full'
     }
