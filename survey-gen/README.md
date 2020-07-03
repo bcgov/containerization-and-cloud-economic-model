@@ -14,26 +14,37 @@ Generate dynamic surveys from easy to use sources
 
 #### Google Service Account and OAuth2 Credentials
 
-These steps are copied from Twilio's blog on [Google Spreadsheets and Python](https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html).
-
 1. Go to the [Google APIs Console](https://console.developers.google.com/).
-2. Create a new project.
-3. Click Enable API. Search for and enable the Google Drive API.
-4. Create credentials for a Web Server to access Application Data.
-5. Name the service account and grant it a Project Role of Editor.
-6. Download the JSON file.
-7. Copy the JSON file to your code directory and rename it to client_secret.json. (OAuth2 credentials)
+2. Select or create a project using the Project drop-down.  Look beside the Google APIs Hamburger Button, top left.
+3. Click Enable APIs and Services.
+4. Search for and open the [Google Sheets API](https://console.developers.google.com/apis/library/sheets.googleapis.com).
+5. Click Enable.
+6. Click Create Credentials.
+7. "Which API are you using?": Google Sheets API.
+8.  "Where will you be calling the API from?": Web server.
+9.  "What data will you be accessing?": Application data.
+10. "Are you planning ot use thsi API with App Engine or Compute Engine?": No, I'm not using them.
+11. Click What Credentials Do I Need?
+12. Create a meaningful Service account name, like gs-test.
+13. Select Role > Project > Editor.
+14. "Key type": JSON.
+15. Click Continue.
+16. A JSON file will download.  Then click Close.
+17. Copy that to your code directory and rename it to client_secret.json. (OAuth2 credentials)
 
 #### Google Sheet and Allowing Access
 
-1. Open client_secrets.json and make note of the client_email.
+1. Open client_secrets.json and make note of the client_email.  It is also available from the API Credentials page.
 2. Go to [Google Drive](https://drive.google.com/).
 3. Create a new spreadsheet.
 4. Click Share.
 5. Provide Editor rights to the client_email found in step #1.
-6. Click Done.
+6. Uncheck Notify people.  All that would do is create a bounced email.
+7. Click Done.
 
-Format the spreadsheet as follows:
+#### Spreadsheet Formatting
+
+Create the spreadsheet as follows:
 
 * Location: Root of Google Drive
 * Name: Cloud Conformance Survey
@@ -52,7 +63,6 @@ Format the spreadsheet as follows:
 
 #### Execution
 
-
 Execute as below.  Output will be found in survey.json.
 
 ```
@@ -65,4 +75,4 @@ Please create an issue to request new features or report bugs. Pull requests are
 
 ## Acknowledgments
 
-A big thank you to Twilio for their blog post on [Google Spreadsheets and Python](https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html).  It was the basis for this guide.  Their bulleted list was copied directly into "Google Service Account and OAuth2 Credentials".
+A big thank you to Twilio for their blog post on [Google Spreadsheets and Python](https://www.twilio.com/blog/2017/02/an-easy-way-to-read-and-write-to-a-google-spreadsheet-in-python.html).  It was instrumental to this guide.
