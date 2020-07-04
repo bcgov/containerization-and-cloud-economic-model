@@ -89,7 +89,11 @@ trait Utils {
   }
 
   String randomDescription(){
-    return faker.yoda().quote()
+    String inputString = faker.yoda().quote()
+    if (inputString.length() > 255) {
+      inputString = inputString.substring(0, 255);
+    }
+    return inputString
   }
 
   String randomBusinessName(){

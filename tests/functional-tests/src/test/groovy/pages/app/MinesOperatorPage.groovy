@@ -81,8 +81,8 @@ class MinesOperatorPage extends BaseAppPage {
       lowerTitlePg3 { $("h2", class:"pb-8", text:"Before operations begin, please check all that apply") }
 
       //COVID-19 Information
-      protectionSignage { $("input", type:"checkbox","data-test":"cb-form-protectionSignage",dataState) }
-      workerContactPersonnel { $("input", type:"checkbox", "data-test":"cb-form-workerContactPersonnel",dataState) }
+      protectionSignage { $("input", type:"checkbox","data-test":"cb-form-protectionSignage",dataState).parentsUntil("div", class:"v-input__slot") }
+      workerContactPersonnel { $("input", type:"checkbox", "data-test":"cb-form-workerContactPersonnel",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Provide safe lodging and accommodation: General Worker
       commonAreaYes { $("input", type:"radio", 0) }
@@ -91,76 +91,77 @@ class MinesOperatorPage extends BaseAppPage {
       bedSituationInd { $("input", type:"radio", 2) }
       bedSituationShare { $("input", type:"radio", 3) }
       sharedSleepingPerRoom { $("input", type:"text", "data-test":"select-form-sharedSleepingPerRoom",dataState) }
-      sharedSleepingDistancing { $("input", type:"checkbox", "data-test":"cb-form-sharedSleepingDistancing",dataState) }
+      sharedSleepingDistancing { $("input", type:"checkbox", "data-test":"cb-form-sharedSleepingDistancing",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Self-isolation space if a worker comes down with COVID-19-like symptoms
-      selfIsolateUnderstood { $("input", type:"checkbox", "data-test":"cb-form-selfIsolateUnderstood",dataState) }
-      selfIsolateAccommodation { $("input", type:"checkbox", "data-test":"cb-form-selfIsolateAccommodation",dataState) }
+      selfIsolateUnderstood { $("input", type:"checkbox", "data-test":"cb-form-selfIsolateUnderstood",dataState).parentsUntil("div", class:"v-input__slot") }
+      selfIsolateAccommodation { $("input", type:"checkbox", "data-test":"cb-form-selfIsolateAccommodation",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Make sure laundry services are available and handled safely
-      laundryServices { $("input", type:"checkbox", "data-test":"cb-form-laundryServices",dataState) }
+      laundryServices { $("input", type:"checkbox", "data-test":"cb-form-laundryServices",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Practicing waste management: At work-site and accommodation
-      wasteManagementGloves { $("input", type:"checkbox", "data-test":"cb-form-wasteManagementGloves",dataState) }
-      wasteManagementSchedule { $("input", type:"checkbox", "data-test":"cb-form-wasteManagementSchedule",dataState) }
-      wasteManagementBags { $("input", type:"checkbox", "data-test":"cb-form-wasteManagementBags",dataState) }
+      wasteManagementGloves { $("input", type:"checkbox", "data-test":"cb-form-wasteManagementGloves",dataState).parentsUntil("div", class:"v-input__slot") }
+      wasteManagementSchedule { $("input", type:"checkbox", "data-test":"cb-form-wasteManagementSchedule",dataState).parentsUntil("div", class:"v-input__slot") }
+      wasteManagementBags { $("input", type:"checkbox", "data-test":"cb-form-wasteManagementBags",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Have proper hand-washing facilities: At work-site and accommodation
-      handWashingStations { $("input", type:"checkbox", "data-test":"cb-form-handWashingStations",dataState) }
-      handWashingSoapWater { $("input", type:"checkbox", "data-test":"cb-form-handWashingSoapWater",dataState) }
-      handWashingWaterless { $("input", type:"checkbox", "data-test":"cb-form-handWashingWaterless",dataState) }
-      handWashingPaperTowels { $("input", type:"checkbox", "data-test":"cb-form-handWashingPaperTowels",dataState) }
-      handWashingSignage { $("input", type:"checkbox", "data-test":"cb-form-handWashingSignage",dataState) }
+      handWashingStations { $("input", type:"checkbox", "data-test":"cb-form-handWashingStations",dataState).parentsUntil("div", class:"v-input__slot") }
+      handWashingSoapWater { $("input", type:"checkbox", "data-test":"cb-form-handWashingSoapWater",dataState).parentsUntil("div", class:"v-input__slot") }
+      handWashingWaterless { $("input", type:"checkbox", "data-test":"cb-form-handWashingWaterless",dataState).parentsUntil("div", class:"v-input__slot") }
+      handWashingPaperTowels { $("input", type:"checkbox", "data-test":"cb-form-handWashingPaperTowels",dataState).parentsUntil("div", class:"v-input__slot") }
+      handWashingSignage { $("input", type:"checkbox", "data-test":"cb-form-handWashingSignage",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Physical Distancing Practices
-      distancingMaintained { $("input", type:"checkbox", "data-test":"cb-form-distancingMaintained",dataState) }
-      distancingFaceShields { $("input", type:"checkbox", "data-test":"cb-form-distancingFaceShields",dataState) }
+      distancingMaintained { $("input", type:"checkbox", "data-test":"cb-form-distancingMaintained",dataState).parentsUntil("div", class:"v-input__slot") }
+      distancingFaceShields { $("input", type:"checkbox", "data-test":"cb-form-distancingFaceShields",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Have a Cleaning and Disinfecting Schedule
-      disinfectingSchedule { $("input", type:"checkbox", "data-test":"cb-form-disinfectingSchedule",dataState) }
+      disinfectingSchedule { $("input", type:"checkbox", "data-test":"cb-form-disinfectingSchedule",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Transportation of Workers
-      transportationSingleOccupant { $("input", type:"checkbox", "data-test":"cb-form-transportationSingleOccupant",dataState) }
-      transportationBusesVans { $("input", type:"checkbox", "data-test":"cb-form-transportationBusesVans",dataState) }
-      transportationTrucksCars { $("input", type:"checkbox", "data-test":"cb-form-transportationTrucksCars",dataState) }
-      transportationHelicopter { $("input", type:"checkbox", "data-test":"cb-form-transportationHelicopter",dataState) }
-      transportationTravelPod { $("input", type:"checkbox", "data-test":"cb-form-transportationTravelPod",dataState) }
-      transportationCleaningDistancing { $("input", type:"checkbox", "data-test":"cb-form-transportationCleaningDistancing",dataState) }
+      transportationSingleOccupant { $("input", type:"checkbox", "data-test":"cb-form-transportationSingleOccupant",dataState).parentsUntil("div", class:"v-input__slot") }
+      transportationBusesVans { $("input", type:"checkbox", "data-test":"cb-form-transportationBusesVans",dataState).parentsUntil("div", class:"v-input__slot") }
+      transportationTrucksCars { $("input", type:"checkbox", "data-test":"cb-form-transportationTrucksCars",dataState).parentsUntil("div", class:"v-input__slot") }
+      transportationHelicopter { $("input", type:"checkbox", "data-test":"cb-form-transportationHelicopter",dataState).parentsUntil("div", class:"v-input__slot") }
+      transportationTravelPod { $("input", type:"checkbox", "data-test":"cb-form-transportationTravelPod",dataState).parentsUntil("div", class:"v-input__slot") }
+      basetransportationCleaningDistancing { $("input", type:"checkbox", "data-test":"cb-form-transportationCleaningDistancing",dataState) }
+      transportationCleaningDistancing { basetransportationCleaningDistancing.parentsUntil("div", class:"v-input__slot") }
 
       //Implement COVID-19 Employee Education
-      educationSignage { $("input", type:"checkbox", "data-test":"cb-form-educationSignage",dataState) }
-      educationContactPersonnel { $("input", type:"checkbox", "data-test":"cb-form-educationContactPersonnel",dataState) }
+      educationSignage { $("input", type:"checkbox", "data-test":"cb-form-educationSignage",dataState).parentsUntil("div", class:"v-input__slot") }
+      educationContactPersonnel { $("input", type:"checkbox", "data-test":"cb-form-educationContactPersonnel",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Train workers on COVID-19 infection control
-      trainingCovid19 { $("input", type:"checkbox", "data-test":"cb-form-trainingCovid19",dataState) }
-      trainingEtiquette { $("input", type:"checkbox", "data-test":"cb-form-trainingEtiquette",dataState) }
-      trainingLocations { $("input", type:"checkbox", "data-test":"cb-form-trainingLocations",dataState) }
-      trainingFirstAid { $("input", type:"checkbox", "data-test":"cb-form-trainingFirstAid",dataState) }
-      trainingReporting { $("input", type:"checkbox", "data-test":"cb-form-trainingReporting",dataState) }
+      trainingCovid19 { $("input", type:"checkbox", "data-test":"cb-form-trainingCovid19",dataState).parentsUntil("div", class:"v-input__slot") }
+      trainingEtiquette { $("input", type:"checkbox", "data-test":"cb-form-trainingEtiquette",dataState).parentsUntil("div", class:"v-input__slot") }
+      trainingLocations { $("input", type:"checkbox", "data-test":"cb-form-trainingLocations",dataState).parentsUntil("div", class:"v-input__slot") }
+      trainingFirstAid { $("input", type:"checkbox", "data-test":"cb-form-trainingFirstAid",dataState).parentsUntil("div", class:"v-input__slot") }
+      trainingReporting { $("input", type:"checkbox", "data-test":"cb-form-trainingReporting",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Meals Preparation: Practice safe food handling
-      mealsDistancing { $("input", type:"checkbox", "data-test":"cb-form-mealsDistancing",dataState) }
-      mealsDishware { $("input", type:"checkbox", "data-test":"cb-form-mealsDishware",dataState) }
-      mealsDishwashing { $("input", type:"checkbox", "data-test":"cb-form-mealsDishwashing",dataState) }
+      mealsDistancing { $("input", type:"checkbox", "data-test":"cb-form-mealsDistancing",dataState).parentsUntil("div", class:"v-input__slot") }
+      mealsDishware { $("input", type:"checkbox", "data-test":"cb-form-mealsDishware",dataState).parentsUntil("div", class:"v-input__slot") }
+      mealsDishwashing { $("input", type:"checkbox", "data-test":"cb-form-mealsDishwashing",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Plan to manage individuals with suspected COVID-19 Infection
-      infectionSeparation { $("input", type:"checkbox", "data-test":"cb-form-infectionSeparation",dataState) }
-      infectionSymptoms { $("input", type:"checkbox", "data-test":"cb-form-infectionSymptoms",dataState) }
-      infectionHeathLinkBC { $("input", type:"checkbox", "data-test":"cb-form-infectionHeathLinkBC",dataState) }
-      infectionSanitization { $("input", type:"checkbox", "data-test":"cb-form-infectionSanitization",dataState) }
-      infectionAccommodation { $("input", type:"checkbox", "data-test":"cb-form-infectionAccommodation",dataState) }
+      infectionSeparation { $("input", type:"checkbox", "data-test":"cb-form-infectionSeparation",dataState).parentsUntil("div", class:"v-input__slot") }
+      infectionSymptoms { $("input", type:"checkbox", "data-test":"cb-form-infectionSymptoms",dataState).parentsUntil("div", class:"v-input__slot") }
+      infectionHeathLinkBC { $("input", type:"checkbox", "data-test":"cb-form-infectionHeathLinkBC",dataState).parentsUntil("div", class:"v-input__slot") }
+      infectionSanitization { $("input", type:"checkbox", "data-test":"cb-form-infectionSanitization",dataState).parentsUntil("div", class:"v-input__slot") }
+      infectionAccommodation { $("input", type:"checkbox", "data-test":"cb-form-infectionAccommodation",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Providing Food for Ill Workers
-      infectedFeeding { $("input", type:"checkbox", "data-test":"cb-form-infectedFeeding",dataState) }
+      infectedFeeding { $("input", type:"checkbox", "data-test":"cb-form-infectedFeeding",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Housekeeping for Ill Workers
-      infectedHousekeeping { $("input", type:"checkbox", "data-test":"cb-form-infectedHousekeeping",dataState) }
+      infectedHousekeeping { $("input", type:"checkbox", "data-test":"cb-form-infectedHousekeeping",dataState).parentsUntil("div", class:"v-input__slot") }
 
       //Waste Management for Ill Workers
-      infectedWaste { $("input", type:"checkbox", "data-test":"cb-form-infectedWaste",dataState) }
+      infectedWaste { $("input", type:"checkbox", "data-test":"cb-form-infectedWaste",dataState).parentsUntil("div", class:"v-input__slot") }
 
-      certifyAccurateInformation { $("input", type:"checkbox", "data-test":"cb-form-certifyAccurateInformation",dataState) }
-      agreeToInspection { $("input", type:"checkbox", "data-test":"cb-form-agreeToInspection",dataState) }
+      certifyAccurateInformation { $("input", type:"checkbox", "data-test":"cb-form-certifyAccurateInformation",dataState).parentsUntil("div", class:"v-input__slot") }
+      agreeToInspection { $("input", type:"checkbox", "data-test":"cb-form-agreeToInspection",dataState).parentsUntil("div", class:"v-input__slot") }
 
       subMit { $("button", class: "v-btn v-btn--contained theme--light v-size--default primary", "data-test":"btn-form-submit") }
 
@@ -210,5 +211,9 @@ class MinesOperatorPage extends BaseAppPage {
     boolean setPermitNumber() { //Sets a random number
       permitNumber.value(Math.abs(new Random().nextInt(99999) + 100000))
       return true
+    }
+    void selectNumberofBeds(Integer value) {
+      $("div", class:"v-list-item__title", text:"$value", 0).click()
+      return
     }
 }
