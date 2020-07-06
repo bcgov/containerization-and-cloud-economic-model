@@ -1,0 +1,72 @@
+package specs
+
+import specs.traits.Login
+import pages.MenuPage
+import pages.HomePage
+
+import spock.lang.*
+//import org.openqa.selenium.Cookie
+
+@Title("Login Access")
+@Narrative("""
+As a user
+I want use the comfort application
+So that I can manage my forms
+""")
+@Issue("https://apps.nrs.gov.bc.ca/int/jira/browse/SHOWCASE-1292")
+@Stepwise
+class ComfortHomeSpec extends BaseSpec implements Login {
+
+  @Unroll
+/*  def "As a None user, I want to to log in into the Comfort application."() {
+    when: "I login as None"
+      logInAsNoneUser()
+    then: 'I see the menu page'
+      at MenuPage
+      toolbar_Logout.click()
+      at HomePage
+      clearAndResetBrowser()
+      //driver.manage().deleteCookieNamed("https://sso-dev.pathfinder.gov.bc.ca")
+  }
+     def "As a Viewer user, I wan to to log in into the Comfort application."() {
+      when: "I login as Viewer"
+        logInAsViewerUser()
+      then: 'I see the menu page'
+        at MenuPage
+          toolbar_Logout.click()
+        at HomePage
+        clearAndResetBrowser()
+  }
+    def "As a Reviewer user, I wan to to log in into the Comfort application."() {
+      when: "I login as $userRole"
+        aLogin
+      then: 'I see the menu page'
+        at MenuPage
+          toolbar_Logout.click()
+        at HomePage
+        clearAndResetBrowser()
+      where:
+        aLogin | userRole
+        logInAsReviewerUser() | "Reviewer"
+  }
+    def "As a Editor user, I wan to to log in into the Comfort application."() {
+      when: "I login as $userRole"
+        aLogin
+      then: 'I see the menu page'
+        at MenuPage
+          toolbar_Logout.click()
+        at HomePage
+        clearAndResetBrowser()
+      where:
+        aLogin | userRole
+        logInAsEditorUser() | "Editor"
+  } */
+    def "As a Admin user, I wan to to log in into the Comfort application."() {
+      when: "I login as Admin"
+        logInAsAdminUser()
+      then: 'I see the menu page'
+        at MenuPage
+          toolbar_Logout.click()
+        at HomePage
+  }
+}

@@ -24,7 +24,7 @@ class BrowserStackReportingSpec extends GebReportingSpec {
   void resetBrowser() {
     def driver = browser.driver
     super.resetBrowser()
-    driver.quit()
+    //driver.quit()
   }
 
 }
