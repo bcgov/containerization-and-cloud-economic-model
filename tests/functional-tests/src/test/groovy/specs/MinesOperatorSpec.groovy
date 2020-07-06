@@ -167,18 +167,14 @@ class MinesOperatorSpec extends BaseSpec implements Utils {
 
         when: 'I am at step 6, I can fill out the details'
           at MinesOperatorPage
-          certifyAccurateInformation.click()
-          agreeToInspection.click()
-          waitFor { subMit.displayed }
-          waitFor { subMit.click() }
+          certifyAccurateInformation.jquery.click()
+          agreeToInspection.jquery.click()
+          waitFor { submitForm.displayed }
+          waitFor { submitForm.jquery.click() }
 
         then: 'I can continue to the next page'
           waitFor { $("h1", class:"pb-8", text: contains("successfully") ) }
           waitFor { $("h2", class: "mb-10") }
-
-        where:
-        Col1  || Col2
-        "1" || "1"
       }
 }
 

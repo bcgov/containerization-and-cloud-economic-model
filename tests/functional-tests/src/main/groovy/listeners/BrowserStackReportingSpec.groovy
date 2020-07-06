@@ -20,7 +20,7 @@ class BrowserStackReportingSpec extends GebReportingSpec {
     _browser
   }
 
-   @Override
+  @Override
   void resetBrowser() {
     def driver = browser.driver
     super.resetBrowser()

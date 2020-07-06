@@ -18,7 +18,7 @@ So that I can manage my forms
 class ComfortHomeSpec extends BaseSpec implements Login {
 
   @Unroll
-/*  def "As a None user, I wan to to log in into the Comfort application."() {
+/*  def "As a None user, I want to to log in into the Comfort application."() {
     when: "I login as None"
       logInAsNoneUser()
     then: 'I see the menu page'

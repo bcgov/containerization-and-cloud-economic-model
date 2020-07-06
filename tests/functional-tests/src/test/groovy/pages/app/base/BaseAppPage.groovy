@@ -13,7 +13,7 @@ import modules.FooterModule
  */
 class BaseAppPage extends Page {
   static content = {
-     headerModule { module(HeaderModule) }
+    headerModule { module(HeaderModule) }
     footerModule { module(FooterModule) }
   }
 }
