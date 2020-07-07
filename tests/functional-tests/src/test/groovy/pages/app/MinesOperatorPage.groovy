@@ -163,10 +163,7 @@ class MinesOperatorPage extends BaseAppPage {
       certifyAccurateInformation { $("input", type:"checkbox", "data-test":"cb-form-certifyAccurateInformation") }
       agreeToInspection { $("input", type:"checkbox", "data-test":"cb-form-agreeToInspection") }
 
-/*       certifyAccurateInformation { $("input", type:"checkbox", "data-test":"cb-form-certifyAccurateInformation",dataState).parentsUntil("div", class:"v-input__slot") }
-      agreeToInspection { $("input", type:"checkbox", "data-test":"cb-form-agreeToInspection",dataState).parentsUntil("div", class:"v-input__slot") } */
-
-      subMit { $("button", class: "v-btn v-btn--contained theme--light v-size--default primary", "data-test":"btn-form-submit") }
+      submitForm { $("button", class: "v-btn v-btn--contained theme--light v-size--default primary", "data-test":"btn-form-submit") }
 
     }
 
