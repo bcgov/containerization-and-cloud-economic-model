@@ -15,10 +15,10 @@ trait LoginAdmin implements Users {
   void login(Map user) {
     at LoginAdminPage
 
-    usernameField.value(user.username)
-    passwordField.value(user.password)
+    waitFor { usernameField.value(user.username) }
+    waitFor { passwordField.value(user.password) }
 
-    logInButton.click()
+    waitFor { logInButton.click() }
   }
 
   void logInAsAdminUser() {
