@@ -6,7 +6,7 @@ class HomePage extends BaseAppPage {
     static url = 'home'
 
     static content = {
-        toolbar_Title { $("div", class: "v-toolbar__title title", "data-test":"btn-header-title",text: contains('Common Forms Toolkit')) }
+        toolbar_Title(wait: true) { $("h1", "data-test":"btn-header-title",text: contains('Common Forms Toolkit')) }
         toolbar_Login { $("button",0) }
         screen_Login { $("button",1) }
     }

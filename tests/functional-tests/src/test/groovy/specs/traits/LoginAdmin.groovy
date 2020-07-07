@@ -1,12 +1,11 @@
 package specs.traits
 
-import pages.HomePage
-import pages.LoginPage
+import pages.LoginAdminPage
 
 /**
  * Methods to manage logging in.
  */
-trait Login implements Users {
+trait LoginAdmin implements Users {
 
   /**
    * Log a user in.
@@ -14,15 +13,7 @@ trait Login implements Users {
    * @param a Map containing username and password keys. eg: [username:'someUsername', password:'somePassword']
    */
   void login(Map user) {
-    to HomePage
-    at HomePage
-    assert toolbar_Title
-    assert toolbar_Login
-    assert screen_Login
-
-    toolbar_loginButton()
-
-    at LoginPage
+    at LoginAdminPage
 
     waitFor { usernameField.value(user.username) }
     waitFor { passwordField.value(user.password) }

@@ -169,6 +169,7 @@ class MinesOperatorSpec extends BaseSpec implements Utils {
           at MinesOperatorPage
           certifyAccurateInformation.jquery.click()
           agreeToInspection.jquery.click()
+
           waitFor { submitForm.displayed }
           waitFor { submitForm.jquery.click() }
 

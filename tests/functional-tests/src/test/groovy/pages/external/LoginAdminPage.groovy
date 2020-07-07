@@ -2,11 +2,12 @@ package pages
 
 import geb.Page
 
-class LoginPage extends Page {
-  static at = { title == 'Government of British Columbia' }
+class LoginAdminPage extends Page {
+  static at = { title == 'Government of British Columbia' || title == 'Industrial Camps Admin' }
+  static url = 'minesoperatorscreening/admin'
 
   static content = {
-    pageTitle(wait: true) { $('#login-to').text() == 'Log in to sfs7.gov.bc.ca' }
+    pageTitle { $('#login-to').text() == 'Log in to sfs7.gov.bc.ca' }
     usernameField { $('#user') }
     passwordField { $('#password') }
     logInButton { $('input', type:'submit', name:'btnSubmit', value:'Continue') }
