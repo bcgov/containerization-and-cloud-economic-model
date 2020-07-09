@@ -35,7 +35,7 @@ podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', clou
             checkout scm
             dir('tests/functional-tests') {
                 try {
-                        sh 'gradle remoteChromeTest'
+                        sh '/opt/gradle/gradle-4.2.1/bin/gradle remoteChromeTest'
                 } finally {
                         archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/geb/**/*'
                         junit 'build/test-results/**/*.xml'
