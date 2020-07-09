@@ -23,7 +23,7 @@ class ComfortHomeSpec extends BaseSpec implements Login {
     logInAsNoneUser()
   then: 'I see the menu page'
     at MenuPage
-    waitFor { toolbar_Logout.click() }
+    waitFor { toolbarLogout.click() }
     at HomePage
     clearAndResetBrowser()
   }
@@ -32,7 +32,7 @@ class ComfortHomeSpec extends BaseSpec implements Login {
     logInAsViewerUser()
   then: 'I see the menu page'
     at MenuPage
-    waitFor { toolbar_Logout.click() }
+    waitFor { toolbarLogout.click() }
     at HomePage
     clearAndResetBrowser()
   }
@@ -41,25 +41,25 @@ class ComfortHomeSpec extends BaseSpec implements Login {
       logInAsReviewerUser()
     then: 'I see the menu page'
       at MenuPage
-      waitFor { toolbar_Logout.click() }
+      waitFor { toolbarLogout.click() }
       at HomePage
       clearAndResetBrowser()
   }
   def "As a Editor user, I want to to log in into the Comfort application."() {
     when: "I login as Editor"
-      logInAsEditorUser() 
+      logInAsEditorUser()
     then: 'I see the menu page'
       at MenuPage
-      waitFor { toolbar_Logout.click() }
+      waitFor { toolbarLogout.click() }
       at HomePage
       clearAndResetBrowser()
-  } 
+  }
   def "As a Admin user, I want to to log in into the Comfort application."() {
     when: "I login as Admin"
       logInAsAdminUser()
     then: 'I see the menu page'
       at MenuPage
-      waitFor { toolbar_Logout.click() }
+      waitFor { toolbarLogout.click() }
       at HomePage
   }
 }

@@ -6,7 +6,7 @@ class AdminHomePage extends BaseAppPage {
     static url = 'minesoperatorscreening/admin'
 
     static content = {
-        toolbar_Title { $("div", class: "v-toolbar__title title", "data-test":"btn-header-title",text: contains('Industrial Camps Admin')) }
+        toolbarTitle { $("div", class: "v-toolbar__title title", "data-test":"btn-header-title",text: contains('Industrial Camps Admin')) }
         header_One { $("h1.my-8") }
         header_Two  { $("h3.mb-8") }
         requestAccess { $("button", "data-test": "btn-base-secure-request-access")}

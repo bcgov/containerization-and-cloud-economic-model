@@ -2,7 +2,7 @@
 podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', cloud: 'openshift', containers: [
   containerTemplate(
     name: 'jnlp',
-    image: 'docker-registry.default.svc:5000/zwmtib-tools/bddstack-node:2.0',
+    image: 'docker-registry.default.svc:5000/vmvfjv-tools/bddstack',
     resourceRequestCpu: '500m',
     resourceLimitCpu: '1000m',
     resourceRequestMemory: '1Gi',
@@ -11,9 +11,18 @@ podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', clou
     command: '',
     args: '${computer.jnlpmac} ${computer.name}',
     envVars: [
-        envVar(key:'BASEURL', value: 'https://dev.bcregistry.ca/cooperatives/'),
-        secretEnvVar(key: 'PPR_VIEWER_USERNAME', secretName: 'ppr-user', secretKey: 'username'),
-        secretEnvVar(key: 'PPR_PASSWORD', secretName: 'ppr-user', secretKey: 'password')
+        secretEnvVar(key: 'BROWSERSTACK_USERNAME', secretName: 'csst-browserstack-signin-secret', secretKey: 'BROWSERSTACK_USERNAME'),
+        secretEnvVar(key: 'BROWSERSTACK_TOKEN', secretName: 'csst-browserstack-signin-secret', secretKey: 'BROWSERSTACK_TOKEN'),
+        secretEnvVar(key: 'CSSTROL1_ID', secretName: 'csst-test-idir-1-secret', secretKey: 'username'),
+        secretEnvVar(key: 'CSSTROL1_PW', secretName: 'csst-test-idir-1-secret', secretKey: 'password'),
+        secretEnvVar(key: 'CSSTROL2_ID', secretName: 'csst-test-idir-2-secret', secretKey: 'username'),
+        secretEnvVar(key: 'CSSTROL2_PW', secretName: 'csst-test-idir-2-secret', secretKey: 'password'),
+        secretEnvVar(key: 'CSSTROL3_ID', secretName: 'csst-test-idir-3-secret', secretKey: 'username'),
+        secretEnvVar(key: 'CSSTROL3_PW', secretName: 'csst-test-idir-3-secret', secretKey: 'password'),
+        secretEnvVar(key: 'CSSTROL4_ID', secretName: 'csst-test-idir-4-secret', secretKey: 'username'),
+        secretEnvVar(key: 'CSSTROL4_PW', secretName: 'csst-test-idir-4-secret', secretKey: 'password'),
+        secretEnvVar(key: 'CSSTROL5_ID', secretName: 'csst-test-idir-5-secret', secretKey: 'username'),
+        secretEnvVar(key: 'CSSTROL5_PW', secretName: 'csst-test-idir-5-secret', secretKey: 'password')
        ]
   )
 ])
@@ -24,9 +33,9 @@ podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', clou
             echo "checking out source"
             echo "Build: ${BUILD_ID}"
             checkout scm
-            dir('testing/functional') {
+            dir('tests/functional-tests') {
                 try {
-                        sh 'gradle chromeHeadlessTest'
+                        sh 'gradle remoteChromeTest'
                 } finally {
                         archiveArtifacts allowEmptyArchive: true, artifacts: 'build/reports/geb/**/*'
                         junit 'build/test-results/**/*.xml'
@@ -46,7 +55,6 @@ podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', clou
                                     reportFiles: 'index.html',
                                     reportName: "Test: Full Test Report"
                                 ])
-                    perfReport compareBuildPrevious: true, excludeResponseTime: true, ignoreFailedBuilds: true, ignoreUnstableBuilds: true, modeEvaluation: true, modePerformancePerTestCase: true, percentiles: '0,50,90,100', relativeFailedThresholdNegative: 80.0, relativeFailedThresholdPositive: 20.0, relativeUnstableThresholdNegative: 50.0, relativeUnstableThresholdPositive: 50.0, sourceDataFiles: 'build/test-results/**/*.xml'
                 }
             }
         }

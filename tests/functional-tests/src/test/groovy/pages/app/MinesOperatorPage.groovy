@@ -14,18 +14,10 @@ class MinesOperatorPage extends BaseAppPage {
       // Common
       nextStep { $('.v-stepper__content:not([style*="none"]) [data-test="btn-form-to-next-step"]',0) }  // This will always find the active next button, common for all pages
       previousStep { $('.v-stepper__content:not([style*="none"]) [data-test="btn-form-to-previous-step"]',0) }
-
-      //
-      // Page 1
-      //
-
-      //
-      // Page 2
-      //
       lowerTitle { $("h2", text:"Provide Your Business Contact Information") }
-
       //Business Name
       registeredBusinessName { $("input", "data-test":"text-form-orgbook-search-fieldModel") }
+      registeredBusinessNameReview { $("input", "data-test":"text-form-businessName") }
       firstName { $("input", "data-test":"text-form-firstName",dataState) }
       lastName { $("input", "data-test":"text-form-lastName",dataState) }
       phoNe1 { $("input", "data-test":"text-form-phone1",dataState) }
@@ -164,6 +156,8 @@ class MinesOperatorPage extends BaseAppPage {
       agreeToInspection { $("input", type:"checkbox", "data-test":"cb-form-agreeToInspection") }
 
       submitForm { $("button", class: "v-btn v-btn--contained theme--light v-size--default primary", "data-test":"btn-form-submit") }
+      submittedTitle { $("h1", class:"pb-8", text: contains("successfully") ) }
+      submitID { $("h2", class: "mb-10") }
 
     }
 
@@ -176,12 +170,32 @@ class MinesOperatorPage extends BaseAppPage {
       previousStep.click()
     }
 
+    boolean setReviewData(boolean review){
+      if (review){
+        dataState = 1
+      }
+      dataState = 0
+      return true
+    }
+
     boolean setRegisteredBusinessName(String value) {
       registeredBusinessName.value(value)
       registeredBusinessName << Keys.chord(Keys.ARROW_DOWN)
       registeredBusinessName << Keys.chord(Keys.ENTER)
       registeredBusinessName << Keys.chord(Keys.TAB)
       return true
+    }
+
+    String getRegisteredBusinessName(Integer index) {
+      dataState = index
+      return registeredBusinessName.value()
+    }
+
+    boolean checkregisteredBusinessName(String value) {
+      if (registeredBusinessNameReview.value() == value) {
+        return true
+      }
+      return false
     }
 
     boolean setFirstName(String value) {
