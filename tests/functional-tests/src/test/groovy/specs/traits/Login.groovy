@@ -16,9 +16,7 @@ trait Login implements Users {
   void login(Map user) {
     to HomePage
     at HomePage
-    assert toolbar_Title
-    assert toolbar_Login
-    assert screen_Login
+    assert toolbarTitle
 
     toolbar_loginButton()
 

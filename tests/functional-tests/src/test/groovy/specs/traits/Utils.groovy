@@ -11,6 +11,7 @@ import com.github.javafaker.*
  */
 trait Utils {
 
+  // Sets faker locale and initiates random with a new seed.
   Faker faker = new Faker(new Locale("en-CA"), new Random(Math.abs(new Random().nextInt() % 600) + 1))
 
   /**
@@ -82,8 +83,10 @@ trait Utils {
   }
 
   String randomPhoneNumber(){
-    return '999-999-9999' //faker.phoneNumber().phoneNumber()
+    // The following Regex will allow for valid phonenumbers to be generated.
+    return faker.regexify("[2-9][0-9]{2}-[2-9][0-9]{2}-[0-9]{4}")
   }
+
   String randomEmail(){
     return faker.internet().safeEmailAddress()
   }

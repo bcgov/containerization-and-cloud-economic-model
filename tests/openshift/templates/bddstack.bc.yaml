@@ -30,7 +30,6 @@ objects:
           kind: ImageStreamTag
           name: bddstack:latest
       source:
-        contextDir: provisioning/jenkins-slaves/scanandtest
         dockerfile: |
           FROM registry.access.redhat.com/openshift3/jenkins-slave-base-rhel7
 
@@ -38,30 +37,22 @@ objects:
 
           EXPOSE 8080
 
-          ENV SUMMARY="Jenkins slave with python 37, nodejs 8, Java, BDDStack" \
-              DESCRIPTION="Jenkins pipeline slave with python 37, nodejs 8, Java 11 and BDDStack installed. A veritable Swiss army knife"
+          ENV SUMMARY="Jenkins slave with gradle for BDDStack" \
+              DESCRIPTION="Jenkins pipeline slave with gradle"
 
           LABEL summary="$SUMMARY" \
               description="$DESCRIPTION" \
               io.k8s.description="$DESCRIPTION" \
-              io.k8s.display-name="Jenkins-Pipeline-ScanAndTest" \
+              io.k8s.display-name="Jenkins-Slave-Gradle" \
               io.openshift.expose-services="8080:http" \
-              io.openshift.tags="builder,jenkins-jnlp-python,jenkins-jnlp-nodejs,jenkins-jnlp, jenkins-jnlp-bddstack, jenkins-jnlp-scan" \
+              io.openshift.tags="builder,jenkins-jnlp, jenkins-jnlp-bddstack" \
               release="1"
 
-          ENV PYTHON_VERSION=3.7 \
-              PATH=$HOME/.local/bin/:$PATH \
-              PATH=$PATH:/opt/gradle/gradle-4.2.1/bin \
-              PYTHONUNBUFFERED=1 \
-              PYTHONIOENCODING=UTF-8 \
+          ENV PATH=$HOME/.local/bin/:$PATH \
+              GRADLE_HOME=/opt/gradle/gradle-4.2.1 \
+              PATH=$GRADLE_HOME/bin:$PATH \
               LC_ALL=en_US.UTF-8 \
-              LANG=en_US.UTF-8 \
-              PIP_NO_CACHE_DIR=off \
-              BASH_ENV=/usr/local/bin/scl_enable \
-              ENV=/usr/local/bin/scl_enable \
-              PROMPT_COMMAND=". /usr/local/bin/scl_enable"
-
-          COPY contrib/bin/scl_enable /usr/local/bin/scl_enable
+              LANG=en_US.UTF-8
 
           # We need to call 2 (!) yum commands before being able to enable repositories properly
           # This is a workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1479388
@@ -72,26 +63,18 @@ objects:
               yum-config-manager --enable rhel-7-server-rpms && \
               yum-config-manager --enable rhel-7-server-optional-rpms && \
               yum-config-manager --enable rhel-7-server-fastrack-rpms && \
-              UNINSTALL_PKGS="java-1.8.0-openjdk java-1.8.0-openjdk-devel java-1.8.0-openjdk-headless.i686" &&\
-              INSTALL_PKGS="rh-python37 rh-python37-python-devel rh-python37-python-setuptools rh-python37-python-pip \
-              nss_wrapper httpd24 httpd24-httpd-devel httpd24-mod_ssl httpd24-mod_auth_kerb httpd24-mod_ldap httpd24-mod_session \
-              atlas-devel gcc-gfortran libffi-devel libtool-ltdl rh-nodejs8 rh-nodejs8-nodejs-nodemon unzip \
-              java-11-openjdk java-11-openjdk-devel redhat-lsb libXScrnSaver gdk-pixbuf2 xorg-x11-server-Xvfb wget" && \
-              ln -s /usr/lib/node_modules/nodemon/bin/nodemon.js /usr/bin/nodemon && \
-              yum remove -y $UNINSTALL_PKGS &&\
+              INSTALL_PKGS="wget" && \
               yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
               rpm -V $INSTALL_PKGS && \
-              yum clean all -y && \
-              # Install Gradle
-              mkdir /opt/gradle && \
+              yum clean all -y
+
+          # Install Gradle
+          RUN mkdir /opt/gradle && \
               wget https://services.gradle.org/distributions/gradle-4.2.1-bin.zip -P /opt/gradle && \
-              unzip -d /opt/gradle gradle-4.2.1-bin.zip && \
-              rm /opt/gradle gradle-4.2.1-bin.zip && \
-              # Get Google Chrome latest version
-              wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm && \
-              yum -y localinstall google-chrome-stable_current_x86_64.rpm && \
-              rm google-chrome-stable_current_x86_64.rpm && \
-              if [ ! -d /home/jenkins/.pki ] ; then mkdir /home/jenkins/.pki; fi && \
+              unzip /opt/gradle/gradle-4.2.1-bin.zip -d /opt/gradle && \
+              rm /opt/gradle/gradle-4.2.1-bin.zip
+
+          RUN if [ ! -d /home/jenkins/.pki ] ; then mkdir /home/jenkins/.pki; fi && \
               chmod 777 /home/jenkins/.pki
 
           # In order to drop the root user, we have to make some directories world
@@ -106,12 +89,11 @@ objects:
 
           USER 1001
 
-        git:
-          ref: Testing-and-Scanning-Swiss-Army-Knife-Slave
-          uri: "https://github.com/rstens/openshift-tools"
-        type: Git
       strategy:
         dockerStrategy:
+          envFrom:
+            - configMapRef:
+                name: test-config
           env:
             - name: OPENSHIFT_JENKINS_JVM_ARCH
               value: x86_64
