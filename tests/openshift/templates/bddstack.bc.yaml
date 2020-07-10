@@ -3,169 +3,105 @@
 # Process this file, creating or replacing imagestreams and builds
 # $ oc process -f openshift/bddstack.bc.yaml | oc [create|replace] -n <PROJECT> -f -
 #
-apiVersion: build.openshift.io/v1
-kind: BuildConfig
+apiVersion: v1
+kind: Template
 metadata:
-  annotations:
-  labels:
-    app: bddstack
-    build: bddstack
   name: bddstack
-spec:
-  failedBuildsHistoryLimit: 5
-  nodeSelector: null
-  output:
-    to:
-      kind: ImageStreamTag
-      name: 'bddstack:latest'
-  postCommit: {}
-  resources: {}
-  runPolicy: Serial
-  source:
-    dockerfile: >
-      FROM registry.access.redhat.com/openshift3/jenkins-slave-base-rhel7
+objects:
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      name: bddstack
+      labels:
+        build: bddstack
+      annotations:
+        openshift.io/generated-by: OpenShiftNewBuild
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      annotations:
+        openshift.io/generated-by: OpenShiftNewBuild
+      labels:
+        build: bddstack
+      name: bddstack
+    spec:
+      output:
+        to:
+          kind: ImageStreamTag
+          name: bddstack:latest
+      source:
+        dockerfile: |
+          FROM registry.access.redhat.com/openshift3/jenkins-slave-base-rhel7
 
+          # Note this is based mostly on https://github.com/sclorg/s2i-python-container/blob/master/3.5/Dockerfile.rhel7
 
-      # Note this is based mostly on
-      https://github.com/sclorg/s2i-python-container/blob/master/3.5/Dockerfile.rhel7
+          EXPOSE 8080
 
+          ENV SUMMARY="Jenkins slave with gradle for BDDStack" \
+              DESCRIPTION="Jenkins pipeline slave with gradle"
 
-      EXPOSE 8080
+          LABEL summary="$SUMMARY" \
+              description="$DESCRIPTION" \
+              io.k8s.description="$DESCRIPTION" \
+              io.k8s.display-name="Jenkins-Slave-Gradle" \
+              io.openshift.expose-services="8080:http" \
+              io.openshift.tags="builder,jenkins-jnlp, jenkins-jnlp-bddstack" \
+              release="1"
 
+          ENV PATH=$HOME/.local/bin/:$PATH \
+              GRADLE_HOME=/opt/gradle/gradle-4.2.1 \
+              PATH=$GRADLE_HOME/bin:$PATH \
+              LC_ALL=en_US.UTF-8 \
+              LANG=en_US.UTF-8
 
-      ENV SUMMARY="Jenkins slave with python 37, nodejs 8, Java, BDDStack" \
-          DESCRIPTION="Jenkins pipeline slave with python 37, nodejs 8, Java 11 and BDDStack installed. A veritable Swiss army knife"
+          # We need to call 2 (!) yum commands before being able to enable repositories properly
+          # This is a workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1479388
+          RUN yum repolist > /dev/null && \
+              yum install -y yum-utils && \
+              yum-config-manager --disable \* &> /dev/null && \
+              yum-config-manager --enable rhel-server-rhscl-7-rpms && \
+              yum-config-manager --enable rhel-7-server-rpms && \
+              yum-config-manager --enable rhel-7-server-optional-rpms && \
+              yum-config-manager --enable rhel-7-server-fastrack-rpms && \
+              INSTALL_PKGS="wget" && \
+              yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
+              rpm -V $INSTALL_PKGS && \
+              yum clean all -y
 
-      LABEL summary="$SUMMARY" \
-          description="$DESCRIPTION" \
-          io.k8s.description="$DESCRIPTION" \
-          io.k8s.display-name="Jenkins-Pipeline-ScanAndTest" \
-          io.openshift.expose-services="8080:http" \
-          io.openshift.tags="builder,jenkins-jnlp-python,jenkins-jnlp-nodejs,jenkins-jnlp, jenkins-jnlp-bddstack, jenkins-jnlp-scan" \
-          release="1"
+          # Install Gradle
+          RUN mkdir /opt/gradle && \
+              wget https://services.gradle.org/distributions/gradle-4.2.1-bin.zip -P /opt/gradle && \
+              unzip /opt/gradle/gradle-4.2.1-bin.zip -d /opt/gradle && \
+              rm /opt/gradle/gradle-4.2.1-bin.zip
 
-      ENV PATH=$HOME/.local/bin/:$PATH \
-          GRADLE_HOME=/opt/gradle/gradle-4.2.1 \
-          PATH=$GRADLE_HOME/bin:$PATH \
-          LC_ALL=en_US.UTF-8 \
-          LANG=en_US.UTF-8
+          RUN if [ ! -d /home/jenkins/.pki ] ; then mkdir /home/jenkins/.pki; fi && \
+              chmod 777 /home/jenkins/.pki
 
-      # We need to call 2 (!) yum commands before being able to enable
-      repositories properly
+          # In order to drop the root user, we have to make some directories world
+          # writable as OpenShift default security model is to run the container under
+          # random UID.
+          RUN mkdir -p /opt/app-root  && \
+              chown -R 1001:0 /opt/app-root && \
+              chmod -R og+rwx /opt/app-root && \
+              # Obtain the installed Chrome version so that BDDStack can load the correct driver by querying the chromeversion and chromedriver files
+              google-chrome --version | grep -o -m 1 -E "[0-9]{2,3}[^ ^a-z^A-Z^0-9^\.]*" | sed -n 1p >  /opt/app-root/chromeversion && \
+              wget https://chromedriver.storage.googleapis.com/LATEST_RELEASE_`cat /opt/app-root/chromeversion` -O  /opt/app-root/chromedriver
 
-      # This is a workaround for
-      https://bugzilla.redhat.com/show_bug.cgi?id=1479388
+          USER 1001
 
-      RUN yum repolist > /dev/null && \
-          yum install -y yum-utils && \
-          yum-config-manager --disable \* &> /dev/null && \
-          yum-config-manager --enable rhel-server-rhscl-7-rpms && \
-          yum-config-manager --enable rhel-7-server-rpms && \
-          yum-config-manager --enable rhel-7-server-optional-rpms && \
-          yum-config-manager --enable rhel-7-server-fastrack-rpms && \
-          INSTALL_PKGS="wget unzip" && \
-          yum install -y --setopt=tsflags=nodocs $INSTALL_PKGS && \
-          rpm -V $INSTALL_PKGS && \
-          yum clean all -y
-
-      # Install Gradle
-
-      RUN mkdir /opt/gradle && \
-          wget https://services.gradle.org/distributions/gradle-4.2.1-bin.zip -P /opt/gradle && \
-          unzip /opt/gradle/gradle-4.2.1-bin.zip -d /opt/gradle && \
-          rm /opt/gradle/gradle-4.2.1-bin.zip
-
-      RUN if [ ! -d /home/jenkins/.pki ] ; then mkdir /home/jenkins/.pki; fi &&
-      \
-          chmod 777 /home/jenkins/.pki
-
-      # In order to drop the root user, we have to make some directories world
-
-      # writable as OpenShift default security model is to run the container
-      under
-
-      # random UID.
-
-      RUN mkdir -p /opt/app-root  && \
-          chown -R 1001:0 /opt/app-root && \
-          chmod -R og+rwx /opt/app-root
-
-      USER 1001
-    type: Dockerfile
-  strategy:
-    dockerStrategy:
-      env:
-        - name: OPENSHIFT_JENKINS_JVM_ARCH
-          value: x86_64
-        - name: BASEURL
-          valueFrom:
-            configMapKeyRef:
-              key: BASEURL
-              name: test-config
-        - name: BROWSERSTACK_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: BROWSERSTACK_VERSION
-              name: test-config
-        - name: CHROMEDRIVER_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: CHROMEDRIVER_VERSION
-              name: test-config
-        - name: GEB_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: GEB_VERSION
-              name: test-config
-        - name: GECKODRIVER_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: GECKODRIVER_VERSION
-              name: test-config
-        - name: GROOVY_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: GROOVY_VERSION
-              name: test-config
-        - name: HTTPBUILDER_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: HTTPBUILDER_VERSION
-              name: test-config
-        - name: MYSQLCONNECTORJAVA_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: MYSQLCONNECTORJAVA_VERSION
-              name: test-config
-        - name: PROJECT_NAME
-          valueFrom:
-            configMapKeyRef:
-              key: PROJECT_NAME
-              name: test-config
-        - name: SELENIUM_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: SELENIUM_VERSION
-              name: test-config
-        - name: SLF4J_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: SLF4J_VERSION
-              name: test-config
-        - name: SPOCKREPORT_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: SPOCKREPORT_VERSION
-              name: test-config
-        - name: SPOCK_VERSION
-          valueFrom:
-            configMapKeyRef:
-              key: SPOCK_VERSION
-              name: test-config
-      from:
-        kind: ImageStreamTag
-        name: 'jenkins-slave-base-rhel7:latest'
-        namespace: openshift
-    type: Docker
-  successfulBuildsHistoryLimit: 5
-
+      strategy:
+        dockerStrategy:
+          envFrom:
+            - configMapRef:
+                name: test-config
+          env:
+            - name: OPENSHIFT_JENKINS_JVM_ARCH
+              value: x86_64
+          from:
+            kind: ImageStreamTag
+            name: jenkins-slave-base-rhel7:latest
+        type: Docker
+      triggers:
+        - type: ConfigChange
+        - imageChange: {}
+          type: ImageChange
