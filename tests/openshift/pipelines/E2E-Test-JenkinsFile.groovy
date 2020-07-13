@@ -51,7 +51,7 @@ podTemplate(label: 'bddstack', name: 'bddstack', serviceAccount: 'jenkins', clou
                                     allowMissing: false,
                                     alwaysLinkToLastBuild: false,
                                     keepAll: true,
-                                    reportDir: 'build/reports/tests/chromeHeadlessTest',
+                                    reportDir: 'build/reports/tests/remoteChromeTest',
                                     reportFiles: 'index.html',
                                     reportName: "Test: Full Test Report"
                                 ])
