@@ -1,3 +1,17 @@
+/* Copyright 2020 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */
+
 /*
 	This is the Geb configuration file.
 
@@ -37,10 +51,10 @@ if (!USERNAME || !AUTOMATE_KEY)
 
 // Wait Settings
 waiting {
-	timeout = 20
-	retryInterval = 1
+	timeout = 30
+	retryInterval = 3
 }
-atCheckWaiting = [20, 1]
+atCheckWaiting = [30, 3]
 
 String buildId = SessionIdHolder.instance.buildId
 
@@ -142,6 +156,30 @@ environments {
 			caps.setCapability("project", "${browserstackProjectName}")
 			caps.setCapability("build", "${buildId}:Chrome")
 			caps.setCapability("browserstack.local", "false");
+
+			String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+			driver = new RemoteWebDriver(new URL(URL), caps)
+
+			return driver
+		}
+	}
+	remoteSafari {
+		driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("os", "OS X");
+      caps.setCapability("os_version", "Catalina");
+      caps.setCapability("browser", "Safari");
+      caps.setCapability("browser_version", "13.1");
+      caps.setCapability("resolution", "1920x1080");
+			caps.setCapability("name", "Automated Test")
+			caps.setCapability("project", "${browserstackProjectName}")
+			caps.setCapability("build", "${buildId}:Safari")
+			caps.setCapability("browserstack.local", "false");
+      caps.setCapability("browserstack.networkLogs", "true");
+      caps.setCapability("browserstack.timezone", "America/Vancouver");
+      caps.setCapability("browserstack.safari.enablePopups", "true");
+      caps.setCapability("browserstack.safari.allowAllCookies", "true");
 
 			String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
 

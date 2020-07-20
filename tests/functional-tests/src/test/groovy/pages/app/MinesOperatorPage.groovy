@@ -1,3 +1,17 @@
+/* Copyright 2020 Province of British Columbia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */
+
 package pages
 
 import geb.Page
@@ -14,7 +28,8 @@ class MinesOperatorPage extends BaseAppPage {
       // Common
       nextStep { $('.v-stepper__content:not([style*="none"]) [data-test="btn-form-to-next-step"]',0) }  // This will always find the active next button, common for all pages
       previousStep { $('.v-stepper__content:not([style*="none"]) [data-test="btn-form-to-previous-step"]',0) }
-      lowerTitle { $("h2", text:"Provide Your Business Contact Information") }
+
+      lowerTitle { $("h2.pb-8", text:"Provide Your Business Contact Information") }
       //Business Name
       registeredBusinessName { $("input", "data-test":"text-form-orgbook-search-fieldModel") }
       registeredBusinessNameReview { $("input", "data-test":"text-form-businessName") }
@@ -192,7 +207,8 @@ class MinesOperatorPage extends BaseAppPage {
     }
 
     boolean checkregisteredBusinessName(String value) {
-      if (registeredBusinessNameReview.value() == value) {
+      String testString = registeredBusinessNameReview.value()
+      if ( testString.substring(0, value.length() ) == value) {
         return true
       }
       return false
@@ -231,3 +247,109 @@ class MinesOperatorPage extends BaseAppPage {
       return
     }
 }
+/* Elements	Instances
+btn-form-to-next-step { $("BUTTON", "data-test": "btn-form-to-next-step" ) }	10
+btn-form-to-previous-step { $("BUTTON", "data-test": "btn-form-to-previous-step" ) }	9
+btn-form-disease-control-link { $("A", "data-test": "btn-form-disease-control-link" ) }	2
+btn-form-empr-office-link { $("A", "data-test": "btn-form-empr-office-link" ) }	2
+btn-form-health-pdf-link { $("A", "data-test": "btn-form-health-pdf-link" ) }	2
+btn-form-panel-camp-order { $("BUTTON", "data-test": "btn-form-panel-camp-order" ) }	2
+btn-form-panel-ipc-protocol { $("BUTTON", "data-test": "btn-form-panel-ipc-protocol" ) }	2
+btn-form-test-data { $("BUTTON", "data-test": "btn-form-test-data" ) }	2
+cb-form-accMotel { $("INPUT", "data-test": "cb-form-accMotel" ) }	2
+cb-form-accTents { $("INPUT", "data-test": "cb-form-accTents" ) }	2
+cb-form-accWorkersHome { $("INPUT", "data-test": "cb-form-accWorkersHome" ) }	2
+cb-form-disinfectingSchedule { $("INPUT", "data-test": "cb-form-disinfectingSchedule" ) }	2
+cb-form-distancingFaceShields { $("INPUT", "data-test": "cb-form-distancingFaceShields" ) }	2
+cb-form-distancingMaintained { $("INPUT", "data-test": "cb-form-distancingMaintained" ) }	2
+cb-form-educationContactPersonnel { $("INPUT", "data-test": "cb-form-educationContactPersonnel" ) }	2
+cb-form-educationSignage { $("INPUT", "data-test": "cb-form-educationSignage" ) }	2
+cb-form-handWashingPaperTowels { $("INPUT", "data-test": "cb-form-handWashingPaperTowels" ) }	2
+cb-form-handWashingSignage { $("INPUT", "data-test": "cb-form-handWashingSignage" ) }	2
+cb-form-handWashingSoapWater { $("INPUT", "data-test": "cb-form-handWashingSoapWater" ) }	2
+cb-form-handWashingStations { $("INPUT", "data-test": "cb-form-handWashingStations" ) }	2
+cb-form-handWashingWaterless { $("INPUT", "data-test": "cb-form-handWashingWaterless" ) }	2
+cb-form-infectedFeeding { $("INPUT", "data-test": "cb-form-infectedFeeding" ) }	2
+cb-form-infectedHousekeeping { $("INPUT", "data-test": "cb-form-infectedHousekeeping" ) }	2
+cb-form-infectedWaste { $("INPUT", "data-test": "cb-form-infectedWaste" ) }	2
+cb-form-infectionAccommodation { $("INPUT", "data-test": "cb-form-infectionAccommodation" ) }	2
+cb-form-infectionHeathLinkBC { $("INPUT", "data-test": "cb-form-infectionHeathLinkBC" ) }	2
+cb-form-infectionSanitization { $("INPUT", "data-test": "cb-form-infectionSanitization" ) }	2
+cb-form-infectionSeparation { $("INPUT", "data-test": "cb-form-infectionSeparation" ) }	2
+cb-form-infectionSymptoms { $("INPUT", "data-test": "cb-form-infectionSymptoms" ) }	2
+cb-form-laundryServices { $("INPUT", "data-test": "cb-form-laundryServices" ) }	2
+cb-form-mealsDishware { $("INPUT", "data-test": "cb-form-mealsDishware" ) }	2
+cb-form-mealsDishwashing { $("INPUT", "data-test": "cb-form-mealsDishwashing" ) }	2
+cb-form-mealsDistancing { $("INPUT", "data-test": "cb-form-mealsDistancing" ) }	2
+cb-form-protectionSignage { $("INPUT", "data-test": "cb-form-protectionSignage" ) }	2
+cb-form-selfIsolateAccommodation { $("INPUT", "data-test": "cb-form-selfIsolateAccommodation" ) }	2
+cb-form-selfIsolateUnderstood { $("INPUT", "data-test": "cb-form-selfIsolateUnderstood" ) }	2
+cb-form-trainingCovid19 { $("INPUT", "data-test": "cb-form-trainingCovid19" ) }	2
+cb-form-trainingEtiquette { $("INPUT", "data-test": "cb-form-trainingEtiquette" ) }	2
+cb-form-trainingFirstAid { $("INPUT", "data-test": "cb-form-trainingFirstAid" ) }	2
+cb-form-trainingLocations { $("INPUT", "data-test": "cb-form-trainingLocations" ) }	2
+cb-form-trainingReporting { $("INPUT", "data-test": "cb-form-trainingReporting" ) }	2
+cb-form-transportationBusesVans { $("INPUT", "data-test": "cb-form-transportationBusesVans" ) }	2
+cb-form-transportationCleaningDistancing { $("INPUT", "data-test": "cb-form-transportationCleaningDistancing" ) }	2
+cb-form-transportationHelicopter { $("INPUT", "data-test": "cb-form-transportationHelicopter" ) }	2
+cb-form-transportationSingleOccupant { $("INPUT", "data-test": "cb-form-transportationSingleOccupant" ) }	2
+cb-form-transportationTravelPod { $("INPUT", "data-test": "cb-form-transportationTravelPod" ) }	2
+cb-form-transportationTrucksCars { $("INPUT", "data-test": "cb-form-transportationTrucksCars" ) }	2
+cb-form-wasteManagementBags { $("INPUT", "data-test": "cb-form-wasteManagementBags" ) }	2
+cb-form-wasteManagementGloves { $("INPUT", "data-test": "cb-form-wasteManagementGloves" ) }	2
+cb-form-wasteManagementSchedule { $("INPUT", "data-test": "cb-form-wasteManagementSchedule" ) }	2
+cb-form-workerContactPersonnel { $("INPUT", "data-test": "cb-form-workerContactPersonnel" ) }	2
+menu-form-endDateMenu { $("DIV", "data-test": "menu-form-endDateMenu" ) }	2
+menu-form-startDateMenu { $("DIV", "data-test": "menu-form-startDateMenu" ) }	2
+select-form-businessAddressProvince { $("INPUT", "data-test": "select-form-businessAddressProvince" ) }	2
+text-form-businessAddressCity { $("INPUT", "data-test": "text-form-businessAddressCity" ) }	2
+text-form-businessAddressLine1 { $("INPUT", "data-test": "text-form-businessAddressLine1" ) }	2
+text-form-businessAddressLine2 { $("INPUT", "data-test": "text-form-businessAddressLine2" ) }	2
+text-form-businessAddressPostalCode { $("INPUT", "data-test": "text-form-businessAddressPostalCode" ) }	2
+text-form-cityLatitude { $("INPUT", "data-test": "text-form-cityLatitude" ) }	2
+text-form-cityLongitude { $("INPUT", "data-test": "text-form-cityLongitude" ) }	2
+text-form-covidEmail { $("INPUT", "data-test": "text-form-covidEmail" ) }	2
+text-form-covidFirstName { $("INPUT", "data-test": "text-form-covidFirstName" ) }	2
+text-form-covidLastName { $("INPUT", "data-test": "text-form-covidLastName" ) }	2
+text-form-covidPhone1 { $("INPUT", "data-test": "text-form-covidPhone1" ) }	2
+text-form-covidPhone2 { $("INPUT", "data-test": "text-form-covidPhone2" ) }	2
+text-form-email { $("INPUT", "data-test": "text-form-email" ) }	2
+text-form-endDate { $("INPUT", "data-test": "text-form-endDate" ) }	2
+text-form-firstName { $("INPUT", "data-test": "text-form-firstName" ) }	2
+text-form-mineNumber { $("INPUT", "data-test": "text-form-mineNumber" ) }	2
+text-form-numberOfWorkers { $("INPUT", "data-test": "text-form-numberOfWorkers" ) }	2
+text-form-permitNumber { $("INPUT", "data-test": "text-form-permitNumber" ) }	2
+text-form-phone2 { $("INPUT", "data-test": "text-form-phone2" ) }	2
+text-form-startDate { $("INPUT", "data-test": "text-form-startDate" ) }	2
+​text-form-lastName { $("INPUT", "data-test": "text-form-lastName" ) }	1
+​text-form-phone1 { $("INPUT", "data-test": "text-form-phone1" ) }	1
+btn-footer-about { $("A", "data-test": "btn-footer-about" ) }	1
+btn-footer-accessibility { $("A", "data-test": "btn-footer-accessibility" ) }	1
+btn-footer-contact { $("A", "data-test": "btn-footer-contact" ) }	1
+btn-footer-copyright { $("A", "data-test": "btn-footer-copyright" ) }	1
+btn-footer-disclaimer { $("A", "data-test": "btn-footer-disclaimer" ) }	1
+btn-footer-home { $("A", "data-test": "btn-footer-home" ) }	1
+btn-footer-privacy { $("A", "data-test": "btn-footer-privacy" ) }	1
+btn-form-submit { $("BUTTON", "data-test": "btn-form-submit" ) }	1
+btn-form-to-step-five { $("BUTTON", "data-test": "btn-form-to-step-five" ) }	1
+btn-form-to-step-four { $("BUTTON", "data-test": "btn-form-to-step-four" ) }	1
+btn-form-to-step-one { $("BUTTON", "data-test": "btn-form-to-step-one" ) }	1
+btn-form-to-step-three { $("BUTTON", "data-test": "btn-form-to-step-three" ) }	1
+btn-form-to-step-two { $("BUTTON", "data-test": "btn-form-to-step-two" ) }	1
+btn-header-logo { $("A", "data-test": "btn-header-logo" ) }	1
+btn-header-title { $("H1", "data-test": "btn-header-title" ) }	1
+btn-stepper-five { $("DIV", "data-test": "btn-stepper-five" ) }	1
+btn-stepper-four { $("DIV", "data-test": "btn-stepper-four" ) }	1
+btn-stepper-one { $("DIV", "data-test": "btn-stepper-one" ) }	1
+btn-stepper-six { $("DIV", "data-test": "btn-stepper-six" ) }	1
+btn-stepper-three { $("DIV", "data-test": "btn-stepper-three" ) }	1
+btn-stepper-two { $("DIV", "data-test": "btn-stepper-two" ) }	1
+cb-form-agreeToInspection { $("INPUT", "data-test": "cb-form-agreeToInspection" ) }	1
+cb-form-certifyAccurateInformation { $("INPUT", "data-test": "cb-form-certifyAccurateInformation" ) }	1
+text-form-businessName { $("INPUT", "data-test": "text-form-businessName" ) }	1
+text-form-city-lookup-fieldModel { $("INPUT", "data-test": "text-form-city-lookup-fieldModel" ) }	1
+text-form-lastName { $("INPUT", "data-test": "text-form-lastName" ) }	1
+text-form-locationCity { $("INPUT", "data-test": "text-form-locationCity" ) }	1
+text-form-orgbook-search-fieldModel { $("INPUT", "data-test": "text-form-orgbook-search-fieldModel" ) }	1
+text-form-phone1 { $("INPUT", "data-test": "text-form-phone1" ) }	1
+ */
