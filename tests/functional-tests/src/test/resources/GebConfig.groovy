@@ -37,10 +37,10 @@ if (!USERNAME || !AUTOMATE_KEY)
 
 // Wait Settings
 waiting {
-	timeout = 20
-	retryInterval = 1
+	timeout = 30
+	retryInterval = 3
 }
-atCheckWaiting = [20, 1]
+atCheckWaiting = [30, 3]
 
 String buildId = SessionIdHolder.instance.buildId
 
@@ -142,6 +142,30 @@ environments {
 			caps.setCapability("project", "${browserstackProjectName}")
 			caps.setCapability("build", "${buildId}:Chrome")
 			caps.setCapability("browserstack.local", "false");
+
+			String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
+
+			driver = new RemoteWebDriver(new URL(URL), caps)
+
+			return driver
+		}
+	}
+	remoteSafari {
+		driver = {
+      DesiredCapabilities caps = new DesiredCapabilities();
+      caps.setCapability("os", "OS X");
+      caps.setCapability("os_version", "Catalina");
+      caps.setCapability("browser", "Safari");
+      caps.setCapability("browser_version", "13.1");
+      caps.setCapability("resolution", "1920x1080");
+			caps.setCapability("name", "Automated Test")
+			caps.setCapability("project", "${browserstackProjectName}")
+			caps.setCapability("build", "${buildId}:Safari")
+			caps.setCapability("browserstack.local", "false");
+      caps.setCapability("browserstack.networkLogs", "true");
+      caps.setCapability("browserstack.timezone", "America/Vancouver");
+      caps.setCapability("browserstack.safari.enablePopups", "true");
+      caps.setCapability("browserstack.safari.allowAllCookies", "true");
 
 			String URL = "https://" + USERNAME + ":" + AUTOMATE_KEY + "@hub-cloud.browserstack.com/wd/hub"
 
