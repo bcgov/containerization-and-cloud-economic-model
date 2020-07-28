@@ -26,14 +26,6 @@
       loading-text="Loading... Please wait"
       :options="options"
     >
-      <template v-slot:item.username="{ item }">
-        <v-tooltip bottom>
-          <span>{{ item.id }}</span>
-          <template v-slot:activator="{ on }">
-            <span v-on="on">{{ item.username }}</span>
-          </template>
-        </v-tooltip>
-      </template>
       <template v-slot:item.newRole="{ item }">
         <v-select
           v-model="selection[item.id]"

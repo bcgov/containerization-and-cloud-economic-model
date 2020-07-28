@@ -40,7 +40,7 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { AppClients, AppRoles } from '@/utils/constants';
+import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'FormList',
@@ -55,7 +55,7 @@ export default {
         linkAdminName: 'AgriSeafoodOpScreeningAdmin',
         linkName: 'AgriSeafoodOpScreeningForm',
         resource: AppClients.AGRISEAFOODOPSCREENING,
-        roles: [AppRoles.VIEWER],
+        roles: [],
         title: 'Agriculture and Seafood Operator Screening'
       },
       {
@@ -63,7 +63,7 @@ export default {
         linkAdminName: 'ForestrySectorOpScreeningAdmin',
         linkName: 'ForestrySectorOpScreeningForm',
         resource: AppClients.FORESTRYSECTOROPSCREENING,
-        roles: [AppRoles.VIEWER],
+        roles: [],
         title: 'Forestry Sector Operator Screening'
       },
       {
@@ -71,7 +71,7 @@ export default {
         linkAdminName: 'MinesOperatorScreeningAdmin',
         linkName: 'MinesOperatorScreeningForm',
         resource: AppClients.MINESOPERATORSCREENING,
-        roles: [AppRoles.VIEWER],
+        roles: [],
         title: 'Mines Operator Screening'
       }
     ],
