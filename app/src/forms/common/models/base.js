@@ -479,6 +479,21 @@ class Status extends Timestamps(Model) {
   }
 }
 
+class SubmissionSearchView extends Model {
+
+  static get tablePrefix () {
+    return undefined;
+  }
+
+  static get tableName () {
+    return `${this.tablePrefix}_submission_search_vw`;
+  }
+
+  static get idColumn () {
+    return 'submissionId';
+  }
+}
+
 module.exports.Metadata = Metadata;
 module.exports.Form = Form;
 module.exports.Version = Version;
@@ -487,3 +502,4 @@ module.exports.Note = Note;
 module.exports.Settings = Settings;
 module.exports.Submission = Submission;
 module.exports.Status = Status;
+module.exports.SubmissionSearchView = SubmissionSearchView;

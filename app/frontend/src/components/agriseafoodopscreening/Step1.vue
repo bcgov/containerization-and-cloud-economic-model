@@ -627,7 +627,7 @@ export default {
           (v && v.length <= 30) || 'Phone number must be 30 characters or less'
       ],
       phone2Rules: [
-        v => validator.isMobilePhone(v) || 'invalid phone number format',
+        v => !v ||validator.isMobilePhone(v) || 'invalid phone number format',
         v =>
           !v || v.length <= 30 || 'Phone number must be 30 characters or less'
       ],
@@ -657,7 +657,7 @@ export default {
           (v && v.length <= 30) || 'Phone number must be 30 characters or less'
       ],
       covidPhone2Rules: [
-        v => validator.isMobilePhone(v) || 'invalid phone number format',
+        v => !v || validator.isMobilePhone(v) || 'invalid phone number format',
         v =>
           !v || v.length <= 30 || 'Phone number must be 30 characters or less'
       ],

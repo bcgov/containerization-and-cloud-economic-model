@@ -55,6 +55,10 @@ class Models {
   get SubmissionSearch() {
     return form.SubmissionSearch;
   }
+
+  get SubmissionSearchView() {
+    return form.SubmissionSearchView;
+  }
 }
 
 module.exports = {...form, models: new Models()};

@@ -365,44 +365,33 @@ class FormDataService extends DataService {
   }
 
   async searchSubmissions(params) {
-    const tiny = data => {
-      if (!data || !Array.isArray(data) || !data.length) {
-        return [];
-      }
-      // asked for the tiny result set, so shrink it down!
-      return data.map(d => {
-        return {
-          submissionId: d.submissionId,
-          formVersionId: d.formVersionId,
-          confirmationId: d.confirmationId,
-          createdAt: d.createdAt,
-          businessName: d.business.name,
-          city: d.location.city,
-          status: d.statuses[0].statusCode.display,
-          assignedTo: d.statuses[0].assignedTo,
-          deleted: d.deleted
-        };
-      });
-    };
-
-    const submissions = await this._models.Submission.query()
-      .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
-      .withGraphFetched('[attestation, business, location]')
-      .withGraphFetched('contacts(orderContactType)')
-      .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
-      .withGraphFetched('notes(orderDescending)')
-      .joinRelated('business')
-      .joinRelated('location')
-      .modify('filterVersion', params.version)
-      .modify('filterConfirmationId', params.confirmationId)
-      .modify('filterBusinessName', params.business)
-      .modify('filterCity', params.city)
-      .modify('filterDeleted', params.deleted)
-      .modify('orderDescending');
-
-    return params.tiny ? tiny(submissions) : submissions;
+    if (params && params.tiny) {
+      const submissions = await this._models.SubmissionSearchView.query()
+        .modify('filterVersion', params.version)
+        .modify('filterConfirmationId', params.confirmationId)
+        .modify('filterBusinessName', params.business)
+        .modify('filterCity', params.city)
+        .modify('filterDeleted', params.deleted)
+        .modify('orderDescending');
+      return submissions;
+    } else {
+      const submissions = await this._models.Submission.query()
+        .allowGraph('[attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
+        .withGraphFetched('[attestation, business, location]')
+        .withGraphFetched('contacts(orderContactType)')
+        .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
+        .withGraphFetched('notes(orderDescending)')
+        .joinRelated('business')
+        .joinRelated('location')
+        .modify('filterVersion', params.version)
+        .modify('filterConfirmationId', params.confirmationId)
+        .modify('filterBusinessName', params.business)
+        .modify('filterCity', params.city)
+        .modify('filterDeleted', params.deleted)
+        .modify('orderDescending');
+      return submissions;
+    }
   }
-
 }
 
 class OperationTypesDataService extends FormDataService {
@@ -446,44 +435,35 @@ class OperationTypesDataService extends FormDataService {
   }
 
   async searchSubmissions(params) {
-    const tiny = data => {
-      if (!data || !Array.isArray(data) || !data.length) {
-        return [];
-      }
-      // asked for the tiny result set, so shrink it down!
-      return data.map(d => {
-        return {
-          submissionId: d.submissionId,
-          formVersionId: d.formVersionId,
-          confirmationId: d.confirmationId,
-          createdAt: d.createdAt,
-          businessName: d.business.name,
-          city: d.location.city,
-          status: d.statuses[0].statusCode.display,
-          assignedTo: d.statuses[0].assignedTo,
-          type: d.operationType.display,
-          deleted: d.deleted
-        };
-      });
-    };
+    if (params && params.tiny) {
+      const submissions = await this._models.SubmissionSearchView.query()
+        .modify('filterVersion', params.version)
+        .modify('filterConfirmationId', params.confirmationId)
+        .modify('filterBusinessName', params.business)
+        .modify('filterCity', params.city)
+        .modify('filterType', params.type)
+        .modify('filterDeleted', params.deleted)
+        .modify('orderDescending');
+      return submissions;
+    } else {
 
-    const submissions = await this._models.Submission.query()
-      .allowGraph('[operationType, attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
-      .withGraphFetched('[operationType, attestation, business, location]')
-      .withGraphFetched('contacts(orderContactType)')
-      .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
-      .withGraphFetched('notes(orderDescending)')
-      .joinRelated('business')
-      .joinRelated('location')
-      .modify('filterVersion', params.version)
-      .modify('filterConfirmationId', params.confirmationId)
-      .modify('filterBusinessName', params.business)
-      .modify('filterCity', params.city)
-      .modify('filterType', params.type)
-      .modify('filterDeleted', params.deleted)
-      .modify('orderDescending');
-
-    return (params.tiny && params.tiny === true) ? tiny(submissions) : submissions;
+      const submissions = await this._models.Submission.query()
+        .allowGraph('[operationType, attestation, business, contacts, location, statuses.[notes, statusCode], notes]')
+        .withGraphFetched('[operationType, attestation, business, location]')
+        .withGraphFetched('contacts(orderContactType)')
+        .withGraphFetched('statuses(orderDescending).[notes(orderDescending),statusCode]')
+        .withGraphFetched('notes(orderDescending)')
+        .joinRelated('business')
+        .joinRelated('location')
+        .modify('filterVersion', params.version)
+        .modify('filterConfirmationId', params.confirmationId)
+        .modify('filterBusinessName', params.business)
+        .modify('filterCity', params.city)
+        .modify('filterType', params.type)
+        .modify('filterDeleted', params.deleted)
+        .modify('orderDescending');
+      return submissions;
+    }
   }
 
 }

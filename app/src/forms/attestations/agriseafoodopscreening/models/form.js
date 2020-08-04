@@ -163,6 +163,50 @@ class Location extends AttestationModels.Location {
 
 }
 
+class SubmissionSearchView extends AttestationModels.SubmissionSearchView {
+  static get tablePrefix() {
+    return PREFIX;
+  }
+
+  static get modifiers() {
+    return {
+      orderDescending(builder) {
+        builder.orderBy('createdAt', 'desc');
+      },
+      filterVersion(query, value) {
+        if (value) {
+          query.where('formVersionId', value);
+        }
+      },
+      filterConfirmationId(query, value) {
+        if (value) {
+          query.where('confirmationId', 'ilike', `%${value}%`);
+        }
+      },
+      filterBusinessName(query, value) {
+        if (value) {
+          query.where('name', 'ilike', `%${value}%`);
+        }
+      },
+      filterCity(query, value) {
+        if (value) {
+          query.where('city', 'ilike', `%${value}%`);
+        }
+      },
+      filterDeleted(query, value) {
+        if (value !== undefined) {
+          query.where('deleted', value);
+        }
+      },
+      filterType(query, value) {
+        if (value) {
+          query.where('operationType', value);
+        }
+      }
+    };
+  }
+}
+
 module.exports.Metadata = CommonModels.Metadata;
 module.exports.Form = Form;
 module.exports.Version = Version;
@@ -177,3 +221,4 @@ module.exports.Business = Business;
 module.exports.Contact = Contact;
 module.exports.Location = Location;
 module.exports.SubmissionSearch = AttestationModels.OperationTypesSubmissionSearch;
+module.exports.SubmissionSearchView = SubmissionSearchView;
