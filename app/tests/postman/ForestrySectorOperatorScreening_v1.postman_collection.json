@@ -280,8 +280,8 @@
 							"    var jsonData = pm.response.json()[0];",
 							"    pm.expect(jsonData).to.have.property('submissionId');",
 							"    pm.expect(jsonData).to.have.property('confirmationId');",
-							"    pm.expect(jsonData).to.have.property('type');",
-							"    pm.expect(jsonData.type).to.equal(pm.collectionVariables.get('operationTypeDisplay'));",
+							"    pm.expect(jsonData).to.have.property('operationTypeDisplay');",
+							"    pm.expect(jsonData.operationTypeDisplay).to.equal(pm.collectionVariables.get('operationTypeDisplay'));",
 							"    pm.expect(jsonData.submissionId).to.equal(pm.collectionVariables.get('submissionId'));",
 							"    pm.expect(jsonData.confirmationId).to.equal(pm.collectionVariables.get('confirmationId'));",
 							"});"

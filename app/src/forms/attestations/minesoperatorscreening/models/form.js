@@ -129,6 +129,12 @@ class Location extends AttestationModels.LocationMines {
 
 }
 
+class SubmissionSearchView extends AttestationModels.SubmissionSearchView {
+  static get tablePrefix() {
+    return PREFIX;
+  }
+}
+
 module.exports.Metadata = CommonModels.Metadata;
 module.exports.Form = Form;
 module.exports.Version = Version;
@@ -142,3 +148,4 @@ module.exports.Business = Business;
 module.exports.Contact = Contact;
 module.exports.Location = Location;
 module.exports.SubmissionSearch = AttestationModels.SubmissionSearch;
+module.exports.SubmissionSearchView = SubmissionSearchView;

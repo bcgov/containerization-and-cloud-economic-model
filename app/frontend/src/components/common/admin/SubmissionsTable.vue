@@ -117,10 +117,10 @@ export default {
           let submission = data[k];
           return {
             submissionId: submission.submissionId,
-            name: submission.businessName,
+            name: submission.name,
             created: this.formatDate(submission.createdAt),
             confirmationId: submission.confirmationId,
-            inspectionStatus: submission.status,
+            inspectionStatus: submission.statusDisplay,
             assignedTo: submission.assignedTo ? submission.assignedTo : '-'
           };
         });

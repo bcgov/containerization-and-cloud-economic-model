@@ -547,6 +547,42 @@ class LocationMines extends Location {
   }
 }
 
+class SubmissionSearchView extends CommonModels.SubmissionSearchView {
+
+  static get modifiers() {
+    return {
+      orderDescending(builder) {
+        builder.orderBy('createdAt', 'desc');
+      },
+      filterVersion(query, value) {
+        if (value) {
+          query.where('formVersionId', value);
+        }
+      },
+      filterConfirmationId(query, value) {
+        if (value) {
+          query.where('confirmationId', 'ilike', `%${value}%`);
+        }
+      },
+      filterBusinessName(query, value) {
+        if (value) {
+          query.where('name', 'ilike', `%${value}%`);
+        }
+      },
+      filterCity(query, value) {
+        if (value) {
+          query.where('city', 'ilike', `%${value}%`);
+        }
+      },
+      filterDeleted(query, value) {
+        if (value !== undefined) {
+          query.where('deleted', value);
+        }
+      }
+    };
+  }
+}
+
 module.exports = {
   Attestation: Attestation,
   AttestationSchema: AttestationSchema,
@@ -559,5 +595,6 @@ module.exports = {
   LocationMines: LocationMines,
   Submission: Submission,
   SubmissionOperation: SubmissionOperation,
-  OperationType: OperationType
+  OperationType: OperationType,
+  SubmissionSearchView: SubmissionSearchView
 };
