@@ -23,8 +23,8 @@ exports.down = function (knex) {
       table.dropColumn('sharedSleepingProvidedAccommodations');
       table.dropColumn('sharedSleepingCommunication');
 
-      table.boolean('commonAreaDistancing').notNullable();
-      table.enu('sleepingAreaType', ['SINGLE', 'SHARED']).notNullable();
-      table.integer('sharedSleepingPerRoom').notNullable();
+      table.boolean('commonAreaDistancing').notNullable().defaultTo(false);
+      table.enu('sleepingAreaType', ['SINGLE', 'SHARED']).notNullable().defaultTo('SINGLE');
+      table.integer('sharedSleepingPerRoom').notNullable().defaultTo(0);
     }));
 };
