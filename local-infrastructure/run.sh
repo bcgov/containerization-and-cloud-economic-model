@@ -1,31 +1,34 @@
 #!/bin/bash
-#
-# Common Forms Toolkit Local Infrastructure quick run
-#
+#%
+#% Common Forms Toolkit Local Infrastructure quick run
+#%
+#%  [ENV_FILE=./.env] [VERBOSE=false] THIS_FILE.sh
+#%
+#%    [TIMEOUT=10] THIS_FILE.sh ./input.csv [./results.csv]
+#%
+#%  Please create ../app/config/local.json.
+#%    Minimal, redacted example: ../app/config/sample-local.json
+#%
+#%  Request a GETOK Account and password.
+#%    https://getok.pathfinder.gov.bc.ca/getok/about
+#%
 # Prerequisites: Node.js 12, docker, docker compose and python
 # https://bcgov.github.io/common-forms-toolkit/local-infrastructure/
-# https://bcgov.github.io/common-forms-toolkit/docs/developer-guide.html
+
+# Boilerplate - halt conditions (errors, unsets, non-zero pipes), verbosity and help (w/o params)
 #
 set -euo pipefail
+[ ! "${VERBOSE:-}" == "true" ] || set -x
+[ -f "../app/config/local.json" ] && ((!$#)) || {
+    grep "^#%" ${0} | sed -e "s/^#%//g" -e "s|THIS_FILE.sh|${0}|g"
+    exit
+}
 
-# Default env file, can be overridden (VAR=something ./run.sh)
+# Pick up vars from .env
 #
 ENV_FILE="${ENV_FILE:-.env}"
-
-# Pick up vars from .env, if exists
-#
 [ ! -f "${ENV_FILE}" ] || source ./.env
 KEY_PORT=${KEYCLOAK_HOST_HTTP_PORT:-28080}
-
-# Ensure local.json exists, else inform and exit
-#
-if [ ! -f "../app/config/local.json" ]; then
-    echo -e "\nPlease create ./config/local.json."
-    echo -e "  Minimal, redacted example: ./config/sample-local.json"
-    echo -e "\nRequest a GETOK Account and password."
-    echo -e "  https://getok.pathfinder.gov.bc.ca/getok/about \n"
-    exit
-fi
 
 # Stop, build and bring up containers as services (daemons)
 #
@@ -37,16 +40,9 @@ docker-compose up -d
 #
 docker logs -f comfort_node_migrate
 
-# Wait for keycloak to start and create local users
+# Run migrations (script includes check/wait for keycloak service)
 #
-while (! curl -s http://localhost:${KEY_PORT}/auth/realms/cp1qly2d -o /dev/null); do
-    sleep 10
-done
-docker exec -ti comfort_keycloak bash /tmp/keycloak-local-user.sh
-
-# Show status of containers
-#
-docker ps
+docker exec comfort_keycloak bash /tmp/keycloak-local-user.sh
 
 # Build and serve in development mode
 #
