@@ -1,0 +1,26 @@
+{
+  "db": {
+    "username": "app",
+    "password": "password123",
+    "port": "25432"
+  },
+  "frontend": {
+    "keycloak": {
+      "clientId": "comfort-frontend-local"
+    }
+  },
+  "server": {
+    "keycloak": {
+      "adminClientSecret": "password123",
+      "clientSecret": "password123",
+      "serverUrl": "http://localhost:28080/auth"
+    },
+    "logLevel": "debug",
+    "morganFormat": "dev"
+  },
+  "serviceClient": {
+    "commonServices": {
+      "password": "<RECACTED>"
+    }
+  }
+}
