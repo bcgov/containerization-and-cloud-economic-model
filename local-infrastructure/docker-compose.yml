@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 
 networks:
   comfort-net:
@@ -51,5 +51,6 @@ services:
       - "DB_USERNAME=${DB_USERNAME}"
       - "DB_PASSWORD=${DB_PASSWORD}"
       - "DB_PORT=${DB_PORT}"
+    entrypoint: ["/bin/sh", "/opt/app-root/src/bin/run-migrations.sh"]
     networks:
       - comfort-net
