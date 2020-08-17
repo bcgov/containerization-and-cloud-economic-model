@@ -6,7 +6,7 @@
   },
   "frontend": {
     "keycloak": {
-      "clientId": "comfort-frontend-local"
+      "serverUrl": "http://localhost:28080/auth"
     }
   },
   "server": {
@@ -14,13 +14,12 @@
       "adminClientSecret": "password123",
       "clientSecret": "password123",
       "serverUrl": "http://localhost:28080/auth"
-    },
-    "logLevel": "debug",
-    "morganFormat": "dev"
+    }
   },
   "serviceClient": {
     "commonServices": {
-      "password": "<RECACTED>"
+      "username": "<Your GETOK Service Client ID>",
+      "password": "<Your GETOK Service Client Password>"
     }
   }
 }

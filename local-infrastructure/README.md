@@ -16,7 +16,7 @@ docker-compose --env-file=<your env file> <commands>
 
 ## Quick Run
 
-A system running Linux or the Windows Subsustem for Linux (WSL) with Node.js 12, Python 2.7, docker and Docker Compose can use the quick start script.
+A system running Linux or the Windows Subsystem for Linux (WSL) with Node.js 12, docker and Docker Compose can use the quick start script.
 
 - Postgres (Local Infrastructure, Docker)
 - KeyCloak (Local Infrastructure, Docker)
@@ -37,7 +37,7 @@ The following config, used during script creation, only requires a GETOK token.
 cp ../app/config/sample-local.json ../app/config/local.json
 ```
 
-Runing the script with any parameters or before creating local.json will show additonal help.
+Running the script with any parameters or before creating local.json will show additional help.
 
 ```
 ./run.sh --help
@@ -62,7 +62,7 @@ docker-compose build
 ```sh
 docker-compose up -d
 ```
-Note that keycloak and postgress will run indefinitely, while node_migrate performs migrations and stops.
+Note that keycloak and postgres will run indefinitely, while node_migrate performs migrations and stops.
 
 #### Run database migrations
 

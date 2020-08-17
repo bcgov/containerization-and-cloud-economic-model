@@ -24,12 +24,6 @@ set -euo pipefail
     exit
 }
 
-# Pick up vars from .env
-#
-ENV_FILE="${ENV_FILE:-.env}"
-[ ! -f "${ENV_FILE}" ] || source ./.env
-KEY_PORT=${KEYCLOAK_HOST_HTTP_PORT:-28080}
-
 # Stop, build and bring up containers as services (daemons)
 #
 docker-compose stop
@@ -44,13 +38,22 @@ docker logs -f comfort_node_migrate
 #
 docker exec comfort_keycloak bash /tmp/keycloak-local-user.sh
 
-# Build and serve in development mode
+# Build application
 #
 pushd ../app/
 npm run all:install
 npm run all:build
-npm run serve
 
-# Open app
+# Browse to KeyCloack.Install open-cli and browse to site when app is available
 #
-(! which python) || python -m webbrowser http://localhost:8080/
+(
+    while (! curl -s http://localhost:8080 -o /dev/null); do
+        sleep 10
+    done
+    npx open-cli http://localhost:28080/
+    npx open-cli http://localhost:8080/
+) &
+
+# Start app
+#
+npm run serve
