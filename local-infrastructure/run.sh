@@ -1,7 +1,10 @@
 #!/bin/bash
 #
-# Prerequisites: docker, docker compose and python
+# Common Forms Toolkit Local Infrastructure quick run
+#
+# Prerequisites: Node.js 12, docker, docker compose and python
 # https://bcgov.github.io/common-forms-toolkit/local-infrastructure/
+# https://bcgov.github.io/common-forms-toolkit/docs/developer-guide.html
 #
 set -euo pipefail
 
@@ -13,6 +16,16 @@ ENV_FILE="${ENV_FILE:-.env}"
 #
 [ ! -f "${ENV_FILE}" ] || source ./.env
 KEY_PORT=${KEYCLOAK_HOST_HTTP_PORT:-28080}
+
+# Ensure local.json exists, else inform and exit
+#
+if [ ! -f "../app/config/local.json" ]; then
+    echo -e "\nPlease create ./config/local.json."
+    echo -e "  Minimal, redacted example: ./config/sample-local.json"
+    echo -e "\nRequest a GETOK Account and password."
+    echo -e "  https://getok.pathfinder.gov.bc.ca/getok/about \n"
+    exit
+fi
 
 # Stop, build and bring up containers as services (daemons)
 #
@@ -35,6 +48,13 @@ docker exec -ti comfort_keycloak bash /tmp/keycloak-local-user.sh
 #
 docker ps
 
-# If python3 is installed then browse to keycloak
+# Build and serve in development mode
 #
-(! which python) || python -m webbrowser http://localhost:28080/
+pushd ../app/
+npm run all:install
+npm run all:build
+npm run serve
+
+# Open app
+#
+(! which python) || python -m webbrowser http://localhost:8080/
