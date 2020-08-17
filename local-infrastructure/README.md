@@ -31,14 +31,13 @@ docker-compose build
 #### Stand up services
 
 ```sh
-docker-compose up -d postgres keycloak
+docker-compose up -d
 ```
-Note that the node_migrate service does not continually run on up.  We run it only to populate the database. See below.
+Note that keycloak and postgress will run indefinitely, while node_migrate performs migrations and stops.
 
 #### Run database migrations
 
-Must wait for the postgres service to be started and accepting connections.
-Since node_migrate service is **NOT** running, we use the run command to start a new container and then run our migration script.
+Database migrations run automatically in node_migrate.  This can be repeated manually with the step below, given postgres is started and accepting connections.
 
 ```sh
 docker-compose run node_migrate sh /opt/app-root/src/bin/run-migrations.sh
