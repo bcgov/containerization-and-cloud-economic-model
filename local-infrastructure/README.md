@@ -14,6 +14,35 @@ You can create your own .env file and pass in as the --env-file parameter, or se
 docker-compose --env-file=<your env file> <commands>
 ```
 
+## Quick Run
+
+A system running Linux or the Windows Subsustem for Linux (WSL) with Node.js 12, Python 2.7, docker and Docker Compose can use the quick start script.
+
+- Postgres (Local Infrastructure, Docker)
+- KeyCloak (Local Infrastructure, Docker)
+- Node Migrate (Local Infrastucture, Docker)
+- Common Forms Toolkit (primary application, bare metal)
+
+Application setup details and more are in the [Developer Guide](# https://bcgov.github.io/common-forms-toolkit/docs/developer-guide.html)
+
+### Quick Run Steps
+
+1. Sign up at the [GETOK Common Service Onboarding page](https://getok.pathfinder.gov.bc.ca/getok/about).
+2. Create ../app/config/local.json.
+3. Run the setup script.
+
+The following config, used during script creation, only requires a GETOK token.
+
+```
+cp ../app/config/sample-local.json ../app/config/local.json
+```
+
+Runing the script with any parameters or before creating local.json will show additonal help.
+
+```
+./run.sh --help
+```
+
 ### Prerequisites
 
 You have docker installed, and able to run docker-compose.
