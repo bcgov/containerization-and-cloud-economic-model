@@ -14,6 +14,35 @@ You can create your own .env file and pass in as the --env-file parameter, or se
 docker-compose --env-file=<your env file> <commands>
 ```
 
+## Quick Run
+
+A system running Linux or the Windows Subsystem for Linux (WSL) with Node.js 12, docker and Docker Compose can use the quick start script.
+
+- Postgres (Local Infrastructure, Docker)
+- KeyCloak (Local Infrastructure, Docker)
+- Node Migrate (Local Infrastucture, Docker)
+- Common Forms Toolkit (primary application, bare metal)
+
+Application setup details and more are in the [Developer Guide](# https://bcgov.github.io/common-forms-toolkit/docs/developer-guide.html)
+
+### Quick Run Steps
+
+1. Sign up at the [GETOK Common Service Onboarding page](https://getok.pathfinder.gov.bc.ca/getok/about).
+2. Create ../app/config/local.json.
+3. Run the setup script.
+
+The following config, used during script creation, only requires a GETOK token.
+
+```
+cp ../app/config/sample-local.json ../app/config/local.json
+```
+
+Running the script with any parameters or before creating local.json will show additional help.
+
+```
+./run.sh --help
+```
+
 ### Prerequisites
 
 You have docker installed, and able to run docker-compose.
@@ -31,14 +60,13 @@ docker-compose build
 #### Stand up services
 
 ```sh
-docker-compose up -d postgres keycloak
+docker-compose up -d
 ```
-Note that the node_migrate service does not continually run on up.  We run it only to populate the database. See below.
+Note that keycloak and postgres will run indefinitely, while node_migrate performs migrations and stops.
 
 #### Run database migrations
 
-Must wait for the postgres service to be started and accepting connections.
-Since node_migrate service is **NOT** running, we use the run command to start a new container and then run our migration script.
+Database migrations run automatically in node_migrate.  This can be repeated manually with the step below, given postgres is started and accepting connections.
 
 ```sh
 docker-compose run node_migrate sh /opt/app-root/src/bin/run-migrations.sh

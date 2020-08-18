@@ -3,6 +3,13 @@
 # Override the default command for the dockerfile
 # To create local user and assign permissions to it.
 
+# Wait for keycloak to start
+#
+while (! curl -s http://localhost:8080/auth/realms/cp1qly2d -o /dev/null); do
+  echo "Waiting 10 seconds for KeyCloak to start"
+  sleep 10
+done
+
 export PATH="/opt/jboss/keycloak/bin:$PATH"
 
 add_user () {
