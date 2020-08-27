@@ -6,6 +6,7 @@ import comfort from './comfort';
 import agriSeafoodOpScreening from './agriSeafoodOpScreening';
 import forestrySectorOpScreening from './forestrySectorOpScreening';
 import minesOperatorScreening from './minesOperatorScreening';
+import myForm from './myForm';
 
 Vue.use(VueRouter);
 
@@ -24,7 +25,8 @@ export default function getRouter(basePath = '/') {
       ...comfort,
       ...agriSeafoodOpScreening,
       ...forestrySectorOpScreening,
-      ...minesOperatorScreening
+      ...minesOperatorScreening,
+      ...myForm
     ]
   });
 

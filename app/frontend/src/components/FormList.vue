@@ -73,6 +73,14 @@ export default {
         resource: AppClients.MINESOPERATORSCREENING,
         roles: [],
         title: 'Mines Operator Screening'
+      },
+      {
+        enabled: true,
+        linkAdminName: 'MyFormAdmin',
+        linkName: 'MyFormForm',
+        resource: AppClients.MYFORM,
+        roles: [],
+        title: 'My Form'
       }
     ],
     moduleLoaded: true
