@@ -4,7 +4,7 @@
 import { FormNames } from '@/utils/constants';
 
 const baseName = 'MyForm';
-const baseTitle = 'My Sample Form';
+const baseTitle = 'My Form';
 
 export default [
   {

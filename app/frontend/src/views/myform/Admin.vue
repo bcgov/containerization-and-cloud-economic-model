@@ -12,16 +12,16 @@ import SubmissionsTable from '@/components/common/admin/SubmissionsTable.vue';
 import { AppClients, FormNames } from '@/utils/constants';
 
 export default {
-  name: 'MinesOperatorScreeningAdmin',
+  name: 'MyFormAdmin',
   components: {
     SubmissionsTable
   },
   computed: {
     formName() {
-      return FormNames.MINESOPERATORSCREENING;
+      return FormNames.MYFORM;
     },
     resource() {
-      return AppClients.MINESOPERATORSCREENING;
+      return AppClients.MYFORM;
     }
   }
 };

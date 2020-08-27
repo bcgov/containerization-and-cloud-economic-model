@@ -22,12 +22,12 @@
 import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/minesoperatorscreening/admin/AdminReviewSubmission.vue';
+import AdminReviewSubmission from '@/components/myform/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import { FormNames } from '@/utils/constants';
 
 export default {
-  name: 'MinesOperatorScreeningReview',
+  name: 'MyFormReview',
   components: {
     AdminReviewSubmission,
     GeneratePdfButton
@@ -55,7 +55,7 @@ export default {
         : 'N/A';
     },
     formName() {
-      return FormNames.MINESOPERATORSCREENING;
+      return FormNames.MYFORM;
     }
   },
   methods: {

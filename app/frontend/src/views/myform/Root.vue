@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import Form from '@/components/minesoperatorscreening/Form.vue';
+import Form from '@/components/myform/Form.vue';
 export default {
-  name: 'MinesOperatorScreeningRoot',
+  name: 'MyFormRoot',
   components: {
     Form
   }

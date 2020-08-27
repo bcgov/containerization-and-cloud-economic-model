@@ -18,10 +18,10 @@ export default {
   },
   computed: {
     formName() {
-      return FormNames.MINESOPERATORSCREENING;
+      return FormNames.MYFORM;
     },
     resource() {
-      return AppClients.MINESOPERATORSCREENING;
+      return AppClients.MYFORM;
     }
   }
 };

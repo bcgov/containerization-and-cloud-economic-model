@@ -4,7 +4,7 @@ const PREFIX = require('../../forms/myform/constants').PREFIX;
 const SLUG = require('../../forms/myform/constants').SLUG;
 const CREATED_BY = 'migration-myform';
 
-const FORM_NAME = 'My Form Survey';
+const FORM_NAME = 'Cloud Economic Model Survey';
 
 const statusCodes = [
   {code:'SUBMITTED', display: 'Submitted', enabled: true, nextCodes: ['ASSIGNED', 'COMPLETED'], allowedClassifications: [], createdBy: CREATED_BY},

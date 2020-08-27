@@ -8,7 +8,7 @@ exports.up = function(knex) {
       table.uuid('formId').references('formId').inTable('form').notNullable().primary();
       table.string('description');
       stamps(knex, table);
-      table.comment('There should only be one record in this table.  It is the My Form instance of form');
+      table.comment('There should only be one record in this table.  It is the Cloud Economic Model instance of form');
     }))
     .then(() => knex.schema.createTable(`${PREFIX}_form_version`, table => {
       table.increments('formVersionId').primary();
