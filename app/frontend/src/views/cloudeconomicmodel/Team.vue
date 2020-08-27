@@ -1,27 +1,27 @@
 <template>
   <v-container>
     <BaseSecure :resource="resource" admin>
-      <h1 class="mb-6">Settings</h1>
-      <SettingsPanel :formName="formName" />
+      <h1 class="mb-6">Team Management</h1>
+      <TeamTable :formName="formName" />
     </BaseSecure>
   </v-container>
 </template>
 
 <script>
 import { AppClients, FormNames } from '@/utils/constants';
-import SettingsPanel from '@/components/common/admin/settings/SettingsPanel.vue';
+import TeamTable from '@/components/common/TeamTable';
 
 export default {
-  name: 'Settings',
+  name: 'Team',
   components: {
-    SettingsPanel
+    TeamTable
   },
   computed: {
     formName() {
-      return FormNames.MYFORM;
+      return FormNames.CLOUDECONOMICMODEL;
     },
     resource() {
-      return AppClients.MYFORM;
+      return AppClients.cloudeconomicmodel;
     }
   }
 };

@@ -12,7 +12,7 @@ In order to have new form hosted in COMFORT, you need to have the following:
 3. API
 4. UI (TBD)
 
-To better illustrate your coding responsibilities, and what is required, review the code under [sample](sample). This contains a set of migration scripts and API code. If you wanted to stand up the sample (myform), copy code under [sample](sample) to [src](../app/src)
+To better illustrate your coding responsibilities, and what is required, review the code under [sample](sample). This contains a set of migration scripts and API code. If you wanted to stand up the sample (cloudeconomicmodel), copy code under [sample](sample) to [src](../app/src)
 
 ```sh
 cp -R sample/* ../app/src
@@ -200,9 +200,9 @@ You will need to create your own controllers, models, routes, etc for your custo
 
 ### Models
 Now you know the tables, please familiarize yourself with the common [models](../app/src/forms/common/models/base.js).  
-And you can review the sample [models](sample/forms/myform/models).  
+And you can review the sample [models](sample/forms/cloudeconomicmodel/models).  
 
-In the sample, we add a single custom table/model: Survey (myform\_submission\_survey).  Note the `relationMappings` in the Submission model.
+In the sample, we add a single custom table/model: Survey (cloudeconomicmodel\_submission\_survey).  Note the `relationMappings` in the Submission model.
 
 For models, you will need to extend the Common Models for Form, Version, Status Code, Note, Settings, Submission and Submission Status.  
 You need to set the tablePrefix and each of the Relations and associated classes.  
@@ -211,31 +211,31 @@ You need to set the tablePrefix and each of the Relations and associated classes
 
 You will need to add any business data table models yourself.  
 
-In order to pass these particular implementations to your Data Service and Controllers, create a wrapper class that returns each of your Models as a property (see [models/index](sample/forms/myform/models/index.js)).
+In order to pass these particular implementations to your Data Service and Controllers, create a wrapper class that returns each of your Models as a property (see [models/index](sample/forms/cloudeconomicmodel/models/index.js)).
 
 ### Controller
-In this sample, the [controller](sample/forms/myform/controller.js) is just a coordinator between the Router and the Data Service. You can make this as complex as you need, coordinate between other services (email, document generation). 
+In this sample, the [controller](sample/forms/cloudeconomicmodel/controller.js) is just a coordinator between the Router and the Data Service. You can make this as complex as you need, coordinate between other services (email, document generation). 
  
 ### Data Service
-In this sample, the [data service](sample/forms/myform/dataService.js) is illustrates the database calls to your specific instances of the tables, this is acheived by passing in your [Models](sample/forms/myform/models/index.js).  As you add more tables, you can expand as necessary.  
+In this sample, the [data service](sample/forms/cloudeconomicmodel/dataService.js) is illustrates the database calls to your specific instances of the tables, this is acheived by passing in your [Models](sample/forms/cloudeconomicmodel/models/index.js).  As you add more tables, you can expand as necessary.  
 
 ### Router
-In this sample, the [router](sample/forms/myform/router.js) exposes the api uses the controller for coordination with the services.  Notice that it has middleware to check authentication against your Keycloak resource.  You can add other middleware as needed - for example, parsing and validating query parameters.    
+In this sample, the [router](sample/forms/cloudeconomicmodel/router.js) exposes the api uses the controller for coordination with the services.  Notice that it has middleware to check authentication against your Keycloak resource.  You can add other middleware as needed - for example, parsing and validating query parameters.    
 
 ### Mount the API
-Review [index.js](sample/forms/myform/index.js).  This creates all the specific instances of your code: your controller, your data service, your router, your models.  It also loads the common components and team components.  The mount method is the complete API for your form.  
+Review [index.js](sample/forms/cloudeconomicmodel/index.js).  This creates all the specific instances of your code: your controller, your data service, your router, your models.  It also loads the common components and team components.  The mount method is the complete API for your form.  
 
 To mount the API, simply add the following to [routes/v1.js](../app/src/routes/v1.js):
 
 ```js
-const myform = require('../forms/myform');
-const myformPath = myform.mount(router);
+const cloudeconomicmodel = require('../forms/cloudeconomicmodel');
+const CloudEconomicModelPath = cloudeconomicmodel.mount(router);
 // add the path to the endpoints list (optional)
  router.get('/', (_req, res) => {
    res.status(200).json({
      endpoints: [
        '/docs',
-       myformPath
+       CloudEconomicModelPath
      ]
    });
  });
@@ -247,12 +247,12 @@ Coming soon...
 ## Test it out
 This assumes that you have [Postman](https://www.postman.com) installed and are familiar with the tool.  
 
-1. follow the Keycloak setup and install `myform`.
+1. follow the Keycloak setup and install `cloudeconomicmodel`.
 2. copy the sample code into your app.  
 3. run the migration.  
 4. start the application.  
 5. (assuming all defaults)... login to your local [app](http://localhost:8080/app), grab your access token.
-6. open [Postman collection](sample/MyForm_v1.postman_collection.json)
+6. open [Postman collection](sample/CloudEconomicModel_v1.postman_collection.json)
 7. edit the collection
 8. paste your token into the Authorization tab's Token field
 9. Run the collection

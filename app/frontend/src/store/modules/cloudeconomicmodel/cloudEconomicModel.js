@@ -236,7 +236,7 @@ export default {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await commonFormService.getSubmission(FormNames.MYFORM, id);
+        const response = await commonFormService.getSubmission(FormNames.CLOUDECONOMICMODEL, id);
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
@@ -261,7 +261,7 @@ export default {
       try {
         const body = transformToPost(state);
 
-        const response = await commonFormService.sendSubmission(FormNames.MYFORM, body);
+        const response = await commonFormService.sendSubmission(FormNames.CLOUDECONOMICMODEL, body);
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }

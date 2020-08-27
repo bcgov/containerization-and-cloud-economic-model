@@ -12,16 +12,16 @@ import SubmissionsTable from '@/components/common/admin/SubmissionsTable.vue';
 import { AppClients, FormNames } from '@/utils/constants';
 
 export default {
-  name: 'MyFormAdmin',
+  name: 'CloudEconomicModelAdmin',
   components: {
     SubmissionsTable
   },
   computed: {
     formName() {
-      return FormNames.MYFORM;
+      return FormNames.CLOUDECONOMICMODEL;
     },
     resource() {
-      return AppClients.MYFORM;
+      return AppClients.CLOUDECONOMICMODEL;
     }
   }
 };

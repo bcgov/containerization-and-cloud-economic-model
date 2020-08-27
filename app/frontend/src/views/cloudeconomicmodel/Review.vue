@@ -22,12 +22,12 @@
 import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/myform/admin/AdminReviewSubmission.vue';
+import AdminReviewSubmission from '@/components/cloudeconomicmodel/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import { FormNames } from '@/utils/constants';
 
 export default {
-  name: 'MyFormReview',
+  name: 'CloudEconomicModelReview',
   components: {
     AdminReviewSubmission,
     GeneratePdfButton
@@ -55,7 +55,7 @@ export default {
         : 'N/A';
     },
     formName() {
-      return FormNames.MYFORM;
+      return FormNames.CLOUDECONOMICMODEL;
     }
   },
   methods: {

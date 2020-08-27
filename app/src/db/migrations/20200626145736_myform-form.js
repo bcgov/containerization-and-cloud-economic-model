@@ -1,6 +1,6 @@
 const stamps = require('../stamps');
 
-const PREFIX = require('../../forms/myform/constants').PREFIX;
+const PREFIX = require('../../forms/cloudeconomicmodel/constants').PREFIX;
 
 exports.up = function(knex) {
   return Promise.resolve()

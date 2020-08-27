@@ -3,18 +3,18 @@
  */
 import { FormNames } from '@/utils/constants';
 
-const baseName = 'MyForm';
-const baseTitle = 'My Form';
+const baseName = 'CloudEconomicModel';
+const baseTitle = 'Cloud Economic Model';
 
 export default [
   {
-    path: `/${FormNames.MYFORM}`,
-    component: () => import(/* webpackChunkName: "myform" */ '@/views/MyForm.vue'),
+    path: `/${FormNames.CLOUDECONOMICMODEL}`,
+    component: () => import(/* webpackChunkName: "cloudeconomicmodel" */ '@/views/CloudEconomicModel.vue'),
     children: [
       {
         path: '',
         name: `${baseName}Form`,
-        component: () => import(/* webpackChunkName: "myform-form" */ '@/views/myform/Root.vue'),
+        component: () => import(/* webpackChunkName: "cloudeconomicmodel-form" */ '@/views/cloudeconomicmodel/Root.vue'),
         meta: {
           title: baseTitle
         }
@@ -22,7 +22,7 @@ export default [
       {
         path: 'admin',
         name: `${baseName}Admin`,
-        component: () => import(/* webpackChunkName: "myform-admin" */ '@/views/myform/Admin.vue'),
+        component: () => import(/* webpackChunkName: "cloudeconomicmodel-admin" */ '@/views/cloudeconomicmodel/Admin.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
@@ -32,7 +32,7 @@ export default [
       {
         path: 'admin/dashboard',
         name: `${baseName}Dashboards`,
-        component: () => import(/* webpackChunkName: "myform-dashboard" */ '@/views/myform/Dashboards.vue'),
+        component: () => import(/* webpackChunkName: "cloudeconomicmodel-dashboard" */ '@/views/cloudeconomicmodel/Dashboards.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
@@ -42,7 +42,7 @@ export default [
       {
         path: 'admin/settings',
         name: `${baseName}Settings`,
-        component: () => import(/* webpackChunkName: "myform-settings" */ '@/views/myform/Settings.vue'),
+        component: () => import(/* webpackChunkName: "cloudeconomicmodel-settings" */ '@/views/cloudeconomicmodel/Settings.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
@@ -52,7 +52,7 @@ export default [
       {
         path: 'admin/submission/:submissionId',
         name: `${baseName}Submission`,
-        component: () => import(/* webpackChunkName: "myform-submission" */ '@/views/myform/Submission.vue'),
+        component: () => import(/* webpackChunkName: "cloudeconomicmodel-submission" */ '@/views/cloudeconomicmodel/Submission.vue'),
         props: true,
         meta: {
           hasLogin: true,
@@ -63,7 +63,7 @@ export default [
       {
         path: 'admin/team',
         name: `${baseName}Team`,
-        component: () => import(/* webpackChunkName: "myform-team" */ '@/views/myform/Team.vue'),
+        component: () => import(/* webpackChunkName: "cloudeconomicmodel-team" */ '@/views/cloudeconomicmodel/Team.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
@@ -73,7 +73,7 @@ export default [
       {
         path: 'review/:submissionId',
         name: `${baseName}Review`,
-        component: () => import(/* webpackChunkName: "myform-review" */ '@/views/myform/Review.vue'),
+        component: () => import(/* webpackChunkName: "cloudeconomicmodel-review" */ '@/views/cloudeconomicmodel/Review.vue'),
         props: true,
         meta: {
           title: `${baseTitle} Submission Review`

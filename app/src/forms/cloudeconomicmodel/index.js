@@ -38,8 +38,8 @@ teamRouter.on(teamEvents.ACCESS_REQUESTED, async (accessRequest) => {
 // slug will be the paths.
 //
 //  In routes/v1.js, you need to import this module and mount the routes.
-//  const myform = require('../forms/myform');
-//  const myformPath = myform.mount(router);
+//  const cloudeconomicmodel = require('../forms/cloudeconomicmodel');
+//  const CloudEconomicModelPath = cloudeconomicmodel.mount(router);
 //
 //  you can add the path to base v1 response
 //
@@ -47,7 +47,7 @@ teamRouter.on(teamEvents.ACCESS_REQUESTED, async (accessRequest) => {
 //   res.status(200).json({
 //     endpoints: [
 //       '/docs',
-//       myformPath
+//       CloudEconomicModelPath
 //     ]
 //   });
 // });

@@ -76,11 +76,11 @@ export default {
       },
       {
         enabled: true,
-        linkAdminName: 'MyFormAdmin',
-        linkName: 'MyFormForm',
-        resource: AppClients.MYFORM,
+        linkAdminName: 'CloudEconomicModelAdmin',
+        linkName: 'CloudEconomicModelForm',
+        resource: AppClients.CLOUDECONOMICMODEL,
         roles: [],
-        title: 'My Form'
+        title: 'Cloud Economic Model'
       }
     ],
     moduleLoaded: true

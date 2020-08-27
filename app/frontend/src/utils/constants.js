@@ -7,7 +7,7 @@ const FormNames = Object.freeze({
   AGRISEAFOODOPSCREENING: 'agriseafoodopscreening',
   FORESTRYSECTOROPSCREENING: 'forestrysectoropscreening',
   MINESOPERATORSCREENING: 'minesoperatorscreening',
-  MYFORM: 'myform'
+  CLOUDECONOMICMODEL: 'cloudeconomicmodel'
 });
 
 // Add slash prefix to FormNames values

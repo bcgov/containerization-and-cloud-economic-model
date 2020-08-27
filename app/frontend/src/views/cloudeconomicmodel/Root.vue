@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import Form from '@/components/myform/Form.vue';
+import Form from '@/components/cloudeconomicmodel/Form.vue';
 export default {
-  name: 'MyFormRoot',
+  name: 'CloudEconomicModelRoot',
   components: {
     Form
   }

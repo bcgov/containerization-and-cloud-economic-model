@@ -32,7 +32,7 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/myform/admin/AdminReviewSubmission.vue';
+import AdminReviewSubmission from '@/components/cloudeconomicmodel/admin/AdminReviewSubmission.vue';
 import InspectionPanel from '@/components/common/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/common/admin/inspection/NotesPanel.vue';
 import SubmissionHeader from '@/components/common/admin/SubmissionHeader.vue';
@@ -64,10 +64,10 @@ export default {
       'attestation'
     ]),
     formName() {
-      return FormNames.MYFORM;
+      return FormNames.CLOUDECONOMICMODEL;
     },
     resource() {
-      return AppClients.MYFORM;
+      return AppClients.cloudeconomicmodel;
     }
   },
   methods: {

@@ -3,10 +3,10 @@
     <div class="hide-on-review">
       <h2
         class="mb-8"
-      >My Form</h2>
+      >Cloud Economic Model</h2>
       <p
         class="mb-8"
-      >Please complete the following to receive your customized copy of the My Form report.</p>
+      >Please complete the following to receive your customized copy of the Cloud Economic Model report.</p>
 
       <h2 class="mb-8 mt-12">
         <strong>Before you complete this form:</strong>
@@ -125,7 +125,7 @@
 import { mapMutations } from 'vuex';
 
 export default {
-  name: 'MyFormStep1',
+  name: 'CloudEconomicModelStep1',
   data() {
     return {
       docTitle:

@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "d55f32f6-d1a3-46e6-aec6-16dd6d6e9ce2",
-		"name": "MyForm_v1",
+		"name": "CloudEconomicModel_v1",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -30,7 +30,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{host}}/{{path}}/api/v1/forms?slug=myform&public=true&active=true&name=my&keyword=example",
+					"raw": "{{host}}/{{path}}/api/v1/forms?slug=cloudeconomicmodel&public=true&active=true&name=my&keyword=example",
 					"host": [
 						"{{host}}"
 					],
@@ -43,7 +43,7 @@
 					"query": [
 						{
 							"key": "slug",
-							"value": "myform"
+							"value": "cloudeconomicmodel"
 						},
 						{
 							"key": "public",
@@ -1198,7 +1198,7 @@
 		{
 			"id": "b93c564d-2c4e-492f-9e7a-70cd6eb871e3",
 			"key": "slug",
-			"value": "myform"
+			"value": "cloudeconomicmodel"
 		}
 	],
 	"protocolProfileBehavior": {}

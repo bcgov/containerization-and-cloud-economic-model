@@ -1,8 +1,8 @@
 const { v4: uuidv4 } = require('uuid');
 
-const PREFIX = require('../../forms/myform/constants').PREFIX;
-const SLUG = require('../../forms/myform/constants').SLUG;
-const CREATED_BY = 'migration-myform';
+const PREFIX = require('../../forms/cloudeconomicmodel/constants').PREFIX;
+const SLUG = require('../../forms/cloudeconomicmodel/constants').SLUG;
+const CREATED_BY = 'migration-cloudeconomicmodel';
 
 const FORM_NAME = 'Cloud Economic Model Survey';
 
@@ -36,7 +36,7 @@ exports.up = function(knex) {
       const form = {
         formId: uuidv4(),
         name: FORM_NAME,
-        keywords:['demo','sample','example', 'myform'],
+        keywords:['demo','sample','example', 'cloudeconomicmodel'],
         public: true,
         active: true,
         prefix: PREFIX,

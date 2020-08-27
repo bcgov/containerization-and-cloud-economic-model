@@ -8,7 +8,7 @@ const agriSeafoodOpScreening = require('../forms/attestations/agriseafoodopscree
 const forestrySectorOperatorScreening = require('../forms/attestations/forestrysectoroperatorscreening');
 const form = require('../forms/form');
 const minesOperatorScreening = require('../forms/attestations/minesoperatorscreening');
-const myform = require('../forms/myform');
+const cloudEconomicModel = require('../forms/cloudeconomicmodel');
 
 const getSpec = () => {
   const rawSpec = fs.readFileSync(path.join(__dirname, '../docs/v1.api-spec.yaml'), 'utf8');
@@ -22,7 +22,7 @@ const agriSeafoodOpScreeningPath = agriSeafoodOpScreening.mount(router);
 const forestrySectorOperatorScreeningPath = forestrySectorOperatorScreening.mount(router);
 const formPath = form.mount(router);
 const minesOperatorScreeningPath = minesOperatorScreening.mount(router);
-const myformPath = myform.mount(router);
+const CloudEconomicModelPath = cloudEconomicModel.mount(router);
 
 // Base v1 Responder
 router.get('/', (_req, res) => {
@@ -33,20 +33,10 @@ router.get('/', (_req, res) => {
       forestrySectorOperatorScreeningPath,
       formPath,
       minesOperatorScreeningPath,
-      myform
+      CloudEconomicModelPath
     ]
   });
 });
-
-// add the path to the endpoints list (optional)
- router.get('/', (_req, res) => {
-   res.status(200).json({
-     endpoints: [
-       '/docs',
-       myformPath
-     ]
-   });
- });
 
 /** OpenAPI Docs */
 router.get('/docs', (_req, res) => {

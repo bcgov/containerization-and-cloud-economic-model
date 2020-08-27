@@ -9,11 +9,11 @@
 
 <script>
 import AdminNavBar from '@/components/common/admin/AdminNavBar.vue';
-import form from '@/store/modules/myform/myForm.js';
+import form from '@/store/modules/cloudeconomicmodel/cloudEconomicModel.js';
 import { FormNames } from '@/utils/constants';
 
 export default {
-  name: 'MyForm',
+  name: 'CloudEconomicModel',
   components: {
     AdminNavBar
   },
@@ -22,7 +22,7 @@ export default {
   },
   computed: {
     formName() {
-      return FormNames.MYFORM;
+      return FormNames.CLOUDECONOMICMODEL;
     }
   },
   created() {
