@@ -32,7 +32,7 @@ export default [
       {
         path: 'admin/dashboard',
         name: `${baseName}Dashboards`,
-        component: () => import(/* webpackChunkName: "minesoperatorscreening-dashboard" */ '@/views/myform/Dashboards.vue'),
+        component: () => import(/* webpackChunkName: "myform-dashboard" */ '@/views/myform/Dashboards.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
@@ -42,7 +42,7 @@ export default [
       {
         path: 'admin/settings',
         name: `${baseName}Settings`,
-        component: () => import(/* webpackChunkName: "minesoperatorscreening-settings" */ '@/views/myform/Settings.vue'),
+        component: () => import(/* webpackChunkName: "myform-settings" */ '@/views/myform/Settings.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
@@ -52,7 +52,7 @@ export default [
       {
         path: 'admin/submission/:submissionId',
         name: `${baseName}Submission`,
-        component: () => import(/* webpackChunkName: "minesoperatorscreening-submission" */ '@/views/myform/Submission.vue'),
+        component: () => import(/* webpackChunkName: "myform-submission" */ '@/views/myform/Submission.vue'),
         props: true,
         meta: {
           hasLogin: true,
@@ -63,7 +63,7 @@ export default [
       {
         path: 'admin/team',
         name: `${baseName}Team`,
-        component: () => import(/* webpackChunkName: "minesoperatorscreening-team" */ '@/views/myform/Team.vue'),
+        component: () => import(/* webpackChunkName: "myform-team" */ '@/views/myform/Team.vue'),
         meta: {
           hasLogin: true,
           requiresAuth: true,
@@ -73,7 +73,7 @@ export default [
       {
         path: 'review/:submissionId',
         name: `${baseName}Review`,
-        component: () => import(/* webpackChunkName: "minesoperatorscreening-review" */ '@/views/myform/Review.vue'),
+        component: () => import(/* webpackChunkName: "myform-review" */ '@/views/myform/Review.vue'),
         props: true,
         meta: {
           title: `${baseTitle} Submission Review`

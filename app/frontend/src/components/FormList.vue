@@ -80,7 +80,7 @@ export default {
         linkName: 'MyFormForm',
         resource: AppClients.MYFORM,
         roles: [],
-        title: 'My Sample Form'
+        title: 'My Form'
       }
     ],
     moduleLoaded: true
