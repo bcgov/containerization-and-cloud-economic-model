@@ -11,39 +11,18 @@
       >
         <span>FOR TEST ONLY - FILL SAMPLE DATA</span>
       </v-btn>
-      <h2 class="pb-8">Provide Your Business Contact Information</h2>
+      <h2 class="pb-8">Sensitivity Analysis Options</h2>
       <hr class="orange" />
     </div>
 
     <v-form ref="form" v-model="step2Valid">
       <v-container>
-        <v-row>
-          <v-col cols="12" lg="10">
-            <h4 class="heading-field-label mb-1">Registered Business Name</h4>
-            <OrgBookSearch
-              v-if="!reviewMode"
-              :field-model.sync="businessName"
-              :field-rules="businessNameRules"
-            />
-            <v-text-field
-              v-if="reviewMode"
-              dense
-              flat
-              outlined
-              solo
-              v-model="businessName"
-              data-test="text-form-businessName"
-              :rules="businessNameRules"
-            />
-          </v-col>
-        </v-row>
-
         <hr />
 
-        <h4>Primary Contact</h4>
+        <h4>Cost</h4>
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>First Name</label>
+            <label>Number of Teams</label>
             <v-text-field
               dense
               flat
@@ -55,507 +34,113 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>Last Name</label>
+            <label>Ratio of Employees vs Contractors</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              v-model="lastName"
-              data-test="text-form-lastName"
-              :rules="lastNameRules"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
         </v-row>
 
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>Phone Number</label>
+            <label>Experience of Teams with BC Gov Migrations</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              placeholder="000-000-0000"
-              :rules="phone1Rules"
-              prepend-inner-icon="phone"
-              v-model="phone1"
-              data-test="text-form-phone1"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>Alternative Phone Number (Optional)</label>
+            <label>Likelihood of Shadow App Dependencies</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              placeholder="000-000-0000"
-              prepend-inner-icon="phone"
-              v-model="phone2"
-              data-test="text-form-phone2"
-              :rules="phone2Rules"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
         </v-row>
 
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>E-mail Address (Primary Contact)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="john.doe@example.com"
-              :rules="emailRules"
-              prepend-inner-icon="email"
-              v-model="email"
-              data-test="text-form-email"
-            />
-          </v-col>
-        </v-row>
 
         <hr />
 
-        <h4>Business Address</h4>
+        <h4>Value</h4>
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>Address line 1</label>
+            <label>Average Cost of Gov Data Breach</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              v-model="businessAddressLine1"
-              data-test="text-form-businessAddressLine1"
-              :rules="businessAddressLine1Rules"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>Address line 2 (Optional)</label>
+            <label>Average Currrently Online Public Users per Application</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              v-model="businessAddressLine2"
-              data-test="text-form-businessAddressLine2"
-              :rules="businessAddressLine2Rules"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
         </v-row>
-
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>City</label>
+            <label>Average Legacy System Outage Length</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              v-model="businessAddressCity"
-              data-test="text-form-businessAddressCity"
-              :rules="businessAddressCityRules"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Province</label>
-            <v-select
-              :items="provinces"
+          <v-col cols="12" sm="6" lg="5">
+            <label>Public User Service Disruption Hourly Value</label>
+            <v-text-field
               dense
               flat
               outlined
               solo
-              single-line
-              label="Select"
-              v-model="businessAddressProvince"
-              data-test="select-form-businessAddressProvince"
-              :rules="businessAddressProvinceRules"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
         </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="3" lg="2">
-            <label>Postal Code</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="businessAddressPostalCode"
-              data-test="text-form-businessAddressPostalCode"
-              :rules="businessAddressPostalCodeRules"
-            />
-          </v-col>
-        </v-row>
-
-        <hr />
-
-        <h4>COVID-19 Coordinator</h4>
         <v-row>
           <v-col cols="12" sm="6" lg="5">
-            <label>First Name</label>
+            <label>Average Yearly Project Hours on New Features</label>
             <v-text-field
               dense
               flat
               outlined
               solo
-              v-model="covidFirstName"
-              data-test="text-form-covidFirstName"
-              :rules="covidFirstNameRules"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Last Name</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="covidLastName"
-              data-test="text-form-covidLastName"
-              :rules="covidLastNameRules"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Phone Number</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="000-000-0000"
-              prepend-inner-icon="phone"
-              v-model="covidPhone1"
-              data-test="text-form-covidPhone1"
-              :rules="covidPhone1Rules"
-            />
-          </v-col>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Alternative Phone Number (Optional)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="000-000-0000"
-              prepend-inner-icon="phone"
-              v-model="covidPhone2"
-              data-test="text-form-covidPhone2"
-              :rules="covidPhone2Rules"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>E-mail Address (Primary Contact)</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              placeholder="john.doe@example.com"
-              prepend-inner-icon="email"
-              v-model="covidEmail"
-              data-test="text-form-covidEmail"
-              :rules="covidEmailRules"
-            />
-          </v-col>
-        </v-row>
-
-        <hr />
-        <h4>Provide your accommodation details</h4>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <v-menu
-              v-model="startDateMenu"
-              data-test="menu-form-startDateMenu"
-              :close-on-content-click="true"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <label>Operation Start Date</label>
-                <v-text-field
-                  v-model="startDate"
-                  data-test="text-form-startDate"
-                  :rules="startDateRules"
-                  placeholder="yyyy-mm-dd"
-                  append-icon="event"
-                  v-on:click:append="startDateMenu=true"
-                  readonly
-                  v-on="on"
-                  dense
-                  flat
-                  outlined
-                  solo
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="startDate"
-                data-test="picker-form-startDate"
-                @input="startDateMenu = false"
-                :readonly="reviewMode"
-              ></v-date-picker>
-            </v-menu>
-          </v-col>
-
-          <v-col cols="12" sm="6" lg="5">
-            <v-menu
-              v-model="endDateMenu"
-              data-test="menu-form-endDateMenu"
-              :close-on-content-click="true"
-              :nudge-right="40"
-              transition="scale-transition"
-              offset-y
-              min-width="290px"
-            >
-              <template v-slot:activator="{ on }">
-                <label>Operation End Date</label>
-                <v-text-field
-                  v-model="endDate"
-                  data-test="text-form-endDate"
-                  :rules="endDateRules"
-                  placeholder="yyyy-mm-dd"
-                  append-icon="event"
-                  v-on:click:append="endDateMenu=true"
-                  readonly
-                  v-on="on"
-                  dense
-                  flat
-                  outlined
-                  solo
-                ></v-text-field>
-              </template>
-              <v-date-picker
-                v-model="endDate"
-                data-test="picker-form-endDate"
-                @input="endDateMenu = false"
-                :readonly="reviewMode"
-              ></v-date-picker>
-            </v-menu>
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="6" lg="5">
-            <label>Closest Community / Town / City</label>
-            <CityLookup
-              v-if="!reviewMode"
-              :field-model.sync="locationCity"
-              :latitude.sync="cityLatitude"
-              :longitude.sync="cityLongitude"
-              :field-rules="locationCityRules"
-            />
-            <v-text-field
-              v-if="reviewMode"
-              dense
-              flat
-              outlined
-              solo
-              v-model="locationCity"
-              data-test="text-form-locationCity"
-              :rules="locationCityRules"
-            />
-            <v-text-field v-model="cityLatitude" data-test="text-form-cityLatitude" class="d-none" />
-            <v-text-field
-              v-model="cityLongitude"
-              data-test="text-form-cityLongitude"
-              class="d-none"
-            />
-          </v-col>
-        </v-row>
-
-        <v-row>
-          <v-col cols="12" sm="4" lg="3">
-            <label>Number of workers at this location</label>
-            <v-text-field
-              v-model="numberOfWorkers"
-              data-test="text-form-numberOfWorkers"
-              :rules="numberOfWorkersRules"
-              type="number"
-              min="1"
-              dense
-              flat
-              outlined
-              solo
-            />
-          </v-col>
-        </v-row>
-
-        <h4>Type of accommodation for workers at this location (check all that apply)</h4>
-
-        <v-checkbox
-          v-model="accTents"
-          data-test="cb-form-accTents"
-          :readonly="reviewMode"
-          label="Tents and trailers near worksite"
-        ></v-checkbox>
-
-        <div v-if="accTents">
-          <v-row>
-            <v-col cols="12" lg="10">
-              <label>
-                Details (eg:
-                <em>"1km from HWY 1 at 100 mile house north on Logging Road"</em>)
-              </label>
-              <v-text-field
-                v-model="tentDetails"
-                data-test="text-form-tentDetails"
-                :rules="tentDetailsRules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-          </v-row>
-        </div>
-
-        <v-checkbox
-          v-model="accMotel"
-          data-test="cb-form-accMotel"
-          :readonly="reviewMode"
-          label="Motel / Hotel in town"
-        ></v-checkbox>
-        <div v-if="accMotel">
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Name</label>
-              <v-text-field
-                v-model="motelName"
-                data-test="text-form-motelName"
-                :rules="motelNameRules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>Address line 1</label>
-              <v-text-field
-                v-model="motelAddressLine1"
-                data-test="text-form-motelAddressLine1"
-                :rules="motelAddressLine1Rules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-
-            <v-col cols="12" sm="6" lg="5">
-              <label>Address line 2 (Optional)</label>
-              <v-text-field
-                v-model="motelAddressLine2"
-                data-test="text-form-motelAddressLine2"
-                :rules="motelAddressLine2Rules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="6" lg="5">
-              <label>City</label>
-              <v-text-field
-                v-model="motelCity"
-                data-test="text-form-motelCity"
-                :rules="motelCityRules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-            <v-col cols="12" sm="3" lg="2">
-              <label>Province</label>
-              <v-select
-                dense
-                flat
-                outlined
-                solo
-                single-line
-                label="select"
-                v-model="motelProvince"
-                data-test="select-form-motelProvince"
-                :items="provinces"
-              />
-            </v-col>
-          </v-row>
-
-          <v-row>
-            <v-col cols="12" sm="3" lg="2">
-              <label>Postal Code</label>
-              <v-text-field
-                v-model="motelPostalCode"
-                data-test="text-form-motelPostalCode"
-                :rules="motelPostalCodeRules"
-                dense
-                flat
-                outlined
-                solo
-              />
-            </v-col>
-          </v-row>
-        </div>
-
-        <v-checkbox
-          v-model="accWorkersHome"
-          data-test="cb-form-accWorkersHome"
-          :readonly="reviewMode"
-          label="Worker's home in community"
-        ></v-checkbox>
-      </v-container>
-
-      <div class="hide-on-review">
-        <h2 class="pb-8 mt-8">Authorization Information</h2>
-        <hr class="orange" />
-      </div>
-
-      <v-container>
-        <h4>Please enter your mine identifier(s)</h4>
-        <v-row align="center">
-          <v-col cols="12" sm="5">
-            <label>Mine Number</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="mineNumber"
-              data-test="text-form-mineNumber"
-              :rules="mineNumberRules" />
-          </v-col>
-          <v-col cols="12" sm="1" class="text-sm-center pb-5 pb-sm-0">
-            <span class="hide-on-review">or</span>
-          </v-col>
-          <v-col cols="12" sm="6" md="5">
-            <label>Mines Act Permit</label>
-            <v-text-field
-              dense
-              flat
-              outlined
-              solo
-              v-model="permitNumber"
-              data-test="text-form-permitNumber"
-              :rules="permitNumberRules"
+              v-model="firstName"
+              data-test="text-form-firstName"
+              :rules="firstNameRules"
             />
           </v-col>
         </v-row>
@@ -579,8 +164,6 @@
 import validator from 'validator';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import CityLookup from '@/components/common/CityLookup.vue';
-import OrgBookSearch from '@/components/common/OrgBookSearch.vue';
 import Vue from 'vue';
 
 export default {
@@ -589,8 +172,6 @@ export default {
     reviewMode: Boolean
   },
   components: {
-    CityLookup,
-    OrgBookSearch
   },
   data() {
     return {

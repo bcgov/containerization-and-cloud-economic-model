@@ -1,6 +1,5 @@
 const equal = require('fast-deep-equal');
 const log = require('npmlog');
-const Problem = require('api-problem');
 const {transaction} = require('objection');
 const {v4: uuidv4} = require('uuid');
 

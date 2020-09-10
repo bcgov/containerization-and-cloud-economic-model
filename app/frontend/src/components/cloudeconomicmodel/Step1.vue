@@ -6,13 +6,12 @@
       >Cloud Economic Model</h2>
       <p
         class="mb-8"
-      >Please complete the following to receive your customized copy of the Cloud Economic Model report.</p>
+      >Please complete the following to receive your customized Cloud Economic Model report.</p>
 
       <h2 class="mb-8 mt-12">
         <strong>Before you complete this form:</strong>
       </h2>
 
-      <hr class="orange" />
     </div>
 
     <v-container>
@@ -53,7 +52,7 @@
             <v-expansion-panels>
               <v-expansion-panel>
                 <v-expansion-panel-header data-test="btn-form-panel-camp-order">
-                  <strong>Complete a COVID-19 risk assessment of your Industrial Camps by following the directions in the guidance document.</strong>
+                  <strong>Complete a COVID-19 risk assessment by following the directions in the guidance document.</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <p>
@@ -70,10 +69,6 @@
                     >Industrial Camps Operators can take practical actions to reduce the risk of disease transmission (see section 7 of document).</p>
                   </BaseInfoCard>
 
-                  <p class="mt-5">
-                    Have you worked through all the sections in
-                    <em>{{ docShortTitle }}</em> to identify the risks at your camps?
-                  </p>
                 </v-expansion-panel-content>
               </v-expansion-panel>
             </v-expansion-panels>
