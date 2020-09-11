@@ -110,7 +110,7 @@
 
     <div class="hide-on-review">
       <v-btn color="primary" @click="setStep(2)" data-test="btn-form-to-next-step">
-        <span>Go to Step 2</span>
+        <span>Go to Sensitivity Analysis Options</span>
       </v-btn>
     </div>
   </v-container>
