@@ -41,10 +41,10 @@
 <script>
 import { mapGetters } from 'vuex';
 
-import Step2 from '@/components/minesoperatorscreening/Step2.vue';
-import Step3 from '@/components/minesoperatorscreening/Step3.vue';
-import Step4 from '@/components/minesoperatorscreening/Step4.vue';
-import Step5 from '@/components/minesoperatorscreening/Step5.vue';
+import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
+import Step3 from '@/components/cloudeconomicmodel/Step3.vue';
+import Step4 from '@/components/cloudeconomicmodel/Step4.vue';
+import Step5 from '@/components/cloudeconomicmodel/Step5.vue';
 
 export default {
   name: 'ReviewSubmission',

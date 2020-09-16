@@ -288,7 +288,7 @@
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
-  name: 'MinesAttestationStep3',
+  name: 'CloudEconomicModelStep3',
   props: {
     reviewMode: Boolean
   },
