@@ -6,21 +6,6 @@
     </v-card>
 
     <v-card outlined class="review-form">
-      <h2 class="review-heading">Before Operations Begin</h2>
-      <Step3 :reviewMode="true" />
-    </v-card>
-
-    <v-card outlined class="review-form">
-      <h2 class="review-heading">After Workers Arrive</h2>
-      <Step4 :reviewMode="true" />
-    </v-card>
-
-    <v-card outlined class="review-form">
-      <h2 class="review-heading">If Workers Become Ill</h2>
-      <Step5 :reviewMode="true" />
-    </v-card>
-
-    <v-card outlined class="review-form">
       <h2 class="review-heading mb-5">Certification</h2>
       <div class="pl-7">
         <v-checkbox
@@ -42,17 +27,11 @@
 import { mapGetters } from 'vuex';
 
 import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
-import Step3 from '@/components/cloudeconomicmodel/Step3.vue';
-import Step4 from '@/components/cloudeconomicmodel/Step4.vue';
-import Step5 from '@/components/cloudeconomicmodel/Step5.vue';
 
 export default {
   name: 'ReviewSubmission',
   components: {
-    Step2,
-    Step3,
-    Step4,
-    Step5
+    Step2
   },
   computed: {
     ...mapGetters('form', ['gettingForm', 'attestation', 'submissionComplete']),

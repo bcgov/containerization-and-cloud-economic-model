@@ -21,41 +21,11 @@
                 edit-icon="check"
                 :editable="step > 2"
                 step="2"
-              >Contact Information</v-stepper-step>
+              >Sensitivity Analysis Options</v-stepper-step>
 
               <v-divider />
 
-              <v-stepper-step
-                :complete="step > 3"
-                data-test="btn-stepper-three"
-                edit-icon="check"
-                :editable="step > 3"
-                step="3"
-              >Before Operations Begin</v-stepper-step>
-
-              <v-divider />
-
-              <v-stepper-step
-                :complete="step > 4"
-                data-test="btn-stepper-four"
-                edit-icon="check"
-                :editable="step > 4"
-                step="4"
-              >After Workers Arrive</v-stepper-step>
-
-              <v-divider />
-
-              <v-stepper-step
-                :complete="step > 5"
-                data-test="btn-stepper-five"
-                edit-icon="check"
-                :editable="step > 5"
-                step="5"
-              >If Workers Become Ill</v-stepper-step>
-
-              <v-divider />
-
-              <v-stepper-step step="6" data-test="btn-stepper-six">Review</v-stepper-step>
+              <v-stepper-step step="3" data-test="btn-stepper-six">Review</v-stepper-step>
             </v-stepper-header>
           </v-col>
         </v-row>
@@ -73,20 +43,8 @@
                 <Step2 />
               </v-stepper-content>
 
-              <v-stepper-content step="3">
-                <Step3 />
-              </v-stepper-content>
-
-              <v-stepper-content step="4">
-                <Step4 />
-              </v-stepper-content>
-
-              <v-stepper-content step="5">
-                <Step5 />
-              </v-stepper-content>
-
               <v-stepper-content step="6">
-                <Step6 />
+                <Step3/>
               </v-stepper-content>
             </v-stepper-items>
           </v-col>
@@ -102,19 +60,13 @@ import { mapGetters, mapMutations } from 'vuex';
 import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
 import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
 import Step3 from '@/components/cloudeconomicmodel/Step3.vue';
-import Step4 from '@/components/cloudeconomicmodel/Step4.vue';
-import Step5 from '@/components/cloudeconomicmodel/Step5.vue';
-import Step6 from '@/components/cloudeconomicmodel/Step6.vue';
 
 export default {
   name: 'CloudEconomicModelForm',
   components: {
     Step1,
     Step2,
-    Step3,
-    Step4,
-    Step5,
-    Step6
+    Step3
   },
   data() {
     return {};

@@ -151,7 +151,7 @@
       <hr />
 
       <v-btn color="primary" @click="submit" data-test="btn-form-to-next-step">
-        <span>Go to Step 3</span>
+        <span>Go to Review</span>
       </v-btn>
       <v-btn text @click="setStep(1)" data-test="btn-form-to-previous-step">
         <span>Back</span>
@@ -641,7 +641,7 @@ export default {
     ]),
     async submit() {
       if (this.$refs.form.validate()) {
-        this.setStep(3);
+        this.setStep(6);
       } else {
         await new Promise(r => setTimeout(r, 200)); //ugh
         const el = document.querySelector(
