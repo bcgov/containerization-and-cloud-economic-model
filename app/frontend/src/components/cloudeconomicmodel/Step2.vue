@@ -23,26 +23,30 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Number of Teams</label>
-            <v-text-field
+            <v-select
+              :items="numberOfTeamsItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="numberOfTeamsRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>Ratio of Employees vs Contractors</label>
-            <v-text-field
+            <v-select
+              :items="employeesVsContractorsItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="employeesVsContractorsRules"
             />
           </v-col>
         </v-row>
@@ -50,26 +54,30 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Experience of Teams with BC Gov Migrations</label>
-            <v-text-field
+            <v-select
+              :items="migrationExperienceItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="migrationExperienceRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>Likelihood of Shadow App Dependencies</label>
-            <v-text-field
+            <v-select
+              :items="shadowAppDependenciesItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="shadowAppDependenciesRules"
             />
           </v-col>
         </v-row>
@@ -81,66 +89,76 @@
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Average Cost of Gov Data Breach</label>
-            <v-text-field
+            <v-select
+              :items="avgBreachCostItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="avgBreachCostRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>Average Currrently Online Public Users per Application</label>
-            <v-text-field
+            <v-select
+              :items="avgUsersPerAppItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="avgUsersPerAppRules"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Average Legacy System Outage Length</label>
-            <v-text-field
+            <v-select
+              :items="avgLegacyOutageHourlyValueItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="avgLegacyOutageHourlyValueRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>Public User Service Disruption Hourly Value</label>
-            <v-text-field
+            <v-select
+              :items="disruptionHourlyValueItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="disruptionHourlyValueRules"
             />
           </v-col>
         </v-row>
         <v-row>
           <v-col cols="12" sm="6" lg="5">
             <label>Average Yearly Project Hours on New Features</label>
-            <v-text-field
+            <v-select
+              :items="avgYearlyFeatureHoursItems"
               dense
               flat
               outlined
               solo
+              label="Select"
               v-model="firstName"
               data-test="text-form-firstName"
-              :rules="firstNameRules"
+              :rules="avgYearlyFeatureHoursRules"
             />
           </v-col>
         </v-row>
@@ -184,20 +202,50 @@ export default {
         : false,
 
       // Todo: constants file
-      provinces: [
-        'AB',
-        'BC',
-        'MB',
-        'NB',
-        'NL',
-        'NS',
-        'NT',
-        'NU',
-        'ON',
-        'PE',
-        'QC',
-        'SK',
-        'YT'
+      numberOfTeamsItems: [
+        'Low',
+        'Medium',
+        'High'
+      ],
+      employeesVsContractorsItems: [
+        '10:90',
+        '50:50',
+        '90:10'
+      ],
+      migrationExperienceItems: [
+        'Figured it out from scratch',
+        'Followed best practice documents',
+        'Learned on previous teams'
+      ],
+      shadowAppDependenciesItems: [
+        'Low',
+        'Medium',
+        'High'
+      ],
+      avgBreachCostItems: [
+        'Low',
+        'Medium',
+        'High'
+      ],
+      avgUsersPerAppItems: [
+        '5',
+        '20',
+        '100'
+      ],
+      avgLegacyOutageHourlyValueItems: [
+        '3 hours',
+        '10 hours',
+        '100 hours'
+      ],
+      disruptionHourlyValueItems: [
+        '$10',
+        '$20',
+        '$30'
+      ],
+      avgYearlyFeatureHoursItems: [
+        'Low (3000)',
+        'Medium (7500)',
+        'High (12000)'
       ],
 
       // Business
