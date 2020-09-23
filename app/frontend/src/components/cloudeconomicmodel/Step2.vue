@@ -179,7 +179,6 @@
 </template>
 
 <script>
-import validator from 'validator';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import Vue from 'vue';
@@ -248,139 +247,33 @@ export default {
         'High (12000)'
       ],
 
-      // Business
-      businessNameRules: [
-        v => !!v || 'Business name is required',
-        v =>
-          (v && v.length <= 255) ||
-          'Business name must be 255 characters or less'
+      // Rules
+      numberOfTeamsRules: [
+        v => !!v || 'This field is required',
       ],
-      businessAddressLine1Rules: [
-        v => !!v || 'Business address is required',
-        v => (v && v.length <= 255) || 'Line 1 must be 255 characters or less'
+      employeesVsContractorsRules: [
+        v => !!v || 'This field is required',
       ],
-      businessAddressLine2Rules: [
-        v => !v || v.length <= 255 || 'Line 2 must be 255 characters or less'
+      migrationExperienceRules: [
+        v => !!v || 'This field is required',
       ],
-      businessAddressCityRules: [
-        v => !!v || 'City is required',
-        v => (v && v.length <= 255) || 'City must be 255 characters or less'
+      shadowAppDependenciesRules: [
+        v => !!v || 'This field is required',
       ],
-      businessAddressProvinceRules: [v => !!v || 'Province is required'],
-      businessAddressPostalCodeRules: [
-        v => !!v || 'Postal Code is required',
-        v => (v && v.length <= 7) || 'Please enter a valid postal code'
+      avgBreachCostRules: [
+        v => !!v || 'This field is required',
       ],
-
-      // Contact
-      firstNameRules: [
-        v => !!v || 'First name is required',
-        v =>
-          (v && v.length <= 255) || 'First name must be 255 characters or less'
+      avgUsersPerAppRules: [
+        v => !!v || 'This field is required',
       ],
-      lastNameRules: [
-        v => !!v || 'Last name is required',
-        v =>
-          (v && v.length <= 255) || 'Last name must be 255 characters or less'
+      avgLegacyOutageHourlyValueRules: [
+        v => !!v || 'This field is required',
       ],
-      phone1Rules: [
-        v => !!v || 'Phone number is required',
-        v => validator.isMobilePhone(v) || 'invalid phone number format',
-        v =>
-          (v && v.length <= 30) || 'Phone number must be 30 characters or less'
+      disruptionHourlyValueRules: [
+        v => !!v || 'This field is required',
       ],
-      phone2Rules: [
-        v => !v || validator.isMobilePhone(v) || 'invalid phone number format',
-        v =>
-          !v || v.length <= 30 || 'Phone number must be 30 characters or less'
-      ],
-      emailRules: [
-        v => !!v || 'E-mail is required',
-        v =>
-          validator.isEmail(v, { allow_display_name: true }) ||
-          'invalid e-mail format',
-        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
-      ],
-
-      // Covid Contact
-      covidFirstNameRules: [
-        v => !!v || 'First name is required',
-        v =>
-          (v && v.length <= 255) || 'First name must be 255 characters or less'
-      ],
-      covidLastNameRules: [
-        v => !!v || 'Last name is required',
-        v =>
-          (v && v.length <= 255) || 'Last name must be 255 characters or less'
-      ],
-      covidPhone1Rules: [
-        v => !!v || 'Phone number is required',
-        v => validator.isMobilePhone(v) || 'invalid phone number format',
-        v =>
-          (v && v.length <= 30) || 'Phone number must be 30 characters or less'
-      ],
-      covidPhone2Rules: [
-        v => !v || validator.isMobilePhone(v) || 'invalid phone number format',
-        v =>
-          !v || v.length <= 30 || 'Phone number must be 30 characters or less'
-      ],
-      covidEmailRules: [
-        v => !!v || 'E-mail is required',
-        v =>
-          validator.isEmail(v, { allow_display_name: true }) ||
-          'invalid e-mail format',
-        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
-      ],
-
-      // Location
-      startDateRules: [v => !!v || 'Start date is required'],
-      endDateRules: [v => !!v || 'End date is required'],
-      locationCityRules: [
-        v => !!v || 'Closest Community / Town / City is required',
-        v => (v && v.length <= 255) || 'City must be 255 characters or less'
-      ],
-      // Todo, put in some utility fxn somewhere if needed again
-      numberOfWorkersRules: [
-        v => new RegExp('^[-+]?\\d+$').test(v) || 'invalid # of workers',
-        v => v > 0 || '# of workers must be greater than 0',
-        v => v < 9999 || '# of workers must 9999 or less'
-      ],
-      tentDetailsRules: [
-        v => !v || v.length <= 255 || 'Details must be 255 characters or less'
-      ],
-      motelNameRules: [
-        v => !v || v.length <= 255 || 'Name must be 255 characters or less'
-      ],
-      motelAddressLine1Rules: [
-        v => !v || v.length <= 255 || 'Address must be 255 characters or less'
-      ],
-      motelAddressLine2Rules: [
-        v => !v || v.length <= 255 || 'Address must be 255 characters or less'
-      ],
-      motelCityRules: [
-        v => !v || v.length <= 255 || 'City must be 255 characters or less'
-      ],
-      motelPostalCodeRules: [
-        v => !v || v.length <= 7 || ' enter a valid postal code'
-      ],
-
-      // Mine
-      mineNumberRules: [
-        v =>
-          v.length > 0 ||
-          this.permitNumber.length > 0 ||
-          'Please enter a mine number or permit',
-        v =>
-          !v ||
-          v.length === 7 ||
-          'Please enter a 7 digit number for Mine Number'
-      ],
-      permitNumberRules: [
-        v =>
-          this.mineNumber.length > 0 ||
-          v.length > 0 ||
-          'Please enter a mine number or permit',
-        v => !v || v.length <= 255 || 'Permit must be 255 characters or less'
+      avgYearlyFeatureHoursRules: [
+        v => !!v || 'This field is required',
       ]
     };
   },
