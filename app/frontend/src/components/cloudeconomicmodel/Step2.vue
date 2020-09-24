@@ -44,7 +44,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="employeesVsContractors"
               data-test="text-form-firstName"
               :rules="employeesVsContractorsRules"
             />
@@ -61,7 +61,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="migrationExperience"
               data-test="text-form-firstName"
               :rules="migrationExperienceRules"
             />
@@ -75,7 +75,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="shadowAppDependencies"
               data-test="text-form-firstName"
               :rules="shadowAppDependenciesRules"
             />
@@ -96,7 +96,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="avgBreachCost"
               data-test="text-form-firstName"
               :rules="avgBreachCostRules"
             />
@@ -110,7 +110,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="avgUsersPerApp"
               data-test="text-form-firstName"
               :rules="avgUsersPerAppRules"
             />
@@ -126,7 +126,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="avgLegacyOutageHourlyValue"
               data-test="text-form-firstName"
               :rules="avgLegacyOutageHourlyValueRules"
             />
@@ -140,7 +140,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="disruptionHourlyValueRules"
               data-test="text-form-firstName"
               :rules="disruptionHourlyValueRules"
             />
@@ -156,7 +156,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="avgYearlyFeatureHours"
               data-test="text-form-firstName"
               :rules="avgYearlyFeatureHoursRules"
             />
@@ -281,6 +281,7 @@ export default {
     ...mapGetters('form', [
       'business',
       'cost',
+      'value',
       'primaryContact',
       'covidContact',
       'location'
@@ -293,6 +294,70 @@ export default {
       },
       set(value) {
         this.updateCost({ ['numberOfTeams']: value });
+      }
+    },
+    employeesVsContractors: {
+      get() {
+        return this.cost.employeesVsContractors;
+      },
+      set(value) {
+        this.updateCost({ ['employeesVsContractors']: value });
+      }
+    },
+    migrationExperience: {
+      get() {
+        return this.cost.migrationExperience;
+      },
+      set(value) {
+        this.updateCost({ ['migrationExperience']: value });
+      }
+    },
+    shadowAppDependencies: {
+      get() {
+        return this.cost.shadowAppDependencies;
+      },
+      set(value) {
+        this.updateCost({ ['shadowAppDependencies']: value });
+      }
+    },
+    avgBreachCost: {
+      get() {
+        return this.value.avgBreachCost;
+      },
+      set(value) {
+        this.updateValue({ ['avgBreachCost']: value });
+      }
+    },
+    avgUsersPerApp: {
+      get() {
+        return this.value.avgUsersPerApp;
+      },
+      set(value) {
+        this.updateValue({ ['avgUsersPerApp']: value });
+      }
+    },
+    avgLegacyOutageHourlyValue: {
+      get() {
+        return this.value.avgLegacyOutageHourlyValue;
+      },
+      set(value) {
+        this.updateValue({ ['avgLegacyOutageHourlyValue']: value });
+      }
+    },
+    disruptionHourlyValue: {
+      get() {
+        return this.value.disruptionHourlyValue;
+      },
+      set(value) {
+        this.updateValue({ ['disruptionHourlyValue']: value });
+      }
+    },
+    avgYearlyFeatureHours: {
+      get() {
+        return this.value.avgYearlyFeatureHours;
+      },
+      set(value) {
+        this.updateValue({ ['avgYearlyFeatureHours']: value });
       }
     },
     businessName: {
@@ -586,6 +651,7 @@ export default {
       'setStep',
       'updateBusiness',
       'updateCost',
+      'updateValue',
       'updatePrimaryContact',
       'updateCovidContact',
       'updateLocation'
