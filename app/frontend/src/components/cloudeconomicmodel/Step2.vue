@@ -30,7 +30,7 @@
               outlined
               solo
               label="Select"
-              v-model="firstName"
+              v-model="numberOfTeams"
               data-test="text-form-firstName"
               :rules="numberOfTeamsRules"
             />
@@ -280,12 +280,21 @@ export default {
   computed: {
     ...mapGetters('form', [
       'business',
+      'cost',
       'primaryContact',
       'covidContact',
       'location'
     ]),
 
-    // Business
+    // Gets and sets
+    numberOfTeams: {
+      get() {
+        return this.cost.numberOfTeams;
+      },
+      set(value) {
+        this.updateCost({ ['numberOfTeams']: value });
+      }
+    },
     businessName: {
       get() {
         return this.business.name;
@@ -576,6 +585,7 @@ export default {
     ...mapMutations('form', [
       'setStep',
       'updateBusiness',
+      'updateCost',
       'updatePrimaryContact',
       'updateCovidContact',
       'updateLocation'

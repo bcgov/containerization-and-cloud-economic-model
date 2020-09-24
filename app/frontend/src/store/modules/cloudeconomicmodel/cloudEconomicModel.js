@@ -75,6 +75,19 @@ export default {
     submissionError: '',
 
     // Form schema
+    cost: {
+      numberOfTeams: '',
+      employeesVsContractors: '',
+      migrationExperience: '',
+      shadowAppDependencies: ''
+    },
+    value: {
+      avgBreachCost: '',
+      avgUsersPerApp: '',
+      avgLegacyOutageHourlyValue: '',
+      disruptionHourlyValue: '',
+      avgYearlyFeatureHours: ''
+    },
     business: {
       name: '',
       orgBookId: '',
@@ -183,6 +196,8 @@ export default {
     submissionError: state => state.submissionError,
 
     // Form objects
+    cost: state => state.cost,
+    value: state => state.value,
     business: state => state.business,
     primaryContact: state => state.primaryContact,
     covidContact: state => state.covidContact,
@@ -215,6 +230,12 @@ export default {
     },
 
     // Form updates
+    updateCost: (state, obj) => {
+      Object.assign(state.cost, obj);
+    },
+    updateValue: (state, obj) => {
+      Object.assign(state.value, obj);
+    },
     updateBusiness: (state, obj) => {
       Object.assign(state.business, obj);
     },
@@ -242,6 +263,8 @@ export default {
         }
         const transformed = transformToState(response.data);
 
+        commit('updateCost', transformed.cost);
+        commit('updateValue', transformed.value);
         commit('updateAttestation', transformed.attestation);
         commit('updateBusiness', transformed.business);
         commit('updatePrimaryContact', transformed.primaryContact);
@@ -275,6 +298,8 @@ export default {
       }
     },
     async sampleData({ commit }) {
+      commit('updateCost', SampleData.cost);
+      commit('updateValue', SampleData.value);
       commit('updateBusiness', SampleData.business);
       commit('updatePrimaryContact', SampleData.primaryContact);
       commit('updateCovidContact', SampleData.covidContact);
