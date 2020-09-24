@@ -140,7 +140,7 @@
               outlined
               solo
               label="Select"
-              v-model="disruptionHourlyValueRules"
+              v-model="disruptionHourlyValue"
               data-test="text-form-firstName"
               :rules="disruptionHourlyValueRules"
             />
@@ -237,9 +237,9 @@ export default {
         '100 hours'
       ],
       disruptionHourlyValueItems: [
-        '$10',
-        '$20',
-        '$30'
+        '$10 CAD',
+        '$20 CAD',
+        '$30 CAD'
       ],
       avgYearlyFeatureHoursItems: [
         'Low (3000)',
