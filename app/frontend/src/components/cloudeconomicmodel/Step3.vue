@@ -56,12 +56,6 @@
           data-test="cb-form-certifyAccurateInformation"
           label="I certify this information to be accurate"
         ></v-checkbox>
-        <v-checkbox
-          :rules="[v => !!v || 'You must agree to continue']"
-          v-model="agreeToInspection"
-          data-test="cb-form-agreeToInspection"
-          label="I agree that my Industrial Camps will be subject to a site inspection"
-        ></v-checkbox>
       </v-form>
     </div>
 
@@ -134,14 +128,6 @@ export default {
       },
       set(value) {
         this.updateAttestation({ ['certifyAccurateInformation']: value });
-      }
-    },
-    agreeToInspection: {
-      get() {
-        return this.attestation.agreeToInspection;
-      },
-      set(value) {
-        this.updateAttestation({ ['agreeToInspection']: value });
       }
     },
     formName() {
