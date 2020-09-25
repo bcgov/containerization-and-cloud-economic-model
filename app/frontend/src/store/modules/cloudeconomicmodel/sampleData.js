@@ -13,6 +13,9 @@ export const SampleData = Object.freeze({
     disruptionHourlyValue: '$10 CAD',
     avgYearlyFeatureHours: 'Medium (7500)'
   },
+  contact: {
+    email: 'optional@gov.bc.ca'
+  },
   business: {
     name: 'LTO SOFTWARE CONSULTING INC.',
     addressLine1: '123 Fake st',

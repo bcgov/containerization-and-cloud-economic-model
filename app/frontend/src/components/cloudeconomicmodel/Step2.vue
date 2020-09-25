@@ -162,6 +162,26 @@
             />
           </v-col>
         </v-row>
+
+        <hr />
+
+        <h4>Delivery</h4>
+        <v-row>
+          <v-col cols="12" sm="6" lg="5">
+            <label>Email address</label>
+            <v-text-field
+              dense
+              flat
+              outlined
+              solo
+              placeholder="john.doe@example.com"
+              :rules="emailRules"
+              prepend-inner-icon="email"
+              v-model="email"
+              data-test="text-form-email"
+            />
+          </v-col>
+        </v-row>
       </v-container>
     </v-form>
 
@@ -179,8 +199,8 @@
 </template>
 
 <script>
+import validator from 'validator';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-
 import Vue from 'vue';
 
 export default {
@@ -274,12 +294,20 @@ export default {
       ],
       avgYearlyFeatureHoursRules: [
         v => !!v || 'This field is required',
-      ]
+      ],
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v =>
+          validator.isEmail(v, { allow_display_name: true }) ||
+          'invalid e-mail format',
+        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
+      ],
     };
   },
   computed: {
     ...mapGetters('form', [
       'business',
+      'contact',
       'cost',
       'value',
       'primaryContact',
@@ -358,6 +386,14 @@ export default {
       },
       set(value) {
         this.updateValue({ ['avgYearlyFeatureHours']: value });
+      }
+    },
+    sendEmail: {
+      get() {
+        return this.contact.sendEmail;
+      },
+      set(value) {
+        this.updateContact({ ['email']: value });
       }
     },
     businessName: {
@@ -650,6 +686,7 @@ export default {
     ...mapMutations('form', [
       'setStep',
       'updateBusiness',
+      'updateContact',
       'updateCost',
       'updateValue',
       'updatePrimaryContact',

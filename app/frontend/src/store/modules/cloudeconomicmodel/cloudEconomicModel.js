@@ -88,6 +88,9 @@ export default {
       disruptionHourlyValue: '',
       avgYearlyFeatureHours: ''
     },
+    contact: {
+      email: ''
+    },
     business: {
       name: '',
       orgBookId: '',
@@ -198,6 +201,7 @@ export default {
     // Form objects
     cost: state => state.cost,
     value: state => state.value,
+    contact: state => state.value,
     business: state => state.business,
     primaryContact: state => state.primaryContact,
     covidContact: state => state.covidContact,
@@ -236,6 +240,9 @@ export default {
     updateValue: (state, obj) => {
       Object.assign(state.value, obj);
     },
+    updateContact: (state, obj) => {
+      Object.assign(state.contact, obj);
+    },
     updateBusiness: (state, obj) => {
       Object.assign(state.business, obj);
     },
@@ -265,6 +272,7 @@ export default {
 
         commit('updateCost', transformed.cost);
         commit('updateValue', transformed.value);
+        commit('updateContact', transformed.contact);
         commit('updateAttestation', transformed.attestation);
         commit('updateBusiness', transformed.business);
         commit('updatePrimaryContact', transformed.primaryContact);
@@ -300,6 +308,7 @@ export default {
     async sampleData({ commit }) {
       commit('updateCost', SampleData.cost);
       commit('updateValue', SampleData.value);
+      commit('updateContact', SampleData.contact);
       commit('updateBusiness', SampleData.business);
       commit('updatePrimaryContact', SampleData.primaryContact);
       commit('updateCovidContact', SampleData.covidContact);
