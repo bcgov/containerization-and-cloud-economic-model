@@ -31,7 +31,7 @@
               solo
               label="Select"
               v-model="numberOfTeams"
-              data-test="text-form-firstName"
+              data-test="text-form-numberOfTeams"
               :rules="numberOfTeamsRules"
             />
           </v-col>
@@ -45,7 +45,7 @@
               solo
               label="Select"
               v-model="employeesVsContractors"
-              data-test="text-form-firstName"
+              data-test="text-form-employeesVsContractors"
               :rules="employeesVsContractorsRules"
             />
           </v-col>
@@ -62,7 +62,7 @@
               solo
               label="Select"
               v-model="migrationExperience"
-              data-test="text-form-firstName"
+              data-test="text-form-migrationExperience"
               :rules="migrationExperienceRules"
             />
           </v-col>
@@ -76,7 +76,7 @@
               solo
               label="Select"
               v-model="shadowAppDependencies"
-              data-test="text-form-firstName"
+              data-test="text-form-shadowAppDependencies"
               :rules="shadowAppDependenciesRules"
             />
           </v-col>
@@ -97,7 +97,7 @@
               solo
               label="Select"
               v-model="avgBreachCost"
-              data-test="text-form-firstName"
+              data-test="text-form-avgBreachCost"
               :rules="avgBreachCostRules"
             />
           </v-col>
@@ -111,7 +111,7 @@
               solo
               label="Select"
               v-model="avgUsersPerApp"
-              data-test="text-form-firstName"
+              data-test="text-form-avgUsersPerApp"
               :rules="avgUsersPerAppRules"
             />
           </v-col>
@@ -127,7 +127,7 @@
               solo
               label="Select"
               v-model="avgLegacyOutageHourlyValue"
-              data-test="text-form-firstName"
+              data-test="text-form-avgLegacyOutageHourlyValue"
               :rules="avgLegacyOutageHourlyValueRules"
             />
           </v-col>
@@ -141,7 +141,7 @@
               solo
               label="Select"
               v-model="disruptionHourlyValue"
-              data-test="text-form-firstName"
+              data-test="text-form-disruptionHourlyValue"
               :rules="disruptionHourlyValueRules"
             />
           </v-col>
@@ -157,7 +157,7 @@
               solo
               label="Select"
               v-model="avgYearlyFeatureHours"
-              data-test="text-form-firstName"
+              data-test="text-form-avgYearlyFeatureHours"
               :rules="avgYearlyFeatureHoursRules"
             />
           </v-col>
