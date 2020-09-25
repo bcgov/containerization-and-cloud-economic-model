@@ -300,7 +300,7 @@ export default {
         v =>
           validator.isEmail(v, { allow_display_name: true }) ||
           'invalid e-mail format',
-        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
+        // v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
       ],
     };
   },
@@ -393,7 +393,7 @@ export default {
         return this.contact.sendEmail;
       },
       set(value) {
-        this.updateContact({ ['email']: value });
+        this.updateContact({ ['sendEmail']: value });
       }
     },
     businessName: {

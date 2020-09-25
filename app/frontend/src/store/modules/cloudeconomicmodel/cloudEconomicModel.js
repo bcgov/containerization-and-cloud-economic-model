@@ -1,8 +1,6 @@
-import moment from 'moment';
-
 import commonFormService from '@/services/commonFormService';
 import { FormNames } from '@/utils/constants';
-import { SampleData, RandomCities } from './sampleData.js';
+import { SampleData } from './sampleData.js';
 
 // Change the supplied state to the exact format required by the API endpoint
 // Any data guards/sanitation can go in here
@@ -10,38 +8,12 @@ function transformToPost(state) {
   // TODO: unit test this!
   const copy = JSON.parse(JSON.stringify(state));
 
-  // Recursive remove all '' fields from body to post
-  // https://stackoverflow.com/questions/286141/remove-blank-attributes-from-an-object-in-javascript
-  // const cleanEmpty = copy => Object.entries(copy)
-  //   .map(([k, v]) => [k, v && typeof v === 'object' ? cleanEmpty(v) : v])
-  //   .reduce((a, [k, v]) => (v === '' ? a : { ...a, [k]: v }), {});
-
-  // Sanitize the optional fields in case they get checked, filled out, unchecked
-  if (!copy.location.accTents) {
-    delete copy.location.tentDetails;
-  }
-  if (!copy.location.accMotel) {
-    delete copy.location.motelName;
-    delete copy.location.motelAddressLine1;
-    delete copy.location.motelAddressLine2;
-    delete copy.location.motelCity;
-    delete copy.location.motelProvince;
-    delete copy.location.motelPostalCode;
-  }
-
-  const contacts = [copy.primaryContact, copy.covidContact];
-  copy.location.numberOfWorkers = Number.parseInt(copy.location.numberOfWorkers, 10);
+  const contacts = [copy.primaryContact];
   const body = {
-    business: copy.business,
     contacts: contacts,
-    attestation: copy.attestation,
-    location: copy.location
+    attestation: copy.attestation
   };
 
-  // For now, just to be safe remove only the mine num if it's blank, should implement recursive fxn above, but when there's more breathing room and testing time
-  if (body.location && body.location.mineNumber === '') {
-    delete body.location.mineNumber;
-  }
   return body;
 }
 
@@ -51,15 +23,12 @@ function transformToState(data) {
   const copy = JSON.parse(JSON.stringify(data));
 
   const primary = copy.contacts ? copy.contacts.find(({ contactType }) => contactType === 'PRIMARY') : {};
-  const covid = copy.contacts ? copy.contacts.find(({ contactType }) => contactType === 'COVID_COORDINATOR') : {};
-  copy.location.startDate = moment(copy.location.startDate).format('YYYY-MM-DD');
-  copy.location.endDate = moment(copy.location.endDate).format('YYYY-MM-DD');
   return {
-    business: copy.business,
+    cost: primary,
+    value: primary,
+    contact: primary,
     primaryContact: primary,
-    covidContact: covid,
-    attestation: copy.attestation,
-    location: copy.location
+    attestation: copy.attestation
   };
 }
 
@@ -89,16 +58,7 @@ export default {
       avgYearlyFeatureHours: ''
     },
     contact: {
-      email: ''
-    },
-    business: {
-      name: '',
-      orgBookId: '',
-      addressLine1: '',
-      addressLine2: '',
-      city: '',
-      province: '',
-      postalCode: ''
+      sendEmail: ''
     },
     primaryContact: {
       contactType: 'PRIMARY',
@@ -108,39 +68,10 @@ export default {
       phone2: '',
       email: ''
     },
-    covidContact: {
-      contactType: 'COVID_COORDINATOR',
-      firstName: '',
-      lastName: '',
-      phone1: '',
-      phone2: '',
-      email: ''
-    },
-    location: {
-      startDate: '',
-      endDate: '',
-      city: '',
-      cityLatitude: undefined,
-      cityLongitude: undefined,
-      mineNumber: '',
-      permitNumber: '',
-      numberOfWorkers: '',
-      accTents: false,
-      tentDetails: '',
-      accMotel: false,
-      motelName: '',
-      motelAddressLine1: '',
-      motelAddressLine2: '',
-      motelCity: '',
-      motelProvince: '',
-      motelPostalCode: '',
-      accWorkersHome: false
-    },
     attestation: {
       sleepingAreaType: 'SINGLE',
       sharedSleepingPerRoom: 1,
       sharedSleepingDistancing: false,
-
       guidelinesRead: false,
       assessmentCompleted: false,
       developedPlan: false,
@@ -202,11 +133,8 @@ export default {
     cost: state => state.cost,
     value: state => state.value,
     contact: state => state.value,
-    business: state => state.business,
     primaryContact: state => state.primaryContact,
-    covidContact: state => state.covidContact,
-    attestation: state => state.attestation,
-    location: state => state.location
+    attestation: state => state.attestation
   },
   mutations: {
     setGetFormError(state, errorMessage) {
@@ -243,20 +171,11 @@ export default {
     updateContact: (state, obj) => {
       Object.assign(state.contact, obj);
     },
-    updateBusiness: (state, obj) => {
-      Object.assign(state.business, obj);
-    },
     updatePrimaryContact: (state, obj) => {
       Object.assign(state.primaryContact, obj);
     },
-    updateCovidContact: (state, obj) => {
-      Object.assign(state.covidContact, obj);
-    },
     updateAttestation: (state, obj) => {
       Object.assign(state.attestation, obj);
-    },
-    updateLocation: (state, obj) => {
-      Object.assign(state.location, obj);
     }
   },
   actions: {
@@ -274,10 +193,7 @@ export default {
         commit('updateValue', transformed.value);
         commit('updateContact', transformed.contact);
         commit('updateAttestation', transformed.attestation);
-        commit('updateBusiness', transformed.business);
         commit('updatePrimaryContact', transformed.primaryContact);
-        commit('updateCovidContact', transformed.covidContact);
-        commit('updateLocation', transformed.location);
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
@@ -309,12 +225,7 @@ export default {
       commit('updateCost', SampleData.cost);
       commit('updateValue', SampleData.value);
       commit('updateContact', SampleData.contact);
-      commit('updateBusiness', SampleData.business);
       commit('updatePrimaryContact', SampleData.primaryContact);
-      commit('updateCovidContact', SampleData.covidContact);
-      const l = SampleData.location;
-      l.city = RandomCities[Math.floor(Math.random() * RandomCities.length)];
-      commit('updateLocation', l);
     }
   }
 };
