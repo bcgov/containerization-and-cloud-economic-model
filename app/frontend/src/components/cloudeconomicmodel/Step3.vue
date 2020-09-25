@@ -69,7 +69,7 @@
       <v-btn color="primary" data-test="btn-form-submit" :disabled="!step3Valid" @click="submit">
         <span>Submit</span>
       </v-btn>
-      <v-btn text @click="setStep(5)" data-test="btn-form-to-previous-step">
+      <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
         <span>Back</span>
       </v-btn>
     </div>
