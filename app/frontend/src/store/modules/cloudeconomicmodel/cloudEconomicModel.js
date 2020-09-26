@@ -8,9 +8,10 @@ function transformToPost(state) {
   // TODO: unit test this!
   const copy = JSON.parse(JSON.stringify(state));
 
-  const contacts = [copy.primaryContact];
   const body = {
-    contacts: contacts,
+    cost: copy.cost,
+    value: copy.value,
+    contact: copy.contact,
     attestation: copy.attestation
   };
 
@@ -22,12 +23,10 @@ function transformToState(data) {
   // TODO: unit test this!
   const copy = JSON.parse(JSON.stringify(data));
 
-  const primary = copy.contacts ? copy.contacts.find(({ contactType }) => contactType === 'PRIMARY') : {};
   return {
-    cost: primary,
-    value: primary,
-    contact: primary,
-    primaryContact: primary,
+    cost: copy.cost,
+    value: copy.value,
+    contact: copy.contact,
     attestation: copy.attestation
   };
 }
@@ -60,64 +59,8 @@ export default {
     contact: {
       sendEmail: ''
     },
-    primaryContact: {
-      contactType: 'PRIMARY',
-      firstName: '',
-      lastName: '',
-      phone1: '',
-      phone2: '',
-      email: ''
-    },
     attestation: {
-      sleepingAreaType: 'SINGLE',
-      sharedSleepingPerRoom: 1,
-      sharedSleepingDistancing: false,
-      guidelinesRead: false,
-      assessmentCompleted: false,
-      developedPlan: false,
-      protectionSignage: false,
-      workerContactPersonnel: false,
-      commonAreaDistancing: false,
-      selfIsolateUnderstood: false,
-      selfIsolateAccommodation: false,
-      laundryServices: false,
-      wasteManagementGloves: false,
-      wasteManagementSchedule: false,
-      wasteManagementBags: false,
-      handWashingStations: false,
-      handWashingSoapWater: false,
-      handWashingWaterless: false,
-      handWashingPaperTowels: false,
-      handWashingSignage: false,
-      distancingMaintained: false,
-      distancingFaceShields: false,
-      disinfectingSchedule: false,
-      transportationSingleOccupant: false,
-      transportationBusesVans: false,
-      transportationHelicopter: false,
-      transportationTrucksCars: false,
-      transportationTravelPod: false,
-      transportationCleaningDistancing: false,
-      educationSignage: false,
-      educationContactPersonnel: false,
-      trainingCovid19: false,
-      trainingEtiquette: false,
-      trainingLocations: false,
-      trainingFirstAid: false,
-      trainingReporting: false,
-      mealsDistancing: false,
-      mealsDishware: false,
-      mealsDishwashing: false,
-      infectionSeparation: false,
-      infectionSymptoms: false,
-      infectionHeathLinkBC: false,
-      infectionSanitization: false,
-      infectedFeeding: false,
-      infectedHousekeeping: false,
-      infectedWaste: false,
-      infectionAccommodation: false,
-      certifyAccurateInformation: false,
-      agreeToInspection: false
+      certifyAccurateInformation: false
     }
   },
   getters: {
@@ -132,8 +75,7 @@ export default {
     // Form objects
     cost: state => state.cost,
     value: state => state.value,
-    contact: state => state.value,
-    primaryContact: state => state.primaryContact,
+    contact: state => state.contact,
     attestation: state => state.attestation
   },
   mutations: {
@@ -193,7 +135,6 @@ export default {
         commit('updateValue', transformed.value);
         commit('updateContact', transformed.contact);
         commit('updateAttestation', transformed.attestation);
-        commit('updatePrimaryContact', transformed.primaryContact);
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
@@ -225,7 +166,6 @@ export default {
       commit('updateCost', SampleData.cost);
       commit('updateValue', SampleData.value);
       commit('updateContact', SampleData.contact);
-      commit('updatePrimaryContact', SampleData.primaryContact);
     }
   }
 };

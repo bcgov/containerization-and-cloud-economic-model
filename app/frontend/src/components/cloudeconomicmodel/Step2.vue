@@ -177,7 +177,7 @@
               placeholder="john.doe@example.com"
               :rules="emailRules"
               prepend-inner-icon="email"
-              v-model="email"
+              v-model="sendEmail"
               data-test="text-form-email"
             />
           </v-col>
@@ -300,7 +300,7 @@ export default {
         v =>
           validator.isEmail(v, { allow_display_name: true }) ||
           'invalid e-mail format',
-        // v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
+        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
       ],
     };
   },
@@ -310,7 +310,6 @@ export default {
       'contact',
       'cost',
       'value',
-      'primaryContact',
       'covidContact',
       'location'
     ]),
@@ -395,290 +394,6 @@ export default {
       set(value) {
         this.updateContact({ ['sendEmail']: value });
       }
-    },
-    businessName: {
-      get() {
-        return this.business.name;
-      },
-      set(value) {
-        this.updateBusiness({ ['name']: value });
-      }
-    },
-    businessAddressLine1: {
-      get() {
-        return this.business.addressLine1;
-      },
-      set(value) {
-        this.updateBusiness({ ['addressLine1']: value });
-      }
-    },
-    businessAddressLine2: {
-      get() {
-        return this.business.addressLine2;
-      },
-      set(value) {
-        this.updateBusiness({ ['addressLine2']: value });
-      }
-    },
-    businessAddressCity: {
-      get() {
-        return this.business.city;
-      },
-      set(value) {
-        this.updateBusiness({ ['city']: value });
-      }
-    },
-    businessAddressProvince: {
-      get() {
-        return this.business.province;
-      },
-      set(value) {
-        this.updateBusiness({ ['province']: value });
-      }
-    },
-    businessAddressPostalCode: {
-      get() {
-        return this.business.postalCode;
-      },
-      set(value) {
-        this.updateBusiness({ ['postalCode']: value });
-      }
-    },
-
-    // Contact
-    firstName: {
-      get() {
-        return this.primaryContact.firstName;
-      },
-      set(value) {
-        this.updatePrimaryContact({ ['firstName']: value });
-      }
-    },
-    lastName: {
-      get() {
-        return this.primaryContact.lastName;
-      },
-      set(value) {
-        this.updatePrimaryContact({ ['lastName']: value });
-      }
-    },
-    phone1: {
-      get() {
-        return this.primaryContact.phone1;
-      },
-      set(value) {
-        this.updatePrimaryContact({ ['phone1']: value });
-      }
-    },
-    phone2: {
-      get() {
-        return this.primaryContact.phone2;
-      },
-      set(value) {
-        this.updatePrimaryContact({ ['phone2']: value });
-      }
-    },
-    email: {
-      get() {
-        return this.primaryContact.email;
-      },
-      set(value) {
-        this.updatePrimaryContact({ ['email']: value });
-      }
-    },
-
-    // COVID Coordinator
-    covidFirstName: {
-      get() {
-        return this.covidContact.firstName;
-      },
-      set(value) {
-        this.updateCovidContact({ ['firstName']: value });
-      }
-    },
-    covidLastName: {
-      get() {
-        return this.covidContact.lastName;
-      },
-      set(value) {
-        this.updateCovidContact({ ['lastName']: value });
-      }
-    },
-    covidPhone1: {
-      get() {
-        return this.covidContact.phone1;
-      },
-      set(value) {
-        this.updateCovidContact({ ['phone1']: value });
-      }
-    },
-    covidPhone2: {
-      get() {
-        return this.covidContact.phone2;
-      },
-      set(value) {
-        this.updateCovidContact({ ['phone2']: value });
-      }
-    },
-    covidEmail: {
-      get() {
-        return this.covidContact.email;
-      },
-      set(value) {
-        this.updateCovidContact({ ['email']: value });
-      }
-    },
-
-    // Location
-    startDate: {
-      get() {
-        return this.location.startDate;
-      },
-      set(value) {
-        this.updateLocation({ ['startDate']: value });
-      }
-    },
-    endDate: {
-      get() {
-        return this.location.endDate;
-      },
-      set(value) {
-        this.updateLocation({ ['endDate']: value });
-      }
-    },
-    locationCity: {
-      get() {
-        return this.location.city;
-      },
-      set(value) {
-        this.updateLocation({ ['city']: value });
-      }
-    },
-    cityLatitude: {
-      get() {
-        return this.location.cityLatitude;
-      },
-      set(value) {
-        this.updateLocation({ ['cityLatitude']: value });
-      }
-    },
-    cityLongitude: {
-      get() {
-        return this.location.cityLongitude;
-      },
-      set(value) {
-        this.updateLocation({ ['cityLongitude']: value });
-      }
-    },
-    numberOfWorkers: {
-      get() {
-        return this.location.numberOfWorkers
-          ? this.location.numberOfWorkers.toString()
-          : '';
-      },
-      set(value) {
-        this.updateLocation({
-          ['numberOfWorkers']: Number.isNaN(value) ? 0 : Number.parseInt(value)
-        });
-      }
-    },
-    accTents: {
-      get() {
-        return this.location.accTents;
-      },
-      set(value) {
-        this.updateLocation({ ['accTents']: value });
-      }
-    },
-    tentDetails: {
-      get() {
-        return this.location.tentDetails;
-      },
-      set(value) {
-        this.updateLocation({ ['tentDetails']: value });
-      }
-    },
-    accMotel: {
-      get() {
-        return this.location.accMotel;
-      },
-      set(value) {
-        this.updateLocation({ ['accMotel']: value });
-      }
-    },
-    motelName: {
-      get() {
-        return this.location.motelName;
-      },
-      set(value) {
-        this.updateLocation({ ['motelName']: value });
-      }
-    },
-    motelAddressLine1: {
-      get() {
-        return this.location.motelAddressLine1;
-      },
-      set(value) {
-        this.updateLocation({ ['motelAddressLine1']: value });
-      }
-    },
-    motelAddressLine2: {
-      get() {
-        return this.location.motelAddressLine2;
-      },
-      set(value) {
-        this.updateLocation({ ['motelAddressLine2']: value });
-      }
-    },
-    motelCity: {
-      get() {
-        return this.location.motelCity;
-      },
-      set(value) {
-        this.updateLocation({ ['motelCity']: value });
-      }
-    },
-    motelProvince: {
-      get() {
-        return this.location.motelProvince;
-      },
-      set(value) {
-        this.updateLocation({ ['motelProvince']: value });
-      }
-    },
-    motelPostalCode: {
-      get() {
-        return this.location.motelPostalCode;
-      },
-      set(value) {
-        this.updateLocation({ ['motelPostalCode']: value });
-      }
-    },
-    accWorkersHome: {
-      get() {
-        return this.location.accWorkersHome;
-      },
-      set(value) {
-        this.updateLocation({ ['accWorkersHome']: value });
-      }
-    },
-
-    // Mine
-    mineNumber: {
-      get() {
-        return this.location.mineNumber;
-      },
-      set(value) {
-        this.updateLocation({ ['mineNumber']: value });
-      }
-    },
-    permitNumber: {
-      get() {
-        return this.location.permitNumber;
-      },
-      set(value) {
-        this.updateLocation({ ['permitNumber']: value });
-      }
     }
   },
   methods: {
@@ -689,7 +404,6 @@ export default {
       'updateContact',
       'updateCost',
       'updateValue',
-      'updatePrimaryContact',
       'updateCovidContact',
       'updateLocation'
     ]),
