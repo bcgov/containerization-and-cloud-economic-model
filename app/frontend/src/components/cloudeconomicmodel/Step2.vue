@@ -32,7 +32,7 @@
               label="Select"
               v-model="numberOfTeams"
               data-test="text-form-numberOfTeams"
-              :rules="numberOfTeamsRules"
+              :rules="dropDownRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
@@ -46,7 +46,7 @@
               label="Select"
               v-model="employeesVsContractors"
               data-test="text-form-employeesVsContractors"
-              :rules="employeesVsContractorsRules"
+              :rules="dropDownRules"
             />
           </v-col>
         </v-row>
@@ -63,7 +63,7 @@
               label="Select"
               v-model="migrationExperience"
               data-test="text-form-migrationExperience"
-              :rules="migrationExperienceRules"
+              :rules="dropDownRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
@@ -77,7 +77,7 @@
               label="Select"
               v-model="shadowAppDependencies"
               data-test="text-form-shadowAppDependencies"
-              :rules="shadowAppDependenciesRules"
+              :rules="dropDownRules"
             />
           </v-col>
         </v-row>
@@ -98,7 +98,7 @@
               label="Select"
               v-model="avgBreachCost"
               data-test="text-form-avgBreachCost"
-              :rules="avgBreachCostRules"
+              :rules="dropDownRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
@@ -112,7 +112,7 @@
               label="Select"
               v-model="avgUsersPerApp"
               data-test="text-form-avgUsersPerApp"
-              :rules="avgUsersPerAppRules"
+              :rules="dropDownRules"
             />
           </v-col>
         </v-row>
@@ -128,7 +128,7 @@
               label="Select"
               v-model="avgLegacyOutageHourlyValue"
               data-test="text-form-avgLegacyOutageHourlyValue"
-              :rules="avgLegacyOutageHourlyValueRules"
+              :rules="dropDownRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
@@ -142,7 +142,7 @@
               label="Select"
               v-model="disruptionHourlyValue"
               data-test="text-form-disruptionHourlyValue"
-              :rules="disruptionHourlyValueRules"
+              :rules="dropDownRules"
             />
           </v-col>
         </v-row>
@@ -158,7 +158,7 @@
               label="Select"
               v-model="avgYearlyFeatureHours"
               data-test="text-form-avgYearlyFeatureHours"
-              :rules="avgYearlyFeatureHoursRules"
+              :rules="dropDownRules"
             />
           </v-col>
         </v-row>
@@ -268,35 +268,11 @@ export default {
       ],
 
       // Rules
-      numberOfTeamsRules: [
-        v => !!v || 'This field is required',
-      ],
-      employeesVsContractorsRules: [
-        v => !!v || 'This field is required',
-      ],
-      migrationExperienceRules: [
-        v => !!v || 'This field is required',
-      ],
-      shadowAppDependenciesRules: [
-        v => !!v || 'This field is required',
-      ],
-      avgBreachCostRules: [
-        v => !!v || 'This field is required',
-      ],
-      avgUsersPerAppRules: [
-        v => !!v || 'This field is required',
-      ],
-      avgLegacyOutageHourlyValueRules: [
-        v => !!v || 'This field is required',
-      ],
-      disruptionHourlyValueRules: [
-        v => !!v || 'This field is required',
-      ],
-      avgYearlyFeatureHoursRules: [
-        v => !!v || 'This field is required',
+      dropDownRules: [
+        v => !!v || 'Required',
       ],
       emailRules: [
-        v => !!v || 'E-mail is required',
+        v => !!v || 'Required',
         v =>
           validator.isEmail(v, { allow_display_name: true }) ||
           'invalid e-mail format',
