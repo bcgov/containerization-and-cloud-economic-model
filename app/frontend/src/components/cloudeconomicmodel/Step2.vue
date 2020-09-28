@@ -174,7 +174,7 @@
               flat
               outlined
               solo
-              placeholder="john.doe@example.com"
+              placeholder="example@gov.bc.ca"
               :rules="emailRules"
               prepend-inner-icon="email"
               v-model="sendEmail"
