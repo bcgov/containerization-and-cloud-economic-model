@@ -82,7 +82,6 @@
           </v-col>
         </v-row>
 
-
         <hr />
 
         <h4>Value</h4>
@@ -282,12 +281,9 @@ export default {
   },
   computed: {
     ...mapGetters('form', [
-      'business',
-      'contact',
       'cost',
       'value',
-      'covidContact',
-      'location'
+      'contact'
     ]),
 
     // Gets and sets
@@ -376,12 +372,9 @@ export default {
     ...mapActions('form', ['sampleData']),
     ...mapMutations('form', [
       'setStep',
-      'updateBusiness',
-      'updateContact',
       'updateCost',
       'updateValue',
-      'updateCovidContact',
-      'updateLocation'
+      'updateContact'
     ]),
     async submit() {
       if (this.$refs.form.validate()) {

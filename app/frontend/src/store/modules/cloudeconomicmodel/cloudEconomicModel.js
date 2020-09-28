@@ -113,9 +113,6 @@ export default {
     updateContact: (state, obj) => {
       Object.assign(state.contact, obj);
     },
-    updatePrimaryContact: (state, obj) => {
-      Object.assign(state.primaryContact, obj);
-    },
     updateAttestation: (state, obj) => {
       Object.assign(state.attestation, obj);
     }
