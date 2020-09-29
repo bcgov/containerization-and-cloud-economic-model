@@ -4,7 +4,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{js,vue}',
     '!src/main.js',
-    '!src/components/{agriseafoodopscreening,forestrysectoropscreening,minesoperatorscreening}/**/*.*',
+    '!src/components/{cloudeconomicmodel}/**/*.*',
     '!src/plugins/*.*'
   ],
   moduleFileExtensions: ['js', 'json', 'vue', 'jsx'],
