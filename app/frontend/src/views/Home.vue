@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <h1 class="my-6">COVID-19 Operator Screening Forms</h1>
-    <p>Operator Screening forms are built in support of the Provincial Health Order for COVID-19 Industrial Camps. The order requires that all work site operations, which have worker accommodations, are required to submit to the province an attestation confirming that they have created and implemented the protocol at their worksite.
+    <h1 class="my-6">Forecasting Forms</h1>
+    <p>Forms for spreadsheet generation used in forecasting.
     </p>
     <FormList />
   </v-container>
