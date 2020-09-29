@@ -1,9 +1,7 @@
 <template>
   <v-container>
-    <BaseSecure :resource="resource" viewer>
-      <h1>Submissions</h1>
-      <SubmissionsTable :formName="formName" />
-    </BaseSecure>
+    <h1>Submissions</h1>
+    <SubmissionsTable :formName="formName" />
   </v-container>
 </template>
 

@@ -1,21 +1,19 @@
 <template>
   <v-container fluid>
-    <BaseSecure :resource="resource" viewer>
-      <v-progress-linear indeterminate v-if="loading" color="primary" class="mb-2" />
+    <v-progress-linear indeterminate v-if="loading" color="primary" class="mb-2" />
+    <div v-else>
+      <h1 v-if="!dashboards.length" class="my-8 text-center">No dashboards configured.</h1>
       <div v-else>
-        <h1 v-if="!dashboards.length" class="my-8 text-center">No dashboards configured.</h1>
-        <div v-else>
-          <v-tabs v-model="tab">
-            <v-tab v-for="dashboard in dashboards" :key="dashboard.name">{{ dashboard.name }}</v-tab>
-          </v-tabs>
-          <v-tabs-items v-model="tab">
-            <v-tab-item v-for="dashboard in dashboards" :key="dashboard.name">
-              <Dashboard :resource="resource" :roles="dashboard.roles" :url="dashboard.url" />
-            </v-tab-item>
-          </v-tabs-items>
-        </div>
+        <v-tabs v-model="tab">
+          <v-tab v-for="dashboard in dashboards" :key="dashboard.name">{{ dashboard.name }}</v-tab>
+        </v-tabs>
+        <v-tabs-items v-model="tab">
+          <v-tab-item v-for="dashboard in dashboards" :key="dashboard.name">
+            <Dashboard :resource="resource" :roles="dashboard.roles" :url="dashboard.url" />
+          </v-tab-item>
+        </v-tabs-items>
       </div>
-    </BaseSecure>
+    </div>
   </v-container>
 </template>
 

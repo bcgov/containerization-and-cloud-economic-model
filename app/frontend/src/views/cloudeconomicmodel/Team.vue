@@ -1,9 +1,7 @@
 <template>
   <v-container>
-    <BaseSecure :resource="resource" admin>
-      <h1 class="mb-6">Team Management</h1>
-      <TeamTable :formName="formName" />
-    </BaseSecure>
+    <h1 class="mb-6">Team Management</h1>
+    <TeamTable :formName="formName" />
   </v-container>
 </template>
 

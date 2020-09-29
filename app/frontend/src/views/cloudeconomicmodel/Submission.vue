@@ -1,31 +1,29 @@
 <template>
   <v-container>
-    <BaseSecure :resource="resource" viewer>
-      <v-progress-linear indeterminate v-if="gettingForm" color="primary" class="mb-2" />
+    <v-progress-linear indeterminate v-if="gettingForm" color="primary" class="mb-2" />
 
-      <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
+    <v-alert v-if="getFormError" type="error" tile dense>{{ getFormError }}</v-alert>
 
-      <div v-if="!gettingForm && attestation">
-        <SubmissionHeader
-          :attestation="attestation"
-          :business="business"
-          :formName="formName"
-          :location="location"
-          :submissionId="submissionId"
-        />
+    <div v-if="!gettingForm && attestation">
+      <SubmissionHeader
+        :attestation="attestation"
+        :business="business"
+        :formName="formName"
+        :location="location"
+        :submissionId="submissionId"
+      />
 
-        <v-row>
-          <v-col cols="12" md="8" class="pl-0 pt-0">
-            <AdminReviewSubmission />
-          </v-col>
-          <v-col cols="12" md="4" class="pl-0 d-print-none" order="first" order-md="last">
-            <InspectionPanel :submissionId="submissionId" v-on:note-updated="refreshNotes" :formName="formName" />
+      <v-row>
+        <v-col cols="12" md="8" class="pl-0 pt-0">
+          <AdminReviewSubmission />
+        </v-col>
+        <v-col cols="12" md="4" class="pl-0 d-print-none" order="first" order-md="last">
+          <InspectionPanel :submissionId="submissionId" v-on:note-updated="refreshNotes" :formName="formName" />
 
-            <NotesPanel :submissionId="submissionId" ref="notesPanel" :formName="formName" />
-          </v-col>
-        </v-row>
-      </div>
-    </BaseSecure>
+          <NotesPanel :submissionId="submissionId" ref="notesPanel" :formName="formName" />
+        </v-col>
+      </v-row>
+    </div>
   </v-container>
 </template>
 

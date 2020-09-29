@@ -1,9 +1,7 @@
 <template>
   <v-container>
-    <BaseSecure :resource="resource" admin>
-      <h1 class="mb-6">Settings</h1>
-      <SettingsPanel :formName="formName" />
-    </BaseSecure>
+    <h1 class="mb-6">Settings</h1>
+    <SettingsPanel :formName="formName" />
   </v-container>
 </template>
 
