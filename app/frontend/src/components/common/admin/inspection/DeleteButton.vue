@@ -27,10 +27,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
 import commonFormService from '@/services/commonFormService';
-import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'DeleteButton',
@@ -48,14 +45,6 @@ export default {
     showDialog: false,
     deleteError: ''
   }),
-  computed: {
-    ...mapGetters('auth', ['hasResourceRoles']),
-    hasEditor() {
-      return this.hasResourceRoles(getAppClient(this.formName), [
-        AppRoles.EDITOR
-      ]);
-    }
-  },
   methods: {
     displayDialog() {
       this.showDialog = true;

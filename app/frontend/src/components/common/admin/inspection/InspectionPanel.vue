@@ -186,11 +186,9 @@
 
 <script>
 import moment from 'moment';
-import { mapGetters } from 'vuex';
 
 import StatusTable from '@/components/common/admin/inspection/StatusTable.vue';
 import commonFormService from '@/services/commonFormService';
-import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'InspectionPanel',
@@ -230,7 +228,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters('auth', ['hasResourceRoles', 'email', 'token', 'fullName']),
 
     // State machine
     items() {
@@ -256,11 +253,6 @@ export default {
       return this.currentStatus.actionDate
         ? moment(this.currentStatus.actionDate).format('MMMM D YYYY')
         : 'N/A';
-    },
-    hasReviewer() {
-      return this.hasResourceRoles(getAppClient(this.formName), [
-        AppRoles.REVIEWER
-      ]);
     }
   },
   methods: {

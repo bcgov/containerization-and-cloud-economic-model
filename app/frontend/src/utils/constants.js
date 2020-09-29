@@ -21,15 +21,6 @@ const AppClients = Object.freeze(
     ...Object.entries(FormNames).map(([k, v]) => ({ [k]: `comfort-${v}` })))
 );
 
-// Registered Application Roles
-const AppRoles = Object.freeze({
-  ADMIN: 'admin',
-  EDITOR: 'editor',
-  REVIEWER: 'reviewer',
-  USER: 'user',
-  VIEWER: 'viewer'
-});
-
 // Registered Application Setting Names
 const AppSettings = Object.freeze({
   DASHBOARD: 'dashboards',
@@ -63,4 +54,4 @@ const getAppClient = formName => {
  */
 const isValidForm = form => Object.values(FormNames).includes(form);
 
-export { FormNames, ApiRoutes, AppClients, AppRoles, AppSettings, getAppClient, isValidForm };
+export { FormNames, ApiRoutes, AppClients, AppSettings, getAppClient, isValidForm };

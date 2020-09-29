@@ -1,5 +1,5 @@
 <template>
-  <nav v-if="isAdminPage" class="navigation-main">
+  <nav class="navigation-main">
     <div class="container">
       <ul>
         <li>
@@ -14,7 +14,7 @@
             :to="{ path: `/${formName}/admin/dashboard` }"
           >Dashboards</router-link>
         </li>
-        <li v-if="isAdmin">
+        <li>
           <router-link data-test="btn-navbar-team" :to="{ path: `/${formName}/admin/team` }">Team</router-link>
         </li>
       </ul>
@@ -23,19 +23,10 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
-
-import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'AdminNavBar',
   computed: {
-    ...mapGetters('auth', ['hasResourceRoles']),
-    isAdmin() {
-      return this.hasResourceRoles(getAppClient(this.formName), [
-        AppRoles.ADMIN
-      ]);
-    },
     isAdminPage() {
       return this.$route.path.match(/\/admin/g);
     }

@@ -76,10 +76,8 @@
 
 <script>
 import moment from 'moment';
-import { mapGetters } from 'vuex';
 
 import commonFormService from '@/services/commonFormService';
-import { AppRoles, getAppClient } from '@/utils/constants';
 
 export default {
   name: 'NotesPanel',
@@ -101,14 +99,6 @@ export default {
     notes: [],
     showNoteField: false
   }),
-  computed: {
-    ...mapGetters('auth', ['hasResourceRoles', 'fullName']),
-    hasReviewer() {
-      return this.hasResourceRoles(getAppClient(this.formName), [
-        AppRoles.REVIEWER
-      ]);
-    }
-  },
   methods: {
     formatUserName(name) {
       return name ? name.replace('@idir', '') : '';
