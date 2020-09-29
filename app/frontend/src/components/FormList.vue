@@ -52,30 +52,6 @@ export default {
     forms: [
       {
         enabled: true,
-        linkAdminName: 'AgriSeafoodOpScreeningAdmin',
-        linkName: 'AgriSeafoodOpScreeningForm',
-        resource: AppClients.AGRISEAFOODOPSCREENING,
-        roles: [],
-        title: 'Agriculture and Seafood Operator Screening'
-      },
-      {
-        enabled: true,
-        linkAdminName: 'ForestrySectorOpScreeningAdmin',
-        linkName: 'ForestrySectorOpScreeningForm',
-        resource: AppClients.FORESTRYSECTOROPSCREENING,
-        roles: [],
-        title: 'Forestry Sector Operator Screening'
-      },
-      {
-        enabled: true,
-        linkAdminName: 'MinesOperatorScreeningAdmin',
-        linkName: 'MinesOperatorScreeningForm',
-        resource: AppClients.MINESOPERATORSCREENING,
-        roles: [],
-        title: 'Mines Operator Screening'
-      },
-      {
-        enabled: true,
         linkAdminName: 'CloudEconomicModelAdmin',
         linkName: 'CloudEconomicModelForm',
         resource: AppClients.CLOUDECONOMICMODEL,
