@@ -4,9 +4,6 @@
 
 // Registered Form Names
 const FormNames = Object.freeze({
-  AGRISEAFOODOPSCREENING: 'agriseafoodopscreening',
-  FORESTRYSECTOROPSCREENING: 'forestrysectoropscreening',
-  MINESOPERATORSCREENING: 'minesoperatorscreening',
   CLOUDECONOMICMODEL: 'cloudeconomicmodel'
 });
 
