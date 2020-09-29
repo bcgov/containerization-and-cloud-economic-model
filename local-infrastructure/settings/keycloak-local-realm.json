@@ -280,131 +280,6 @@
           "attributes": {}
         }
       ],
-      "comfort-forestrysectoropscreening": [
-        {
-          "id": "b04c1070-bd4b-44d9-8b57-e7b853dcd5a9",
-          "name": "editor",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "bf4939c8-c22b-4de9-9464-26333721db25",
-          "name": "admin",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "4f45605a-3b1c-44de-9076-ea020c3f6ad2",
-          "name": "_requestaccess",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "011b424e-2048-4c6c-ad46-2911b2176d34",
-          "name": "reviewer",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "b9f37938-2f8e-4dcf-9ff7-1a02a4f40338",
-          "name": "viewer",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "c42ca942-635c-4f2b-8791-a64ccd506d83",
-          "name": "Form Editor",
-          "description": "Form Editors have all the permissions of a Form Reviewer. Elevated permissions include managing form content and status/workflow codes.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-forestrysectoropscreening": [
-                "editor",
-                "Form Reviewer"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "74dc956a-062b-4f69-8499-69b768baf3a0",
-          "name": "Form Reviewer",
-          "description": "Form Reviewers have all the permissions of Form Viewer. Elevated permissions include adding notes and assignments to a submission.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-forestrysectoropscreening": [
-                "reviewer",
-                "Form Viewer"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "ee4742cb-6abd-4dd2-9d96-a3be9e3ba8eb",
-          "name": "Form Administrator",
-          "description": "Form Administrators have all the permissions of a Form Editor. Elevated permissions include managing users and role assignments.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-forestrysectoropscreening": [
-                "admin",
-                "Form Editor"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "b3b635f3-780c-4530-9c4e-a4f7b70359f5",
-          "name": "Request Access",
-          "description": "Users in this role have requested access to the form.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-forestrysectoropscreening": [
-                "_requestaccess"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        },
-        {
-          "id": "63d33184-de9a-4c78-a40a-128c8c8d2895",
-          "name": "Form Viewer",
-          "description": "Form Viewers have read-only access to submissions.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-forestrysectoropscreening": [
-                "viewer"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-          "attributes": {}
-        }
-      ],
       "security-admin-console": [],
       "broker": [
         {
@@ -427,132 +302,7 @@
           "attributes": {}
         }
       ],
-      "comfort-minesoperatorscreening": [
-        {
-          "id": "bd14fbfb-7320-48b8-a708-96bc58a752ef",
-          "name": "Request Access",
-          "description": "Users in this role have requested access to the form.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-minesoperatorscreening": [
-                "_requestaccess"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "36443120-3c7e-4f52-bc4e-a579cee975bb",
-          "name": "_requestaccess",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "ffc3e96c-d602-453b-87ed-4de67d26900b",
-          "name": "viewer",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "409b27dd-fa63-4bfb-90ca-422e93699815",
-          "name": "Form Administrator",
-          "description": "Form Administrators have all the permissions of a Form Editor. Elevated permissions include managing users and role assignments.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-minesoperatorscreening": [
-                "admin",
-                "Form Editor"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "67af6595-b60c-4f32-b888-e7039daeb52c",
-          "name": "admin",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "7dec54f7-976b-4310-a9ef-6fd9593a8a16",
-          "name": "Form Editor",
-          "description": "Form Editors have all the permissions of a Form Reviewer. Elevated permissions include managing form content and status/workflow codes.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-minesoperatorscreening": [
-                "Form Reviewer",
-                "editor"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "6acaae75-a7af-4c2a-9f1d-565224919669",
-          "name": "Form Reviewer",
-          "description": "Form Reviewers have all the permissions of Form Viewer. Elevated permissions include adding notes and assignments to a submission.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-minesoperatorscreening": [
-                "Form Viewer",
-                "reviewer"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "99b3b2f0-8bb4-43bb-85ea-b6382099243d",
-          "name": "Form Viewer",
-          "description": "Form Viewers have read-only access to submissions.",
-          "composite": true,
-          "composites": {
-            "client": {
-              "comfort-minesoperatorscreening": [
-                "viewer"
-              ]
-            }
-          },
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "2ee46f98-2390-4ff0-9661-cb0457153805",
-          "name": "editor",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        },
-        {
-          "id": "c562b41f-e0ce-4951-a148-ff76ef0ca468",
-          "name": "reviewer",
-          "composite": false,
-          "clientRole": true,
-          "containerId": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-          "attributes": {}
-        }
-      ],
-      "comfort-agriseafoodopscreening": [
+      "comfort-cloudeconomicmodel": [
         {
           "id": "91629684-2d82-455b-98ea-be19ccf34541",
           "name": "editor",
@@ -576,7 +326,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "comfort-agriseafoodopscreening": [
+              "comfort-cloudeconomicmodel": [
                 "Form Viewer",
                 "reviewer"
               ]
@@ -593,7 +343,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "comfort-agriseafoodopscreening": [
+              "comfort-cloudeconomicmodel": [
                 "viewer"
               ]
             }
@@ -609,7 +359,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "comfort-agriseafoodopscreening": [
+              "comfort-cloudeconomimodel": [
                 "admin",
                 "Form Editor"
               ]
@@ -634,7 +384,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "comfort-agriseafoodopscreening": [
+              "comfort-cloudeconomicmodel": [
                 "_requestaccess"
               ]
             }
@@ -666,7 +416,7 @@
           "composite": true,
           "composites": {
             "client": {
-              "comfort-agriseafoodopscreening": [
+              "comfort-cloudeconomicmodel": [
                 "editor",
                 "Form Reviewer"
               ]
@@ -842,29 +592,7 @@
         ]
       }
     ],
-    "comfort-forestrysectoropscreening": [
-      {
-        "clientScope": "comfort",
-        "roles": [
-          "viewer",
-          "editor",
-          "admin",
-          "reviewer"
-        ]
-      }
-    ],
-    "comfort-minesoperatorscreening": [
-      {
-        "clientScope": "comfort",
-        "roles": [
-          "viewer",
-          "editor",
-          "admin",
-          "reviewer"
-        ]
-      }
-    ],
-    "comfort-agriseafoodopscreening": [
+    "comfort-cloudeconomicmodel": [
       {
         "clientScope": "comfort",
         "roles": [
@@ -1019,94 +747,6 @@
       ]
     },
     {
-      "id": "9c506c81-b3b2-41e7-b07e-a1f333e23468",
-      "clientId": "comfort-minesoperatorscreening",
-      "name": "minesoperatorscreening client for COMFORT",
-      "description": "used for defining roles",
-      "surrogateAuthRequired": false,
-      "enabled": true,
-      "clientAuthenticatorType": "client-secret",
-      "secret": "password123",
-      "redirectUris": [],
-      "webOrigins": [],
-      "notBefore": 0,
-      "bearerOnly": false,
-      "consentRequired": false,
-      "standardFlowEnabled": false,
-      "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
-      "publicClient": false,
-      "frontchannelLogout": false,
-      "protocol": "openid-connect",
-      "attributes": {
-        "saml.assertion.signature": "false",
-        "saml.multivalued.roles": "false",
-        "saml.force.post.binding": "false",
-        "saml.encrypt": "false",
-        "saml.server.signature": "false",
-        "saml.server.signature.keyinfo.ext": "false",
-        "exclude.session.state.from.auth.response": "false",
-        "saml_force_name_id_format": "false",
-        "saml.client.signature": "false",
-        "tls.client.certificate.bound.access.tokens": "false",
-        "saml.authnstatement": "false",
-        "display.on.consent.screen": "false",
-        "saml.onetimeuse.condition": "false"
-      },
-      "authenticationFlowBindingOverrides": {},
-      "fullScopeAllowed": false,
-      "nodeReRegistrationTimeout": -1,
-      "protocolMappers": [
-        {
-          "id": "f800fdbf-4de7-4be2-8d6f-0a217e200242",
-          "name": "Client Host",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-usersessionmodel-note-mapper",
-          "consentRequired": false,
-          "config": {
-            "user.session.note": "clientHost",
-            "id.token.claim": "true",
-            "access.token.claim": "true",
-            "claim.name": "clientHost",
-            "jsonType.label": "String"
-          }
-        },
-        {
-          "id": "1107afdd-e3ef-4cdf-9f9c-0445b27c732c",
-          "name": "Client IP Address",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-usersessionmodel-note-mapper",
-          "consentRequired": false,
-          "config": {
-            "user.session.note": "clientAddress",
-            "id.token.claim": "true",
-            "access.token.claim": "true",
-            "claim.name": "clientAddress",
-            "jsonType.label": "String"
-          }
-        },
-        {
-          "id": "570c6e6f-0aa0-4b7b-9743-7d5471c5d1a1",
-          "name": "Client ID",
-          "protocol": "openid-connect",
-          "protocolMapper": "oidc-usersessionmodel-note-mapper",
-          "consentRequired": false,
-          "config": {
-            "user.session.note": "clientId",
-            "id.token.claim": "true",
-            "access.token.claim": "true",
-            "claim.name": "clientId",
-            "jsonType.label": "String"
-          }
-        }
-      ],
-      "defaultClientScopes": [
-        "role_list"
-      ],
-      "optionalClientScopes": []
-    },
-    {
       "id": "d5b0b1a3-746f-44b4-a37c-f1cd29f07995",
       "clientId": "account",
       "name": "${client_account}",
@@ -1152,7 +792,7 @@
     },
     {
       "id": "8baa6eaf-d1bf-4a85-b807-a4de5e9214ec",
-      "clientId": "comfort-agriseafoodopscreening",
+      "clientId": "comfort-cloudeconomicmodel",
       "surrogateAuthRequired": false,
       "enabled": true,
       "clientAuthenticatorType": "client-secret",
@@ -1414,56 +1054,6 @@
           }
         }
       ],
-      "defaultClientScopes": [
-        "web-origins",
-        "role_list",
-        "roles",
-        "profile",
-        "email"
-      ],
-      "optionalClientScopes": [
-        "address",
-        "phone",
-        "offline_access"
-      ]
-    },
-    {
-      "id": "2e4c0430-66d1-41dc-b644-cfffb25eb88e",
-      "clientId": "comfort-forestrysectoropscreening",
-      "surrogateAuthRequired": false,
-      "enabled": true,
-      "clientAuthenticatorType": "client-secret",
-      "secret": "password123",
-      "redirectUris": [],
-      "webOrigins": [],
-      "notBefore": 0,
-      "bearerOnly": false,
-      "consentRequired": false,
-      "standardFlowEnabled": false,
-      "implicitFlowEnabled": false,
-      "directAccessGrantsEnabled": false,
-      "serviceAccountsEnabled": false,
-      "publicClient": false,
-      "frontchannelLogout": false,
-      "protocol": "openid-connect",
-      "attributes": {
-        "saml.assertion.signature": "false",
-        "saml.multivalued.roles": "false",
-        "saml.force.post.binding": "false",
-        "saml.encrypt": "false",
-        "saml.server.signature": "false",
-        "saml.server.signature.keyinfo.ext": "false",
-        "exclude.session.state.from.auth.response": "false",
-        "saml_force_name_id_format": "false",
-        "saml.client.signature": "false",
-        "tls.client.certificate.bound.access.tokens": "false",
-        "saml.authnstatement": "false",
-        "display.on.consent.screen": "false",
-        "saml.onetimeuse.condition": "false"
-      },
-      "authenticationFlowBindingOverrides": {},
-      "fullScopeAllowed": true,
-      "nodeReRegistrationTimeout": -1,
       "defaultClientScopes": [
         "web-origins",
         "role_list",

@@ -24,9 +24,7 @@ add_user () {
   USER_ID=`kcadm.sh create users -r $REALM -s username=$USERNAME -s firstName=$FIRST -s lastName=$LAST -s email=$EMAIL -i`
   kcadm.sh update users/$USER_ID -r $REALM -s enabled=true
   kcadm.sh set-password -r $REALM --username $USERNAME --new-password password123
-  kcadm.sh add-roles -r $REALM --uusername $USERNAME --cclientid "comfort-agriseafoodopscreening" --rolename "$ROLENAME"
-  kcadm.sh add-roles -r $REALM --uusername $USERNAME --cclientid "comfort-forestrysectoropscreening" --rolename "$ROLENAME"
-  kcadm.sh add-roles -r $REALM --uusername $USERNAME --cclientid "comfort-minesoperatorscreening" --rolename "$ROLENAME"
+  kcadm.sh add-roles -r $REALM --uusername $USERNAME --cclientid "comfort-cloudeconomicmodel" --rolename "$ROLENAME"
   kcadm.sh add-roles -r $REALM --uusername $USERNAME --cclientid "comfort" --rolename "COMFORT User"
 
   echo "...$USERNAME created"
