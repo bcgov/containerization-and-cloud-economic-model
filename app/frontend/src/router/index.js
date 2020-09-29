@@ -3,9 +3,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import comfort from './comfort';
-import agriSeafoodOpScreening from './agriSeafoodOpScreening';
-import forestrySectorOpScreening from './forestrySectorOpScreening';
-import minesOperatorScreening from './minesOperatorScreening';
 import cloudEconomicModel from './cloudEconomicModel';
 
 Vue.use(VueRouter);
@@ -23,9 +20,6 @@ export default function getRouter(basePath = '/') {
     mode: 'history',
     routes: [
       ...comfort,
-      ...agriSeafoodOpScreening,
-      ...forestrySectorOpScreening,
-      ...minesOperatorScreening,
       ...cloudEconomicModel
     ]
   });
