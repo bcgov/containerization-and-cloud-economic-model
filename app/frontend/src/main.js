@@ -9,7 +9,6 @@ import Vue from 'vue';
 import App from '@/App.vue';
 import getRouter from '@/router';
 import store from '@/store';
-import VueKeycloakJs from '@/plugins/keycloak';
 import vuetify from '@/plugins/vuetify';
 
 Vue.config.productionTip = false;
@@ -64,38 +63,10 @@ async function loadConfig() {
     const config = JSON.parse(sessionStorage.getItem(storageKey));
     Vue.prototype.$config = Object.freeze(config);
 
-    if (!config || !config.keycloak ||
-      !config.keycloak.clientId || !config.keycloak.realm || !config.keycloak.serverUrl) {
-      throw new Error('Keycloak is misconfigured');
-    }
-
-    loadKeycloak(config);
+    initializeApp(config.basePath);
   } catch (err) {
     sessionStorage.removeItem(storageKey);
     initializeApp(); // Attempt to gracefully fail
     throw new Error(`Failed to acquire configuration: ${err.message}`);
   }
-}
-
-/**
- * @function loadKeycloak
- * Applies Keycloak authentication capabilities
- * @param {object} config A config object
- */
-function loadKeycloak(config) {
-  Vue.use(VueKeycloakJs, {
-    init: { onLoad: 'check-sso' },
-    config: {
-      clientId: config.keycloak.clientId,
-      realm: config.keycloak.realm,
-      url: config.keycloak.serverUrl
-    },
-    onReady: () => {
-      initializeApp(config.basePath);
-    },
-    onInitError: error => {
-      console.error('Keycloak failed to initialize'); // eslint-disable-line no-console
-      console.error(error); // eslint-disable-line no-console
-    }
-  });
 }
