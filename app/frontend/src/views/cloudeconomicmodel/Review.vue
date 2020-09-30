@@ -12,7 +12,6 @@
             <span>Generate PDF of Submission</span>
           </v-btn>
         </GeneratePdfButton>
-        <AdminReviewSubmission />
       </v-col>
     </v-row>
   </v-container>
@@ -22,14 +21,12 @@
 import moment from 'moment';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import AdminReviewSubmission from '@/components/cloudeconomicmodel/admin/AdminReviewSubmission.vue';
 import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'CloudEconomicModelReview',
   components: {
-    AdminReviewSubmission,
     GeneratePdfButton
   },
   props: {

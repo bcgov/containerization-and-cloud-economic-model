@@ -19,15 +19,6 @@ export default [
           title: baseTitle
         }
       },
-      {
-        path: 'review/:submissionId',
-        name: `${baseName}Review`,
-        component: () => import(/* webpackChunkName: "cloudeconomicmodel-review" */ '@/views/cloudeconomicmodel/Review.vue'),
-        props: true,
-        meta: {
-          title: `${baseTitle} Submission Review`
-        }
-      },
     ]
   }
 ];
