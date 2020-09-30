@@ -28,24 +28,6 @@
       </div>
 
       <v-row class="mb-6">
-        <GeneratePdfButton :formName="formName" :submissionId="completedSubmission.submissionId">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn
-                v-on="on"
-                color="primary"
-                class="ml-5 mr-10"
-                data-test="btn-form-generate-pdf"
-                fab
-                large
-              >
-                <v-icon>picture_as_pdf</v-icon>
-              </v-btn>
-            </template>
-            <span>Download PDF</span>
-          </v-tooltip>
-        </GeneratePdfButton>
-
         <RequestReceipt
           :email="completedSubmission.contacts[0].email"
           :formName="formName"
@@ -86,14 +68,11 @@
 </template>
 
 <script>
-import GeneratePdfButton from '@/components/common/GeneratePdfButton.vue';
 import RequestReceipt from '@/components/common/RequestReceipt.vue';
-import { getFormOptions } from '@/utils/attestationFormOptions';
 
 export default {
   name: 'SubmissionConfirmation',
   components: {
-    GeneratePdfButton,
     RequestReceipt
   },
   props: {
@@ -104,11 +83,6 @@ export default {
     formName: {
       type: String,
       required: true
-    }
-  },
-  computed: {
-    formOptions() {
-      return getFormOptions(this.formName);
     }
   },
   methods: {

@@ -19,8 +19,7 @@ const AppSettings = Object.freeze({
   EMAILACCESSREQUESTED: 'accessRequestedEmail',
   EMAILCONFIRMATION: 'confirmationEmail',
   EMAILSTATUSASSIGNMENT: 'statusAssignmentEmail',
-  EMAILSUBMISSION: 'submissionEmail',
-  GENERATESUBMISSIONPDF: 'generateSubmissionPdf'
+  EMAILSUBMISSION: 'submissionEmail'
 });
 
 //
