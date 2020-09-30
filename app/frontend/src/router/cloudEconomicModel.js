@@ -1,5 +1,5 @@
 /**
- * Mines Operator Screening Form Routes
+ * Cloud Economic Model Routes
  */
 import { FormNames } from '@/utils/constants';
 
