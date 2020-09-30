@@ -40,7 +40,6 @@ export default {
     step: 1,
     submissionComplete: false,
     submissionDetails: null,
-    submissionError: '',
 
     // Form schema
     cost: {
@@ -70,7 +69,6 @@ export default {
     submitting: state => state.submitting,
     submissionComplete: state => state.submissionComplete,
     submissionDetails: state => state.submissionDetails,
-    submissionError: state => state.submissionError,
 
     // Form objects
     cost: state => state.cost,
@@ -98,9 +96,6 @@ export default {
     },
     setSubmissionDetails(state, responseData) {
       state.submissionDetails = responseData;
-    },
-    setSubmissionError(state, errorMessage) {
-      state.submissionError = errorMessage;
     },
 
     // Form updates
@@ -142,7 +137,6 @@ export default {
     },
     async submitForm({ commit, state }) {
       commit('setSubmitting', true);
-      commit('setSubmissionError', '');
       try {
         const body = transformToPost(state);
 
@@ -154,7 +148,6 @@ export default {
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error} - ${error.message}`); // eslint-disable-line no-console
-        commit('setSubmissionError', 'An error occurred while attempting to submit the form. Please try again.');
       } finally {
         commit('setSubmitting', false);
       }

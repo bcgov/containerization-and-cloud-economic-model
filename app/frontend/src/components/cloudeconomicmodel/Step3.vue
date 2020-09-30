@@ -1,11 +1,6 @@
 <template>
   <v-container>
-    <div v-if="submissionComplete">
-      <SubmissionConfirmation :formName="formName" :completedSubmission="submissionDetails" />
-    </div>
-    <div v-else>
-      <h2 class="pb-8">Please review your answers</h2>
-    </div>
+    <h2 class="pb-8">Please review your answers</h2>
     <hr class="orange" />
 
     <v-row>
@@ -76,27 +71,12 @@
         </v-card-text>
       </v-card>
     </v-dialog>
-
-    <v-dialog v-model="submissionError" persistent max-width="500">
-      <v-card>
-        <v-card-title class="headline grey lighten-2 mb-2" primary-title>
-          <v-icon color="red">error</v-icon>Error
-        </v-card-title>
-        <v-card-text>{{ submissionError }}</v-card-text>
-        <v-divider />
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="red" data-test="btn-form-error-ok" text @click="setSubmissionError('')">OK</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import SubmissionConfirmation from '@/components/common/attestation/SubmissionConfirmation.vue';
 import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
 import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
 import { FormNames } from '@/utils/constants';
@@ -104,7 +84,6 @@ import { FormNames } from '@/utils/constants';
 export default {
   name: 'CloudEconomicModelStep3',
   components: {
-    SubmissionConfirmation,
     Step1,
     Step2
   },
@@ -118,7 +97,6 @@ export default {
       'attestation',
       'submissionComplete',
       'submissionDetails',
-      'submissionError',
       'submitting'
     ]),
     // Certify checkboxes
@@ -137,7 +115,6 @@ export default {
   methods: {
     ...mapMutations('form', [
       'setStep',
-      'setSubmissionError',
       'updateAttestation'
     ]),
     ...mapActions('form', ['submitForm']),
