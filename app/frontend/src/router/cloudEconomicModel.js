@@ -54,14 +54,6 @@ export default [
         }
       },
       {
-        path: 'admin/team',
-        name: `${baseName}Team`,
-        component: () => import(/* webpackChunkName: "cloudeconomicmodel-team" */ '@/views/cloudeconomicmodel/Team.vue'),
-        meta: {
-          title: `${baseTitle} Team Management`
-        }
-      },
-      {
         path: 'review/:submissionId',
         name: `${baseName}Review`,
         component: () => import(/* webpackChunkName: "cloudeconomicmodel-review" */ '@/views/cloudeconomicmodel/Review.vue'),

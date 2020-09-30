@@ -14,9 +14,6 @@
             :to="{ path: `/${formName}/admin/dashboard` }"
           >Dashboards</router-link>
         </li>
-        <li>
-          <router-link data-test="btn-navbar-team" :to="{ path: `/${formName}/admin/team` }">Team</router-link>
-        </li>
       </ul>
     </div>
   </nav>
