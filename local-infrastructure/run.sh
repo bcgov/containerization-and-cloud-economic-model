@@ -26,14 +26,6 @@ docker-compose stop
 docker-compose build
 docker-compose up -d
 
-# Follow migrations
-#
-docker logs -f comfort_node_migrate
-
-# Run migrations (script includes check/wait for keycloak service)
-#
-docker exec comfort_keycloak bash /tmp/keycloak-local-user.sh
-
 # Build application
 #
 pushd ../app/
