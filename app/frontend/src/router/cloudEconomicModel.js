@@ -29,14 +29,6 @@ export default [
         }
       },
       {
-        path: 'admin/dashboard',
-        name: `${baseName}Dashboards`,
-        component: () => import(/* webpackChunkName: "cloudeconomicmodel-dashboard" */ '@/views/cloudeconomicmodel/Dashboards.vue'),
-        meta: {
-          title: `${baseTitle} Admin`
-        }
-      },
-      {
         path: 'admin/settings',
         name: `${baseName}Settings`,
         component: () => import(/* webpackChunkName: "cloudeconomicmodel-settings" */ '@/views/cloudeconomicmodel/Settings.vue'),

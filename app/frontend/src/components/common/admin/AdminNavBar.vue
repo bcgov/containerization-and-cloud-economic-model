@@ -8,12 +8,6 @@
             :to="{ path: `/${formName}/admin` }"
           >Submissions</router-link>
         </li>
-        <li>
-          <router-link
-            data-test="btn-navbar-dashboards"
-            :to="{ path: `/${formName}/admin/dashboard` }"
-          >Dashboards</router-link>
-        </li>
       </ul>
     </div>
   </nav>

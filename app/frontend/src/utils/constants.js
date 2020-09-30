@@ -16,7 +16,6 @@ const ApiRoutes = Object.freeze(
 
 // Registered Application Setting Names
 const AppSettings = Object.freeze({
-  DASHBOARD: 'dashboards',
   EMAILACCESSREQUESTED: 'accessRequestedEmail',
   EMAILCONFIRMATION: 'confirmationEmail',
   EMAILSTATUSASSIGNMENT: 'statusAssignmentEmail',
