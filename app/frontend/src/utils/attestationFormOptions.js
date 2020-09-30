@@ -10,13 +10,6 @@ const Options = Object.freeze({
     landing: {
       header: 'Economic modeling spreadsheet generation',
     }
-  },
-  submissionConfirmation: {
-    notifyHealthAuth: {
-      text: 'AS PART OF THE PRECAUTIONS TO PREVENT/CONTROL COVID-19, CAMP OPERATORS MUST NOTIFY RHA THAT THEY ARE OPERATING IN THE REGION. PLEASE FORWARD THE PDF COPY OF YOUR SUBMISSION TO THE RELEVANT HEALTH AUTHORITY.',
-      link: 'https://www2.gov.bc.ca/gov/content/health/keeping-bc-healthy-safe/industrial-camps',
-      linkText: 'Health Authority Contacts for Industrial Camps'
-    }
   }
 });
 
