@@ -1,6 +1,5 @@
 <template>
   <div>
-    <AdminNavBar :formName="formName" />
     <transition name="component-fade" mode="out-in">
       <router-view />
     </transition>
@@ -8,15 +7,11 @@
 </template>
 
 <script>
-import AdminNavBar from '@/components/common/admin/AdminNavBar.vue';
 import form from '@/store/modules/cloudeconomicmodel/cloudEconomicModel.js';
 import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'CloudEconomicModel',
-  components: {
-    AdminNavBar
-  },
   beforeDestroy() {
     this.$store.unregisterModule('form');
   },

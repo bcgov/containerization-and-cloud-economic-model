@@ -18,14 +18,6 @@
                         <span>VIEW</span>
                       </v-btn>
                     </router-link>
-                    <router-link
-                      class="pr-2"
-                      :to="{ name: form.linkAdminName }"
-                    >
-                      <v-btn outlined>
-                        <span>ADMIN</span>
-                      </v-btn>
-                    </router-link>
                   </div>
                 </v-skeleton-loader>
               </div>
@@ -46,7 +38,6 @@ export default {
     forms: [
       {
         enabled: true,
-        linkAdminName: 'CloudEconomicModelAdmin',
         linkName: 'CloudEconomicModelForm',
         roles: [],
         title: 'Cloud Economic Model'
