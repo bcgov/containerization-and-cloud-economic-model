@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { AppClients, FormNames } from '@/utils/constants';
+import { FormNames } from '@/utils/constants';
 import SettingsPanel from '@/components/common/admin/settings/SettingsPanel.vue';
 
 export default {
@@ -17,9 +17,6 @@ export default {
   computed: {
     formName() {
       return FormNames.CLOUDECONOMICMODEL;
-    },
-    resource() {
-      return AppClients.cloudeconomicmodel;
     }
   }
 };

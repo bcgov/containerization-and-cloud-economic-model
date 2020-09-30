@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'Dashboard',
@@ -16,7 +15,6 @@ export default {
   },
   props: {
     resource: {
-      default: AppClients.APP,
       type: String
     },
     roles: {

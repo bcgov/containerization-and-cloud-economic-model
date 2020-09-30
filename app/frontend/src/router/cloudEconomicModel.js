@@ -25,7 +25,6 @@ export default [
         component: () => import(/* webpackChunkName: "cloudeconomicmodel-admin" */ '@/views/cloudeconomicmodel/Admin.vue'),
         meta: {
           hasLogin: true,
-          requiresAuth: true,
           title: `${baseTitle} Admin`
         }
       },
@@ -34,8 +33,6 @@ export default [
         name: `${baseName}Dashboards`,
         component: () => import(/* webpackChunkName: "cloudeconomicmodel-dashboard" */ '@/views/cloudeconomicmodel/Dashboards.vue'),
         meta: {
-          hasLogin: true,
-          requiresAuth: true,
           title: `${baseTitle} Admin`
         }
       },
@@ -44,8 +41,6 @@ export default [
         name: `${baseName}Settings`,
         component: () => import(/* webpackChunkName: "cloudeconomicmodel-settings" */ '@/views/cloudeconomicmodel/Settings.vue'),
         meta: {
-          hasLogin: true,
-          requiresAuth: true,
           title: `${baseTitle} Settings`
         }
       },
@@ -55,8 +50,6 @@ export default [
         component: () => import(/* webpackChunkName: "cloudeconomicmodel-submission" */ '@/views/cloudeconomicmodel/Submission.vue'),
         props: true,
         meta: {
-          hasLogin: true,
-          requiresAuth: true,
           title: `${baseTitle} Submission`
         }
       },
@@ -65,8 +58,6 @@ export default [
         name: `${baseName}Team`,
         component: () => import(/* webpackChunkName: "cloudeconomicmodel-team" */ '@/views/cloudeconomicmodel/Team.vue'),
         meta: {
-          hasLogin: true,
-          requiresAuth: true,
           title: `${baseTitle} Team Management`
         }
       },

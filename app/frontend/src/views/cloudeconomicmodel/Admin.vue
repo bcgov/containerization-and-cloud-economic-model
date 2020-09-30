@@ -7,7 +7,7 @@
 
 <script>
 import SubmissionsTable from '@/components/common/admin/SubmissionsTable.vue';
-import { AppClients, FormNames } from '@/utils/constants';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'CloudEconomicModelAdmin',
@@ -17,9 +17,6 @@ export default {
   computed: {
     formName() {
       return FormNames.CLOUDECONOMICMODEL;
-    },
-    resource() {
-      return AppClients.CLOUDECONOMICMODEL;
     }
   }
 };

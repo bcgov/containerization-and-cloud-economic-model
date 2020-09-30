@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import { AppClients } from '@/utils/constants';
 
 export default {
   name: 'FormList',
@@ -49,7 +48,6 @@ export default {
         enabled: true,
         linkAdminName: 'CloudEconomicModelAdmin',
         linkName: 'CloudEconomicModelForm',
-        resource: AppClients.CLOUDECONOMICMODEL,
         roles: [],
         title: 'Cloud Economic Model'
       }

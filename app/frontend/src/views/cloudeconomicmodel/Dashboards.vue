@@ -20,17 +20,12 @@
 <script>
 import Dashboard from '@/components/common/Dashboard.vue';
 import commonFormService from '@/services/commonFormService';
-import { AppClients, AppSettings, FormNames } from '@/utils/constants';
+import { AppSettings, FormNames } from '@/utils/constants';
 
 export default {
   name: 'Dashboards',
   components: {
     Dashboard
-  },
-  computed: {
-    resource() {
-      return AppClients.MINESOPERATORSCREENING;
-    }
   },
   data: () => ({
     dashboards: [],
@@ -42,7 +37,7 @@ export default {
       this.loading = true;
       try {
         const response = await commonFormService.getNamedSetting(
-          FormNames.MINESOPERATORSCREENING,
+          FormNames.CLOUDECONOMICMODEL,
           AppSettings.DASHBOARD
         );
         this.dashboards = response.data.config;

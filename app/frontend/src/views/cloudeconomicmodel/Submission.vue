@@ -34,7 +34,7 @@ import AdminReviewSubmission from '@/components/cloudeconomicmodel/admin/AdminRe
 import InspectionPanel from '@/components/common/admin/inspection/InspectionPanel.vue';
 import NotesPanel from '@/components/common/admin/inspection/NotesPanel.vue';
 import SubmissionHeader from '@/components/common/admin/SubmissionHeader.vue';
-import { AppClients, FormNames } from '@/utils/constants';
+import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'Submission',
@@ -63,9 +63,6 @@ export default {
     ]),
     formName() {
       return FormNames.CLOUDECONOMICMODEL;
-    },
-    resource() {
-      return AppClients.cloudeconomicmodel;
     }
   },
   methods: {

@@ -14,13 +14,6 @@ const ApiRoutes = Object.freeze(
     ...Object.entries(FormNames).map(([k, v]) => ({ [k]: `/${v}` })))
 );
 
-// Add comfort- prefix to FormNames values
-const AppClients = Object.freeze(
-  Object.assign(
-    { APP: 'comfort' },
-    ...Object.entries(FormNames).map(([k, v]) => ({ [k]: `comfort-${v}` })))
-);
-
 // Registered Application Setting Names
 const AppSettings = Object.freeze({
   DASHBOARD: 'dashboards',
@@ -36,17 +29,6 @@ const AppSettings = Object.freeze({
 //
 
 /**
- * @function getAppClient
- * Returns the AppClient associated with `formName`
- * @param {string} formName The form name
- * @returns {string} The equivalent AppClient for `formName` if it exists, undefined otherwise
- */
-const getAppClient = formName => {
-  const key = Object.keys(FormNames).find(e => FormNames[e] === formName);
-  return AppClients[key];
-};
-
-/**
  * @function isValidForm
  * Checks if `form` is a valid form name
  * @param {string} form The form name
@@ -54,4 +36,4 @@ const getAppClient = formName => {
  */
 const isValidForm = form => Object.values(FormNames).includes(form);
 
-export { FormNames, ApiRoutes, AppClients, AppSettings, getAppClient, isValidForm };
+export { FormNames, ApiRoutes, AppSettings, isValidForm };
