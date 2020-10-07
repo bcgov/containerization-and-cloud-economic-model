@@ -7,10 +7,8 @@ import NProgress from 'nprogress';
 import Vue from 'vue';
 
 import App from '@/App.vue';
-import auth from '@/store/modules/auth.js';
 import getRouter from '@/router';
 import store from '@/store';
-import VueKeycloakJs from '@/plugins/keycloak';
 import vuetify from '@/plugins/vuetify';
 
 Vue.config.productionTip = false;
@@ -31,11 +29,9 @@ loadConfig();
 /**
  * @function initializeApp
  * Initializes and mounts the Vue instance
- * @param {boolean} [kcSuccess=false] is Keycloak initialized successfully?
  * @param {string} [basepath='/'] base server path
  */
-function initializeApp(kcSuccess = false, basePath = '/') {
-  if (kcSuccess && !store.hasModule('auth')) store.registerModule('auth', auth);
+function initializeApp(basePath = '/') {
 
   new Vue({
     router: getRouter(basePath),
@@ -67,38 +63,10 @@ async function loadConfig() {
     const config = JSON.parse(sessionStorage.getItem(storageKey));
     Vue.prototype.$config = Object.freeze(config);
 
-    if (!config || !config.keycloak ||
-      !config.keycloak.clientId || !config.keycloak.realm || !config.keycloak.serverUrl) {
-      throw new Error('Keycloak is misconfigured');
-    }
-
-    loadKeycloak(config);
+    initializeApp(config.basePath);
   } catch (err) {
     sessionStorage.removeItem(storageKey);
-    initializeApp(false); // Attempt to gracefully fail
+    initializeApp(); // Attempt to gracefully fail
     throw new Error(`Failed to acquire configuration: ${err.message}`);
   }
-}
-
-/**
- * @function loadKeycloak
- * Applies Keycloak authentication capabilities
- * @param {object} config A config object
- */
-function loadKeycloak(config) {
-  Vue.use(VueKeycloakJs, {
-    init: { onLoad: 'check-sso' },
-    config: {
-      clientId: config.keycloak.clientId,
-      realm: config.keycloak.realm,
-      url: config.keycloak.serverUrl
-    },
-    onReady: () => {
-      initializeApp(true, config.basePath);
-    },
-    onInitError: error => {
-      console.error('Keycloak failed to initialize'); // eslint-disable-line no-console
-      console.error(error); // eslint-disable-line no-console
-    }
-  });
 }

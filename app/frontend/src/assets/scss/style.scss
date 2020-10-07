@@ -167,30 +167,3 @@ a, .v-tab {
     }
   }
 }
-
-.question-series {
-  p {
-    font-size: 16px;
-  }
-  .question-head {
-    margin-bottom: 16px;
-    margin-top: 22px;
-  }
-  .questions {
-    @media (min-width: 600px) {
-      padding-left: 1.5em;
-    }
-    .questions-check-group {
-      padding-left: 2em;
-      .v-input {
-        margin-top: 0;
-      }
-    }
-  }
-}
-
-// Landing pages
-.comfort-landing-title.v-sheet{
-  background-color: lightcoral !important;
-  padding: 0;
-}

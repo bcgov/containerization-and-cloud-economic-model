@@ -22,7 +22,6 @@
       </a>
       <h1 data-test="btn-header-title" class="font-weight-bold title">{{ appTitle }}</h1>
       <v-spacer />
-      <BaseAuthButton />
     </v-toolbar>
   </header>
 </template>

@@ -16,21 +16,6 @@ function formAxios(form) {
 
 export default {
   //
-  // Email
-  //
-
-  /**
-   * @function requestReceiptEmail
-   * Sends an application registration request email
-   * @param {string} form The form name
-   * @param {object} content An object with submissionId and to attributes
-   * @returns {Promise} An axios response
-   */
-  requestReceiptEmail(form, content) {
-    return formAxios(form).post(`${form}/submissions/email`, content);
-  },
-
-  //
   // Form
   //
 

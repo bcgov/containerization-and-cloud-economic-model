@@ -2,14 +2,9 @@ import NProgress from 'nprogress';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import comfort from './comfort';
-import agriSeafoodOpScreening from './agriSeafoodOpScreening';
-import forestrySectorOpScreening from './forestrySectorOpScreening';
-import minesOperatorScreening from './minesOperatorScreening';
+import cloudEconomicModel from './cloudEconomicModel';
 
 Vue.use(VueRouter);
-
-let isFirstTransition = true;
 
 /**
  * Constructs and returns a Vue Router object
@@ -21,36 +16,11 @@ export default function getRouter(basePath = '/') {
     base: basePath,
     mode: 'history',
     routes: [
-      ...comfort,
-      ...agriSeafoodOpScreening,
-      ...forestrySectorOpScreening,
-      ...minesOperatorScreening
+      ...cloudEconomicModel
     ]
   });
 
-  router.beforeEach((to, _from, next) => {
-    NProgress.start();
-    if (to.matched.some(route => route.meta.requiresAuth)
-      && router.app.$keycloak
-      && router.app.$keycloak.ready
-      && !router.app.$keycloak.authenticated) {
-      const redirect = location.origin + basePath + to.path;
-      const loginUrl = router.app.$keycloak.createLoginUrl({
-        idpHint: 'idir',
-        redirectUri: redirect
-      });
-      window.location.replace(loginUrl);
-    } else {
-      document.title = to.meta.title ? to.meta.title : process.env.VUE_APP_TITLE;
-      if (to.query.r && isFirstTransition) {
-        router.replace({ path: to.query.r.replace(basePath, '') });
-      }
-      next();
-    }
-  });
-
   router.afterEach(() => {
-    isFirstTransition = false;
     NProgress.done();
   });
 
