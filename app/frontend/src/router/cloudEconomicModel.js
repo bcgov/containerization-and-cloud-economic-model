@@ -20,5 +20,15 @@ export default [
         }
       },
     ]
+  },
+  {
+    path: '/',
+    redirect: { name: 'Home' }
+  },
+  {
+    path: '/404',
+    alias: '*',
+    name: 'NotFound',
+    component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue')
   }
 ];
