@@ -2,7 +2,6 @@ import NProgress from 'nprogress';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import comfort from './comfort';
 import cloudEconomicModel from './cloudEconomicModel';
 
 Vue.use(VueRouter);
@@ -17,7 +16,6 @@ export default function getRouter(basePath = '/') {
     base: basePath,
     mode: 'history',
     routes: [
-      ...comfort,
       ...cloudEconomicModel
     ]
   });
