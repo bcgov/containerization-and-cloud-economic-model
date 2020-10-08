@@ -2,7 +2,6 @@ import 'nprogress/nprogress.css';
 import '@bcgov/bc-sans/css/BCSans.css';
 import '@/assets/scss/style.scss';
 
-import axios from 'axios';
 import NProgress from 'nprogress';
 import Vue from 'vue';
 
@@ -49,15 +48,9 @@ function initializeApp(basePath = '/') {
  */
 async function loadConfig() {
   // App publicPath is ./ - so use relative path here, will hit the backend server using relative path to root.
-  const configUrl = process.env.NODE_ENV === 'production' ? 'config' : 'app/config';
   const storageKey = 'config';
 
   try {
-    // Get configuration if it isn't already in session storage
-    if (sessionStorage.getItem(storageKey) === null) {
-      const { data } = await axios.get(configUrl);
-      sessionStorage.setItem(storageKey, JSON.stringify(data));
-    }
 
     // Mount the configuration as a prototype for easier access from Vue
     const config = JSON.parse(sessionStorage.getItem(storageKey));
