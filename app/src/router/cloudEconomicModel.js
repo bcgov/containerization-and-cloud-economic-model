@@ -1,14 +1,13 @@
 /**
  * Cloud Economic Model Routes
  */
-import { FormNames } from '@/utils/constants';
 
 const baseName = 'CloudEconomicModel';
 const baseTitle = 'Cloud Economic Model';
 
 export default [
   {
-    path: `/${FormNames.CLOUDECONOMICMODEL}`,
+    path: '/',
     component: () => import(/* webpackChunkName: "cloudeconomicmodel" */ '@/views/CloudEconomicModel.vue'),
     children: [
       {
