@@ -1,4 +1,3 @@
-import NProgress from 'nprogress';
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
@@ -18,10 +17,6 @@ export default function getRouter(basePath = '/') {
     routes: [
       ...cloudEconomicModel
     ]
-  });
-
-  router.afterEach(() => {
-    NProgress.done();
   });
 
   return router;

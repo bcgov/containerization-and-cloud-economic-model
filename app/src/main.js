@@ -1,8 +1,6 @@
-import 'nprogress/nprogress.css';
 import '@bcgov/bc-sans/css/BCSans.css';
 import '@/assets/scss/style.scss';
 
-import NProgress from 'nprogress';
 import Vue from 'vue';
 
 import App from '@/App.vue';
@@ -11,9 +9,6 @@ import store from '@/store';
 import vuetify from '@/plugins/vuetify';
 
 Vue.config.productionTip = false;
-
-NProgress.configure({ showSpinner: false });
-NProgress.start();
 
 // Globally register all components with base in the name
 const requireComponent = require.context('@/components', true, /Base[A-Z]\w+\.(vue|js)$/);
@@ -38,8 +33,6 @@ function initializeApp(basePath = '/') {
     vuetify,
     render: h => h(App)
   }).$mount('#app');
-
-  NProgress.done();
 }
 
 /**
