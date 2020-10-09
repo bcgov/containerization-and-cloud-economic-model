@@ -217,7 +217,7 @@ export default {
       endDateMenu: false,
       showTestDataButton: Vue.prototype.$config
         ? Vue.prototype.$config.env !== 'prod'
-        : false,
+        : true,
 
       // Todo: constants file
       numberOfTeamsItems: [
