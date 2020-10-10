@@ -1,45 +1,47 @@
-# Common Forms Toolkit Application
+# Common Forms Toolkit Frontend
 
-This node.js skeleton app hosts the Common Forms Toolkit frontend. It implements a minimal endpoint to allow for Keycloak authentication.
+This is the Common Forms Toolkit frontend. It implements a Vue frontend with Keycloak authentication support.
 
 ## Settings
 
-This app will require some configuration. The API will be locked down and require a valid JWT Token to access. We will need to configure the application to authenticate using the same Keycloak realm as the [frontend](frontend). Note that the Common Forms Toolkit Frontend is currently designed to expect all associated resources to be relative to the original access path.
+The Common Forms Toolkit frontend will require some configuration. The API it invokes will be locked down and require a valid JWT Token to access. We will need to configure the application to authenticate using the same Keycloak realm as the [app](../). Note that the Common Forms Toolkit frontend is currently designed to expect all associated resources to be relative to the original access path.
 
 ## Super Quickstart
 
-Ensure that you have filled in all the appropriate configurations following [config/custom-environment-variables.json](config/custom-environment-variables.json) before proceeding.
+Ensure that you have filled in all the appropriate configurations following [../config/custom-environment-variables.json](../config/custom-environment-variables.json) before proceeding.
 
-In general, most of these npm run scripts can be prepended with `all:` in order to run the same operation on both the application and the frontend sequentially.
-
-### Production Build and Run
+### Project setup
 
 ``` sh
-npm run all:fresh-start
+npm install
 ```
 
-### Development Run
+### Compiles and hot-reloads for development
+
+*Note: Make sure the /app server is already running correctly first before starting this - otherwise the development frontend server may not host on the usual port 8081!*
 
 ``` sh
 npm run serve
 ```
 
-Start a new terminal
+### Compiles and minifies for production
 
 ``` sh
-cd frontend
-npm run serve
+npm run build
 ```
 
-### Run application tests
+### Run your unit tests
 
 ``` sh
-npm run test
+npm run test:unit
 ```
 
-### Lints and fixes application files
+### Lints and fixes files
 
 ``` sh
 npm run lint
-npm run lint-fix
 ```
+
+### Customize configuration
+
+See [Settings Reference](https://cli.vuejs.org/config/).
