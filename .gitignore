@@ -62,3 +62,6 @@ build
 *.ppt
 *.odp
 *.pdf
+
+# Temporary files
+tmp_*.*
