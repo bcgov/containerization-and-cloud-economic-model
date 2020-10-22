@@ -1,5 +1,4 @@
-[
-  {
+{
     "numberOfTeams": "Low",
     "employeesVsContractors": "10% Employees",
     "experienceOfTeams": "Trained by Working on Previous Teams",
@@ -9,5 +8,4 @@
     "avgLegacyOutage": "10 hours",
     "disruptionHourly": "$30",
     "avgHoursNewFeats": "Medium (7500)"
-  }
-]
+}

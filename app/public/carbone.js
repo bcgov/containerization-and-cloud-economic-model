@@ -1,24 +1,26 @@
 const fs = require('fs');
-  const carbone = require('carbone');
+const carbone = require('carbone');
 
-  // Data to inject
-  var data = {
-    numberOfTeams: "Low",
-    employeesVsContractors: "10% Employees",
-    experienceOfTeams: "Trained by Working on Previous Teams",
-    shadowAppChance: "Medium",
-    avgCostDataBreach: "Medium",
-    avgOnlineUsers: "5",
-    avgLegacyOutage: "10 hours",
-    disruptionHourly: "$30",
-    avgHoursNewFeats: "Medium (7500)"
-  };
+// Contexts, templates and results
+var contextsFile = './public/CEM_contexts.json';
+var templateFile = './public/CEM_template.xlsx';
 
-  // Generate a report using the sample template provided by carbone module
-  carbone.render('./public/CEM_template.xlsx', data, function(err, result){
+// Read
+fs.readFile(contextsFile, 'utf8', function (err, data) {
+  if (err) {
+    throw err;
+  }
+  const contexts = JSON.parse(data);
+  processFiles(contexts);
+});
+
+// Generate a report using the sample template provided by carbone module
+function processFiles(contexts) {
+  carbone.render(templateFile, contexts, function(err, result){
     if (err) {
       return console.log(err);
     }
     // write the result
     fs.writeFileSync('result.xlsx', result);
   });
+}
