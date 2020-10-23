@@ -13,7 +13,7 @@ const carbone = require('carbone');
 function carboneRun(tf, contexts, of) {
   carbone.render(tf, contexts, function (err, result) {
     if (err) {
-      return console.log(err);
+      throw (err);
     }
     fs.writeFileSync(of, result);
   });
@@ -33,12 +33,7 @@ function carboneRunPaths(tf, cf, of) {
 
 // Get parsed contexts
 function getContexts(cf) {
-  console.log(cf);
-  try {
-    return JSON.parse(fs.readFileSync(cf, 'utf8'));
-  } catch (e) {
-    return console.log(e);
-  }
+  return JSON.parse(fs.readFileSync(cf, 'utf8'));
 }
 
 // Exports
