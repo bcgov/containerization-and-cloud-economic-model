@@ -37,5 +37,6 @@ function getContexts(cf) {
 }
 
 // Exports
-module.exports.carboneRun = carboneRun;
-module.exports.carboneRunPaths = carboneRunPaths;
+exports.getContexts = getContexts;
+exports.carboneRun = carboneRun;
+exports.carboneRunPaths = carboneRunPaths;
