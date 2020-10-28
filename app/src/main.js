@@ -39,7 +39,7 @@ function initializeApp(basePath = '/') {
  * @function loadConfig
  * Acquires the configuration state from the backend server
  */
-async function loadConfig() {
+async function loadConfig(basePath = '/') {
   // App publicPath is ./ - so use relative path here, will hit the backend server using relative path to root.
   const storageKey = 'config';
 
@@ -49,7 +49,7 @@ async function loadConfig() {
     const config = JSON.parse(sessionStorage.getItem(storageKey));
     Vue.prototype.$config = Object.freeze(config);
 
-    initializeApp(config.basePath);
+    initializeApp(basePath);
   } catch (err) {
     sessionStorage.removeItem(storageKey);
     initializeApp(); // Attempt to gracefully fail
