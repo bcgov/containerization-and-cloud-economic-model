@@ -1,9 +1,10 @@
 // Requires
 const axios = require('axios').default
 
+// Envars
 let CLIENT_ID = process.env.CMNSRV_CLIENTID
 let CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET
-// let TOKEN_URL = process.env.COMMON_DOCGEN_SSO_ENDPOINT
+// let TOKEN_URL = process.env.COMMON_DOCGEN_SSO_ENDPOINT  // temporarily swapped out for troubleshooting
 let TOKEN_URL = "https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token"
 
 // Get token
@@ -30,6 +31,6 @@ function get_docgen_token() {
         .catch(error => {
             console.error(error)
         })
-};
+}
 
 let token = get_docgen_token()
