@@ -1,5 +1,6 @@
 // Requires
 const axios = require('axios').default
+const qs = require('qs')
 
 // Envars
 let CLIENT_ID = process.env.CMNSRV_CLIENTID
@@ -9,12 +10,12 @@ let TOKEN_URL = "https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid
 
 // Get token
 function get_docgen_token() {
-    let params = {
+    let params = qs.stringify({
         "grant_type": "client_credentials",
         "client_id": CLIENT_ID,
         "client_secret": CLIENT_SECRET,
         "scope": ""
-    }
+    })
 
     let header = {
         headers: {
@@ -25,8 +26,7 @@ function get_docgen_token() {
     axios
         .post(TOKEN_URL, params, header)
         .then(res => {
-            console.log(`statusCode: ${res.statusCode}`)
-            console.log(res)
+            return res.data.access_token
         })
         .catch(error => {
             console.error(error)
