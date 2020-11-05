@@ -23,11 +23,11 @@ function get_docgen_token() {
         "scope": ""
     })
 
-    const header = qs.stringify({
+    const header = {
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
-    })
+    }
 
     return new Promise(resolve => {
         axios
@@ -56,24 +56,24 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     const base64_encoded = base64.encode(bytes)
 
     // The docgen endpoint accepts the following schema:
-    const body = qs.stringify({
+    const body = {
         "data": data,
         "options": {
             "reportName": report_name,
         },
         "template": {
             "encodingType": "base64",
-            "content": base64_encoded,
+            "content": "base64_encoded",
             "fileType": "xlsx"
         }
-    })
+    }
 
-    const headers = qs.stringify({
+    const headers = {
         headers: {
             "Authorization": auth_header,
             "Content-Type": "application/json"
         }
-    })
+    }
 
     axios
         .post(CDOGS_URL, body, headers)
@@ -84,5 +84,5 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
             console.error(error)
         })
 }
-const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
+const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'))
 docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
