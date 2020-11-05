@@ -8,7 +8,8 @@ const qs = require('qs')
 // Envars
 const CLIENT_ID = process.env.CMNSRV_CLIENTID
 const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET
-const TOKEN_URL = process.env.COMMON_DOCGEN_SSO_ENDPOINT
+const TOKEN_URL = process.env.KEYCLOAK_OIDC_ENDPOINT
+const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT
 const CONTEXTS = process.env.PATH_CONTEXTS
 const TEMPLATE = process.env.PATH_TEMPLATE
 const OUTPUT = process.env.PATH_OUTPUT
@@ -47,6 +48,7 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
 
     // Get auth token and prepare it as an Authorization: Bearer <token> header.
     const token = await get_docgen_token()
+    const auth_header = "Bearer " + token
 
     // Open up the Excel template, and base64 encode it for the docgen endpoint
     const template_data = fs.readFileSync(template_path, 'utf8')
@@ -65,6 +67,20 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
             "fileType": "xlsx"
         }
     })
+
+    const headers = qs.stringify({
+        "Authorization": auth_header,
+        "Content-Type": "application/json"
+    })
+
+    axios
+        .post(CDOGS_URL, body, headers)
+        .then(res => {
+            resolve(res.data.access_token)
+        })
+        .catch(error => {
+            console.error(error)
+        })
 }
 const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
 docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
