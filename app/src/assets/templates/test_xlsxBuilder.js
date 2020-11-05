@@ -76,7 +76,7 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     axios
         .post(CDOGS_URL, body, headers)
         .then(res => {
-            resolve(res.data.access_token)
+            resolve(res)
         })
         .catch(error => {
             console.error(error)
