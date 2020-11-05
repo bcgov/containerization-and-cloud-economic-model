@@ -1,5 +1,7 @@
 // Requires
 const axios = require('axios').default
+const base64 = require('base-64')
+const utf8 = require('utf8')
 const fs = require('fs')
 const qs = require('qs')
 
@@ -42,11 +44,23 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
 
     // Get auth token and prepare it as an Authorization: Bearer <token> header.
     const token = await get_docgen_token()
-    console.log(token)
 
     // Open up the Excel template, and base64 encode it for the docgen endpoint
     const template_data = fs.readFileSync(template_path, 'utf8')
-    console.log(template_data)
-}
+    const bytes = utf8.encode(template_data)
+    const base64_encoded = base64.encode(bytes)
 
+    // The docgen endpoint accepts the following schema:
+    const body = qs.stringify({
+        "data": data,
+        "options": {
+            "reportName": report_name,
+        },
+        "template": {
+            "encodingType": "base64",
+            "content": base64_encoded,
+            "fileType": "xlsx"
+        }
+    })
+}
 docgen_export_to_xlsx("a", './src/assets/templates/CEM_template.xlsx', "c")
