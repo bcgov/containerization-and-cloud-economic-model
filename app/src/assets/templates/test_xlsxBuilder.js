@@ -69,8 +69,10 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     })
 
     const headers = qs.stringify({
-        "Authorization": auth_header,
-        "Content-Type": "application/json"
+        headers: {
+            "Authorization": auth_header,
+            "Content-Type": "application/json"
+        }
     })
 
     axios
