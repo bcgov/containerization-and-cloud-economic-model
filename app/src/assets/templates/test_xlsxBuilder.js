@@ -9,6 +9,9 @@ const qs = require('qs')
 const CLIENT_ID = process.env.CMNSRV_CLIENTID
 const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET
 const TOKEN_URL = process.env.COMMON_DOCGEN_SSO_ENDPOINT
+const CONTEXTS = process.env.PATH_CONTEXTS
+const TEMPLATE = process.env.PATH_TEMPLATE
+const OUTPUT = process.env.PATH_OUTPUT
 
 // Get token
 function get_docgen_token() {
@@ -63,4 +66,5 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
         }
     })
 }
-docgen_export_to_xlsx("a", './src/assets/templates/CEM_template.xlsx', "c")
+const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
+docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
