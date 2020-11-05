@@ -5,8 +5,7 @@ const qs = require('qs')
 // Envars
 let CLIENT_ID = process.env.CMNSRV_CLIENTID
 let CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET
-// let TOKEN_URL = process.env.COMMON_DOCGEN_SSO_ENDPOINT  // temporarily swapped out for troubleshooting
-let TOKEN_URL = "https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token"
+let TOKEN_URL = process.env.COMMON_DOCGEN_SSO_ENDPOINT
 
 // Get token
 function get_docgen_token() {
@@ -23,14 +22,25 @@ function get_docgen_token() {
         }
     }
 
-    axios
-        .post(TOKEN_URL, params, header)
+    return new Promise(resolve => {
+        axios
+            .post(TOKEN_URL, params, header)
         .then(res => {
-            return res.data.access_token
+            resolve(res.data.access_token)
         })
         .catch(error => {
             console.error(error)
         })
+    })
 }
 
-let token = get_docgen_token()
+
+// Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
+// Returns the response content object that can be added to a starlette.responses.Response.
+async function docgen_export_to_xlsx(data, template_path, report_name) {
+    // Get auth token and prepare it as an Authorization: Bearer <token> header.
+    let token = await get_docgen_token()
+    console.log(token)
+}
+
+docgen_export_to_xlsx("a", "b", "c")
