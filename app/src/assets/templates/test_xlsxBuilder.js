@@ -2,6 +2,7 @@
 const axios = require('axios').default
 const base64 = require('base-64')
 const utf8 = require('utf8')
+const assert = require('assert')
 const fs = require('fs')
 const qs = require('qs')
 
@@ -41,6 +42,14 @@ function get_docgen_token() {
     })
 }
 
+// Health check
+async function healthCheck(url, headers) {
+
+    let res = await axios.get(url, headers);
+
+    let data = res.data;
+    console.log(data);
+}
 
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
 // Returns the response content object that can be added to a starlette.responses.Response.
@@ -75,14 +84,17 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
         }
     }
 
-    axios
-        .post(CDOGS_URL, body, headers)
-        .then(res => {
-            resolve(res)
-        })
-        .catch(error => {
-            console.error(error)
-        })
+    // Health check
+    healthCheck("https://cdogs-dev.pathfinder.gov.bc.ca/api/v2/health", headers)
+
+    // axios
+    //     .post(CDOGS_URL, body, headers)
+    //     .then(res => {
+    //         resolve(res)
+    //     })
+    //     .catch(error => {
+    //         console.error(error)
+    //     })
 }
 const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'))
 docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
