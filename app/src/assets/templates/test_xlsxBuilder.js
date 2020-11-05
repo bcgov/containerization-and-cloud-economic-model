@@ -1,5 +1,6 @@
 // Requires
 const axios = require('axios').default
+const fs = require('fs')
 const qs = require('qs')
 
 // Envars
@@ -38,9 +39,14 @@ function get_docgen_token() {
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
 // Returns the response content object that can be added to a starlette.responses.Response.
 async function docgen_export_to_xlsx(data, template_path, report_name) {
+
     // Get auth token and prepare it as an Authorization: Bearer <token> header.
     const token = await get_docgen_token()
     console.log(token)
+
+    // Open up the Excel template, and base64 encode it for the docgen endpoint
+    const template_data = fs.readFileSync(template_path, 'utf8')
+    console.log(template_data)
 }
 
-docgen_export_to_xlsx("a", "b", "c")
+docgen_export_to_xlsx("a", './src/assets/templates/CEM_template.xlsx', "c")
