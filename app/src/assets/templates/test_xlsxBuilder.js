@@ -16,21 +16,21 @@ function get_docgen_token() {
         "scope": ""
     })
 
-    const header = {
+    const header = qs.stringify({
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
         }
-    }
+    })
 
     return new Promise(resolve => {
         axios
             .post(TOKEN_URL, params, header)
-        .then(res => {
-            resolve(res.data.access_token)
-        })
-        .catch(error => {
-            console.error(error)
-        })
+            .then(res => {
+                resolve(res.data.access_token)
+            })
+            .catch(error => {
+                console.error(error)
+            })
     })
 }
 
