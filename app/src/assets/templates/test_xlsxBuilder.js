@@ -43,12 +43,13 @@ function get_docgen_token() {
 }
 
 // Health check
-async function healthCheck(url, headers) {
-
-    let res = await axios.get(url, headers);
-
-    let data = res.data;
-    console.log(data);
+function healthCheck(url, headers) {
+    return new Promise(resolve => {
+        axios
+            .get(url, headers)
+            .then(res => { resolve (res.statusText) })
+            .catch(error => { console.error("error") })
+    })
 }
 
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
@@ -86,7 +87,8 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     }
 
     // Health check
-    healthCheck(CDOGS_URL+"/health", headers)
+    const hc = await healthCheck(CDOGS_URL + "/health", headers)
+    console.log(hc)
 
     // axios
     //     .post(CDOGS_URL, body, headers)
