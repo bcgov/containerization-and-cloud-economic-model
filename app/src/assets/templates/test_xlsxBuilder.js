@@ -6,11 +6,11 @@ const assert = require('assert')
 const fs = require('fs')
 const qs = require('qs')
 
-// Envars
+// Envars (clip url trailing slashes)
 const CLIENT_ID = process.env.CMNSRV_CLIENTID
 const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET
-const TOKEN_URL = process.env.KEYCLOAK_OIDC_ENDPOINT
-const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT
+const TOKEN_URL = process.env.KEYCLOAK_OIDC_ENDPOINT.replace(/\/$/, '');
+const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT.replace(/\/$/, '');
 const CONTEXTS = process.env.PATH_CONTEXTS
 const TEMPLATE = process.env.PATH_TEMPLATE
 const OUTPUT = process.env.PATH_OUTPUT
@@ -77,6 +77,7 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
         }
     }
 
+    // Authentication in header
     const headers = {
         headers: {
             "Authorization": auth_header,
@@ -85,7 +86,7 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     }
 
     // Health check
-    healthCheck("https://cdogs-dev.pathfinder.gov.bc.ca/api/v2/health", headers)
+    healthCheck(CDOGS_URL+"/health", headers)
 
     // axios
     //     .post(CDOGS_URL, body, headers)
