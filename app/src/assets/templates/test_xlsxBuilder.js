@@ -47,8 +47,8 @@ function healthCheck(url, headers) {
     return new Promise(resolve => {
         axios
             .get(url, headers)
-            .then(res => { resolve (res.statusText) })
-            .catch(error => { console.error("error") })
+            .then(res => { resolve(res) })
+            .catch(error => { console.error("Health check failed") })
     })
 }
 
@@ -88,7 +88,7 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
 
     // Health check
     const hc = await healthCheck(CDOGS_URL + "/health", headers)
-    console.log(hc)
+    console.log(hc.statusText)
 
     // axios
     //     .post(CDOGS_URL, body, headers)
