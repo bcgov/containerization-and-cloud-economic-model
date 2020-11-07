@@ -43,12 +43,12 @@ function get_docgen_token() {
 }
 
 // Health check
-function healthCheck(url, headers) {
+function apiGet(url, headers) {
     return new Promise(resolve => {
         axios
             .get(url, headers)
             .then(res => { resolve(res) })
-            .catch(error => { console.error("Health check failed") })
+            .catch(error => { console.error("GET failed") })
     })
 }
 
@@ -86,9 +86,9 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
         }
     }
 
-    // Health check
-    const hc = await healthCheck(CDOGS_URL + "/health", headers)
-    console.log(hc.statusText)
+    // Health and file type checks
+    console.log((await apiGet(CDOGS_URL + "/health", headers)).statusText)
+    console.log((await apiGet(CDOGS_URL + "/fileTypes", headers)).data.dictionary)
 
     // axios
     //     .post(CDOGS_URL, body, headers)
