@@ -2,7 +2,6 @@
 const axios = require('axios').default
 const base64 = require('base-64')
 const utf8 = require('utf8')
-const assert = require('assert')
 const fs = require('fs')
 const qs = require('qs')
 
@@ -33,12 +32,8 @@ function get_docgen_token() {
     return new Promise(resolve => {
         axios
             .post(TOKEN_URL, params, header)
-            .then(res => {
-                resolve(res.data.access_token)
-            })
-            .catch(error => {
-                console.error(error)
-            })
+            .then(res => { resolve(res.data.access_token) })
+            .catch(err => { console.error(err) })
     })
 }
 
@@ -48,7 +43,7 @@ function apiGet(url, headers) {
         axios
             .get(url, headers)
             .then(res => { resolve(res) })
-            .catch(error => { console.error("GET failed") })
+            .catch(err => { console.error(err.response.data, url) })
     })
 }
 
