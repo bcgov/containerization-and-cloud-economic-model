@@ -91,14 +91,23 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     console.log((await apiGet(CDOGS_URL + "/health", headers)).statusText)
     console.log((await apiGet(CDOGS_URL + "/fileTypes", headers)).data.dictionary)
 
-    // axios
-    //     .post(CDOGS_URL, body, headers)
-    //     .then(res => {
-    //         resolve(res)
-    //     })
-    //     .catch(error => {
-    //         console.error(error)
-    //     })
+    axios
+        .post(CDOGS_URL + "/template/render", body, headers)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(error => {
+            console.error(error)
+        })
+        .then(
+            axios
+                .delete(CDOGS_URL + "/render/" + "36779eff3c28dc04b7b7dd53ff1e1aa8b13970a68d02673c7c537a37b09bb4d0", headers)
+                .then(res => {
+                    console.log(res.data)
+                })
+                .catch(error => {
+                    console.error(error)
+                }))
 }
 const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'))
 docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
