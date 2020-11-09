@@ -4,6 +4,7 @@ const base64 = require('base-64')
 const utf8 = require('utf8')
 const fs = require('fs')
 const qs = require('qs')
+const { Promise } = require('core-js')
 
 // Envars (clip url trailing slashes)
 const CLIENT_ID = process.env.CMNSRV_CLIENTID
@@ -15,7 +16,7 @@ const TEMPLATE = process.env.PATH_TEMPLATE
 const OUTPUT = process.env.PATH_OUTPUT
 
 // Get token
-function get_docgen_token() {
+async function get_docgen_token() {
     const params = qs.stringify({
         "grant_type": "client_credentials",
         "client_id": CLIENT_ID,
@@ -29,15 +30,20 @@ function get_docgen_token() {
         }
     }
 
+    return (await apiPost(TOKEN_URL, params, header)).data.access_token
+}
+
+// Post for CDOGS API
+function apiPost(url, body, headers) {
     return new Promise(resolve => {
         axios
-            .post(TOKEN_URL, params, header)
-            .then(res => { resolve(res.data.access_token) })
-            .catch(err => { console.error(err) })
+            .post(url, body, headers)
+            .then(res => { resolve(res) })
+            .catch(err => { console.error(err.response.data, url) })
     })
 }
 
-// Health check
+// Get for CDOGS API
 function apiGet(url, headers) {
     return new Promise(resolve => {
         axios
