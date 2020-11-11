@@ -5,6 +5,7 @@ const utf8 = require('utf8')
 const fs = require('fs')
 const qs = require('qs')
 const { Promise } = require('core-js')
+const crypto = require('crypto')
 
 // Envars (clip url trailing slashes)
 const CLIENT_ID = process.env.CMNSRV_CLIENTID
@@ -53,6 +54,22 @@ function apiGet(url, headers) {
     })
 }
 
+// Upload template and receive hash
+async function getHash(file) {
+    const hash = crypto.createHash('sha256')
+    const stream = fs.createReadStream(file)
+    return await new Promise((resolve, reject) => {
+        stream.on('readable', () => {
+            let chunk
+            while ((chunk = stream.read()) !== null){
+                hash.update(chunk)
+            }
+        })
+        stream.on('end', () => resolve(hash.digest('hex')))
+        stream.on('error', error => reject(error))
+    })
+}
+
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
 // Returns the response content object that can be added to a starlette.responses.Response.
 async function docgen_export_to_xlsx(data, template_path, report_name) {
@@ -90,6 +107,10 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     // Health and file type checks
     console.log((await apiGet(CDOGS_URL + "/health", headers)).statusText)
     console.log((await apiGet(CDOGS_URL + "/fileTypes", headers)).data.dictionary)
+
+    // Upload file and receive hash
+    let ulHash = await getHash(TEMPLATE)
+    console.log(ulHash)
 
     axios
         .post(CDOGS_URL + "/template/render", body, headers)
