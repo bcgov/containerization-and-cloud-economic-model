@@ -61,7 +61,7 @@ async function getHash(file) {
     return new Promise((resolve, reject) => {
         stream.on('readable', () => {
             let chunk
-            while ((chunk = stream.read()) !== null){
+            while ((chunk = stream.read()) !== null) {
                 hash.update(chunk)
             }
         })
@@ -111,6 +111,9 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     // Upload file and receive hash
     let upHash = await getHash(TEMPLATE)
     console.log(upHash)
+
+    // Check if hash has been cached
+    console.log((await apiGet(`${CDOGS_URL}/template/${upHash}`, headers)).statusText)
 }
 const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'))
 docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
