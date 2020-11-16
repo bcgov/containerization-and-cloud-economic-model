@@ -58,7 +58,7 @@ function apiGet(url, headers) {
 async function getHash(file) {
     const hash = crypto.createHash('sha256')
     const stream = fs.createReadStream(file)
-    return await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         stream.on('readable', () => {
             let chunk
             while ((chunk = stream.read()) !== null){
@@ -76,7 +76,7 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
 
     // Get auth token and prepare it as an Authorization: Bearer <token> header.
     const token = await get_docgen_token()
-    const auth_header = "Bearer " + token
+    const auth_header = `Bearer ${token}`
 
     // Open up the Excel template, and base64 encode it for the docgen endpoint
     const template_data = fs.readFileSync(template_path, 'utf8')
@@ -105,30 +105,12 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     }
 
     // Health and file type checks
-    console.log((await apiGet(CDOGS_URL + "/health", headers)).statusText)
-    console.log((await apiGet(CDOGS_URL + "/fileTypes", headers)).data.dictionary)
+    console.log((await apiGet(`${CDOGS_URL}/health`, headers)).statusText)
+    console.log((await apiGet(`${CDOGS_URL}/fileTypes`, headers)).data.dictionary)
 
     // Upload file and receive hash
-    let ulHash = await getHash(TEMPLATE)
-    console.log(ulHash)
-
-    axios
-        .post(CDOGS_URL + "/template/render", body, headers)
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(error => {
-            console.error(error)
-        })
-        .then(
-            axios
-                .delete(CDOGS_URL + "/render/" + "36779eff3c28dc04b7b7dd53ff1e1aa8b13970a68d02673c7c537a37b09bb4d0", headers)
-                .then(res => {
-                    console.log(res.data)
-                })
-                .catch(error => {
-                    console.error(error)
-                }))
+    let upHash = await getHash(TEMPLATE)
+    console.log(upHash)
 }
 const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'))
 docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
