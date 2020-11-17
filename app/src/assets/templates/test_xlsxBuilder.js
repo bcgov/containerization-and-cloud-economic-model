@@ -91,7 +91,7 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
         },
         "template": {
             "encodingType": "base64",
-            "content": "base64_encoded",
+            "content": base64_encoded,
             "fileType": "xlsx"
         }
     }
@@ -114,6 +114,15 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
 
     // Check if hash has been cached
     console.log((await apiGet(`${CDOGS_URL}/template/${upHash}`, headers)).statusText)
+
+    // Generate a document from an uploaded template
+    let getBack = await apiPost(`${CDOGS_URL}/template/${upHash}/render`, body, headers)
+    console.log("Body", body)
+    console.log(getBack)
+    console.log(getBack.statusText)
+    console.log(getBack.data)
+    fs.writeFileSync(OUTPUT, getBack.data);
+    console.log("end!")
 }
 const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'))
 docgen_export_to_xlsx(data, TEMPLATE, OUTPUT)
