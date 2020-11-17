@@ -105,23 +105,42 @@ async function docgen_export_to_xlsx(data, template_path, report_name) {
     }
 
     // Health and file type checks
-    console.log((await apiGet(`${CDOGS_URL}/health`, headers)).statusText)
-    console.log((await apiGet(`${CDOGS_URL}/fileTypes`, headers)).data.dictionary)
+    console.log("Health:", (await apiGet(`${CDOGS_URL}/health`, headers)).statusText)
+    console.log("File Types:", (await apiGet(`${CDOGS_URL}/fileTypes`, headers)).data.dictionary)
 
     // Upload file and receive hash
     let upHash = await getHash(TEMPLATE)
-    console.log(upHash)
+    console.log("Hash:", upHash)
 
     // Check if hash has been cached
-    console.log((await apiGet(`${CDOGS_URL}/template/${upHash}`, headers)).statusText)
+    console.log("Hash:", (await apiGet(`${CDOGS_URL}/template/${upHash}`, headers)).statusText)
+
+    console.log("Request body:", body)
 
     // Generate a document from an uploaded template
-    let getBack = await apiPost(`${CDOGS_URL}/template/${upHash}/render`, body, headers)
-    console.log("Body", body)
-    console.log(getBack)
-    console.log(getBack.statusText)
-    console.log(getBack.data)
-    fs.writeFileSync(OUTPUT, getBack.data);
+    const getBack = await apiPost(`${CDOGS_URL}/template/${upHash}/render`, body, {
+        headers: {
+            "Authorization": auth_header,
+            "Content-Type": "application/json",
+            "encoding": "binary"
+        },
+        responseType: 'arraybuffer'
+    })
+    fs.writeFileSync("./tmp_response.tbd", getBack.data)
+    console.log("Response saved: OK (undefined)")
+    console.log("Response:", getBack.statusText)
+    console.log("Response headers:", getBack.headers)
+    console.log("Response data:", getBack.data)
+
+    try {
+        const b1 = base64.decode(getBack.data)
+        console.log("base64 decoded")
+        const b2 = utf8.decode(b1)
+        console.log("utf8 decided")
+        fs.writeFileSync(OUTPUT, b2)
+    } catch (e) {
+        console.log(e)
+    }
     console.log("end!")
 }
 const data = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'))
