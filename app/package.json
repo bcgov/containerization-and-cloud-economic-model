@@ -4,6 +4,8 @@
   "private": true,
   "license": "Apache-2.0",
   "scripts": {
+    "start": "node ./bin/www",
+    "debug": "nodemon --inspect ./bin/www",
     "build": "node --max_old_space_size=6144 node_modules/@vue/cli-service/bin/vue-cli-service.js build",
     "clean": "rm -rf coverage dist",
     "lint": "vue-cli-service lint",
@@ -24,6 +26,7 @@
     "carbone": "^2.1.1",
     "core-js": "^3.6.5",
     "moment": "^2.29.0",
+    "nodemon": "^2.0.6",
     "nprogress": "^0.2.0",
     "utf8": "^3.0.0",
     "validator": "^13.1.1",
