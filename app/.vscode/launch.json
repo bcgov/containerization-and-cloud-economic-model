@@ -11,6 +11,11 @@
       "pathMapping": {
         "/_karma_webpack_": "${workspaceFolder}"
       },
+      "skipFiles": [
+        "${workspaceFolder}/node_modules/**/*.js",
+        "${workspaceFolder}/webpack/**/*.js",
+        "<node_internals>/**/*.js"
+      ],
       "sourceMapPathOverrides": {
         "webpack:/*": "${webRoot}/*",
         "/./*": "${webRoot}/*",
