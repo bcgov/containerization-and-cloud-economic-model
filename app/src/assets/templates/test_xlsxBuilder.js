@@ -82,6 +82,16 @@ function getHash() {
   });
 }
 
+// Is template cached?  True|false
+async function isCached(hash) {
+  try {
+    await axios.get(`/template/${hash}`);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
 // Returns the response content object that can be added to a starlette.responses.Response.
 async function docGenExportToXLSX() {
@@ -116,15 +126,17 @@ async function docGenExportToXLSX() {
   };
 
   // Calculate hash from template
-  let upHash = await getHash();
-  console.log('Hash:', upHash);
+  let hash = await getHash();
+  console.log('Hash:', hash);
 
   // Check if hash has been cached
-  let isCached = (await apiGet(`/template/${upHash}`)).statusText;
-  console.log('Cashed:', isCached);
+  if (!(await isCached(hash))) {
+    console.log('Todo: upload template');
+    process.exit();
+  }
 
   // Generate a document from an uploaded template
-  const getBack = await apiPost(`/template/${upHash}/render`, data);
+  const getBack = await apiPost(`/template/${hash}/render`, data);
   fs.writeFileSync(OUTPUT, getBack.data);
 }
 
