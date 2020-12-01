@@ -5,6 +5,7 @@ const utf8 = require('utf8');
 const fs = require('fs');
 const { Promise } = require('core-js');
 const crypto = require('crypto');
+const FormData = require('form-data');
 
 // Envars (clip url trailing slashes)
 const CLIENT_ID = process.env.CMNSRV_CLIENTID;
@@ -92,6 +93,29 @@ async function isCached(hash) {
   }
 }
 
+async function uploadTemplate() {
+  try {
+    const form = new FormData();
+    form.append('template', fs.createReadStream(TEMPLATE));
+
+    const url = `${CDOGS_URL}/template`;
+    console.log(arguments.callee.name, `POST to ${url}`);
+
+    const { data, headers, status } = await axios({
+      method: 'post',
+      url: url,
+      data: form,
+      headers: {
+        'content-type': `multipart/form-data; boundary=${form._boundary}`,
+      },
+    });
+
+    return { data, headers, status };
+  } catch (e) {
+    console.log(arguments.callee.name, e);
+  }
+}
+
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
 // Returns the response content object that can be added to a starlette.responses.Response.
 async function docGenExportToXLSX() {
@@ -113,15 +137,10 @@ async function docGenExportToXLSX() {
   const contexts = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
 
   // CDOGS schema with contexts and template (encoded)
-  const data = {
+  const body = {
     data: contexts,
     options: {
       reportName: OUTPUT,
-    },
-    template: {
-      encodingType: 'base64',
-      content: base64_encoded,
-      fileType: 'xlsx',
     },
   };
 
@@ -129,15 +148,15 @@ async function docGenExportToXLSX() {
   let hash = await getHash();
   console.log('Hash:', hash);
 
-  // Check if hash has been cached
+  // Check if template has been cached
   if (!(await isCached(hash))) {
-    console.log('Todo: upload template');
-    process.exit();
+    console.log('Uploading template');
+    uploadTemplate();
   }
 
   // Generate a document from an uploaded template
-  const getBack = await apiPost(`/template/${hash}/render`, data);
-  fs.writeFileSync(OUTPUT, getBack.data);
+  const getBack = await apiPost(`/template/${hash}/render`, body);
+  fs.writeFileSync(OUTPUT, getBack.body);
 }
 
 docGenExportToXLSX();

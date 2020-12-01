@@ -25,6 +25,7 @@
     "base-64": "^1.0.0",
     "carbone": "^2.1.1",
     "core-js": "^3.6.5",
+    "form-data": "^3.0.0",
     "moment": "^2.29.0",
     "nodemon": "^2.0.6",
     "nprogress": "^0.2.0",
