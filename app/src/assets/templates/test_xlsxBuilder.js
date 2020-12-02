@@ -66,6 +66,16 @@ function apiPost(url, data) {
   });
 }
 
+// Axios delete to CDOGS API
+function apiDeleteTemplate(hash) {
+  return new Promise((resolve, reject) => {
+    axios
+      .delete(`/template/${hash}`)
+      .then((res) => resolve(res))
+      .catch((err) => reject(err));
+  });
+}
+
 // Create hash based on file input
 function getHash() {
   const hash = crypto.createHash('sha256');
@@ -109,7 +119,6 @@ async function uploadTemplate() {
         'content-type': `multipart/form-data; boundary=${form._boundary}`,
       },
     });
-
     return { data, headers, status };
   } catch (e) {
     console.log(arguments.callee.name, e);
@@ -147,6 +156,11 @@ async function docGenExportToXLSX() {
   // Calculate hash from template
   let hash = await getHash();
   console.log('Hash:', hash);
+
+  // If template is cached, delete it
+  if (await isCached(hash)) {
+    console.log('Delete:', (await apiDeleteTemplate(hash)).statusText);
+  }
 
   // Check if template has been cached
   if (!(await isCached(hash))) {
