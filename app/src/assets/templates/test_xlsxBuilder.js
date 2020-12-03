@@ -65,16 +65,6 @@ function apiPost(url, data) {
   });
 }
 
-// Axios delete to CDOGS API
-function apiDeleteTemplate(hash) {
-  return new Promise((resolve, reject) => {
-    axios
-      .delete(`/template/${hash}`)
-      .then((res) => resolve(res))
-      .catch((err) => reject(err));
-  });
-}
-
 // Create hash based on file input
 function getHash(template) {
   return require('crypto').createHash('sha256').update(template).digest('hex');
@@ -82,12 +72,16 @@ function getHash(template) {
 
 // Is template cached?  True|false
 async function isCached(hash) {
-  try {
-    await axios.get(`/template/${hash}`);
-    return true;
-  } catch {
-    return false;
-  }
+  const result = await axios
+    .get(`/template/${hash}`)
+    .then(() => {
+      console.log('Cached: OK');
+      return true;
+    })
+    .catch(() => {
+      console.log('Cached: No');
+      return false;
+    });
 }
 
 async function uploadTemplate() {
@@ -148,11 +142,6 @@ async function docGenExportToXLSX() {
   // Calculate hash from template
   let hash = await getHash(template);
   console.log('Hash:', hash);
-
-  // If template is cached, delete it
-  if (await isCached(hash)) {
-    console.log('Delete:', (await apiDeleteTemplate(hash)).statusText);
-  }
 
   // Check if template has been cached
   if (!(await isCached(hash))) {
