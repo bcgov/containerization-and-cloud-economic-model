@@ -1,7 +1,6 @@
 // Requires
 const axios = require('axios').default;
 const base64 = require('base-64');
-const utf8 = require('utf8');
 const fs = require('fs');
 const { Promise } = require('core-js');
 const crypto = require('crypto');
@@ -139,8 +138,8 @@ async function docGenExportToXLSX() {
   console.log('Health:', (await apiGet('/health')).statusText);
 
   // Read template and encode for upload (UTF-8, base 64)
-  const template_data = fs.readFileSync(TEMPLATE, 'utf8');
-  const base64_encoded = base64.encode(utf8.encode(template_data));
+  const template_data = fs.readFileSync(TEMPLATE, 'binary');
+  const base64_encoded = base64.encode(template_data);
 
   // Read and parse contexts
   const contexts = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
@@ -149,7 +148,13 @@ async function docGenExportToXLSX() {
   const body = {
     data: contexts,
     options: {
+      overwrite: true,
       reportName: OUTPUT,
+    },
+    template: {
+      content: base64_encoded,
+      encodingType: 'base64',
+      fileType: 'xlsx',
     },
   };
 
@@ -169,8 +174,8 @@ async function docGenExportToXLSX() {
   }
 
   // Generate a document from an uploaded template
-  const getBack = await apiPost(`/template/${hash}/render`, body);
-  fs.writeFileSync(OUTPUT, getBack.body);
+  const getBack = await apiPost('/template/render', body);
+  fs.writeFileSync(OUTPUT, getBack.data);
 }
 
 docGenExportToXLSX();
