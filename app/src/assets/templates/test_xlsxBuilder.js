@@ -76,20 +76,8 @@ function apiDeleteTemplate(hash) {
 }
 
 // Create hash based on file input
-function getHash() {
-  const hash = crypto.createHash('sha256');
-  const stream = fs.createReadStream(TEMPLATE);
-  return new Promise((resolve, reject) => {
-    stream
-      .on('readable', () => {
-        let chunk;
-        while ((chunk = stream.read()) !== null) {
-          hash.update(chunk);
-        }
-      })
-      .on('end', () => resolve(hash.digest('hex')))
-      .on('error', (err) => reject(err));
-  });
+function getHash(template) {
+  return require('crypto').createHash('sha256').update(template).digest('hex');
 }
 
 // Is template cached?  True|false
@@ -138,8 +126,7 @@ async function docGenExportToXLSX() {
   console.log('Health:', (await apiGet('/health')).statusText);
 
   // Read template and encode for upload (UTF-8, base 64)
-  const template_data = fs.readFileSync(TEMPLATE, 'binary');
-  const base64_encoded = base64.encode(template_data);
+  const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
 
   // Read and parse contexts
   const contexts = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
@@ -152,14 +139,14 @@ async function docGenExportToXLSX() {
       reportName: OUTPUT,
     },
     template: {
-      content: base64_encoded,
+      content: template,
       encodingType: 'base64',
       fileType: 'xlsx',
     },
   };
 
   // Calculate hash from template
-  let hash = await getHash();
+  let hash = await getHash(template);
   console.log('Hash:', hash);
 
   // If template is cached, delete it
