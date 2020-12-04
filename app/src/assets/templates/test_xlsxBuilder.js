@@ -36,20 +36,6 @@ function getDocGenToken() {
   });
 }
 
-// Axios get from CDOGS API
-function apiGet(url) {
-  return new Promise((resolve) => {
-    axios
-      .get(url)
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => {
-        console.error(err.response.data, url);
-      });
-  });
-}
-
 // Axios post to CDOGS API specifying authentication, content type, encoding and response type
 function apiPost(url, data) {
   const config = { responseType: 'arraybuffer' };
@@ -73,23 +59,27 @@ function getHash(template) {
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
 // Returns the response content object that can be added to a starlette.responses.Response.
 async function docGenExportToXLSX() {
-  // Get auth token and prepare it as an Authorization: Bearer <token> header.
+  // Get auth token and setup Axios defaults
   const token = await getDocGenToken();
-
-  // Setup Axios defaults for default URL and formatting for auth token
-  axios.defaults.baseURL = CDOGS_URL;
   axios.defaults.headers.Authorization = `Bearer ${token}`;
+  axios.defaults.baseURL = CDOGS_URL;
 
-  // CDOGS API health check
-  console.log('Health:', (await apiGet('/health')).statusText);
+  // Check CDOGS API health and authentication
+  const haCheck = await new Promise((resolve) => {
+    axios
+      .get('/health')
+      .then((res) => {
+        resolve(res.statusText);
+      })
+      .catch((err) => {
+        resolve(err.response.statusText);
+      });
+  });
+  console.log('Health/Auth:', haCheck);
 
-  // Read template and encode for upload (UTF-8, base 64)
+  // Read contexts and template (base64 encoded), use in CDOGS schema
   const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
-
-  // Read and parse contexts
   const contexts = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
-
-  // CDOGS schema with contexts and template (encoded)
   const body = {
     data: contexts,
     options: {
