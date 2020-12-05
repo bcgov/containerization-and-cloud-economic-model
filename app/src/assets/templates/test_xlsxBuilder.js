@@ -3,8 +3,6 @@ const axios = require('axios').default;
 const base64 = require('base-64');
 const fs = require('fs');
 const { Promise } = require('core-js');
-const crypto = require('crypto');
-const FormData = require('form-data');
 
 // Envars (clip url trailing slashes)
 const CLIENT_ID = process.env.CMNSRV_CLIENTID;
@@ -34,26 +32,6 @@ function getDocGenToken() {
         console.error(err);
       });
   });
-}
-
-// Axios post to CDOGS API specifying authentication, content type, encoding and response type
-function apiPost(url, data) {
-  const config = { responseType: 'arraybuffer' };
-  return new Promise((resolve) => {
-    axios
-      .post(url, data, config)
-      .then((res) => {
-        resolve(res);
-      })
-      .catch((err) => {
-        console.error(err.response.data, url);
-      });
-  });
-}
-
-// Create hash based on file input
-function getHash(template) {
-  return require('crypto').createHash('sha256').update(template).digest('hex');
 }
 
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
@@ -93,13 +71,16 @@ async function docGenExportToXLSX() {
     },
   };
 
-  // Calculate hash from template
-  let hash = await getHash(template);
-  console.log('Hash:', hash);
-
-  // Generate a document from an uploaded template
-  const getBack = await apiPost('/template/render', body);
-  fs.writeFileSync(OUTPUT, getBack.data);
+  // Generate and save template
+  const config = { responseType: 'arraybuffer' };
+  await axios
+    .post('/template/render', body, config)
+    .then((res) => {
+      fs.writeFileSync(OUTPUT, res.data);
+    })
+    .catch((err) => {
+      console.log(err.response.statusText);
+    });
 }
 
 docGenExportToXLSX();
