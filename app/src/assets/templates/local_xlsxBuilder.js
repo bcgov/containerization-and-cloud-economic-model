@@ -9,6 +9,7 @@ const CLIENT_ID = process.env.CMNSRV_CLIENTID;
 const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET;
 const TOKEN_URL = process.env.KEYCLOAK_OIDC_ENDPOINT.replace(/\/$/, '');
 const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT.replace(/\/$/, '');
+const CHES_URL = process.env.CS_CHES_ENDPOINT.replace(/\/$/, '');
 const CONTEXTS = process.env.PATH_CONTEXTS;
 const TEMPLATE = process.env.PATH_TEMPLATE;
 const OUTPUT = process.env.PATH_OUTPUT;
@@ -43,7 +44,7 @@ async function docGenExportToXLSX() {
   axios.defaults.baseURL = CDOGS_URL;
 
   // Check CDOGS API health and authentication
-  const haCheck = await new Promise((resolve) => {
+  const haCDOGS = await new Promise((resolve) => {
     axios
       .get('/health')
       .then((res) => {
@@ -53,7 +54,7 @@ async function docGenExportToXLSX() {
         resolve(err.response.statusText);
       });
   });
-  console.log('Health/Auth:', haCheck);
+  console.log('CDOGS Health/Auth:', haCDOGS);
 
   // Read contexts and template (base64 encoded), use in CDOGS schema
   const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
@@ -81,6 +82,20 @@ async function docGenExportToXLSX() {
     .catch((err) => {
       console.log(err.response.statusText);
     });
+
+  // Check CDOGS API health and authentication
+  axios.defaults.baseURL = CHES_URL;
+  const haCHES = await new Promise((resolve) => {
+    axios
+      .get('/health')
+      .then((res) => {
+        resolve(res.statusText);
+      })
+      .catch((err) => {
+        resolve(err.response.statusText);
+      });
+  });
+  console.log('CHES Health/Auth:', haCHES);
 }
 
 docGenExportToXLSX();
