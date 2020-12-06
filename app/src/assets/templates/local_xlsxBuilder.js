@@ -76,15 +76,19 @@ async function docGenExportToXLSX() {
 
   // Generate and save template
   const config = { responseType: 'arraybuffer' };
-  await axios
-    .post('/template/render', bodyCDOGS, config)
-    .then((res) => {
-      fs.writeFileSync(OUTPUT, res.data);
-      console.log('CDOGS Generation:', res.statusText);
-    })
-    .catch((err) => {
-      console.log(err.response.statusText);
-    });
+  const spreadsheet = await new Promise((resolve, reject) => {
+    axios
+      .post('/template/render', bodyCDOGS, config)
+      .then((res) => {
+        console.log('CDOGS Generation:', res.statusText);
+        resolve(res.data);
+      })
+      .catch((err) => {
+        console.log('CDOGS Generation:', err.response.statusText);
+        reject(err);
+      });
+  });
+  fs.writeFileSync(OUTPUT, spreadsheet);
 
   // Check CDOGS API health and authentication
   axios.defaults.baseURL = CHES_URL;
@@ -101,7 +105,15 @@ async function docGenExportToXLSX() {
   console.log('CHES Health/Auth:', haCHES);
 
   // Payload
+  const upload = base64.encode(fs.readFileSync('./results.xlsx', 'binary'));
   const bodyCHES = {
+    attachments: [
+      {
+        content: upload,
+        encoding: 'base64',
+        filename: 'results.xlsx',
+      },
+    ],
     bodyType: 'html',
     body: 'Email message body',
     delayTS: '0',
@@ -110,7 +122,7 @@ async function docGenExportToXLSX() {
     to: [RECIPIENT],
   };
 
-  // Generate and save template
+  // Send email
   await axios
     .post('/email', bodyCHES, config)
     .then((res) => {
