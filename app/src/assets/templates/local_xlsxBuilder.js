@@ -105,7 +105,7 @@ async function docGenExportToXLSX() {
   console.log('CHES Health/Auth:', haCHES);
 
   // Payload
-  const upload = base64.encode(fs.readFileSync('./results.xlsx', 'binary'));
+  const upload = spreadsheet.toString('base64');
   const bodyCHES = {
     attachments: [
       {
