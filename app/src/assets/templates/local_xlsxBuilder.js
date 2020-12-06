@@ -13,6 +13,8 @@ const CHES_URL = process.env.CS_CHES_ENDPOINT.replace(/\/$/, '');
 const CONTEXTS = process.env.PATH_CONTEXTS;
 const TEMPLATE = process.env.PATH_TEMPLATE;
 const OUTPUT = process.env.PATH_OUTPUT;
+const SENDER = process.env.EMAIL_SENDER;
+const RECIPIENT = process.env.EMAIL_RECIPIENT;
 
 // Get token from DocGen SSO
 function getDocGenToken() {
@@ -59,7 +61,7 @@ async function docGenExportToXLSX() {
   // Read contexts and template (base64 encoded), use in CDOGS schema
   const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
   const contexts = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
-  const body = {
+  const bodyCDOGS = {
     data: contexts,
     options: {
       overwrite: true,
@@ -75,9 +77,10 @@ async function docGenExportToXLSX() {
   // Generate and save template
   const config = { responseType: 'arraybuffer' };
   await axios
-    .post('/template/render', body, config)
+    .post('/template/render', bodyCDOGS, config)
     .then((res) => {
       fs.writeFileSync(OUTPUT, res.data);
+      console.log('CDOGS Generation:', res.statusText);
     })
     .catch((err) => {
       console.log(err.response.statusText);
@@ -92,10 +95,30 @@ async function docGenExportToXLSX() {
         resolve(res.statusText);
       })
       .catch((err) => {
-        resolve(err.response.statusText);
+        resolve(err.statusText);
       });
   });
   console.log('CHES Health/Auth:', haCHES);
+
+  // Payload
+  const bodyCHES = {
+    bodyType: 'html',
+    body: 'Email message body',
+    delayTS: '0',
+    from: SENDER,
+    subject: 'Email subject',
+    to: [RECIPIENT],
+  };
+
+  // Generate and save template
+  await axios
+    .post('/email', bodyCHES, config)
+    .then((res) => {
+      console.log('CHES Email:', res.statusText);
+    })
+    .catch((err) => {
+      console.log(err.response.statusText);
+    });
 }
 
 docGenExportToXLSX();
