@@ -5,8 +5,10 @@ const fs = require('fs'); //TODO: remove fs
 
 // Envars (clip url trailing slashes)
 const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT.replace(/\/$/, '');
+const CHES_URL = process.env.CS_CHES_ENDPOINT.replace(/\/$/, '');
 const TEMPLATE = process.env.PATH_TEMPLATE;
 const SPREADSHEET = process.env.SPREADSHEET;
+const SENDER = process.env.EMAIL_SENDER;
 
 // Get token from DocGen SSO
 function getToken(url, clientId, clientSecret) {
@@ -55,7 +57,7 @@ async function getDocument(contexts, token) {
     },
   };
 
-  // Generate and save template
+  // Generate and save spreadsheet using a template and contexts
   const config = { responseType: 'arraybuffer' };
   const spreadsheet = await new Promise((resolve, reject) => {
     axios
@@ -78,6 +80,56 @@ async function getDocument(contexts, token) {
   return spreadsheet;
 }
 
+// Send a file by email
+async function sendFile(file, recipient, token) {
+  // Setup axios
+  axios.defaults.headers.Authorization = `Bearer ${token}`;
+  axios.defaults.baseURL = CHES_URL;
+
+  // Check CHES API health and authentication
+  const haCHES = await new Promise((resolve, reject) => {
+    axios
+      .get('/health')
+      .then((res) => {
+        resolve(res.statusText);
+      })
+      .catch((err) => {
+        reject(err.statusText);
+      });
+  });
+  console.log('CHES Health/Auth:', haCHES);
+
+  // Payload
+  const attachment = file.toString('base64');
+  const bodyCHES = {
+    attachments: [
+      {
+        content: attachment,
+        encoding: 'base64',
+        filename: SPREADSHEET,
+      },
+    ],
+    bodyType: 'html',
+    body: 'Email message body',
+    delayTS: '0',
+    from: SENDER,
+    subject: 'Email subject',
+    to: [recipient],
+  };
+
+  // Send email
+  const config = { responseType: 'arraybuffer' };
+  await axios
+    .post('/email', bodyCHES, config)
+    .then((res) => {
+      console.log('CHES Email:', res.statusText);
+    })
+    .catch((err) => {
+      console.log(err.response.statusText);
+    });
+}
+
 // Exports
 exports.getToken = getToken;
 exports.getDocument = getDocument;
+exports.sendFile = sendFile;
