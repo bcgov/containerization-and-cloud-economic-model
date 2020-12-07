@@ -12,7 +12,7 @@ const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT.replace(/\/$/, '');
 const CHES_URL = process.env.CS_CHES_ENDPOINT.replace(/\/$/, '');
 const CONTEXTS = process.env.PATH_CONTEXTS;
 const TEMPLATE = process.env.PATH_TEMPLATE;
-const OUTPUT = process.env.PATH_OUTPUT;
+const SPREADSHEET = process.env.SPREADSHEET;
 const SENDER = process.env.EMAIL_SENDER;
 const RECIPIENT = process.env.EMAIL_RECIPIENT;
 
@@ -25,14 +25,14 @@ function getDocGenToken() {
   };
 
   // Return access token from response
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     axios
       .post(TOKEN_URL, data, config)
       .then((res) => {
         resolve(res.data.access_token);
       })
       .catch((err) => {
-        console.error(err);
+        reject(err.response.statusText);
       });
   });
 }
@@ -46,14 +46,14 @@ async function docGenExportToXLSX() {
   axios.defaults.baseURL = CDOGS_URL;
 
   // Check CDOGS API health and authentication
-  const haCDOGS = await new Promise((resolve) => {
+  const haCDOGS = await new Promise((resolve, reject) => {
     axios
       .get('/health')
       .then((res) => {
         resolve(res.statusText);
       })
       .catch((err) => {
-        resolve(err.response.statusText);
+        reject(err.response.statusText);
       });
   });
   console.log('CDOGS Health/Auth:', haCDOGS);
@@ -65,7 +65,7 @@ async function docGenExportToXLSX() {
     data: contexts,
     options: {
       overwrite: true,
-      reportName: OUTPUT,
+      reportName: SPREADSHEET,
     },
     template: {
       content: template,
@@ -80,38 +80,42 @@ async function docGenExportToXLSX() {
     axios
       .post('/template/render', bodyCDOGS, config)
       .then((res) => {
-        console.log('CDOGS Generation:', res.statusText);
-        resolve(res.data);
+        resolve({
+          statusText: res.statusText,
+          data: res.data,
+        });
       })
       .catch((err) => {
-        console.log('CDOGS Generation:', err.response.statusText);
-        reject(err);
+        reject({
+          statusText: err.statusText,
+          data: err.data,
+        });
       });
   });
-  fs.writeFileSync(OUTPUT, spreadsheet);
+  console.log('CDOGS Generation:', spreadsheet.statusText);
 
   // Check CDOGS API health and authentication
   axios.defaults.baseURL = CHES_URL;
-  const haCHES = await new Promise((resolve) => {
+  const haCHES = await new Promise((resolve, reject) => {
     axios
       .get('/health')
       .then((res) => {
         resolve(res.statusText);
       })
       .catch((err) => {
-        resolve(err.statusText);
+        reject(err.statusText);
       });
   });
   console.log('CHES Health/Auth:', haCHES);
 
   // Payload
-  const upload = spreadsheet.toString('base64');
+  const attachment = spreadsheet.data.toString('base64');
   const bodyCHES = {
     attachments: [
       {
-        content: upload,
+        content: attachment,
         encoding: 'base64',
-        filename: 'results.xlsx',
+        filename: SPREADSHEET,
       },
     ],
     bodyType: 'html',
