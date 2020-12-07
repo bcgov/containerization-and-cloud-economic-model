@@ -21,7 +21,7 @@ const RECIPIENT = process.env.EMAIL_RECIPIENT;
 // Returns the response content object that can be added to a starlette.responses.Response.
 async function docGenExportToXLSX() {
   // Get auth token and setup Axios defaults
-  const token = await cstk.csToken(TOKEN_URL, CLIENT_ID, CLIENT_SECRET);
+  const token = await cstk.getToken(TOKEN_URL, CLIENT_ID, CLIENT_SECRET);
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CDOGS_URL;
 
