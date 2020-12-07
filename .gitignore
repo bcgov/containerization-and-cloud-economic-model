@@ -50,3 +50,18 @@ build
 .project
 
 !local-infrastructure/.env
+
+# Potentially generated files (carbone)
+*.docx
+*.doc
+*.odt
+*.xlsx
+*.xls
+*.ods
+*.pptx
+*.ppt
+*.odp
+*.pdf
+
+# Temporary files
+tmp_*.*

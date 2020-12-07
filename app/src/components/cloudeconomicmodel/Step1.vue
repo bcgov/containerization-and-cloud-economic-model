@@ -124,8 +124,8 @@ export default {
   data() {
     return {
       docTitle:
-        'Protecting Workers, Contractors, and Employers Working in the Natural Resource Sector During the COVID-19 Pandemic',
-      docShortTitle: 'COVID-19 Guidelines for Natural Resource Sector'
+        'Before you complete this form',
+      docShortTitle: 'Preamble'
     };
   },
   methods: {
