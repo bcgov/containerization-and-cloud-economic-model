@@ -1,4 +1,5 @@
 // Requires
+const cstk = require('./src/utils/xlsxBuilder');
 const axios = require('axios').default;
 const base64 = require('base-64');
 const fs = require('fs');
@@ -16,32 +17,11 @@ const SPREADSHEET = process.env.SPREADSHEET;
 const SENDER = process.env.EMAIL_SENDER;
 const RECIPIENT = process.env.EMAIL_RECIPIENT;
 
-// Get token from DocGen SSO
-function getDocGenToken() {
-  // URL query string and config with headers
-  const data = `grant_type=client_credentials&client_id=${CLIENT_ID}&client_secret=${CLIENT_SECRET}`;
-  const config = {
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  };
-
-  // Return access token from response
-  return new Promise((resolve, reject) => {
-    axios
-      .post(TOKEN_URL, data, config)
-      .then((res) => {
-        resolve(res.data.access_token);
-      })
-      .catch((err) => {
-        reject(err.response.statusText);
-      });
-  });
-}
-
 // Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
 // Returns the response content object that can be added to a starlette.responses.Response.
 async function docGenExportToXLSX() {
   // Get auth token and setup Axios defaults
-  const token = await getDocGenToken();
+  const token = await cstk.csToken(TOKEN_URL, CLIENT_ID, CLIENT_SECRET);
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CDOGS_URL;
 

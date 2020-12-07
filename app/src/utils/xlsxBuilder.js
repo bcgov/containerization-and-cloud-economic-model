@@ -1,4 +1,5 @@
 // Requires
+const axios = require('axios').default;
 const fs = require('fs');
 const carbone = require('carbone');
 
@@ -13,7 +14,7 @@ const carbone = require('carbone');
 function carboneRun(tf, contexts, of) {
   carbone.render(tf, contexts, function (err, result) {
     if (err) {
-      throw (err);
+      throw err;
     }
     fs.writeFileSync(of, result);
   });
@@ -36,7 +37,29 @@ function getContexts(cf) {
   return JSON.parse(fs.readFileSync(cf, 'utf8'));
 }
 
+// Get token from DocGen SSO
+function csToken(url, clientId, clientSecret) {
+  // URL query string and config with headers
+  const data = `grant_type=client_credentials&client_id=${clientId}&client_secret=${clientSecret}`;
+  const config = {
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  };
+
+  // Return access token from response
+  return new Promise((resolve, reject) => {
+    axios
+      .post(url, data, config)
+      .then((res) => {
+        resolve(res.data.access_token);
+      })
+      .catch((err) => {
+        reject(err.response.statusText);
+      });
+  });
+}
+
 // Exports
 exports.getContexts = getContexts;
 exports.carboneRun = carboneRun;
 exports.carboneRunPaths = carboneRunPaths;
+exports.csToken = csToken;
