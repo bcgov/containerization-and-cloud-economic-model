@@ -1,7 +1,6 @@
 // Requires
 const cstk = require('./src/utils/commonServicesToolkit');
 const axios = require('axios').default;
-const fs = require('fs');
 const { Promise } = require('core-js');
 
 // Envars (clip url trailing slashes)
@@ -22,9 +21,8 @@ async function templateToEmail() {
   axios.defaults.headers.Authorization = `Bearer ${token}`;
 
   // Send template and contexts, receive completed spreadsheet
-  const contexts = JSON.parse(fs.readFileSync(CONTEXTS, 'utf8'));
+  const contexts = require(CONTEXTS);
   const spreadsheet = await cstk.getDocument(contexts, token);
-  fs.writeFileSync(SPREADSHEET, spreadsheet.data);
 
   // Check CDOGS API health and authentication
   axios.defaults.baseURL = CHES_URL;
