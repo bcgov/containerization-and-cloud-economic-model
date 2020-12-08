@@ -35,7 +35,7 @@ async function templateToEmail(contexts, recipient) {
   const spreadsheet = await getDocument(contexts);
 
   // Send spreadsheet by email
-  await sendFile(spreadsheet.data, recipient);
+  await sendFile(spreadsheet, recipient);
 }
 
 // Return a completed document from a template and contexts
@@ -44,15 +44,6 @@ async function getDocument(contexts) {
   const token = await getToken();
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CDOGS_URL;
-
-  // Check CDOGS API health and authentication
-  const haCDOGS = await new Promise((resolve, reject) => {
-    axios
-      .get('/health')
-      .then((res) => resolve(res.statusText))
-      .catch((err) => reject(err.response.statusText));
-  });
-  console.log('CDOGS Health/Auth:', haCDOGS);
 
   // Read contexts and template (base64 encoded), use in CDOGS schema
   const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
@@ -74,20 +65,9 @@ async function getDocument(contexts) {
   const spreadsheet = await new Promise((resolve, reject) => {
     axios
       .post('/template/render', bodyCDOGS, config)
-      .then((res) => {
-        resolve({
-          statusText: res.statusText,
-          data: res.data,
-        });
-      })
-      .catch((err) => {
-        reject({
-          statusText: err.statusText,
-          data: err.data,
-        });
-      });
+      .then((res) => resolve(res.data))
+      .catch((err) => reject(err));
   });
-  console.log('CDOGS Generation:', spreadsheet.statusText);
   return spreadsheet;
 }
 
@@ -97,21 +77,6 @@ async function sendFile(file, recipient) {
   const token = await getToken();
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CHES_URL;
-
-  // Check CHES API health and authentication
-  const haCHES = await new Promise((resolve, reject) => {
-    axios
-      .get('/health')
-      .then((res) => {
-        resolve(res.statusText);
-      })
-      .catch((err) => {
-        console.log('here!');
-        reject(err);
-      });
-  });
-
-  console.log('CHES Health/Auth:', haCHES);
 
   // Payload
   const attachment = file.toString('base64');
@@ -133,14 +98,12 @@ async function sendFile(file, recipient) {
 
   // Send email
   const config = { responseType: 'arraybuffer' };
-  await axios
-    .post('/email', bodyCHES, config)
-    .then((res) => {
-      console.log('CHES Email:', res.statusText);
-    })
-    .catch((err) => {
-      console.log(err.response.statusText);
-    });
+  await new Promise((resolve, reject) => {
+    axios
+      .post('/email', bodyCHES, config)
+      .then((res) => resolve(res.statusText))
+      .catch((err) => reject(err));
+  });
 }
 
 // Exports
