@@ -29,6 +29,15 @@ function getToken() {
   });
 }
 
+// Create spreadsheet from template and contexts, send by email
+async function templateToEmail(contexts, recipient) {
+  // Create spreadsheet from contexts and template
+  const spreadsheet = await getDocument(contexts);
+
+  // Send spreadsheet by email
+  await sendFile(spreadsheet.data, recipient);
+}
+
 // Return a completed document from a template and contexts
 async function getDocument(contexts) {
   // Setup axios
@@ -79,7 +88,6 @@ async function getDocument(contexts) {
       });
   });
   console.log('CDOGS Generation:', spreadsheet.statusText);
-  fs.writeFileSync(SPREADSHEET, spreadsheet.data);
   return spreadsheet;
 }
 
@@ -139,3 +147,4 @@ async function sendFile(file, recipient) {
 exports.getToken = getToken;
 exports.getDocument = getDocument;
 exports.sendFile = sendFile;
+exports.templateToEmail = templateToEmail;
