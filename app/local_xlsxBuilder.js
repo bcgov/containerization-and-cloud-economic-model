@@ -5,11 +5,13 @@ const cstk = require('./src/utils/commonServicesToolkit');
 const CONTEXTS = process.env.PATH_CONTEXTS;
 const RECIPIENT = process.env.EMAIL_RECIPIENT;
 
-// Accepts a data dict and a path to an xlsx template and makes a request to CDOGS.
-// Returns the response content object that can be added to a starlette.responses.Response.
+// Send template and contexts, email returned file (spreadsheet)
 async function templateToEmail() {
-  // Send template and contexts, email returned spreadsheet
   await cstk.templateToEmail(require(CONTEXTS), RECIPIENT);
 }
 
-templateToEmail();
+try {
+  templateToEmail();
+} catch (e) {
+  console.log(e);
+}

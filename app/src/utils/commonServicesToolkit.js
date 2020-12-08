@@ -2,6 +2,7 @@
 const axios = require('axios').default;
 const base64 = require('base-64');
 const fs = require('fs');
+const path = require('path');
 
 // Envars (clip url trailing slashes)
 const CLIENT_ID = process.env.CMNSRV_CLIENTID;
@@ -10,7 +11,7 @@ const TOKEN_URL = process.env.KEYCLOAK_OIDC_ENDPOINT.replace(/\/$/, '');
 const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT.replace(/\/$/, '');
 const CHES_URL = process.env.CS_CHES_ENDPOINT.replace(/\/$/, '');
 const TEMPLATE = process.env.PATH_TEMPLATE;
-const SPREADSHEET = process.env.SPREADSHEET;
+const FILE_NAME = process.env.FILE_NAME;
 const SENDER = process.env.EMAIL_SENDER;
 
 // Get token from DocGen SSO
@@ -29,15 +30,6 @@ function getToken() {
   });
 }
 
-// Create spreadsheet from template and contexts, send by email
-async function templateToEmail(contexts, recipient) {
-  // Create spreadsheet from contexts and template
-  const spreadsheet = await getDocument(contexts);
-
-  // Send spreadsheet by email
-  await sendFile(spreadsheet, recipient);
-}
-
 // Return a completed document from a template and contexts
 async function getDocument(contexts) {
   // Setup axios
@@ -47,28 +39,30 @@ async function getDocument(contexts) {
 
   // Read contexts and template (base64 encoded), use in CDOGS schema
   const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
+  const fileExt = path.extname(FILE_NAME).replace(/^./, '');
+
   const bodyCDOGS = {
     data: contexts,
     options: {
       overwrite: true,
-      reportName: SPREADSHEET,
+      reportName: FILE_NAME,
     },
     template: {
       content: template,
       encodingType: 'base64',
-      fileType: 'xlsx',
+      fileType: fileExt,
     },
   };
 
-  // Generate and save spreadsheet using a template and contexts
+  // Generate and save file using a template and contexts
   const config = { responseType: 'arraybuffer' };
-  const spreadsheet = await new Promise((resolve, reject) => {
+  const file = await new Promise((resolve, reject) => {
     axios
       .post('/template/render', bodyCDOGS, config)
       .then((res) => resolve(res.data))
       .catch((err) => reject(err));
   });
-  return spreadsheet;
+  return file;
 }
 
 // Send a file by email
@@ -85,7 +79,7 @@ async function sendFile(file, recipient) {
       {
         content: attachment,
         encoding: 'base64',
-        filename: SPREADSHEET,
+        filename: FILE_NAME,
       },
     ],
     bodyType: 'html',
@@ -106,8 +100,13 @@ async function sendFile(file, recipient) {
   });
 }
 
+// Create file from template and contexts, send by email
+async function templateToEmail(contexts, recipient) {
+  const file = await getDocument(contexts);
+  await sendFile(file, recipient);
+}
+
 // Exports
-exports.getToken = getToken;
 exports.getDocument = getDocument;
 exports.sendFile = sendFile;
 exports.templateToEmail = templateToEmail;
