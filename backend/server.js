@@ -8,15 +8,25 @@ app.use(express.json());
 // Envars
 const PORT = process.env.PORT || 3000;
 
-// Temporary envars - TODO: get these values from frontend
-const RECIPIENT = process.env.EMAIL_RECIPIENT;
-const CONTEXTS = process.env.PATH_CONTEXTS;
-const contexts = require(CONTEXTS);
-
-// Send template and contexts, email returned file (spreadsheet)
-async function templateToEmail(contexts, recipient) {
-  return cstk.templateToEmail(contexts, recipient);
-}
+// Receive contexts and email recipient, create and send file
+app.post('/render', (req, res) => {
+  // TODO: get these values from frontend
+  const RECIPIENT = process.env.EMAIL_RECIPIENT;
+  const contexts = require('./CEM_contexts.json');
+  console.log('Recipient:', RECIPIENT);
+  console.log('Contexts:', contexts);
+  console.log('Request keys:', Object.keys(req));
+  try {
+    // TODO: uncomment the line below when ready
+    // const newFile = cstk.templateToEmail(contexts, RECIPIENT);
+    // console.log('newFile keys:', Object.keys(newFile));
+    res.status(200).send('Generated!');
+  } catch (error) {
+    console.log(error);
+    res.status(400).send(error);
+  }
+  res.send();
+});
 
 app.get('/', (req, res) => {
   res.status(200).send('Cloud Economic Model Backend API');
