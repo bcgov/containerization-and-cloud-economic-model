@@ -1,0 +1,33 @@
+{
+  "name": "cem-backend",
+  "version": "1.0.0",
+  "description": "Communicates with Common Services' APIs (CDOGS, CHES, Auth)",
+  "main": "app.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "npm i && ./node_modules/.bin/nodemon server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/derekroberts/cem.git"
+  },
+  "author": "Derek Roberts",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/derekroberts/cem/issues"
+  },
+  "homepage": "https://github.com/derekroberts/cem",
+  "devDependencies": {
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-vue": "^7.2.0",
+    "nodemon": "^2.0.6"
+  },
+  "dependencies": {
+    "axios": "^0.21.0",
+    "base-64": "^1.0.0",
+    "express": "^4.17.1"
+  }
+}
