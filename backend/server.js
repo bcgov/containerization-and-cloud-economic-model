@@ -6,36 +6,24 @@ const app = express();
 app.use(express.json());
 
 // Envars
+const TITLE = process.env.TITLE || 'Wrapper and Credential Handler for Common Services APIs';
 const PORT = process.env.PORT || 3000;
 
 // Receive contexts and email recipient, create and send file
-app.post('/render', (req, res) => {
-  const { recipient, data } = req.body;
-  console.log('Recipient:', recipient);
-  console.log('Contexts:', data);
-
+app.post('/render', async (req, res) => {
   try {
-    const newFile = cstk.templateToEmail(data, recipient);
-    console.log('newFile keys:', Object.keys(newFile));
-    res.status(200).send('Generated!');
+    const filename = await cstk.renderToEmail(req.body);
+    res.status(200).send(filename);
   } catch (error) {
-    console.log(error);
     res.status(400).send(error);
   }
   res.send();
 });
 
-app.get('/', (req, res) => {
-  res.status(200).send('Cloud Economic Model Backend API');
-});
-
-app.get('/_health', (req, res) => {
-  res.status(200).send('OK');
-});
-
-app.get('*', (req, res) => {
-  res.status(404).send('Not Found');
-});
+// Minimal routing for landing, health check and 404
+app.get(['/_health', '/health'], ({ res }) => res.status(200).send('OK'));
+app.get('/', ({ res }) => res.status(200).send(TITLE));
+app.get('*', ({ res }) => res.status(404).send('Not Found'));
 
 // Run server
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));

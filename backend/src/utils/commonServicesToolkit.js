@@ -10,7 +10,7 @@ const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET;
 
 // Envars - optional (clip url trailing slashes)
 const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
-const SENDER = process.env.EMAIL_SENDER || 'example@gov.bc.ca';
+const EMAIL_SENDER = process.env.EMAIL_SENDER || 'example@gov.bc.ca';
 const TEMPLATE = process.env.PATH_TEMPLATE || './src/assets/templates/CEM_template.xlsx';
 const TOKEN_URL = (process.env.TOKEN_URL || 'https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token').replace(/\/$/, '');
 const CDOGS_URL = (process.env.CDOGS_URL || 'https://cdogs-dev.pathfinder.gov.bc.ca/api/v2').replace(/\/$/, '');
@@ -87,28 +87,29 @@ async function sendFile(file, recipient) {
     bodyType: 'html',
     body: 'Email message body',
     delayTS: '0',
-    from: SENDER,
+    from: EMAIL_SENDER,
     subject: 'Email subject',
     to: [recipient],
   };
 
-  // Send email
+  // Send email, return file name (by convention)
   const config = { responseType: 'arraybuffer' };
-  await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     axios
       .post('/email', bodyCHES, config)
-      .then((res) => resolve(res.statusText))
+      .then(resolve(FILE_NAME))
       .catch((err) => reject(err));
   });
 }
 
 // Create file from template and contexts, send by email
-async function templateToEmail(contexts, recipient) {
+async function renderToEmail(body) {
+  const { contexts, recipient } = body;
   const file = await getDocument(contexts);
-  await sendFile(file, recipient);
+  return sendFile(file, recipient);
 }
 
 // Exports
 exports.getDocument = getDocument;
 exports.sendFile = sendFile;
-exports.templateToEmail = templateToEmail;
+exports.renderToEmail = renderToEmail;
