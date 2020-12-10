@@ -10,16 +10,13 @@ const PORT = process.env.PORT || 3000;
 
 // Receive contexts and email recipient, create and send file
 app.post('/render', (req, res) => {
-  // TODO: get these values from frontend
-  const RECIPIENT = process.env.EMAIL_RECIPIENT;
-  const contexts = require('./CEM_contexts.json');
-  console.log('Recipient:', RECIPIENT);
-  console.log('Contexts:', contexts);
-  console.log('Request keys:', Object.keys(req));
+  const { recipient, data } = req.body;
+  console.log('Recipient:', recipient);
+  console.log('Contexts:', data);
+
   try {
-    // TODO: uncomment the line below when ready
-    // const newFile = cstk.templateToEmail(contexts, RECIPIENT);
-    // console.log('newFile keys:', Object.keys(newFile));
+    const newFile = cstk.templateToEmail(data, recipient);
+    console.log('newFile keys:', Object.keys(newFile));
     res.status(200).send('Generated!');
   } catch (error) {
     console.log(error);
@@ -42,6 +39,3 @@ app.get('*', (req, res) => {
 
 // Run server
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
-
-// TODO: tie in template/email
-// templateToEmail(contexts, RECIPIENT);
