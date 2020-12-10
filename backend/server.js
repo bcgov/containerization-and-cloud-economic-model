@@ -26,6 +26,10 @@ app.get('/_health', (req, res) => {
   res.status(200).send('OK');
 });
 
+app.get('*', (req, res) => {
+  res.status(404).send('Not Found');
+});
+
 // Run server
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
 

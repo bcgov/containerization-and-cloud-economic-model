@@ -4,15 +4,17 @@ const base64 = require('base-64');
 const fs = require('fs');
 const path = require('path');
 
-// Envars (clip url trailing slashes)
+// Envars - required
 const CLIENT_ID = process.env.CMNSRV_CLIENTID;
 const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET;
-const TOKEN_URL = process.env.KEYCLOAK_OIDC_ENDPOINT.replace(/\/$/, '');
-const CDOGS_URL = process.env.CS_CDOGS_ENDPOINT.replace(/\/$/, '');
-const CHES_URL = process.env.CS_CHES_ENDPOINT.replace(/\/$/, '');
-const TEMPLATE = process.env.PATH_TEMPLATE;
-const FILE_NAME = process.env.FILE_NAME;
-const SENDER = process.env.EMAIL_SENDER;
+
+// Envars - optional (clip url trailing slashes)
+const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
+const SENDER = process.env.EMAIL_SENDER || 'example@gov.bc.ca';
+const TEMPLATE = process.env.PATH_TEMPLATE || './src/assets/templates/CEM_template.xlsx';
+const TOKEN_URL = (process.env.TOKEN_URL || 'https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token').replace(/\/$/, '');
+const CDOGS_URL = (process.env.CDOGS_URL || 'https://cdogs-dev.pathfinder.gov.bc.ca/api/v2').replace(/\/$/, '');
+const CHES_URL = (process.env.CHES_URL || 'https://ches-dev.pathfinder.gov.bc.ca/api/v1').replace(/\/$/, '');
 
 // Get token from DocGen SSO
 function getToken() {
