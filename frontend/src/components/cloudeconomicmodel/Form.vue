@@ -1,6 +1,11 @@
 <template>
   <div>
-    <v-stepper v-model="step" alt-labels class="form-stepper elevation-0" @change="setStep">
+    <v-stepper
+      v-model="step"
+      alt-labels
+      class="form-stepper elevation-0"
+      @change="setStep"
+    >
       <v-container v-if="!submissionComplete" fluid class="pa-0">
         <v-row class="header-row" no-gutters>
           <v-col cols="12" xl="10" offset-xl="1">
@@ -11,7 +16,9 @@
                 edit-icon="check"
                 :editable="step > 1"
                 step="1"
-              >Before You Begin</v-stepper-step>
+              >
+                Before You Begin
+              </v-stepper-step>
 
               <v-divider />
 
@@ -21,11 +28,15 @@
                 edit-icon="check"
                 :editable="step > 2"
                 step="2"
-              >Sensitivity Analysis Options</v-stepper-step>
+              >
+                Sensitivity Analysis Options</v-stepper-step
+              >
 
               <v-divider />
 
-              <v-stepper-step step="3" data-test="btn-stepper-six">Review</v-stepper-step>
+              <v-stepper-step step="3" data-test="btn-stepper-six">
+                Review</v-stepper-step
+              >
             </v-stepper-header>
           </v-col>
         </v-row>
@@ -44,7 +55,7 @@
               </v-stepper-content>
 
               <v-stepper-content step="6">
-                <Step3/>
+                <Step3 />
               </v-stepper-content>
             </v-stepper-items>
           </v-col>
@@ -66,16 +77,16 @@ export default {
   components: {
     Step1,
     Step2,
-    Step3
+    Step3,
   },
   data() {
     return {};
   },
   computed: {
-    ...mapGetters('form', ['step', 'submissionComplete'])
+    ...mapGetters('form', ['step', 'submissionComplete']),
   },
   methods: {
-    ...mapMutations('form', ['setStep'])
-  }
+    ...mapMutations('form', ['setStep']),
+  },
 };
 </script>

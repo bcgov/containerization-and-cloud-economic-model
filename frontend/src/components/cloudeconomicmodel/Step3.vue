@@ -46,7 +46,7 @@
     <div v-if="!submissionComplete">
       <v-form v-model="step3Valid">
         <v-checkbox
-          :rules="[v => !!v || 'You must certify to continue']"
+          :rules="[(v) => !!v || 'You must certify to continue']"
           v-model="certifyAccurateInformation"
           data-test="cb-form-certifyAccurateInformation"
           label="I certify this information to be accurate"
@@ -55,7 +55,12 @@
     </div>
 
     <div v-if="!submissionComplete">
-      <v-btn color="primary" data-test="btn-form-submit" :disabled="!step3Valid" @click="submit">
+      <v-btn
+        color="primary"
+        data-test="btn-form-submit"
+        :disabled="!step3Valid"
+        @click="submit"
+      >
         <span>Submit</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
@@ -85,11 +90,11 @@ export default {
   name: 'CloudEconomicModelStep3',
   components: {
     Step1,
-    Step2
+    Step2,
   },
   data() {
     return {
-      step3Valid: false
+      step3Valid: false,
     };
   },
   computed: {
@@ -97,7 +102,7 @@ export default {
       'attestation',
       'submissionComplete',
       'submissionDetails',
-      'submitting'
+      'submitting',
     ]),
     // Certify checkboxes
     certifyAccurateInformation: {
@@ -106,17 +111,14 @@ export default {
       },
       set(value) {
         this.updateAttestation({ ['certifyAccurateInformation']: value });
-      }
+      },
     },
     formName() {
       return FormNames.CLOUDECONOMICMODEL;
-    }
+    },
   },
   methods: {
-    ...mapMutations('form', [
-      'setStep',
-      'updateAttestation'
-    ]),
+    ...mapMutations('form', ['setStep', 'updateAttestation']),
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();
@@ -124,15 +126,15 @@ export default {
         // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
         window.onbeforeunload = null;
       }
-    }
+    },
   },
   mounted() {
     document
       .querySelectorAll('.review-form input, .review-form .v-select')
-      .forEach(q => {
+      .forEach((q) => {
         q.setAttribute('readonly', 'true');
       });
-  }
+  },
 };
 </script>
 

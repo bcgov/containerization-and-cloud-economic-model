@@ -101,7 +101,9 @@
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
-            <label>Average Currrently Online Public Users per Application</label>
+            <label>
+              Average Currrently Online Public Users per Application
+            </label>
             <v-select
               :items="avgUsersPerAppItems"
               dense
@@ -205,10 +207,9 @@ import Vue from 'vue';
 export default {
   name: 'CloudEconomicModelStep2',
   props: {
-    reviewMode: Boolean
+    reviewMode: Boolean,
   },
-  components: {
-  },
+  components: {},
   data() {
     return {
       step2Valid: false,
@@ -220,71 +221,38 @@ export default {
         : true,
 
       // Todo: constants file
-      numberOfTeamsItems: [
-        'Low',
-        'Medium',
-        'High'
-      ],
-      employeesVsContractorsItems: [
-        '10:90',
-        '50:50',
-        '90:10'
-      ],
+      numberOfTeamsItems: ['Low', 'Medium', 'High'],
+      employeesVsContractorsItems: ['10:90', '50:50', '90:10'],
       migrationExperienceItems: [
         'Figured it out from scratch',
         'Followed best practice documents',
-        'Learned on previous teams'
+        'Learned on previous teams',
       ],
-      shadowAppDependenciesItems: [
-        'Low',
-        'Medium',
-        'High'
-      ],
-      avgBreachCostItems: [
-        'Low',
-        'Medium',
-        'High'
-      ],
-      avgUsersPerAppItems: [
-        '5',
-        '20',
-        '100'
-      ],
-      avgLegacyOutageHourlyValueItems: [
-        '3 hours',
-        '10 hours',
-        '100 hours'
-      ],
-      disruptionHourlyValueItems: [
-        '$10 CAD',
-        '$20 CAD',
-        '$30 CAD'
-      ],
+      shadowAppDependenciesItems: ['Low', 'Medium', 'High'],
+      avgBreachCostItems: ['Low', 'Medium', 'High'],
+      avgUsersPerAppItems: ['5', '20', '100'],
+      avgLegacyOutageHourlyValueItems: ['3 hours', '10 hours', '100 hours'],
+      disruptionHourlyValueItems: ['$10 CAD', '$20 CAD', '$30 CAD'],
       avgYearlyFeatureHoursItems: [
         'Low (3000)',
         'Medium (7500)',
-        'High (12000)'
+        'High (12000)',
       ],
 
       // Rules
-      dropDownRules: [
-        v => !!v || 'Required',
-      ],
+      dropDownRules: [(v) => !!v || 'Required'],
       emailRules: [
-        v => !!v || 'Required',
-        v =>
+        (v) => !!v || 'Required',
+        (v) =>
           validator.isEmail(v, { allow_display_name: true }) ||
           'invalid e-mail format',
-        v => (v && v.length <= 255) || 'E-mail must be 255 characters or less'
+        (v) =>
+          (v && v.length <= 255) || 'E-mail must be 255 characters or less',
       ],
     };
   },
   computed: {
-    ...mapGetters('form', [
-      'cost',
-      'value',
-      'contact'
-    ]),
+    ...mapGetters('form', ['cost', 'value', 'contact']),
 
     // Gets and sets
     numberOfTeams: {
@@ -293,7 +261,7 @@ export default {
       },
       set(value) {
         this.updateCost({ ['numberOfTeams']: value });
-      }
+      },
     },
     employeesVsContractors: {
       get() {
@@ -301,7 +269,7 @@ export default {
       },
       set(value) {
         this.updateCost({ ['employeesVsContractors']: value });
-      }
+      },
     },
     migrationExperience: {
       get() {
@@ -309,7 +277,7 @@ export default {
       },
       set(value) {
         this.updateCost({ ['migrationExperience']: value });
-      }
+      },
     },
     shadowAppDependencies: {
       get() {
@@ -317,7 +285,7 @@ export default {
       },
       set(value) {
         this.updateCost({ ['shadowAppDependencies']: value });
-      }
+      },
     },
     avgBreachCost: {
       get() {
@@ -325,7 +293,7 @@ export default {
       },
       set(value) {
         this.updateValue({ ['avgBreachCost']: value });
-      }
+      },
     },
     avgUsersPerApp: {
       get() {
@@ -333,7 +301,7 @@ export default {
       },
       set(value) {
         this.updateValue({ ['avgUsersPerApp']: value });
-      }
+      },
     },
     avgLegacyOutageHourlyValue: {
       get() {
@@ -341,7 +309,7 @@ export default {
       },
       set(value) {
         this.updateValue({ ['avgLegacyOutageHourlyValue']: value });
-      }
+      },
     },
     disruptionHourlyValue: {
       get() {
@@ -349,7 +317,7 @@ export default {
       },
       set(value) {
         this.updateValue({ ['disruptionHourlyValue']: value });
-      }
+      },
     },
     avgYearlyFeatureHours: {
       get() {
@@ -357,7 +325,7 @@ export default {
       },
       set(value) {
         this.updateValue({ ['avgYearlyFeatureHours']: value });
-      }
+      },
     },
     sendEmail: {
       get() {
@@ -365,8 +333,8 @@ export default {
       },
       set(value) {
         this.updateContact({ ['sendEmail']: value });
-      }
-    }
+      },
+    },
   },
   methods: {
     ...mapActions('form', ['sampleData']),
@@ -374,20 +342,20 @@ export default {
       'setStep',
       'updateCost',
       'updateValue',
-      'updateContact'
+      'updateContact',
     ]),
     async submit() {
       if (this.$refs.form.validate()) {
         this.setStep(6);
       } else {
-        await new Promise(r => setTimeout(r, 200)); //ugh
+        await new Promise((r) => setTimeout(r, 200)); //ugh
         const el = document.querySelector(
           '.v-messages.error--text:first-of-type'
         );
         el.scrollIntoView(true);
         window.scrollBy(0, -60); // ugh again
       }
-    }
+    },
   },
   mounted() {
     if (!this.reviewMode) {
@@ -395,7 +363,7 @@ export default {
       // This gets disabled after form submit in step 6
       window.onbeforeunload = () => true;
     }
-  }
+  },
 };
 </script>
 
