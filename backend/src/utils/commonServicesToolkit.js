@@ -7,6 +7,10 @@ const path = require('path');
 // Envars - required
 const CLIENT_ID = process.env.CMNSRV_CLIENTID;
 const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET;
+if (!CLIENT_ID || !CLIENT_SECRET) {
+  console.error('CLIENT_ID and CLIENT_SECRET envars must be set');
+  process.exit();
+}
 
 // Envars - optional (clip url trailing slashes)
 const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
