@@ -55,13 +55,8 @@
     </div>
 
     <div v-if="!submissionComplete">
-      <v-btn
-        color="primary"
-        data-test="btn-form-submit"
-        :disabled="!step3Valid"
-        @click="submit"
-      >
-        <span>Submit</span>
+      <v-btn color="primary" data-test="btn-form-submit" :disabled="!step3Valid" @click="renderToEmail" >
+        <span>Send to Email</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
         <span>Back</span>
@@ -127,6 +122,24 @@ export default {
         window.onbeforeunload = null;
       }
     },
+    renderToEmail: function() {
+      const contexts = {
+        'numberOfTeams': 'Low',
+        'employeesVsContractors': '10% Employees',
+        'experienceOfTeams': 'Trained by Working on Previous Teams',
+        'shadowAppChance': 'Medium',
+        'avgCostDataBreach': 'Medium',
+        'avgOnlineUsers': '5',
+        'avgLegacyOutage': '10 hours',
+        'disruptionHourly': '$30',
+        'avgHoursNewFeats': 'Medium (7500)'
+      };
+      alert(Object.keys(contexts));
+      for (const c in contexts){
+        alert(c+':'+contexts[c]);
+      }
+      return contexts;
+    }
   },
   mounted() {
     document
