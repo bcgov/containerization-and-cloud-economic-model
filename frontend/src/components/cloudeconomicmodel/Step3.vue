@@ -80,6 +80,7 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
 import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
 import { FormNames } from '@/utils/constants';
+import axios from 'axios';
 
 export default {
   name: 'CloudEconomicModelStep3',
@@ -123,22 +124,29 @@ export default {
       }
     },
     renderToEmail: function() {
-      const contexts = {
-        'numberOfTeams': 'Low',
-        'employeesVsContractors': '10% Employees',
-        'experienceOfTeams': 'Trained by Working on Previous Teams',
-        'shadowAppChance': 'Medium',
-        'avgCostDataBreach': 'Medium',
-        'avgOnlineUsers': '5',
-        'avgLegacyOutage': '10 hours',
-        'disruptionHourly': '$30',
-        'avgHoursNewFeats': 'Medium (7500)'
+      const body ={
+        'recipient': 'derek.roberts@gmail.com',
+        'contexts': {
+          'numberOfTeams': 'Low',
+          'employeesVsContractors': '10% Employees',
+          'experienceOfTeams': 'Trained by Working on Previous Teams',
+          'shadowAppChance': 'Low',
+          'avgCostDataBreach': 'Low',
+          'avgOnlineUsers': '5',
+          'avgLegacyOutage': '10 hours',
+          'disruptionHourly': '$30',
+          'avgHoursNewFeats': 'Medium (7500)'
+        }
       };
-      alert(Object.keys(contexts));
-      for (const c in contexts){
-        alert(c+':'+contexts[c]);
+      alert(Object.keys(body));
+      for (const b in body){
+        alert(b+':'+body[b]);
       }
-      return contexts;
+      axios
+        .post('http://localhost:3000/render',body)
+        .then(alert('hti!'))
+        .catch(alert('miss!'));
+      return body;
     }
   },
   mounted() {
