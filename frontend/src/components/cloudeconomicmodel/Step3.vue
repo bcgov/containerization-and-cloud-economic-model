@@ -124,29 +124,28 @@ export default {
       }
     },
     renderToEmail: function() {
-      const body ={
-        'recipient': 'derek.roberts@gmail.com',
-        'contexts': {
-          'numberOfTeams': 'Low',
-          'employeesVsContractors': '10% Employees',
-          'experienceOfTeams': 'Trained by Working on Previous Teams',
-          'shadowAppChance': 'Low',
-          'avgCostDataBreach': 'Low',
-          'avgOnlineUsers': '5',
-          'avgLegacyOutage': '10 hours',
-          'disruptionHourly': '$30',
-          'avgHoursNewFeats': 'Medium (7500)'
-        }
+      const body = {
+        recipient: 'derek.roberts@gmail.com',
+        contexts: {
+          numberOfTeams: 'Low',
+          employeesVsContractors: '10% Employees',
+          experienceOfTeams: 'Trained by Working on Previous Teams',
+          shadowAppChance: 'Low',
+          avgCostDataBreach: 'Low',
+          avgOnlineUsers: '5',
+          avgLegacyOutage: '10 hours',
+          disruptionHourly: '$30',
+          avgHoursNewFeats: 'Medium (7500)',
+        },
       };
-      alert(Object.keys(body));
-      for (const b in body){
-        alert(b+':'+body[b]);
-      }
-      axios
-        .post('http://localhost:3000/render',body)
-        .then(alert('hti!'))
-        .catch(alert('miss!'));
-      return body;
+      return axios
+        .post('http://localhost:3000/render', body)
+        .then((res) => {
+          alert(res.data);
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   },
   mounted() {
