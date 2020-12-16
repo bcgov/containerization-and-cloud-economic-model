@@ -21,12 +21,17 @@ const body = {
   },
 };
 console.log(body);
-const filename = axios
-  .post('http://localhost:3000/render', body)
-  .then((res) => {
-    console.log(res.data);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-console.log(filename);
+
+async function apiPost(){
+  const filename = await axios
+    .post('http://localhost:3000/render', body)
+    .then((res) => {
+      return res.data
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  console.log(filename);
+}
+
+apiPost()
