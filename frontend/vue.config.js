@@ -2,19 +2,17 @@ process.env.VUE_APP_VERSION = require('./package.json').version;
 
 module.exports = {
   configureWebpack: {
-    devtool: "source-map",
+    devtool: 'source-map',
     devServer: {
-        clientLogLevel: 'debug',
-        watchOptions: {
-            poll: true
-        }
-    }
+      clientLogLevel: 'debug',
+      watchOptions: {
+        poll: true,
+      },
+    },
   },
   devServer: {
-    disableHostCheck: true
+    disableHostCheck: true,
   },
   publicPath: '/',
-  'transpileDependencies': [
-    'vuetify'
-  ]
+  transpileDependencies: ['vuetify'],
 };

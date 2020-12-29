@@ -46,7 +46,7 @@
     <div v-if="!submissionComplete">
       <v-form v-model="step3Valid">
         <v-checkbox
-          :rules="[v => !!v || 'You must certify to continue']"
+          :rules="[(v) => !!v || 'You must certify to continue']"
           v-model="certifyAccurateInformation"
           data-test="cb-form-certifyAccurateInformation"
           label="I certify this information to be accurate"
@@ -55,8 +55,8 @@
     </div>
 
     <div v-if="!submissionComplete">
-      <v-btn color="primary" data-test="btn-form-submit" :disabled="!step3Valid" @click="submit">
-        <span>Submit</span>
+      <v-btn color="primary" data-test="btn-form-submit" :disabled="!step3Valid" @click="renderToEmail" >
+        <span>Send to Email</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
         <span>Back</span>
@@ -80,16 +80,17 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
 import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
 import { FormNames } from '@/utils/constants';
+import axios from 'axios';
 
 export default {
   name: 'CloudEconomicModelStep3',
   components: {
     Step1,
-    Step2
+    Step2,
   },
   data() {
     return {
-      step3Valid: false
+      step3Valid: false,
     };
   },
   computed: {
@@ -97,7 +98,7 @@ export default {
       'attestation',
       'submissionComplete',
       'submissionDetails',
-      'submitting'
+      'submitting',
     ]),
     // Certify checkboxes
     certifyAccurateInformation: {
@@ -106,17 +107,14 @@ export default {
       },
       set(value) {
         this.updateAttestation({ ['certifyAccurateInformation']: value });
-      }
+      },
     },
     formName() {
       return FormNames.CLOUDECONOMICMODEL;
-    }
+    },
   },
   methods: {
-    ...mapMutations('form', [
-      'setStep',
-      'updateAttestation'
-    ]),
+    ...mapMutations('form', ['setStep', 'updateAttestation']),
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();
@@ -124,15 +122,39 @@ export default {
         // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
         window.onbeforeunload = null;
       }
+    },
+    renderToEmail: function() {
+      const body = {
+        recipient: 'derek.roberts@gmail.com',
+        contexts: {
+          numberOfTeams: 'Low',
+          employeesVsContractors: '10% Employees',
+          experienceOfTeams: 'Trained by Working on Previous Teams',
+          shadowAppChance: 'Low',
+          avgCostDataBreach: 'Low',
+          avgOnlineUsers: '5',
+          avgLegacyOutage: '10 hours',
+          disruptionHourly: '$30',
+          avgHoursNewFeats: 'Medium (7500)',
+        },
+      };
+      return axios
+        .post('http://localhost:3000/render', body)
+        .then((res) => {
+          alert(res.data);
+        })
+        .catch((err) => {
+          alert(err);
+        });
     }
   },
   mounted() {
     document
       .querySelectorAll('.review-form input, .review-form .v-select')
-      .forEach(q => {
+      .forEach((q) => {
         q.setAttribute('readonly', 'true');
       });
-  }
+  },
 };
 </script>
 
