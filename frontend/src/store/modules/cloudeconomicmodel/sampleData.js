@@ -3,18 +3,18 @@ export const SampleData = Object.freeze({
   cost: {
     numberOfTeams: 'High',
     employeesVsContractors: '10:90',
-    migrationExperience: 'Learned on previous teams',
-    shadowAppDependencies: 'High'
+    teamMigrationExperience: 'Learned on previous teams',
+    shadowAppDepsChance: 'High',
   },
   value: {
-    avgBreachCost: 'High',
-    avgUsersPerApp: '100',
-    avgLegacyOutageHourlyValue: '10 hours',
-    disruptionHourlyValue: '$10 CAD',
-    avgYearlyFeatureHours: 'Medium (7500)'
+    avgCostGovDataBreach: 'High',
+    avgOnlineUsersPerApp: '100',
+    avgLegacyOutageLength: '10 hours',
+    avgDistruptionHourlyValue: '$10 CAD',
+    avgYearlyNewFeatureHours: 'Medium (7500)',
   },
   contact: {
-    sendEmail: 'does-not-exist@gov.bc.ca'
+    sendEmail: 'derek.roberts@gmail.com',
   },
-  attestation: {}
+  attestation: {},
 });

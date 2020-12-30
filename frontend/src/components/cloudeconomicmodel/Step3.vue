@@ -132,15 +132,17 @@ export default {
         contexts: {
           numberOfTeams: this.cost.numberOfTeams,
           employeesVsContractors: this.cost.employeesVsContractors,
-          experienceOfTeams: this.cost.migrationExperience,
-          shadowAppChance: this.cost.shadowAppDependencies,
-          avgCostDataBreach: this.value.avgBreachCost,
-          avgOnlineUsers: this.value.avgUsersPerApp,
-          avgLegacyOutage: this.value.avgLegacyOutageHourlyValue,
-          disruptionHourly: this.value.disruptionHourlyValue,
-          avgHoursNewFeats: this.value.avgYearlyFeatureHours,
+          teamMigrationExperience: this.cost.teamMigrationExperience,
+          shadowAppDepsChance: this.cost.shadowAppDepsChance,
+          avgCostGovDataBreach: this.value.avgCostGovDataBreach,
+          avgOnlineUsersPerApp: this.value.avgOnlineUsersPerApp,
+          avgLegacyOutageLength: this.value.avgLegacyOutageLength,
+          avgDistruptionHourlyValue: this.value.avgDistruptionHourlyValue,
+          avgYearlyNewFeatureHours: this.value.avgYearlyNewFeatureHours,
         },
       };
+      Object.keys(body.contexts).forEach(i=>alert(`${i}: ${body.contexts[i]}`));
+      process.exit();
       return axios
         .post('http://localhost:3000/render', body)
         .then((res) => {

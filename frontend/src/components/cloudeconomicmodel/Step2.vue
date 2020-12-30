@@ -55,28 +55,28 @@
           <v-col cols="12" sm="6" lg="5">
             <label>Experience of Teams with BC Gov Migrations</label>
             <v-select
-              :items="migrationExperienceItems"
+              :items="teamMigrationExperienceItems"
               dense
               flat
               outlined
               solo
               label="Select"
-              v-model="migrationExperience"
-              data-test="text-form-migrationExperience"
+              v-model="teamMigrationExperience"
+              data-test="text-form-teamMigrationExperience"
               :rules="dropDownRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>Likelihood of Shadow App Dependencies</label>
             <v-select
-              :items="shadowAppDependenciesItems"
+              :items="shadowAppDepsChanceItems"
               dense
               flat
               outlined
               solo
               label="Select"
-              v-model="shadowAppDependencies"
-              data-test="text-form-shadowAppDependencies"
+              v-model="shadowAppDepsChance"
+              data-test="text-form-shadowAppDepsChance"
               :rules="dropDownRules"
             />
           </v-col>
@@ -89,14 +89,14 @@
           <v-col cols="12" sm="6" lg="5">
             <label>Average Cost of Gov Data Breach</label>
             <v-select
-              :items="avgBreachCostItems"
+              :items="avgCostGovDataBreachItems"
               dense
               flat
               outlined
               solo
               label="Select"
-              v-model="avgBreachCost"
-              data-test="text-form-avgBreachCost"
+              v-model="avgCostGovDataBreach"
+              data-test="text-form-avgCostGovDataBreach"
               :rules="dropDownRules"
             />
           </v-col>
@@ -105,14 +105,14 @@
               Average Currrently Online Public Users per Application
             </label>
             <v-select
-              :items="avgUsersPerAppItems"
+              :items="avgOnlineUsersPerAppItems"
               dense
               flat
               outlined
               solo
               label="Select"
-              v-model="avgUsersPerApp"
-              data-test="text-form-avgUsersPerApp"
+              v-model="avgOnlineUsersPerApp"
+              data-test="text-form-avgOnlineUsersPerApp"
               :rules="dropDownRules"
             />
           </v-col>
@@ -121,28 +121,28 @@
           <v-col cols="12" sm="6" lg="5">
             <label>Average Legacy System Outage Length</label>
             <v-select
-              :items="avgLegacyOutageHourlyValueItems"
+              :items="avgLegacyOutageLengthItems"
               dense
               flat
               outlined
               solo
               label="Select"
-              v-model="avgLegacyOutageHourlyValue"
-              data-test="text-form-avgLegacyOutageHourlyValue"
+              v-model="avgLegacyOutageLength"
+              data-test="text-form-avgLegacyOutageLength"
               :rules="dropDownRules"
             />
           </v-col>
           <v-col cols="12" sm="6" lg="5">
             <label>Public User Service Disruption Hourly Value</label>
             <v-select
-              :items="disruptionHourlyValueItems"
+              :items="avgDistruptionHourlyValueItems"
               dense
               flat
               outlined
               solo
               label="Select"
-              v-model="disruptionHourlyValue"
-              data-test="text-form-disruptionHourlyValue"
+              v-model="avgDistruptionHourlyValue"
+              data-test="text-form-avgDistruptionHourlyValue"
               :rules="dropDownRules"
             />
           </v-col>
@@ -151,14 +151,14 @@
           <v-col cols="12" sm="6" lg="5">
             <label>Average Yearly Project Hours on New Features</label>
             <v-select
-              :items="avgYearlyFeatureHoursItems"
+              :items="avgYearlyNewFeatureHoursItems"
               dense
               flat
               outlined
               solo
               label="Select"
-              v-model="avgYearlyFeatureHours"
-              data-test="text-form-avgYearlyFeatureHours"
+              v-model="avgYearlyNewFeatureHours"
+              data-test="text-form-avgYearlyNewFeatureHours"
               :rules="dropDownRules"
             />
           </v-col>
@@ -223,17 +223,17 @@ export default {
       // Todo: constants file
       numberOfTeamsItems: ['Low', 'Medium', 'High'],
       employeesVsContractorsItems: ['10:90', '50:50', '90:10'],
-      migrationExperienceItems: [
+      teamMigrationExperienceItems: [
         'Figured it out from scratch',
         'Followed best practice documents',
         'Learned on previous teams',
       ],
-      shadowAppDependenciesItems: ['Low', 'Medium', 'High'],
-      avgBreachCostItems: ['Low', 'Medium', 'High'],
-      avgUsersPerAppItems: ['5', '20', '100'],
-      avgLegacyOutageHourlyValueItems: ['3 hours', '10 hours', '100 hours'],
-      disruptionHourlyValueItems: ['$10 CAD', '$20 CAD', '$30 CAD'],
-      avgYearlyFeatureHoursItems: [
+      shadowAppDepsChanceItems: ['Low', 'Medium', 'High'],
+      avgCostGovDataBreachItems: ['Low', 'Medium', 'High'],
+      avgOnlineUsersPerAppItems: ['5', '20', '100'],
+      avgLegacyOutageLengthItems: ['3 hours', '10 hours', '100 hours'],
+      avgDistruptionHourlyValueItems: ['$10 CAD', '$20 CAD', '$30 CAD'],
+      avgYearlyNewFeatureHoursItems: [
         'Low (3000)',
         'Medium (7500)',
         'High (12000)',
@@ -271,60 +271,60 @@ export default {
         this.updateCost({ ['employeesVsContractors']: value });
       },
     },
-    migrationExperience: {
+    teamMigrationExperience: {
       get() {
-        return this.cost.migrationExperience;
+        return this.cost.teamMigrationExperience;
       },
       set(value) {
-        this.updateCost({ ['migrationExperience']: value });
+        this.updateCost({ ['teamMigrationExperience']: value });
       },
     },
-    shadowAppDependencies: {
+    shadowAppDepsChance: {
       get() {
-        return this.cost.shadowAppDependencies;
+        return this.cost.shadowAppDepsChance;
       },
       set(value) {
-        this.updateCost({ ['shadowAppDependencies']: value });
+        this.updateCost({ ['shadowAppDepsChance']: value });
       },
     },
-    avgBreachCost: {
+    avgCostGovDataBreach: {
       get() {
-        return this.value.avgBreachCost;
+        return this.value.avgCostGovDataBreach;
       },
       set(value) {
-        this.updateValue({ ['avgBreachCost']: value });
+        this.updateValue({ ['avgCostGovDataBreach']: value });
       },
     },
-    avgUsersPerApp: {
+    avgOnlineUsersPerApp: {
       get() {
-        return this.value.avgUsersPerApp;
+        return this.value.avgOnlineUsersPerApp;
       },
       set(value) {
-        this.updateValue({ ['avgUsersPerApp']: value });
+        this.updateValue({ ['avgOnlineUsersPerApp']: value });
       },
     },
-    avgLegacyOutageHourlyValue: {
+    avgLegacyOutageLength: {
       get() {
-        return this.value.avgLegacyOutageHourlyValue;
+        return this.value.avgLegacyOutageLength;
       },
       set(value) {
-        this.updateValue({ ['avgLegacyOutageHourlyValue']: value });
+        this.updateValue({ ['avgLegacyOutageLength']: value });
       },
     },
-    disruptionHourlyValue: {
+    avgDistruptionHourlyValue: {
       get() {
-        return this.value.disruptionHourlyValue;
+        return this.value.avgDistruptionHourlyValue;
       },
       set(value) {
-        this.updateValue({ ['disruptionHourlyValue']: value });
+        this.updateValue({ ['avgDistruptionHourlyValue']: value });
       },
     },
-    avgYearlyFeatureHours: {
+    avgYearlyNewFeatureHours: {
       get() {
-        return this.value.avgYearlyFeatureHours;
+        return this.value.avgYearlyNewFeatureHours;
       },
       set(value) {
-        this.updateValue({ ['avgYearlyFeatureHours']: value });
+        this.updateValue({ ['avgYearlyNewFeatureHours']: value });
       },
     },
     sendEmail: {
