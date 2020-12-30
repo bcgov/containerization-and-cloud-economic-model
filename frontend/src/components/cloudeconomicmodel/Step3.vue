@@ -141,8 +141,6 @@ export default {
           avgYearlyNewFeatureHours: this.value.avgYearlyNewFeatureHours,
         },
       };
-      Object.keys(body.contexts).forEach(i=>alert(`${i}: ${body.contexts[i]}`));
-      process.exit();
       return axios
         .post('http://localhost:3000/render', body)
         .then((res) => {

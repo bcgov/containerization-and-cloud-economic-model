@@ -14,7 +14,7 @@ export const SampleData = Object.freeze({
     avgYearlyNewFeatureHours: 'Medium (7500)',
   },
   contact: {
-    sendEmail: 'derek.roberts@gmail.com',
+    sendEmail: 'does-not-exist@gov.bc.ca',
   },
   attestation: {},
 });
