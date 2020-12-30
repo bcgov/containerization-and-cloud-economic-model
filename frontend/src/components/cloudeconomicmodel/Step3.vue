@@ -99,6 +99,9 @@ export default {
       'submissionComplete',
       'submissionDetails',
       'submitting',
+      'contact',
+      'cost',
+      'value',
     ]),
     // Certify checkboxes
     certifyAccurateInformation: {
@@ -114,7 +117,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateAttestation']),
+    ...mapMutations('form', ['setStep', 'updateAttestation','updateContact', 'updateCost', 'updateValue']),
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();
@@ -125,17 +128,17 @@ export default {
     },
     renderToEmail: function() {
       const body = {
-        recipient: 'derek.roberts@gmail.com',
+        recipient: this.contact.sendEmail,
         contexts: {
-          numberOfTeams: 'Low',
-          employeesVsContractors: '10% Employees',
-          experienceOfTeams: 'Trained by Working on Previous Teams',
-          shadowAppChance: 'Low',
-          avgCostDataBreach: 'Low',
-          avgOnlineUsers: '5',
-          avgLegacyOutage: '10 hours',
-          disruptionHourly: '$30',
-          avgHoursNewFeats: 'Medium (7500)',
+          numberOfTeams: this.cost.numberOfTeams,
+          employeesVsContractors: this.cost.employeesVsContractors,
+          experienceOfTeams: this.cost.migrationExperience,
+          shadowAppChance: this.cost.shadowAppDependencies,
+          avgCostDataBreach: this.value.avgBreachCost,
+          avgOnlineUsers: this.value.avgUsersPerApp,
+          avgLegacyOutage: this.value.avgLegacyOutageHourlyValue,
+          disruptionHourly: this.value.disruptionHourlyValue,
+          avgHoursNewFeats: this.value.avgYearlyFeatureHours,
         },
       };
       return axios
