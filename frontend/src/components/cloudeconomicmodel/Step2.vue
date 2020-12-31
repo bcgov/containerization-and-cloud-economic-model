@@ -202,7 +202,6 @@
 <script>
 import validator from 'validator';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
-import Vue from 'vue';
 
 export default {
   name: 'CloudEconomicModelStep2',
@@ -216,9 +215,7 @@ export default {
       validationFailed: false,
       startDateMenu: false,
       endDateMenu: false,
-      showTestDataButton: Vue.prototype.$config
-        ? Vue.prototype.$config.env !== 'prod'
-        : true,
+      showTestDataButton: process.env.NODE_ENV === 'development' ? true : false,
 
       // Todo: constants file
       numberOfTeamsItems: ['Low', 'Medium', 'High'],
