@@ -12,7 +12,7 @@ function transformToPost(state) {
     cost: copy.cost,
     value: copy.value,
     contact: copy.contact,
-    attestation: copy.attestation
+    attestation: copy.attestation,
   };
 
   return body;
@@ -27,7 +27,7 @@ function transformToState(data) {
     cost: copy.cost,
     value: copy.value,
     contact: copy.contact,
-    attestation: copy.attestation
+    attestation: copy.attestation,
   };
 }
 
@@ -45,36 +45,36 @@ export default {
     cost: {
       numberOfTeams: '',
       employeesVsContractors: '',
-      migrationExperience: '',
-      shadowAppDependencies: ''
+      teamMigrationExperience: '',
+      shadowAppDepsChance: '',
     },
     value: {
-      avgBreachCost: '',
-      avgUsersPerApp: '',
-      avgLegacyOutageHourlyValue: '',
-      disruptionHourlyValue: '',
-      avgYearlyFeatureHours: ''
+      avgCostGovDataBreach: '',
+      avgOnlineUsersPerApp: '',
+      avgLegacyOutageLength: '',
+      avgDistruptionHourlyValue: '',
+      avgYearlyNewFeatureHours: '',
     },
     contact: {
-      sendEmail: ''
+      sendEmail: '',
     },
     attestation: {
-      certifyAccurateInformation: false
-    }
+      certifyAccurateInformation: false,
+    },
   },
   getters: {
-    getFormError: state => state.getFormError,
-    gettingForm: state => state.gettingForm,
-    step: state => state.step,
-    submitting: state => state.submitting,
-    submissionComplete: state => state.submissionComplete,
-    submissionDetails: state => state.submissionDetails,
+    getFormError: (state) => state.getFormError,
+    gettingForm: (state) => state.gettingForm,
+    step: (state) => state.step,
+    submitting: (state) => state.submitting,
+    submissionComplete: (state) => state.submissionComplete,
+    submissionDetails: (state) => state.submissionDetails,
 
     // Form objects
-    cost: state => state.cost,
-    value: state => state.value,
-    contact: state => state.contact,
-    attestation: state => state.attestation
+    cost: (state) => state.cost,
+    value: (state) => state.value,
+    contact: (state) => state.contact,
+    attestation: (state) => state.attestation,
   },
   mutations: {
     setGetFormError(state, errorMessage) {
@@ -110,14 +110,17 @@ export default {
     },
     updateAttestation: (state, obj) => {
       Object.assign(state.attestation, obj);
-    }
+    },
   },
   actions: {
     async getForm({ commit }, id) {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await commonFormService.getSubmission(FormNames.CLOUDECONOMICMODEL, id);
+        const response = await commonFormService.getSubmission(
+          FormNames.CLOUDECONOMICMODEL,
+          id
+        );
         if (!response.data) {
           throw new Error(`Failed to GET for ${id}`);
         }
@@ -130,7 +133,10 @@ export default {
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
-        commit('setGetFormError', 'An error occurred while attempting to fetch details. Please refresh and try again.');
+        commit(
+          'setGetFormError',
+          'An error occurred while attempting to fetch details. Please refresh and try again.'
+        );
       } finally {
         commit('setGettingForm', false);
       }
@@ -140,7 +146,10 @@ export default {
       try {
         const body = transformToPost(state);
 
-        const response = await commonFormService.sendSubmission(FormNames.CLOUDECONOMICMODEL, body);
+        const response = await commonFormService.sendSubmission(
+          FormNames.CLOUDECONOMICMODEL,
+          body
+        );
         if (!response.data) {
           throw new Error('No response data from API while submitting form');
         }
@@ -156,6 +165,6 @@ export default {
       commit('updateCost', SampleData.cost);
       commit('updateValue', SampleData.value);
       commit('updateContact', SampleData.contact);
-    }
-  }
+    },
+  },
 };
