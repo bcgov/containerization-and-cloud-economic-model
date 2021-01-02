@@ -2,45 +2,41 @@
   <v-container>
     <div class="hide-on-review">
       <h2 class="mb-8">Cloud Economic Model</h2>
-      <p class="mb-8">
-        Please complete the following to receive your customized Cloud Economic
-        Model report.
-      </p>
+      <hr class="orange" />
 
-      <h2 class="mb-8 mt-12">
-        <strong>Before you complete this form:</strong>
-      </h2>
-    </div>
+      <br />
+      <h3 class="mb-8">Before you begin:</h3>
+      <!-- <hr /> -->
+      <v-container class="mb-4">
+        <v-row no-gutters>
+          <v-col cols="12" sm="2" lg="1" class="hide-on-review">
+            <v-avatar color="#003366" size="50">
+              <span class="white--text headline">1</span>
+            </v-avatar>
+          </v-col>
+          <v-col cols="12" sm="10" lg="11">
+            <v-expansion-panels>
+              <v-expansion-panel>
+                <v-expansion-panel-header data-test="btn-form-panel-camp-order">
+                  <strong> Supplementary Reading</strong>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <h4 class="mb-4">
+                    Read <em>{{ docTitle }}</em>
+                  </h4>
+                  <p>
+                    <a href="https://www2.gov.bc.ca/" target="_blank">
+                      Download PDF (link unassigned)</a
+                    >
+                  </p>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-col>
+        </v-row>
+      </v-container>
 
-    <v-container>
-      <v-row no-gutters>
-        <v-col cols="12" sm="2" lg="1" class="hide-on-review">
-          <v-avatar color="#003366" size="50">
-            <span class="white--text headline">1</span>
-          </v-avatar>
-        </v-col>
-        <v-col cols="12" sm="10" lg="11">
-          <h4 class="mb-4">
-            <strong>
-              Read
-              <em>{{ docTitle }}</em>
-            </strong>
-          </h4>
-          <p>
-            <a
-              href="https://www2.gov.bc.ca/assets/gov/health/about-bc-s-health-care-system/office-of-the-provincial-health-officer/covid-19/covid-19-pho-guidance-natural-resource-sector-work-camps.pdf"
-              target="_blank"
-              data-test="btn-form-health-pdf-link"
-            >
-              Download PDF</a
-            >
-          </p>
-        </v-col>
-      </v-row>
-    </v-container>
-
-    <div class="hide-on-review">
-      <hr />
+      <!-- <hr /> -->
       <v-container class="mb-4">
         <v-row no-gutters>
           <v-col cols="12" sm="2" lg="1" class="hide-on-review">
@@ -52,31 +48,18 @@
             <v-expansion-panels>
               <v-expansion-panel>
                 <v-expansion-panel-header data-test="btn-form-panel-camp-order">
-                  <strong>
-                    Complete a COVID-19 risk assessment by following the
-                    directions in the guidance document.</strong
-                  >
+                  <strong> Required Information</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <p>
-                    Assessing each section in
-                    <em>{{ docShortTitle }}</em> will help you identify areas
-                    that do not sufficiently prevent or reduce the risk of
-                    COVID-19 transmission.
+                    It is recommended that team size, experience and other
+                    factors be know to accurately calculate projections.
                   </p>
 
                   <BaseInfoCard>
-                    <p>
-                      <strong>For example,</strong> if workers need to be
-                      transported to the work site in vehicles where a 2m
-                      distance cannot be maintained, this should be identified
-                      as a risk.
-                    </p>
-                    <p class="mb-0">
-                      Industrial Camps Operators can take practical actions to
-                      reduce the risk of disease transmission (see section 7 of
-                      document).
-                    </p>
+                    <strong>E.g.</strong> 8 developers, no platform knowledge,
+                    3000 hours/year on new features and low likelihood of shadow
+                    app dependencies.
                   </BaseInfoCard>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -85,8 +68,8 @@
         </v-row>
       </v-container>
 
-      <hr />
-      <v-container>
+      <!-- <hr /> -->
+      <v-container class="mb-4">
         <v-row no-gutters>
           <v-col cols="12" sm="2" lg="1" class="hide-on-review">
             <v-avatar color="#003366" size="50">
@@ -99,30 +82,12 @@
                 <v-expansion-panel-header
                   data-test="btn-form-panel-ipc-protocol"
                 >
-                  <strong>
-                    Create your Infection Prevention and Control
-                    protocol.</strong
-                  >
+                  <strong> No Data Retention</strong>
                 </v-expansion-panel-header>
                 <v-expansion-panel-content>
                   <p>
-                    By following the guidance in
-                    <em>{{ docShortTitle }}</em
-                    >, you will be developing an Infection Prevention and
-                    Control (IPC) Protocol.
-                  </p>
-                  <p>
-                    For each section of the guide you identified a risk, the
-                    risk needs to be controlled. For example, if your workers
-                    ride together in a vehicle to the work site, and you follow
-                    the instructions to increase cleaning and hygiene, and
-                    increase physical distancing, this will form your IPC plan
-                    for transportation (see section 7).
-                  </p>
-                  <p>
-                    Have you decided what guidance in
-                    <em>{{ docShortTitle }}</em> is needed in your camps to
-                    prevent or control the risk of the transmission of COVID-19?
+                    No information will retained, so accuracy is technically not
+                    important.
                   </p>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -133,12 +98,14 @@
     </div>
 
     <div class="hide-on-review">
+      <!-- <hr /> -->
+
       <v-btn
         color="primary"
         @click="setStep(2)"
         data-test="btn-form-to-next-step"
       >
-        <span>Go to Sensitivity Analysis Options</span>
+        <span>Go to Analysis Options</span>
       </v-btn>
     </div>
   </v-container>
@@ -151,8 +118,7 @@ export default {
   name: 'CloudEconomicModelStep1',
   data() {
     return {
-      docTitle: 'Before you complete this form',
-      docShortTitle: 'Preamble',
+      docTitle: 'Unassigned PDF',
     };
   },
   methods: {
@@ -160,4 +126,3 @@ export default {
   },
 };
 </script>
-
