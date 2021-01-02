@@ -34,8 +34,20 @@
 
               <v-divider />
 
-              <v-stepper-step step="3" data-test="btn-stepper-six">
+              <v-stepper-step
+                :complete="step > 3"
+                data-test="btn-stepper-three"
+                edit-icon="check"
+                :editable="step > 3"
+                step="3"
+              >
                 Review</v-stepper-step
+              >
+
+              <v-divider />
+
+              <v-stepper-step step="4" data-test="btn-stepper-four">
+                Confirmation</v-stepper-step
               >
             </v-stepper-header>
           </v-col>
