@@ -55,7 +55,15 @@
     </div>
 
     <div v-if="!submissionComplete">
-      <v-btn color="primary" data-test="btn-form-submit" :disabled="!step3Valid" @click="renderToEmail" >
+      <v-btn
+        color="primary"
+        data-test="btn-form-submit"
+        :disabled="!step3Valid"
+        @click="
+          renderToEmail();
+          setStep(4);
+        "
+      >
         <span>Send to Email</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
@@ -117,7 +125,13 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateAttestation','updateContact', 'updateCost', 'updateValue']),
+    ...mapMutations('form', [
+      'setStep',
+      'updateAttestation',
+      'updateContact',
+      'updateCost',
+      'updateValue',
+    ]),
     ...mapActions('form', ['submitForm']),
     async submit() {
       await this.submitForm();
@@ -126,7 +140,7 @@ export default {
         window.onbeforeunload = null;
       }
     },
-    renderToEmail: function() {
+    renderToEmail: function () {
       const body = {
         recipient: this.contact.sendEmail,
         contexts: {
@@ -149,7 +163,7 @@ export default {
         .catch((err) => {
           alert(err);
         });
-    }
+    },
   },
   mounted() {
     document

@@ -343,7 +343,7 @@ export default {
     ]),
     async submit() {
       if (this.$refs.form.validate()) {
-        this.setStep(6);
+        this.setStep(3);
       } else {
         await new Promise((r) => setTimeout(r, 200)); //ugh
         const el = document.querySelector(

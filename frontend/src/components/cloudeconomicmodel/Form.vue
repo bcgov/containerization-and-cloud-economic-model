@@ -54,8 +54,12 @@
                 <Step2 />
               </v-stepper-content>
 
-              <v-stepper-content step="6">
+              <v-stepper-content step="3">
                 <Step3 />
+              </v-stepper-content>
+
+              <v-stepper-content step="4">
+                <Step4 />
               </v-stepper-content>
             </v-stepper-items>
           </v-col>
@@ -71,6 +75,7 @@ import { mapGetters, mapMutations } from 'vuex';
 import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
 import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
 import Step3 from '@/components/cloudeconomicmodel/Step3.vue';
+import Step4 from '@/components/cloudeconomicmodel/Step4.vue';
 
 export default {
   name: 'CloudEconomicModelForm',
@@ -78,6 +83,7 @@ export default {
     Step1,
     Step2,
     Step3,
+    Step4,
   },
   data() {
     return {};
