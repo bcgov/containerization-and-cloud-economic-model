@@ -155,14 +155,9 @@ export default {
           avgYearlyNewFeatureHours: this.value.avgYearlyNewFeatureHours,
         },
       };
-      return axios
-        .post('http://localhost:3000/render', body)
-        .then((res) => {
-          alert(res.data);
-        })
-        .catch((err) => {
-          alert(err);
-        });
+      return axios.post('http://localhost:3000/render', body).catch((err) => {
+        alert(err);
+      });
     },
   },
   mounted() {
