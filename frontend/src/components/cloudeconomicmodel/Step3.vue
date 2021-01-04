@@ -4,7 +4,7 @@
     <hr class="orange" />
 
     <v-row>
-      <v-col offset-lg="1" cols="12" lg="10">
+      <v-col cols="12" lg="12">
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             1. Before You Begin
@@ -22,7 +22,7 @@
           </h2>
           <Step1 />
         </v-card>
-
+        <br />
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             2. Contact Information
@@ -173,11 +173,10 @@ export default {
 <style scoped lang="scss">
 .review-form {
   font-size: smaller;
-  margin-bottom: 2em;
+  margin-bottom: 0em;
   padding: 1em;
   .review-heading {
     margin-left: 0.5em;
-    margin-bottom: 1em;
   }
   background-color: #efefef;
   &::v-deep {
