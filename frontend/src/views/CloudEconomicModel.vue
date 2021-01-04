@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import form from '@/store/modules/cloudeconomicmodel/cloudEconomicModel.js';
+import form from '@/store/modules/cloudEconomicModel.js';
 
 export default {
   name: 'CloudEconomicModel',

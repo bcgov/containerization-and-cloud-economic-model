@@ -8,26 +8,33 @@ const baseTitle = 'Cloud Economic Model';
 export default [
   {
     path: '/',
-    component: () => import(/* webpackChunkName: "cloudeconomicmodel" */ '@/views/CloudEconomicModel.vue'),
+    component: () =>
+      import(
+        /* webpackChunkName: "cloudeconomicmodel" */ '@/views/CloudEconomicModel.vue'
+      ),
     children: [
       {
         path: '',
         name: `${baseName}Form`,
-        component: () => import(/* webpackChunkName: "cloudeconomicmodel-form" */ '@/views/cloudeconomicmodel/Root.vue'),
+        component: () =>
+          import(
+            /* webpackChunkName: "cloudeconomicmodel-form" */ '@/views/Root.vue'
+          ),
         meta: {
-          title: baseTitle
-        }
+          title: baseTitle,
+        },
       },
-    ]
+    ],
   },
   {
     path: '/',
-    redirect: { name: 'Home' }
+    redirect: { name: 'Home' },
   },
   {
     path: '/404',
     alias: '*',
     name: 'NotFound',
-    component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue')
-  }
+    component: () =>
+      import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
+  },
 ];
