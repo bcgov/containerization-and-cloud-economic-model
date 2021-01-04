@@ -348,8 +348,7 @@ export default {
   },
   mounted() {
     if (!this.reviewMode) {
-      // Once they've gotten to the form start (step 2) enable the typical "leave site" native browser warning
-      // This gets disabled after form submit in step 6
+      // Enable "leave site" native browser warning
       window.onbeforeunload = () => true;
     }
   },
