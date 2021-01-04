@@ -1,35 +1,4 @@
-import commonFormService from '@/services/commonFormService';
-import { FormNames } from '@/utils/constants';
 import { SampleData } from './sampleData.js';
-
-// Change the supplied state to the exact format required by the API endpoint
-// Any data guards/sanitation can go in here
-function transformToPost(state) {
-  // TODO: unit test this!
-  const copy = JSON.parse(JSON.stringify(state));
-
-  const body = {
-    cost: copy.cost,
-    value: copy.value,
-    contact: copy.contact,
-    attestation: copy.attestation,
-  };
-
-  return body;
-}
-
-// Change the results of the API fetch to the store state format
-function transformToState(data) {
-  // TODO: unit test this!
-  const copy = JSON.parse(JSON.stringify(data));
-
-  return {
-    cost: copy.cost,
-    value: copy.value,
-    contact: copy.contact,
-    attestation: copy.attestation,
-  };
-}
 
 export default {
   namespaced: true,
@@ -113,23 +82,10 @@ export default {
     },
   },
   actions: {
-    async getForm({ commit }, id) {
+    async getForm({ commit }) {
       commit('setGettingForm', true);
       commit('setGetFormError', '');
       try {
-        const response = await commonFormService.getSubmission(
-          FormNames.CLOUDECONOMICMODEL,
-          id
-        );
-        if (!response.data) {
-          throw new Error(`Failed to GET for ${id}`);
-        }
-        const transformed = transformToState(response.data);
-
-        commit('updateCost', transformed.cost);
-        commit('updateValue', transformed.value);
-        commit('updateContact', transformed.contact);
-        commit('updateAttestation', transformed.attestation);
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error getting form: ${error}`); // eslint-disable-line no-console
@@ -141,19 +97,9 @@ export default {
         commit('setGettingForm', false);
       }
     },
-    async submitForm({ commit, state }) {
+    async submitForm({ commit }) {
       commit('setSubmitting', true);
       try {
-        const body = transformToPost(state);
-
-        const response = await commonFormService.sendSubmission(
-          FormNames.CLOUDECONOMICMODEL,
-          body
-        );
-        if (!response.data) {
-          throw new Error('No response data from API while submitting form');
-        }
-        commit('setSubmissionDetails', response.data);
         commit('setSubmissionComplete');
       } catch (error) {
         console.error(`Error submitting form: ${error} - ${error.message}`); // eslint-disable-line no-console
