@@ -87,7 +87,6 @@ import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
 import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
-import { FormNames } from '@/utils/constants';
 import axios from 'axios';
 
 export default {
@@ -119,9 +118,6 @@ export default {
       set(value) {
         this.updateAttestation({ ['certifyAccurateInformation']: value });
       },
-    },
-    formName() {
-      return FormNames.CLOUDECONOMICMODEL;
     },
   },
   methods: {

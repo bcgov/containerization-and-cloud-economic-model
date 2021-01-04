@@ -209,7 +209,6 @@ export default {
       endDateMenu: false,
       showTestDataButton: process.env.NODE_ENV === 'development' ? true : false,
 
-      // Todo: constants file
       numberOfTeamsItems: ['Low', 'Medium', 'High'],
       employeesVsContractorsItems: ['10:90', '50:50', '90:10'],
       teamMigrationExperienceItems: [

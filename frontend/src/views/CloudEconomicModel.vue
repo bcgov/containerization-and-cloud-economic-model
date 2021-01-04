@@ -8,24 +8,18 @@
 
 <script>
 import form from '@/store/modules/cloudeconomicmodel/cloudEconomicModel.js';
-import { FormNames } from '@/utils/constants';
 
 export default {
   name: 'CloudEconomicModel',
   beforeDestroy() {
     this.$store.unregisterModule('form');
   },
-  computed: {
-    formName() {
-      return FormNames.CLOUDECONOMICMODEL;
-    }
-  },
   created() {
     if (this.$store.hasModule('form')) {
       this.$store.unregisterModule('form');
     }
     this.$store.registerModule('form', form);
-  }
+  },
 };
 </script>
 
