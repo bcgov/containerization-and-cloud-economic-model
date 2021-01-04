@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import Form from '@/components/cloudeconomicmodel/Form.vue';
+import Form from '@/components/Form.vue';
 export default {
   name: 'CloudEconomicModelRoot',
   components: {
-    Form
-  }
+    Form,
+  },
 };
 </script>

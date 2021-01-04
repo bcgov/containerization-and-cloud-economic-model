@@ -34,8 +34,20 @@
 
               <v-divider />
 
-              <v-stepper-step step="3" data-test="btn-stepper-six">
+              <v-stepper-step
+                :complete="step > 3"
+                data-test="btn-stepper-three"
+                edit-icon="check"
+                :editable="step > 3"
+                step="3"
+              >
                 Review</v-stepper-step
+              >
+
+              <v-divider />
+
+              <v-stepper-step step="4" data-test="btn-stepper-four">
+                Confirmation</v-stepper-step
               >
             </v-stepper-header>
           </v-col>
@@ -54,8 +66,12 @@
                 <Step2 />
               </v-stepper-content>
 
-              <v-stepper-content step="6">
+              <v-stepper-content step="3">
                 <Step3 />
+              </v-stepper-content>
+
+              <v-stepper-content step="4">
+                <Step4 />
               </v-stepper-content>
             </v-stepper-items>
           </v-col>
@@ -68,9 +84,10 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
-import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
-import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
-import Step3 from '@/components/cloudeconomicmodel/Step3.vue';
+import Step1 from '@/components/Step1.vue';
+import Step2 from '@/components/Step2.vue';
+import Step3 from '@/components/Step3.vue';
+import Step4 from '@/components/Step4.vue';
 
 export default {
   name: 'CloudEconomicModelForm',
@@ -78,6 +95,7 @@ export default {
     Step1,
     Step2,
     Step3,
+    Step4,
   },
   data() {
     return {};

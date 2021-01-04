@@ -4,7 +4,7 @@
     <hr class="orange" />
 
     <v-row>
-      <v-col offset-lg="1" cols="12" lg="10">
+      <v-col cols="12" lg="12">
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             1. Before You Begin
@@ -22,7 +22,7 @@
           </h2>
           <Step1 />
         </v-card>
-
+        <br />
         <v-card outlined class="review-form">
           <h2 class="review-heading">
             2. Contact Information
@@ -55,7 +55,15 @@
     </div>
 
     <div v-if="!submissionComplete">
-      <v-btn color="primary" data-test="btn-form-submit" :disabled="!step3Valid" @click="renderToEmail" >
+      <v-btn
+        color="primary"
+        data-test="btn-form-submit"
+        :disabled="!step3Valid"
+        @click="
+          renderToEmail();
+          setStep(4);
+        "
+      >
         <span>Send to Email</span>
       </v-btn>
       <v-btn text @click="setStep(2)" data-test="btn-form-to-previous-step">
@@ -77,9 +85,8 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
-import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
-import { FormNames } from '@/utils/constants';
+import Step1 from '@/components/Step1.vue';
+import Step2 from '@/components/Step2.vue';
 import axios from 'axios';
 
 export default {
@@ -112,21 +119,17 @@ export default {
         this.updateAttestation({ ['certifyAccurateInformation']: value });
       },
     },
-    formName() {
-      return FormNames.CLOUDECONOMICMODEL;
-    },
   },
   methods: {
-    ...mapMutations('form', ['setStep', 'updateAttestation','updateContact', 'updateCost', 'updateValue']),
+    ...mapMutations('form', [
+      'setStep',
+      'updateAttestation',
+      'updateContact',
+      'updateCost',
+      'updateValue',
+    ]),
     ...mapActions('form', ['submitForm']),
-    async submit() {
-      await this.submitForm();
-      if (this.submissionComplete) {
-        // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
-        window.onbeforeunload = null;
-      }
-    },
-    renderToEmail: function() {
+    renderToEmail: function () {
       const body = {
         recipient: this.contact.sendEmail,
         contexts: {
@@ -141,15 +144,10 @@ export default {
           avgYearlyNewFeatureHours: this.value.avgYearlyNewFeatureHours,
         },
       };
-      return axios
-        .post('http://localhost:3000/render', body)
-        .then((res) => {
-          alert(res.data);
-        })
-        .catch((err) => {
-          alert(err);
-        });
-    }
+      return axios.post('http://localhost:3000/render', body).catch((err) => {
+        alert(err);
+      });
+    },
   },
   mounted() {
     document
@@ -164,11 +162,10 @@ export default {
 <style scoped lang="scss">
 .review-form {
   font-size: smaller;
-  margin-bottom: 2em;
+  margin-bottom: 0em;
   padding: 1em;
   .review-heading {
     margin-left: 0.5em;
-    margin-bottom: 1em;
   }
   background-color: #efefef;
   &::v-deep {

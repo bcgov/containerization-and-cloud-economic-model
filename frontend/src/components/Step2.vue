@@ -17,11 +17,9 @@
 
     <v-form ref="form" v-model="step2Valid">
       <v-container>
-        <hr />
-
         <h4>Cost</h4>
         <v-row>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Number of Teams</label>
             <v-select
               :items="numberOfTeamsItems"
@@ -35,7 +33,7 @@
               :rules="dropDownRules"
             />
           </v-col>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Ratio of Employees vs Contractors</label>
             <v-select
               :items="employeesVsContractorsItems"
@@ -52,7 +50,7 @@
         </v-row>
 
         <v-row>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Experience of Teams with BC Gov Migrations</label>
             <v-select
               :items="teamMigrationExperienceItems"
@@ -66,7 +64,7 @@
               :rules="dropDownRules"
             />
           </v-col>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Likelihood of Shadow App Dependencies</label>
             <v-select
               :items="shadowAppDepsChanceItems"
@@ -82,11 +80,9 @@
           </v-col>
         </v-row>
 
-        <hr />
-
         <h4>Value</h4>
         <v-row>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Average Cost of Gov Data Breach</label>
             <v-select
               :items="avgCostGovDataBreachItems"
@@ -100,7 +96,7 @@
               :rules="dropDownRules"
             />
           </v-col>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>
               Average Currrently Online Public Users per Application
             </label>
@@ -118,7 +114,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Average Legacy System Outage Length</label>
             <v-select
               :items="avgLegacyOutageLengthItems"
@@ -132,7 +128,7 @@
               :rules="dropDownRules"
             />
           </v-col>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Public User Service Disruption Hourly Value</label>
             <v-select
               :items="avgDistruptionHourlyValueItems"
@@ -148,7 +144,7 @@
           </v-col>
         </v-row>
         <v-row>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Average Yearly Project Hours on New Features</label>
             <v-select
               :items="avgYearlyNewFeatureHoursItems"
@@ -164,11 +160,9 @@
           </v-col>
         </v-row>
 
-        <hr />
-
         <h4>Delivery</h4>
         <v-row>
-          <v-col cols="12" sm="6" lg="5">
+          <v-col cols="12" sm="6" lg="6">
             <label>Email address</label>
             <v-text-field
               dense
@@ -187,8 +181,6 @@
     </v-form>
 
     <div class="hide-on-review">
-      <hr />
-
       <v-btn color="primary" @click="submit" data-test="btn-form-to-next-step">
         <span>Go to Review</span>
       </v-btn>
@@ -217,7 +209,6 @@ export default {
       endDateMenu: false,
       showTestDataButton: process.env.NODE_ENV === 'development' ? true : false,
 
-      // Todo: constants file
       numberOfTeamsItems: ['Low', 'Medium', 'High'],
       employeesVsContractorsItems: ['10:90', '50:50', '90:10'],
       teamMigrationExperienceItems: [
@@ -343,7 +334,7 @@ export default {
     ]),
     async submit() {
       if (this.$refs.form.validate()) {
-        this.setStep(6);
+        this.setStep(3);
       } else {
         await new Promise((r) => setTimeout(r, 200)); //ugh
         const el = document.querySelector(
@@ -356,8 +347,7 @@ export default {
   },
   mounted() {
     if (!this.reviewMode) {
-      // Once they've gotten to the form start (step 2) enable the typical "leave site" native browser warning
-      // This gets disabled after form submit in step 6
+      // Enable "leave site" native browser warning
       window.onbeforeunload = () => true;
     }
   },
