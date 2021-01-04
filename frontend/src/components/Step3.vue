@@ -85,8 +85,8 @@
 <script>
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
-import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
-import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
+import Step1 from '@/components/Step1.vue';
+import Step2 from '@/components/Step2.vue';
 import axios from 'axios';
 
 export default {

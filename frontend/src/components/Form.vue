@@ -84,10 +84,10 @@
 <script>
 import { mapGetters, mapMutations } from 'vuex';
 
-import Step1 from '@/components/cloudeconomicmodel/Step1.vue';
-import Step2 from '@/components/cloudeconomicmodel/Step2.vue';
-import Step3 from '@/components/cloudeconomicmodel/Step3.vue';
-import Step4 from '@/components/cloudeconomicmodel/Step4.vue';
+import Step1 from '@/components/Step1.vue';
+import Step2 from '@/components/Step2.vue';
+import Step3 from '@/components/Step3.vue';
+import Step4 from '@/components/Step4.vue';
 
 export default {
   name: 'CloudEconomicModelForm',
