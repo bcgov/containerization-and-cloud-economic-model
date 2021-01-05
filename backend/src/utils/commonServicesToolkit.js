@@ -88,6 +88,7 @@ async function sendFile(file, recipient) {
 
   // Payload
   const attachment = file.toString('base64');
+  const email = require('./email.json');
   const bodyCHES = {
     attachments: [
       {
@@ -97,11 +98,10 @@ async function sendFile(file, recipient) {
       },
     ],
     bodyType: 'html',
-    body:
-      '<p>Thank you for using the Cloud Economic Model to forecast your cloud deployment strategy.  A report in Excel format is attached to this message.</p><br /><p>Thank you,</p>The Cloud Economic Model Team<br />',
+    body: email.body,
     delayTS: '0',
     from: EMAIL_SENDER,
-    subject: 'Your Cloud Economic Model Forecast',
+    subject: email.subject,
     to: [recipient],
   };
 
