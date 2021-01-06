@@ -87,7 +87,7 @@ async function sendFile(file, recipient) {
 
   // Payload
   const attachment = file.toString('base64');
-  const email = require('../../config/email.json');
+  const email = require('../config/email.json');
   const bodyCHES = {
     attachments: [
       {

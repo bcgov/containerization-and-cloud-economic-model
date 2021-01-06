@@ -1,15 +1,17 @@
 const express = require('express');
-const cors = require('cors')
-const cstk = require('./src/utils/commonServicesToolkit');
+const cors = require('cors');
+const cstk = require('./src/commonServicesToolkit');
 
-const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8080'
+const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8080';
 // Express
 const app = express();
 app.use(express.json());
-app.use(cors({origin: FRONTEND_URL}))
+app.use(cors({ origin: FRONTEND_URL }));
 
 // Envars
-const TITLE = process.env.TITLE || 'Wrapper and Credential Handler for Common Services APIs';
+const TITLE =
+  process.env.TITLE ||
+  'Wrapper and Credential Handler for Common Services APIs';
 const PORT = process.env.PORT || 3000;
 
 // Receive contexts and email recipient, create and send file
