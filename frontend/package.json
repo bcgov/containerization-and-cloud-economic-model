@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@bcgov/bc-sans": "^1.0.1",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "carbone": "^2.1.1",
     "core-js": "^3.6.5",
