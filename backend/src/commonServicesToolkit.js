@@ -14,11 +14,18 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
 
 // Envars - optional (clip url trailing slashes)
 const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
-const EMAIL_SENDER = process.env.EMAIL_SENDER || 'example@gov.bc.ca';
-const TEMPLATE = process.env.PATH_TEMPLATE || './src/assets/templates/CEM_template.xlsx';
-const TOKEN_URL = (process.env.TOKEN_URL || 'https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token').replace(/\/$/, '');
-const CDOGS_URL = (process.env.CDOGS_URL || 'https://cdogs-dev.pathfinder.gov.bc.ca/api/v2').replace(/\/$/, '');
-const CHES_URL = (process.env.CHES_URL || 'https://ches-dev.pathfinder.gov.bc.ca/api/v1').replace(/\/$/, '');
+const EMAIL_SENDER = process.env.EMAIL_SENDER || 'noreply@gov.bc.ca';
+const TEMPLATE = process.env.PATH_TEMPLATE || './config/template.xlsx';
+const TOKEN_URL = (
+  process.env.TOKEN_URL ||
+  'https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token'
+).replace(/\/$/, '');
+const CDOGS_URL = (
+  process.env.CDOGS_URL || 'https://cdogs-dev.pathfinder.gov.bc.ca/api/v2'
+).replace(/\/$/, '');
+const CHES_URL = (
+  process.env.CHES_URL || 'https://ches-dev.pathfinder.gov.bc.ca/api/v1'
+).replace(/\/$/, '');
 
 // Get token from DocGen SSO
 function getToken() {
@@ -80,6 +87,7 @@ async function sendFile(file, recipient) {
 
   // Payload
   const attachment = file.toString('base64');
+  const email = require('../config/email.json');
   const bodyCHES = {
     attachments: [
       {
@@ -88,11 +96,11 @@ async function sendFile(file, recipient) {
         filename: FILE_NAME,
       },
     ],
-    bodyType: 'html',
-    body: 'Email message body',
-    delayTS: '0',
+    bodyType: email.bodyType,
+    body: email.body,
+    delayTS: email.delayTS,
     from: EMAIL_SENDER,
-    subject: 'Email subject',
+    subject: email.subject,
     to: [recipient],
   };
 
@@ -102,7 +110,10 @@ async function sendFile(file, recipient) {
     axios
       .post('/email', bodyCHES, config)
       .then(resolve(FILE_NAME))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        console.log(err.response.statusText);
+        reject(err);
+      });
   });
 }
 
