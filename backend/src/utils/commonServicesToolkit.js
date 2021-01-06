@@ -15,8 +15,7 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
 // Envars - optional (clip url trailing slashes)
 const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
 const EMAIL_SENDER = process.env.EMAIL_SENDER || 'noreply@gov.bc.ca';
-const TEMPLATE =
-  process.env.PATH_TEMPLATE || './src/assets/templates/CEM_template.xlsx';
+const TEMPLATE = process.env.PATH_TEMPLATE || './config/template.xlsx';
 const TOKEN_URL = (
   process.env.TOKEN_URL ||
   'https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token'
