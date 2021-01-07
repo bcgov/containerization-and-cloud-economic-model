@@ -1,0 +1,19 @@
+version: '3.7'
+services:
+  backend:
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    env_file:
+      - ./backend/tmp_env.docker
+    environment:
+      - FRONTEND_URL=""
+      - CMNSRV_CLIENTID="CEM_SERVICE_CLIENT"
+    ports:
+      - '3000:3000'
+  frontend:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
