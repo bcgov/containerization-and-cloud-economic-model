@@ -2,10 +2,10 @@
   "name": "cem-backend",
   "version": "1.0.0",
   "description": "Communicates with Common Services' APIs (CDOGS, CHES, Auth)",
-  "main": "app.js",
+  "main": "/src/server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "npm i && ./node_modules/.bin/nodemon server.js",
+    "start": "node /src/server.js",
+    "dev": "npm i && ./node_modules/.bin/nodemon ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
