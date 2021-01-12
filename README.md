@@ -70,7 +70,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-A Common Services GETOK is available for free, approved use by the Government of British Columbia. Please see their project documentation.
+A Common Services GETOK is available for free, approved for use by the Government of British Columbia. Please see their project documentation.
 
 - [GETOK Common Services Onboarding](https://getok.nrs.gov.bc.ca/app/about)
 
@@ -114,7 +114,7 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
    npm run serve
    ```
 
-4. Open the application. Frondend is the intended entry point.
+4. Open the application. Frontend is the intended entry point.
 
 - [Frontend (localhost:8080)](http://localhost:8080)
 - [Backend (localhost:3000)](http://localhost:3000)
@@ -129,7 +129,7 @@ See the [open issues][issues-url] for a list of proposed features (and known iss
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn, inspire and create. Any contributions you make are **greatly appreciated**.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
