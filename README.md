@@ -43,6 +43,7 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#code-of-conduct">Code of Conduct</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
@@ -137,25 +138,48 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
 
 ## Roadmap
 
-See the [open issues][issues-url] for a list of proposed features (and known issues).
+See the [open issues](/../../issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to be learn, inspire and create. Any contributions you make are **greatly appreciated**.
+Contributions are what make the open source community such an amazing place to be learn, inspire and create. Any contributions you make are **greatly appreciated**. Please see [CONTRIBUTING.md](CONTRIBUTING.md) for more information.
 
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. Fork the Project. Do this online using a [GitHub account](https://github.com/join)
+2. Create and Push your Feature Branch
+
+   ```
+   git checkout -b feature/featureTitle
+   git push -u origin feature/featureTitle
+   ```
+
+3. Add and Commit your Changes
+
+   ```
+   git add file_or_path
+   git commit -m "Description of feature or change"
+   ```
+
+4. Push to the Branch Regularly
+
+   ```
+   git push
+   ```
+
+5. Open a Pull Request online
+
+<!-- CONDUCT -->
+
+## Code of Conduct
+
+Be inclusive and respectful. More information is available in [CONDUCT.md](CONDUCT.md).
 
 <!-- LICENSE -->
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for more information.
 
 <!-- ACKNOWLEDGEMENTS -->
 
