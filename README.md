@@ -54,6 +54,12 @@ A Vue Frontend (single page application) asks questions which are used to comple
 
 This project started as a fork of the Common Services Team's [Common Forms Toolkit](https://github.com/bcgov/common-forms-toolkit).
 
+### Sample: DEV Mode Sensitivity Analysis Options
+
+![Questions](.images/questions.png)
+
+### Architecture
+
 ![CEM Architecture](.images/overview.png)
 
 ### Built With
