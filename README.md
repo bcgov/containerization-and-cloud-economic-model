@@ -58,9 +58,17 @@ This project started as a fork of the Common Services Team's [Common Forms Toolk
 
 ### Built With
 
+Technologies:
+
 - [Node.js](https://nodejs.org/)
 - [Vue.js](https://vuejs.org/)
 - [Express.js](https://expressjs.com/)
+
+Services:
+
+- [Common Services GETOK](https://getok.nrs.gov.bc.ca)
+- [Common Document Generation Service (CDOGS)](https://bcgov.github.io/common-document-generation-service)
+- [Common Hosted Email Service (CHES)](https://bcgov.github.io/common-hosted-email-service)
 
 <!-- GETTING STARTED -->
 
@@ -148,9 +156,6 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 ## Acknowledgements
 
 - [Common Services Wiki](https://github.com/bcgov/nr-get-token/wiki)
-- [Common Services GETOK](https://getok.nrs.gov.bc.ca)
-- [Common Document Generation Service (CDOGS)](https://bcgov.github.io/common-document-generation-service)
-- [Common Hosted Email Service (CHES)](https://bcgov.github.io/common-hosted-email-service)
 - [Common Forms Toolkit (ComForT)](https://github.com/bcgov/common-forms-toolkit)
 - [othneildrew's Best README Template](https://github.com/othneildrew/Best-README-Template)
 
