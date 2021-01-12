@@ -12,7 +12,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
-  <a href="https://github.com/DerekRoberts/cem">
+  <a href="https://gov.bc.ca">
     <img src="frontend/src/assets/images/bc_logo.svg" alt="Logo">
   </a>
 
@@ -20,14 +20,6 @@
 
   <p align="center">
     The Cloud Economic Model makes financial sense of adopting cloud-based infrastructure.
-    <br />
-    <!-- TODO -->
-    <a href="https://github.com/DerekRoberts/cem">View Demo</a>
-    ·
-    <a href="https://github.com/DerekRoberts/cem/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/DerekRoberts/cem/issues">Request Feature</a>
-
   </p>
 </p>
 
