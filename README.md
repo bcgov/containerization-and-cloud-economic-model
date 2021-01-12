@@ -43,6 +43,7 @@
     <li><a href="#usage">Usage</a></li>
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#code-of-conduct">Code of Conduct</a></li>
     <li><a href="#license">License</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
@@ -167,6 +168,8 @@ Contributions are what make the open source community such an amazing place to b
    ```
 
 5. Open a Pull Request online
+
+<!-- CONDUCT -->
 
 ## Code of Conduct
 
