@@ -21,15 +21,13 @@
   <p align="center">
     The Cloud Economic Model makes financial sense of adopting cloud-based infrastructure.
     <br />
-    <a href="https://github.com/DerekRoberts/cem"><strong>GitHub Repository »</strong></a>
-    <br />
-    <br />
     <!-- TODO -->
     <a href="https://github.com/DerekRoberts/cem">View Demo</a>
     ·
     <a href="https://github.com/DerekRoberts/cem/issues">Report Bug</a>
     ·
     <a href="https://github.com/DerekRoberts/cem/issues">Request Feature</a>
+
   </p>
 </p>
 
@@ -101,8 +99,8 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
 1. Clone, open and view the repo's contents, including hidden files
 
    ```sh
-   git clone https://github.com/DerekRoberts/cem.git
-   cd cem
+   git clone https://github.com/<ORGANIZATION>/<REPOSITORY>.git
+   cd <REPOSITORY>
    ls -la
    ```
 
@@ -133,7 +131,7 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
 
 ## Roadmap
 
-See the [open issues](https://github.com/DerekRoberts/cem/issues) for a list of proposed features (and known issues).
+See the [open issues][issues-url] for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
