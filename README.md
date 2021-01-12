@@ -3,11 +3,11 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
+[![Contributors][contributors-shield]](/../../graphs/contributors)
+[![Forks][forks-shield]](/../../network/members)
+[![Stargazers][stars-shield]](/../../stargazers)
+[![Issues][issues-shield]](/../../issues)
+[![MIT License][license-shield]](/LICENSE.txt)
 
 <!-- PROJECT LOGO -->
 <br />
@@ -158,17 +158,13 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 - [Common Services Wiki](https://github.com/bcgov/nr-get-token/wiki)
 - [Common Forms Toolkit (ComForT)](https://github.com/bcgov/common-forms-toolkit)
 - [othneildrew's Best README Template](https://github.com/othneildrew/Best-README-Template)
+- [shields.io](https://shields.io)
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
 [contributors-shield]: https://img.shields.io/github/contributors/DerekRoberts/cem.svg?style=for-the-badge
-[contributors-url]: https://github.com/DerekRoberts/cem/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/DerekRoberts/cem.svg?style=for-the-badge
-[forks-url]: https://github.com/DerekRoberts/cem/network/members
 [stars-shield]: https://img.shields.io/github/stars/DerekRoberts/cem.svg?style=for-the-badge
-[stars-url]: https://github.com/DerekRoberts/cem/stargazers
 [issues-shield]: https://img.shields.io/github/issues/DerekRoberts/cem.svg?style=for-the-badge
-[issues-url]: https://github.com/DerekRoberts/cem/issues
 [license-shield]: https://img.shields.io/github/license/DerekRoberts/cem.svg?style=for-the-badge
-[license-url]: /LICENSE.txt
