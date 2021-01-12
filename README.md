@@ -157,8 +157,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[base-repo]: https://github.com/DerekRoberts/cem
-[contributors-shield]: https://img.shields.io/github/contributors/github_username/cem.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/DerekRoberts/cem.svg?style=for-the-badge
 [contributors-url]: https://github.com/DerekRoberts/cem/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/DerekRoberts/cem.svg?style=for-the-badge
 [forks-url]: https://github.com/DerekRoberts/cem/network/members
@@ -167,4 +166,4 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 [issues-shield]: https://img.shields.io/github/issues/DerekRoberts/cem.svg?style=for-the-badge
 [issues-url]: https://github.com/DerekRoberts/cem/issues
 [license-shield]: https://img.shields.io/github/license/DerekRoberts/cem.svg?style=for-the-badge
-[license-url]: https://github.com/DerekRoberts/cem/blob/master/LICENSE.txt
+[license-url]: /LICENSE.txt
