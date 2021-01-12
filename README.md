@@ -137,7 +137,7 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
 
 ## Roadmap
 
-See the [open issues][issues-url] for a list of proposed features (and known issues).
+See the [open issues](/../../issues) for a list of proposed features (and known issues).
 
 <!-- CONTRIBUTING -->
 
@@ -155,7 +155,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for more information.
 
 <!-- ACKNOWLEDGEMENTS -->
 
