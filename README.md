@@ -64,9 +64,9 @@
 
 ### Built With
 
-- []()
-- []()
-- []()
+- [Node.js](https://nodejs.org/)
+- [Vue.js](https://vuejs.org/)
+- [Express.js](https://expressjs.com/)
 
 <!-- GETTING STARTED -->
 
@@ -76,33 +76,56 @@ To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+A Common Services GETOK is available for free, approved use by the Government of British Columbia. Please see their project documentation.
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+- [GETOK Common Services Onboarding](https://getok.nrs.gov.bc.ca/app/about)
 
-### Installation
+Their process will provide the following, which will be consumed as environment variables for the CEM Backend API:
 
-1. Clone the repo
+```
+CMNSRV_CLIENTID = Common Services Client ID
+CMNSRV_CLIENTSECRET = Common Services Secret (which is a secret!)
+```
+
+Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
+
+- [Node.js Download](https://nodejs.org/en/download/)
+- [Windows Subsystem for Linux Installation (Windows Only)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+
+### Installation - Local
+
+1. Clone, open and view the repo's contents, including hidden files
+
    ```sh
    git clone https://github.com/DerekRoberts/cem.git
+   cd cem
+   ls -la
    ```
-2. Install NPM packages
+
+2. Start the Backend API in development mode
+
    ```sh
+   cd backend
+   export CMNSRV_CLIENTID="<REDACTED>"
+   export CMNSRV_CLIENTSECRET="<REDACTED>"
    npm install
+   npm run dev
    ```
+
+3. Start the Frontend Vue App (requires a new terminal session)
+
+   ```sh
+   cd frontend
+   npm install
+   npm run serve
+   ```
+
+4. Open the application at:
+
+- [Frontend](localhost:8080)
+- [Backend](localhost:3000)
 
 <!-- USAGE EXAMPLES -->
-
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<!-- ROADMAP -->
 
 ## Roadmap
 
