@@ -24,6 +24,7 @@
     <a href="https://github.com/DerekRoberts/cem"><strong>GitHub Repository »</strong></a>
     <br />
     <br />
+    <!-- TODO -->
     <a href="https://github.com/DerekRoberts/cem">View Demo</a>
     ·
     <a href="https://github.com/DerekRoberts/cem/issues">Report Bug</a>
@@ -53,7 +54,6 @@
     <li><a href="#roadmap">Roadmap</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
-    <li><a href="#contact">Contact</a></li>
     <li><a href="#acknowledgements">Acknowledgements</a></li>
   </ol>
 </details>
@@ -126,8 +126,8 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
 
 4. Open the application. Frondend is the intended entry point.
 
-- [Frontend](http://localhost:8080)
-- [Backend](http://localhost:3000)
+- [Frontend (localhost:8080)](http://localhost:8080)
+- [Backend (localhost:3000)](http://localhost:3000)
 
 <!-- USAGE EXAMPLES -->
 
@@ -153,14 +153,6 @@ Contributions are what make the open source community such an amazing place to b
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
-<!-- CONTACT -->
-
-## Contact
-
-Your Name - [DerekRoberts](https://twitter.com/twitter_handle) - derek.roberts@gmail.com
-
-Project Link: [https://github.com/DerekRoberts/cem](https://github.com/github_username/cem)
-
 <!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
@@ -175,6 +167,7 @@ Project Link: [https://github.com/DerekRoberts/cem](https://github.com/github_us
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
+[base-repo]: https://github.com/DerekRoberts/cem
 [contributors-shield]: https://img.shields.io/github/contributors/github_username/cem.svg?style=for-the-badge
 [contributors-url]: https://github.com/DerekRoberts/cem/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/DerekRoberts/cem.svg?style=for-the-badge
