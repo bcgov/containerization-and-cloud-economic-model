@@ -62,6 +62,8 @@
 
 [![Product Name Screen Shot][product-screenshot]](images/overview.png)
 
+This project started as a fork of the Common Services Team's [Common Forms Toolkit](https://github.com/bcgov/common-forms-toolkit).
+
 ### Built With
 
 - [Node.js](https://nodejs.org/)
@@ -120,10 +122,10 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
    npm run serve
    ```
 
-4. Open the application at:
+4. Open the application. Frondend is the intended entry point.
 
-- [Frontend](localhost:8080)
-- [Backend](localhost:3000)
+- [Frontend](http://localhost:8080)
+- [Backend](http://localhost:3000)
 
 <!-- USAGE EXAMPLES -->
 
@@ -147,7 +149,7 @@ Contributions are what make the open source community such an amazing place to b
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <!-- CONTACT -->
 
@@ -161,9 +163,12 @@ Project Link: [https://github.com/DerekRoberts/cem](https://github.com/github_us
 
 ## Acknowledgements
 
+- [Common Services Wiki](https://github.com/bcgov/nr-get-token/wiki)
+- [Common Services GETOK](https://getok.nrs.gov.bc.ca)
+- [Common Document Generation Service (CDOGS)](https://bcgov.github.io/common-document-generation-service)
+- [Common Hosted Email Service (CHES)](https://bcgov.github.io/common-hosted-email-service)
+- [Common Forms Toolkit (ComForT)](https://github.com/bcgov/common-forms-toolkit)
 - [othneildrew's Best README Template](https://github.com/othneildrew/Best-README-Template)
-- []()
-- []()
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
