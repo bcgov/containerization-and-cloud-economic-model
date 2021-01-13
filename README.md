@@ -85,7 +85,7 @@ To get a local copy up and running follow these simple steps.
 
 ### Common Services Access Token (GETOK)
 
-A Common Services GETOK is available for internal use by the Government of British Columbia. Please see their project documentation to receive a client ID and secret.
+Common Services provides various APIs for used by the Government of British Columbia. Please see their project documentation to receive a client ID and secret.
 
 - [Onboarding/About](https://getok.nrs.gov.bc.ca/app/about)
 - [Request Account](https://getok.nrs.gov.bc.ca/app/requestAccount)
@@ -111,25 +111,26 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
    ls -la
    ```
 
-2. Start the Backend API in development mode
+2. Create environment variable file using any editor (VSCode shown)
 
    ```sh
-   cd backend
-   export CMNSRV_CLIENTID="<REDACTED>"
-   export CMNSRV_CLIENTSECRET="<REDACTED>"
-   npm install
-   npm run dev
+   code .tmp_env.docker
    ```
 
-3. Start the Frontend Vue App (requires a new terminal session)
+3. Complete that file with the following values from GETOK
 
    ```sh
-   cd frontend
-   npm install
-   npm run serve
+   CMNSRV_CLIENTID="<REDACTED>"
+   CMNSRV_CLIENTSECRET="<REDACTED>"
    ```
 
-4. Open the application. Frontend is the intended entry point.
+4. Fire up Docker Compose
+
+   ```sh
+   docker-compose up
+   ```
+
+5. Open the application. Frontend is the intended entry point.
 
 - [Frontend (localhost:8080)](http://localhost:8080)
 - [Backend (localhost:3000)](http://localhost:3000)
