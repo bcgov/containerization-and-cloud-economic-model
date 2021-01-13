@@ -85,16 +85,11 @@ To get a local copy up and running follow these simple steps.
 
 ### Common Services Access Token (GETOK)
 
-A Common Services GETOK is available for internal use by the Government of British Columbia. Please see their project documentation.
+A Common Services GETOK is available for internal use by the Government of British Columbia. Please see their project documentation to receive a client ID and secret.
 
-- [GETOK Common Services Onboarding](https://getok.nrs.gov.bc.ca/app/about)
-
-Their process will provide the following, which will be consumed as environment variables for the CEM Backend API:
-
-```
-CMNSRV_CLIENTID = Common Services Client ID
-CMNSRV_CLIENTSECRET = Common Services Secret (which is a secret!)
-```
+- [Onboarding/About](https://getok.nrs.gov.bc.ca/app/about)
+- [Request Account](https://getok.nrs.gov.bc.ca/app/requestAccount)
+- [My Applications](https://getok.nrs.gov.bc.ca/app/myApps)
 
 ### Development Platform
 
@@ -143,7 +138,14 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
 
 0. Install [Node.js 10+](https://nodejs.org/en/download/)
 
-1. Clone, open and view the repo's contents, including hidden files
+1. Export client ID and secret for consumption by the backend
+
+   ```sh
+   export CMNSRV_CLIENTID="<REDACTED>"
+   export CMNSRV_CLIENTSECRET="<REDACTED>"
+   ```
+
+2. Clone, open and view the repo's contents, including hidden files
 
    ```sh
    git clone https://github.com/<ORGANIZATION>/<REPOSITORY>.git
@@ -151,17 +153,15 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
    ls -la
    ```
 
-2. Start the Backend API in development mode
+3. Start the Backend API in development mode
 
    ```sh
    cd backend
-   export CMNSRV_CLIENTID="<REDACTED>"
-   export CMNSRV_CLIENTSECRET="<REDACTED>"
    npm install
    npm run dev
    ```
 
-3. Start the Frontend Vue App (requires a new terminal session)
+4. Start the Frontend Vue App (requires a new terminal session)
 
    ```sh
    cd frontend
@@ -169,7 +169,7 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
    npm run serve
    ```
 
-4. Open the application. Frontend is the intended entry point.
+5. Open the application. Frontend is the intended entry point.
 
 - [Frontend (localhost:8080)](http://localhost:8080)
 - [Backend (localhost:3000)](http://localhost:3000)
