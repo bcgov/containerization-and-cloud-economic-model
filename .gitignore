@@ -65,3 +65,4 @@ build
 
 # Temporary files
 tmp_*.*
+.tmp_*.*
