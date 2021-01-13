@@ -46,7 +46,7 @@ function getToken() {
       .post(TOKEN_URL, data, config)
       .then((res) => resolve(res.data.access_token))
       .catch((err) => {
-        console.log('getToken():', err.response.data);
+        console.log(arguments.callee.name, err.response.data);
         reject(err);
       });
   });
@@ -84,7 +84,7 @@ async function getDocument(contexts, optionalToken) {
       .post('/template/render', bodyCDOGS, config)
       .then((res) => resolve(res.data))
       .catch((err) => {
-        console.log('getDocument():', err.response.data);
+        console.log(arguments.callee.name, err.response.data);
         reject(err);
       });
   });
@@ -124,7 +124,7 @@ async function sendFile(file, recipient, optionalToken) {
       .post('/email', bodyCHES, config)
       .then(resolve(FILE_NAME))
       .catch((err) => {
-        console.log('sendFile():', err.response.data);
+        console.log(arguments.callee.name, err.response.data);
         reject(err);
       });
   });
