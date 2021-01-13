@@ -7,7 +7,12 @@ const path = require('path');
 // Envars - required
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
-if (CLIENT_ID?.trim().length < 3 || CLIENT_SECRET?.trim().length < 3) {
+if (
+  !CLIENT_ID ||
+  !CLIENT_SECRET ||
+  CLIENT_ID?.trim().length < 3 ||
+  CLIENT_SECRET?.trim().length < 3
+) {
   console.error('CLIENT_ID and CLIENT_SECRET envars must be set');
   process.exit();
 }
@@ -40,7 +45,9 @@ function getToken() {
     axios
       .post(TOKEN_URL, data, config)
       .then((res) => resolve(res.data.access_token))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        reject(err);
+      });
   });
 }
 
