@@ -10,8 +10,8 @@ services:
     ports:
       - '3000:3000'
     environment:
-      - CMNSRV_CLIENTID="${CMNSRV_CLIENTID:-CEM_SERVICE_CLIENT}"
-      - CMNSRV_CLIENTSECRET="${CMNSRV_CLIENTSECRET}"
+      - CLIENT_ID="${CLIENT_ID:-CEM_SERVICE_CLIENT}"
+      - CLIENT_SECRET="${CLIENT_SECRET}"
     volumes:
       - './backend:/app'
       - '/app/node_modules'

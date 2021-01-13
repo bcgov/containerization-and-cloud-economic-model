@@ -120,8 +120,8 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
 3. Complete that file with the following values from GETOK
 
    ```sh
-   CMNSRV_CLIENTID="<REDACTED>"
-   CMNSRV_CLIENTSECRET="<REDACTED>"
+   CLIENT_ID="<REDACTED>"
+   CLIENT_SECRET="<REDACTED>"
    ```
 
 4. Fire up Docker Compose
@@ -142,8 +142,8 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
 1. Export client ID and secret for consumption by the backend
 
    ```sh
-   export CMNSRV_CLIENTID="<REDACTED>"
-   export CMNSRV_CLIENTSECRET="<REDACTED>"
+   export CLIENT_ID="<REDACTED>"
+   export CLIENT_SECRET="<REDACTED>"
    ```
 
 2. Clone, open and view the repo's contents, including hidden files
