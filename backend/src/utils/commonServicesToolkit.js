@@ -4,9 +4,9 @@ const base64 = require('base-64');
 const fs = require('fs');
 const path = require('path');
 
-// Envars - required
-const CLIENT_ID = process.env.CLIENT_ID;
-const CLIENT_SECRET = process.env.CLIENT_SECRET;
+// Envars - removing any quotes
+const CLIENT_ID = process.env.CLIENT_ID.replace(/['"]+/g, '');
+const CLIENT_SECRET = process.env.CLIENT_SECRET.replace(/['"]+/g, '');
 if (
   !CLIENT_ID ||
   !CLIENT_SECRET ||
