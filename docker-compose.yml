@@ -9,8 +9,9 @@ services:
     working_dir: '/app'
     ports:
       - '3000:3000'
-    env_file:
-      - ./.tmp_env.docker
+    environment:
+      - CMNSRV_CLIENTID="${CMNSRV_CLIENTID:-CEM_SERVICE_CLIENT}"
+      - CMNSRV_CLIENTSECRET="${CMNSRV_CLIENTSECRET}"
     volumes:
       - './backend:/app'
       - '/app/node_modules'
