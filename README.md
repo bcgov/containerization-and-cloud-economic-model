@@ -106,6 +106,8 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
 
 ### Installation - Docker Compose
 
+0. Install [Docker](https://docs.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install)
+
 1. Clone, open and view the repo's contents, including hidden files
 
    ```sh
