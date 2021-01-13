@@ -1,17 +1,22 @@
 version: '3.7'
 services:
   backend:
-    build:
-      context: backend
-      dockerfile: Dockerfile
-    env_file:
-      - ./backend/tmp_env.docker
-    environment:
-      - FRONTEND_URL=""
-      - CMNSRV_CLIENTID="CEM_SERVICE_CLIENT"
+    image: 'node:lts-alpine3.12'
+    entrypoint:
+      - 'sh'
+      - '-c'
+      - 'npm install && npm run dev'
+    working_dir: '/app'
     ports:
       - '3000:3000'
+    env_file:
+      - ./.tmp_env.docker
+    volumes:
+      - './backend:/app'
+      - '/app/node_modules'
   frontend:
+    depends_on:
+      - backend
     image: 'node:lts-alpine3.12'
     entrypoint:
       - 'sh'
