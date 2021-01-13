@@ -83,9 +83,9 @@ Services:
 
 To get a local copy up and running follow these simple steps.
 
-### Prerequisites
+### Common Services Access Token (GETOK)
 
-A Common Services GETOK is available for free, approved for use by the Government of British Columbia. Please see their project documentation.
+A Common Services GETOK is available for internal use by the Government of British Columbia. Please see their project documentation.
 
 - [GETOK Common Services Onboarding](https://getok.nrs.gov.bc.ca/app/about)
 
@@ -96,12 +96,50 @@ CMNSRV_CLIENTID = Common Services Client ID
 CMNSRV_CLIENTSECRET = Common Services Secret (which is a secret!)
 ```
 
-Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
+### Development Platform
 
-- [Node.js Download](https://nodejs.org/en/download/)
+Linux and OS X's bash terminals may be used as-is.
+
+Windows Substem for Linux v2 is **strongly recommended** for Windows development.
+
 - [Windows Subsystem for Linux Installation (Windows Only)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
+### Installation - Docker Compose
+
+1. Clone, open and view the repo's contents, including hidden files
+
+   ```sh
+   git clone https://github.com/<ORGANIZATION>/<REPOSITORY>.git
+   cd <REPOSITORY>
+   ls -la
+   ```
+
+2. Start the Backend API in development mode
+
+   ```sh
+   cd backend
+   export CMNSRV_CLIENTID="<REDACTED>"
+   export CMNSRV_CLIENTSECRET="<REDACTED>"
+   npm install
+   npm run dev
+   ```
+
+3. Start the Frontend Vue App (requires a new terminal session)
+
+   ```sh
+   cd frontend
+   npm install
+   npm run serve
+   ```
+
+4. Open the application. Frontend is the intended entry point.
+
+- [Frontend (localhost:8080)](http://localhost:8080)
+- [Backend (localhost:3000)](http://localhost:3000)
+
 ### Installation - Local
+
+0. Install [Node.js 10+](https://nodejs.org/en/download/)
 
 1. Clone, open and view the repo's contents, including hidden files
 
