@@ -7,7 +7,7 @@ const path = require('path');
 // Envars - required
 const CLIENT_ID = process.env.CMNSRV_CLIENTID;
 const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET;
-if (!CLIENT_ID || !CLIENT_SECRET) {
+if (CLIENT_ID?.trim().length < 3 || CLIENT_SECRET?.trim().length < 3) {
   console.error('CLIENT_ID and CLIENT_SECRET envars must be set');
   process.exit();
 }
