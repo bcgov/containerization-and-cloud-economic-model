@@ -81,7 +81,13 @@ Services:
 
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+### Development Platform
+
+Linux and OS X's bash terminals may be used as-is.
+
+Windows Substem for Linux v2 is **strongly recommended** for Windows development.
+
+- [Windows Subsystem for Linux Installation (Windows Only)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
 ### Common Services Access Token (GETOK)
 
@@ -91,15 +97,9 @@ Common Services provides various APIs for used by the Government of British Colu
 - [Request Account](https://getok.nrs.gov.bc.ca/app/requestAccount)
 - [My Applications](https://getok.nrs.gov.bc.ca/app/myApps)
 
-### Development Platform
+### Run in Docker Compose
 
-Linux and OS X's bash terminals may be used as-is.
-
-Windows Substem for Linux v2 is **strongly recommended** for Windows development.
-
-- [Windows Subsystem for Linux Installation (Windows Only)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
-
-### Installation - Docker Compose
+This is the recommended development method. When running Vue and nodemon will live reload the application as code is modified.
 
 0. Install [Docker](https://docs.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install)
 
@@ -111,50 +111,31 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
    ls -la
    ```
 
-2. Create environment variable file using any editor (VSCode shown)
-
-   ```sh
-   code .tmp_env.docker
-   ```
-
-3. Complete that file with the following values from GETOK
-
-   ```sh
-   CLIENT_ID="<REDACTED>"
-   CLIENT_SECRET="<REDACTED>"
-   ```
-
-4. Fire up Docker Compose
-
-   ```sh
-   docker-compose up
-   ```
-
-5. Open the application. Frontend is the intended entry point.
-
-- [Frontend (localhost:8080)](http://localhost:8080)
-- [Backend (localhost:3000)](http://localhost:3000)
-
-### Installation - Local
-
-0. Install [Node.js 10+](https://nodejs.org/en/download/)
-
-1. Export client ID and secret for consumption by the backend
+2. Export client ID and secret for consumption by the backend
 
    ```sh
    export CLIENT_ID="<REDACTED>"
    export CLIENT_SECRET="<REDACTED>"
    ```
 
-2. Clone, open and view the repo's contents, including hidden files
+3. Fire up Docker Compose
 
    ```sh
-   git clone https://github.com/<ORGANIZATION>/<REPOSITORY>.git
-   cd <REPOSITORY>
-   ls -la
+   docker-compose up
    ```
 
-3. Start the Backend API in development mode
+4. Open the application. Frontend is the intended entry point.
+
+- [Frontend (localhost:8080)](http://localhost:8080)
+- [Backend (localhost:3000)](http://localhost:3000)
+
+### Alternative Installation - Local
+
+Although a much less consistent and predictable development experience the application can be run on bare-metal with Node.js. Vue and nodemon live reloading remains present. In place of the `docker-compose up` step:
+
+1. Install [Node.js 10+](https://nodejs.org/en/download/)
+
+2. Start the Backend API in development mode
 
    ```sh
    cd backend
@@ -162,18 +143,13 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
    npm run dev
    ```
 
-4. Start the Frontend Vue App (requires a new terminal session)
+3. Start the Frontend Vue App (requires a new terminal session)
 
    ```sh
    cd frontend
    npm install
    npm run serve
    ```
-
-5. Open the application. Frontend is the intended entry point.
-
-- [Frontend (localhost:8080)](http://localhost:8080)
-- [Backend (localhost:3000)](http://localhost:3000)
 
 <!-- USAGE EXAMPLES -->
 
