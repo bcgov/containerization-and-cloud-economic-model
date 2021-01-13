@@ -45,16 +45,14 @@ function getToken() {
     axios
       .post(TOKEN_URL, data, config)
       .then((res) => resolve(res.data.access_token))
-      .catch((err) => {
-        reject(err);
-      });
+      .catch((err) => reject(err));
   });
 }
 
 // Return a completed document from a template and contexts
-async function getDocument(contexts) {
+async function getDocument(contexts, optionalToken) {
   // Setup axios
-  const token = await getToken();
+  const token = optionalToken || (await getToken());
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CDOGS_URL;
 
@@ -88,9 +86,9 @@ async function getDocument(contexts) {
 }
 
 // Send a file by email
-async function sendFile(file, recipient) {
+async function sendFile(file, recipient, optionalToken) {
   // Setup axios
-  const token = await getToken();
+  const token = optionalToken || (await getToken());
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CHES_URL;
 
@@ -129,8 +127,9 @@ async function sendFile(file, recipient) {
 // Create file from template and contexts, send by email
 async function renderToEmail(body) {
   const { contexts, recipient } = body;
-  const file = await getDocument(contexts);
-  return sendFile(file, recipient);
+  const optionalToken = await getToken();
+  const file = await getDocument(contexts, optionalToken);
+  return sendFile(file, recipient, optionalToken);
 }
 
 // Exports
