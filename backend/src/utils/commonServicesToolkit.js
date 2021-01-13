@@ -45,7 +45,10 @@ function getToken() {
     axios
       .post(TOKEN_URL, data, config)
       .then((res) => resolve(res.data.access_token))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        console.log('getToken():', err.response.data);
+        reject(err);
+      });
   });
 }
 
@@ -80,7 +83,10 @@ async function getDocument(contexts, optionalToken) {
     axios
       .post('/template/render', bodyCDOGS, config)
       .then((res) => resolve(res.data))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        console.log('getDocument():', err.response.data);
+        reject(err);
+      });
   });
   return file;
 }
@@ -118,7 +124,7 @@ async function sendFile(file, recipient, optionalToken) {
       .post('/email', bodyCHES, config)
       .then(resolve(FILE_NAME))
       .catch((err) => {
-        console.log(err.response.statusText);
+        console.log('sendFile():', err.response.data);
         reject(err);
       });
   });
