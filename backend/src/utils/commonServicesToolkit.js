@@ -4,10 +4,15 @@ const base64 = require('base-64');
 const fs = require('fs');
 const path = require('path');
 
-// Envars - required
-const CLIENT_ID = process.env.CMNSRV_CLIENTID;
-const CLIENT_SECRET = process.env.CMNSRV_CLIENTSECRET;
-if (!CLIENT_ID || !CLIENT_SECRET) {
+// Envars - removing any quotes
+const CLIENT_ID = process.env.CLIENT_ID.replace(/['"]+/g, '');
+const CLIENT_SECRET = process.env.CLIENT_SECRET.replace(/['"]+/g, '');
+if (
+  !CLIENT_ID ||
+  !CLIENT_SECRET ||
+  CLIENT_ID?.trim().length < 3 ||
+  CLIENT_SECRET?.trim().length < 3
+) {
   console.error('CLIENT_ID and CLIENT_SECRET envars must be set');
   process.exit();
 }
@@ -15,7 +20,8 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
 // Envars - optional (clip url trailing slashes)
 const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
 const EMAIL_SENDER = process.env.EMAIL_SENDER || 'noreply@gov.bc.ca';
-const TEMPLATE = process.env.PATH_TEMPLATE || './config/template.xlsx';
+const TEMPLATE = process.env.PATH_TEMPLATE || './src/config/template.xlsx';
+
 const TOKEN_URL = (
   process.env.TOKEN_URL ||
   'https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token'
@@ -39,19 +45,23 @@ function getToken() {
     axios
       .post(TOKEN_URL, data, config)
       .then((res) => resolve(res.data.access_token))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        console.log(arguments.callee.name, err.response.data);
+        reject(err);
+      });
   });
 }
 
 // Return a completed document from a template and contexts
-async function getDocument(contexts) {
+async function getDocument(contexts, optionalToken) {
   // Setup axios
-  const token = await getToken();
+  const token = optionalToken || (await getToken());
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CDOGS_URL;
 
   // Read contexts and template (base64 encoded), use in CDOGS schema
-  const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
+  const readIn = fs.readFileSync(TEMPLATE, 'binary');
+  const template = base64.encode(readIn);
   const fileExt = path.extname(FILE_NAME).replace(/^./, '');
 
   const bodyCDOGS = {
@@ -73,15 +83,18 @@ async function getDocument(contexts) {
     axios
       .post('/template/render', bodyCDOGS, config)
       .then((res) => resolve(res.data))
-      .catch((err) => reject(err));
+      .catch((err) => {
+        console.log(arguments.callee.name, err.response.data);
+        reject(err);
+      });
   });
   return file;
 }
 
 // Send a file by email
-async function sendFile(file, recipient) {
+async function sendFile(file, recipient, optionalToken) {
   // Setup axios
-  const token = await getToken();
+  const token = optionalToken || (await getToken());
   axios.defaults.headers.Authorization = `Bearer ${token}`;
   axios.defaults.baseURL = CHES_URL;
 
@@ -111,7 +124,7 @@ async function sendFile(file, recipient) {
       .post('/email', bodyCHES, config)
       .then(resolve(FILE_NAME))
       .catch((err) => {
-        console.log(err.response.statusText);
+        console.log(arguments.callee.name, err.response.data);
         reject(err);
       });
   });
@@ -120,8 +133,9 @@ async function sendFile(file, recipient) {
 // Create file from template and contexts, send by email
 async function renderToEmail(body) {
   const { contexts, recipient } = body;
-  const file = await getDocument(contexts);
-  return sendFile(file, recipient);
+  const optionalToken = await getToken();
+  const file = await getDocument(contexts, optionalToken);
+  return sendFile(file, recipient, optionalToken);
 }
 
 // Exports

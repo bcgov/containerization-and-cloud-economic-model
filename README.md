@@ -81,27 +81,27 @@ Services:
 
 ## Getting Started
 
-To get a local copy up and running follow these simple steps.
+### Development Platform
 
-### Prerequisites
+Linux and OS X's bash terminals may be used as-is.
 
-A Common Services GETOK is available for free, approved for use by the Government of British Columbia. Please see their project documentation.
+Windows Substem for Linux v2 is **strongly recommended** for Windows development.
 
-- [GETOK Common Services Onboarding](https://getok.nrs.gov.bc.ca/app/about)
-
-Their process will provide the following, which will be consumed as environment variables for the CEM Backend API:
-
-```
-CMNSRV_CLIENTID = Common Services Client ID
-CMNSRV_CLIENTSECRET = Common Services Secret (which is a secret!)
-```
-
-Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
-
-- [Node.js Download](https://nodejs.org/en/download/)
 - [Windows Subsystem for Linux Installation (Windows Only)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
-### Installation - Local
+### Common Services Access Token (GETOK)
+
+Common Services provides various APIs for used by the Government of British Columbia. Please see their project documentation to receive a client ID and secret.
+
+- [Onboarding/About](https://getok.nrs.gov.bc.ca/app/about)
+- [Request Account](https://getok.nrs.gov.bc.ca/app/requestAccount)
+- [My Applications](https://getok.nrs.gov.bc.ca/app/myApps)
+
+### Run in Docker Compose
+
+This is the recommended development method. When running Vue and nodemon will live reload the application as code is modified.
+
+0. Install [Docker](https://docs.docker.com/get-docker) and [Docker Compose](https://docs.docker.com/compose/install)
 
 1. Clone, open and view the repo's contents, including hidden files
 
@@ -111,12 +111,34 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
    ls -la
    ```
 
+2. Export client ID and secret for consumption by the backend
+
+   ```sh
+   export CLIENT_ID="<REDACTED>"
+   export CLIENT_SECRET="<REDACTED>"
+   ```
+
+3. Fire up Docker Compose
+
+   ```sh
+   docker-compose up
+   ```
+
+4. Open the application. Frontend is the intended entry point.
+
+- [Frontend (localhost:8080)](http://localhost:8080)
+- [Backend (localhost:3000)](http://localhost:3000)
+
+### Alternative Installation - Local
+
+Although a much less consistent and predictable development experience the application can be run on bare-metal with Node.js. Vue and nodemon live reloading remains present. In place of the `docker-compose up` step:
+
+1. Install [Node.js 10+](https://nodejs.org/en/download/)
+
 2. Start the Backend API in development mode
 
    ```sh
    cd backend
-   export CMNSRV_CLIENTID="<REDACTED>"
-   export CMNSRV_CLIENTSECRET="<REDACTED>"
    npm install
    npm run dev
    ```
@@ -128,11 +150,6 @@ Install Node.js 10+ on Linux, OS X or Windows Subsystem for Linux v2 (WSL).
    npm install
    npm run serve
    ```
-
-4. Open the application. Frontend is the intended entry point.
-
-- [Frontend (localhost:8080)](http://localhost:8080)
-- [Backend (localhost:3000)](http://localhost:3000)
 
 <!-- USAGE EXAMPLES -->
 

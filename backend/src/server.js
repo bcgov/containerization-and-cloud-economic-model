@@ -1,6 +1,6 @@
 const express = require('express');
 const cors = require('cors');
-const cstk = require('./src/commonServicesToolkit');
+const cstk = require('./utils/commonServicesToolkit');
 
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8080';
 // Express
