@@ -22,43 +22,31 @@ spec:
         io.kompose.service: backend
     spec:
       containers:
-      - command:
-        - sh
-        - -c
-        - npm install && npm run dev
-        env:
-        - name: CLIENT_ID
-          value: '"CEM_SERVICE_CLIENT"'
-        - name: CLIENT_SECRET
-          value: '""'
-        image: ' '
-        name: backend
-        ports:
-        - containerPort: 3000
-        resources: {}
-        volumeMounts:
-        - mountPath: /app
-          name: backend-claim0
-        - mountPath: /app/node_modules
-          name: backend-claim1
-        workingDir: /app
+        - command:
+            - sh
+            - -c
+            - npm install && npm run dev
+          env:
+            - name: CLIENT_ID
+              value: '"CEM_SERVICE_CLIENT"'
+            - name: CLIENT_SECRET
+              value: '""'
+          image: ' '
+          name: backend
+          ports:
+            - containerPort: 3000
+          resources: {}
+          workingDir: /app
       restartPolicy: Always
-      volumes:
-      - name: backend-claim0
-        persistentVolumeClaim:
-          claimName: backend-claim0
-      - name: backend-claim1
-        persistentVolumeClaim:
-          claimName: backend-claim1
   test: false
   triggers:
-  - type: ConfigChange
-  - imageChangeParams:
-      automatic: true
-      containerNames:
-      - backend
-      from:
-        kind: ImageStreamTag
-        name: backend:lts-alpine3.12
-    type: ImageChange
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - backend
+        from:
+          kind: ImageStreamTag
+          name: backend:lts-alpine3.12
+      type: ImageChange
 status: {}
