@@ -11,6 +11,10 @@ parameters:
     value: cem
   - name: COMPONENT
     value: backend
+  - name: APP_NAMESPACE
+    value: csnr-devops-lab-deploy
+  - name: DOMAIN
+    value: pathfinder.gov.bc.ca
   - name: IMG_TAG
     value: latest
   - name: IMG_NAMESPACE
@@ -92,3 +96,19 @@ objects:
       selector:
         app: ${APP}
         component: ${COMPONENT}
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+    spec:
+      host: ${APP}-${COMPONENT}-${APP_NAMESPACE}.${DOMAIN}
+      port:
+        targetPort: ${PORT}
+      to:
+        kind: Service
+        name: ${APP}-${COMPONENT}
+      tls:
+        termination: edge
