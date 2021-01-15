@@ -57,8 +57,9 @@ objects:
               cp -rT /tmp/app/frontend . && \
               rm -rf /tmp/app
           RUN npm install
+          RUN npm run build
 
-          CMD npm run dev
+          CMD ./node_modules/.bin/serve -s dist/ -p 8080
         type: Dockerfile
       strategy:
         type: Docker
