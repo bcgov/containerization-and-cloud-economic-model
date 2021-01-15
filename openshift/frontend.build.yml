@@ -11,6 +11,10 @@ parameters:
     value: cem
   - name: COMPONENT
     value: frontend
+  - name: COMPONENT_BACKEND
+    value: backend
+  - name: PORT_BACKEND
+    value: '3000'
   - name: CLONE_GIT_URL
     value: https://github.com/derekroberts/cem.git
   - name: CLONE_GIT_RELEASE
@@ -45,10 +49,17 @@ objects:
         to:
           kind: ImageStreamTag
           name: ${APP}-${COMPONENT}:${BUILD_TAG}
+      resources:
+        limits:
+          cpu: '2'
+          memory: 2Gi
+        requests:
+          cpu: '1'
+          memory: 1Gi
       source:
         dockerfile: |
           FROM ${IMG_SRC_REPO}/${IMG_SRC_NAMESPACE}/${IMG_SRC_NAME}:${IMG_SRC_TAG}
-
+          ENV BACKEND_URL=http://${APP}-${COMPONENT_BACKEND}:${PORT_BACKEND}
           EXPOSE "${PORT:-8080}"
 
           USER root
