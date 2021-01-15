@@ -83,6 +83,7 @@
 </template>
 
 <script>
+const BACKEND_URL = process.env.BACKEND_URL || 'localhost:3000';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import Step1 from '@/components/Step1.vue';
@@ -144,7 +145,7 @@ export default {
           avgYearlyNewFeatureHours: this.value.avgYearlyNewFeatureHours,
         },
       };
-      return axios.post('http://localhost:3000/render', body).catch((err) => {
+      return axios.post(`http://${BACKEND_URL}/render`, body).catch((err) => {
         alert(err);
       });
     },
