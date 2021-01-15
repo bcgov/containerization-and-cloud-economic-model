@@ -58,7 +58,7 @@ objects:
               rm -rf /tmp/app
           RUN npm install
 
-          CMD run dev
+          CMD npm run dev
         type: Dockerfile
       strategy:
         type: Docker
