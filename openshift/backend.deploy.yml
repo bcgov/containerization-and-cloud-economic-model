@@ -51,9 +51,15 @@ objects:
               workingDir: /app
               env:
                 - name: CLIENT_ID
-                  value: CEM_SERVICE_CLIENT
+                  valueFrom:
+                    secretKeyRef:
+                      key: CLIENT_ID
+                      name: cem-backend
                 - name: CLIENT_SECRET
-                  value: ''
+                  valueFrom:
+                    secretKeyRef:
+                      key: CLIENT_SECRET
+                      name: cem-backend
               namespace: ${IMG_NAMESPACE}
               name: ${APP}-${COMPONENT}
               ports:
