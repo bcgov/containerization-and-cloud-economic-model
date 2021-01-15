@@ -77,3 +77,18 @@ objects:
               name:  ${APP}-${COMPONENT}:${IMG_TAG}
               namespace: ${IMG_NAMESPACE}
           type: ImageChange
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+    spec:
+      ports:
+      - name: "${PORT}"
+        port: ${{PORT}}
+        targetPort: ${{PORT}}
+      selector:
+        app: ${APP}
+        component: ${COMPONENT}
