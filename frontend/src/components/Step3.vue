@@ -145,7 +145,7 @@ export default {
           avgYearlyNewFeatureHours: this.value.avgYearlyNewFeatureHours,
         },
       };
-      return axios.post(`http://${BACKEND_URL}/render`, body).catch((err) => {
+      return axios.post(`${BACKEND_URL}/render`, body).catch((err) => {
         alert(err);
       });
     },
