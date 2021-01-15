@@ -11,6 +11,12 @@ parameters:
     value: cem
   - name: COMPONENT
     value: backend
+  - name: PORT
+    value: '3000'
+  - name: COMPONENT_FRONTEND
+    value: frontend
+  - name: PORT_FRONTEND
+    value: '8080'
   - name: APP_NAMESPACE
     value: csnr-devops-lab-deploy
   - name: DOMAIN
@@ -19,8 +25,6 @@ parameters:
     value: latest
   - name: IMG_NAMESPACE
     value: csnr-devops-lab-deploy
-  - name: PORT
-    value: '3000'
 objects:
   - apiVersion: v1
     kind: DeploymentConfig
@@ -51,6 +55,8 @@ objects:
               resources: {}
               workingDir: /app
               env:
+                - name: FRONTEND_URL
+                  value: http://${APP}-${COMPONENT_FRONTEND}:${PORT_FRONTEND}
                 - name: CLIENT_ID
                   valueFrom:
                     secretKeyRef:
