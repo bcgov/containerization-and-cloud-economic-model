@@ -35,10 +35,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       strategy:
-        type: Recreate
-        recreateParams:
-          timeoutSeconds: 900
-        activeDeadlineSeconds: 21600
+        type: Rolling
       template:
         metadata:
           labels:
@@ -50,7 +47,7 @@ objects:
               image: ${APP}-${COMPONENT}
               name: ${APP}-${COMPONENT}
               ports:
-                - containerPort: 3000
+                - containerPort: ${{PORT}}
               resources: {}
               workingDir: /app
               env:
