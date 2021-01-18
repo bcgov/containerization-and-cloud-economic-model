@@ -70,7 +70,7 @@ objects:
           RUN npm install
           RUN npm run build
 
-          CMD ./node_modules/.bin/serve -s dist/ -p 8080
+          CMD ./node_modules/.bin/serve -s dist/ -p ${PORT}
         type: Dockerfile
       strategy:
         type: Docker
