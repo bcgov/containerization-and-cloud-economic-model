@@ -60,7 +60,8 @@ objects:
         dockerfile: |
           FROM ${IMG_SRC_REPO}/${IMG_SRC_NAMESPACE}/${IMG_SRC_NAME}:${IMG_SRC_TAG}
           ENV BACKEND_URL=http://${APP}-${COMPONENT_BACKEND}:${PORT_BACKEND}
-          EXPOSE "${PORT:-8080}"
+          ENV PORT=${PORT:-8080}
+          EXPOSE "${PORT}"
 
           USER root
           WORKDIR /app
