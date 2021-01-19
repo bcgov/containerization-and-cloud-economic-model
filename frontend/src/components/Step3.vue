@@ -85,7 +85,7 @@
 <script>
 const BACKEND_URL =
   process.env.BACKEND_URL ||
-  'https://cem-backend-csnr-devops-lab-deploy.pathfinder.gov.bc.ca:3000';
+  'https://cem-backend-csnr-devops-lab-deploy.pathfinder.gov.bc.ca';
 import { mapActions, mapGetters, mapMutations } from 'vuex';
 
 import Step1 from '@/components/Step1.vue';
