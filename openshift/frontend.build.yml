@@ -1,0 +1,85 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: ${APP}-${COMPONENT}
+labels:
+  app: ${APP}
+  component: ${COMPONENT}
+parameters:
+  - name: APP
+    value: cem
+  - name: COMPONENT
+    value: frontend
+  - name: COMPONENT_BACKEND
+    value: backend
+  - name: PORT_BACKEND
+    value: '3000'
+  - name: CLONE_GIT_URL
+    value: https://github.com/derekroberts/cem.git
+  - name: CLONE_GIT_RELEASE
+    value: openshift
+  - name: BUILD_TAG
+    value: latest
+  - name: IMG_SRC_TAG
+    value: '10'
+  - name: IMG_SRC_NAME
+    value: nodejs
+  - name: IMG_SRC_NAMESPACE
+    value: openshift
+  - name: IMG_SRC_REPO
+    value: docker-registry.default.svc:5000
+  - name: APP_NAMESPACE
+    value: csnr-devops-lab-deploy
+  - name: DOMAIN
+    value: pathfinder.gov.bc.ca
+objects:
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+    spec:
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP}-${COMPONENT}:${BUILD_TAG}
+      resources:
+        limits:
+          cpu: '2'
+          memory: 2Gi
+        requests:
+          cpu: '1'
+          memory: 1Gi
+      source:
+        dockerfile: |
+          FROM ${IMG_SRC_REPO}/${IMG_SRC_NAMESPACE}/${IMG_SRC_NAME}:${IMG_SRC_TAG}
+          ENV BACKEND_URL=https://${APP}-${COMPONENT_BACKEND}-${APP_NAMESPACE}.${DOMAIN}
+          ENV PORT=${PORT:-8080}
+          EXPOSE "${PORT}"
+
+          USER root
+          WORKDIR /app
+          RUN git clone ${CLONE_GIT_URL} -b ${CLONE_GIT_RELEASE} /tmp/app && \
+              cp -rT /tmp/app/frontend . && \
+              rm -rf /tmp/app
+          RUN npm install
+          RUN npm run build
+
+          CMD ./node_modules/.bin/serve -s dist/ -p ${PORT}
+        type: Dockerfile
+      strategy:
+        type: Docker
+      triggers:
+        - type: ConfigChange
+        - imageChange: {}
+          type: ImageChange

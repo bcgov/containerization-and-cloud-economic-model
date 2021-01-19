@@ -7,12 +7,7 @@ const path = require('path');
 // Envars - removing any quotes
 const CLIENT_ID = process.env.CLIENT_ID.replace(/['"]+/g, '');
 const CLIENT_SECRET = process.env.CLIENT_SECRET.replace(/['"]+/g, '');
-if (
-  !CLIENT_ID ||
-  !CLIENT_SECRET ||
-  CLIENT_ID?.trim().length < 3 ||
-  CLIENT_SECRET?.trim().length < 3
-) {
+if (!CLIENT_ID || !CLIENT_SECRET) {
   console.error('CLIENT_ID and CLIENT_SECRET envars must be set');
   process.exit();
 }
