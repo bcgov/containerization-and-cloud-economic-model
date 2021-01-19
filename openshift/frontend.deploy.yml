@@ -49,7 +49,7 @@ objects:
           containers:
             - env:
                 - name: BACKEND_URL
-                  value: http://${APP}-${COMPONENT_BACKEND}:${PORT_BACKEND}
+                  value: https://${APP}-${COMPONENT_BACKEND}-${APP_NAMESPACE}.${DOMAIN}
               image: ${APP}-${COMPONENT}
               name: ${APP}-${COMPONENT}
               ports:
