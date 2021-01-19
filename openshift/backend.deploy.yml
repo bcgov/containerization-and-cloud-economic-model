@@ -11,6 +11,8 @@ parameters:
     value: cem
   - name: COMPONENT
     value: backend
+  - name: COMPONENT_FRONTEND
+    value: frontend
   - name: PORT
     value: '3000'
   - name: COMPONENT_FRONTEND
@@ -56,7 +58,7 @@ objects:
               workingDir: /app
               env:
                 - name: FRONTEND_URL
-                  value: https://${APP}-${COMPONENT_BACKEND}-${APP_NAMESPACE}.${DOMAIN}
+                  value: https://${APP}-${COMPONENT_FRONTEND}-${APP_NAMESPACE}.${DOMAIN}
                 - name: CLIENT_ID
                   valueFrom:
                     secretKeyRef:
