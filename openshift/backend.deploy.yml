@@ -99,3 +99,19 @@ objects:
       selector:
         app: ${APP}
         component: ${COMPONENT}
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+    spec:
+      host: ${APP}-${COMPONENT}-${APP_NAMESPACE}.${DOMAIN}
+      port:
+        targetPort: ${PORT}
+      to:
+        kind: Service
+        name: ${APP}-${COMPONENT}
+      tls:
+        termination: edge
