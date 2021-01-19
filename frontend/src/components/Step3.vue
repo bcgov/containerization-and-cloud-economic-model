@@ -133,7 +133,6 @@ export default {
     ]),
     ...mapActions('form', ['submitForm']),
     renderToEmail: function () {
-      alert(BACKEND_URL);
       const body = {
         recipient: this.contact.sendEmail,
         contexts: {
