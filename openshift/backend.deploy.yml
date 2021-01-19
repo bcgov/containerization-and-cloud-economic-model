@@ -56,7 +56,7 @@ objects:
               workingDir: /app
               env:
                 - name: FRONTEND_URL
-                  value: http://${APP}-${COMPONENT_FRONTEND}:${PORT_FRONTEND}
+                  value: https://${APP}-${COMPONENT_BACKEND}-${APP_NAMESPACE}.${DOMAIN}
                 - name: CLIENT_ID
                   valueFrom:
                     secretKeyRef:
