@@ -27,6 +27,17 @@ parameters:
     value: csnr-devops-lab-deploy
 objects:
   - apiVersion: v1
+    kind: ConfigMap
+    data:
+      config.json: |
+        {
+          "backendUrl": "https://${APP}-${COMPONENT_BACKEND}-${APP_NAMESPACE}.${DOMAIN}"
+        }
+    metadata:
+      labels:
+        app: ${APP}
+      name: ${APP}-${COMPONENT}
+  - apiVersion: v1
     kind: DeploymentConfig
     metadata:
       labels:
@@ -55,12 +66,21 @@ objects:
               ports:
                 - containerPort: ${{PORT}}
               resources: {}
+              volumeMounts:
+                - name: cem-frontend
+                  mountPath: /app/dist/config.json
+                  subPath: config.json
+                  readOnly: true
               workingDir: /app
               namespace: ${IMG_NAMESPACE}
               name: ${APP}-${COMPONENT}
               ports:
                 - containerPort: ${{PORT}}
           restartPolicy: Always
+          volumes:
+            - name: cem-frontend
+              configMap:
+                name: cem-frontend
       test: false
       triggers:
         - type: ConfigChange
