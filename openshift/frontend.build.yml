@@ -15,9 +15,9 @@ parameters:
     value: backend
   - name: PORT_BACKEND
     value: '3000'
-  - name: CLONE_GIT_URL
+  - name: GIT_URL
     value: https://github.com/derekroberts/cem.git
-  - name: CLONE_GIT_RELEASE
+  - name: GIT_BRANCH
     required: true
   - name: BUILD_TAG
     value: latest
@@ -69,7 +69,7 @@ objects:
 
           USER root
           WORKDIR /app
-          RUN git clone ${CLONE_GIT_URL} -b ${CLONE_GIT_RELEASE} /tmp/app && \
+          RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
               cp -rT /tmp/app/frontend . && \
               rm -rf /tmp/app
           RUN npm install
@@ -80,6 +80,5 @@ objects:
       strategy:
         type: Docker
       triggers:
-        - type: ConfigChange
         - imageChange: {}
           type: ImageChange
