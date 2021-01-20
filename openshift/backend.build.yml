@@ -11,10 +11,6 @@ parameters:
     value: cem
   - name: COMPONENT
     value: backend
-  - name: CLONE_GIT_URL
-    value: https://github.com/derekroberts/cem.git
-  - name: CLONE_GIT_RELEASE
-    required: true
   - name: BUILD_TAG
     value: latest
   - name: IMG_SRC_TAG
@@ -25,6 +21,10 @@ parameters:
     value: openshift
   - name: IMG_SRC_REPO
     value: docker-registry.default.svc:5000
+  - name: GIT_URL
+    required: true
+  - name: GIT_BRANCH
+    required: true
 objects:
   - apiVersion: v1
     kind: ImageStream
@@ -53,7 +53,7 @@ objects:
 
           USER root
           WORKDIR /app
-          RUN git clone ${CLONE_GIT_URL} -b ${CLONE_GIT_RELEASE} /tmp/app && \
+          RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
               cp -rT /tmp/app/backend . && \
               rm -rf /tmp/app
           RUN npm install
@@ -63,6 +63,5 @@ objects:
       strategy:
         type: Docker
       triggers:
-        - type: ConfigChange
         - imageChange: {}
           type: ImageChange
