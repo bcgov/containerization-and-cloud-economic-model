@@ -1,4 +1,6 @@
 #!/bin/sh -l
+set -euo nounset
+
 GIT_BRANCH=${GIT_BRANCH:-$(git symbolic-ref --short -q HEAD)}
 
 oc get secret cem-backend -o name ||(
@@ -11,3 +13,11 @@ oc get secret cem-backend -o name ||(
   echo
   oc process -f backend.secret.yml -p CLIENT_ID=${CLIENT_ID} -p CLIENT_SECRET=${CLIENT_SECRET} | oc apply -f -
 )
+
+oc process -f backend.build.yml -p GIT_BRANCH=${GIT_BRANCH} | oc apply -f -
+oc process -f backend.deploy.yml | oc apply -f -
+oc process -f frontend.build.yml -p GIT_BRANCH=${GIT_BRANCH} | oc apply -f -
+oc process -f frontend.deploy.yml | oc apply -f -
+
+oc start-build cem-backend
+oc start-build cem-frontend --follow
