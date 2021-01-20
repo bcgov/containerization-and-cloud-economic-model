@@ -12,11 +12,12 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
   process.exit();
 }
 
-// Envars - optional (clip url trailing slashes)
+// Envars - optional
 const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
 const EMAIL_SENDER = process.env.EMAIL_SENDER || 'noreply@gov.bc.ca';
 const TEMPLATE = process.env.PATH_TEMPLATE || './src/config/template.xlsx';
 
+// URLs default to Common Services' dev APIs
 const TOKEN_URL = (
   process.env.TOKEN_URL ||
   'https://dev.oidc.gov.bc.ca/auth/realms/jbd6rnxw/protocol/openid-connect/token'
@@ -55,11 +56,10 @@ async function getDocument(contexts, optionalToken) {
   axios.defaults.baseURL = CDOGS_URL;
 
   // Read contexts and template (base64 encoded), use in CDOGS schema
-  const readIn = fs.readFileSync(TEMPLATE, 'binary');
-  const template = base64.encode(readIn);
+  const template = base64.encode(fs.readFileSync(TEMPLATE, 'binary'));
   const fileExt = path.extname(FILE_NAME).replace(/^./, '');
 
-  const bodyCDOGS = {
+  const body = {
     data: contexts,
     options: {
       overwrite: true,
@@ -74,16 +74,15 @@ async function getDocument(contexts, optionalToken) {
 
   // Generate and save file using a template and contexts
   const config = { responseType: 'arraybuffer' };
-  const file = await new Promise((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     axios
-      .post('/template/render', bodyCDOGS, config)
+      .post('/template/render', body, config)
       .then((res) => resolve(res.data))
       .catch((err) => {
         console.log(arguments.callee.name, err.response.data);
         reject(err);
       });
   });
-  return file;
 }
 
 // Send a file by email
@@ -96,7 +95,7 @@ async function sendFile(file, recipient, optionalToken) {
   // Payload
   const attachment = file.toString('base64');
   const email = require('../config/email.json');
-  const bodyCHES = {
+  const body = {
     attachments: [
       {
         content: attachment,
@@ -116,7 +115,7 @@ async function sendFile(file, recipient, optionalToken) {
   const config = { responseType: 'arraybuffer' };
   return new Promise((resolve, reject) => {
     axios
-      .post('/email', bodyCHES, config)
+      .post('/email', body, config)
       .then(resolve(FILE_NAME))
       .catch((err) => {
         console.log(arguments.callee.name, err.response.data);
@@ -134,6 +133,4 @@ async function renderToEmail(body) {
 }
 
 // Exports
-exports.getDocument = getDocument;
-exports.sendFile = sendFile;
 exports.renderToEmail = renderToEmail;
