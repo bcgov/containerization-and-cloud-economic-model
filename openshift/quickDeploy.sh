@@ -5,6 +5,10 @@ set -euo nounset
 GIT_URL="${GIT_URL:-$(git remote get-url origin)}"
 GIT_BRANCH="${GIT_BRANCH:-$(git symbolic-ref --short -q HEAD)}"
 
+# URL form https://github.com/<organization>/<repository>
+GIT_URL=https://github.com/${GIT_URL#*github.com[:/]} # replace all prefixes
+GIT_URL=${GIT_URL%.git}                               # trim trailing .git
+
 # Create secret, if necessary
 oc get secret cem-backend -o name ||(
   echo -e "\nSecret not present.  CLIENT_ID and CLIENT_SECRET not found."
