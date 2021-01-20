@@ -15,9 +15,7 @@ parameters:
     value: '8080'
   - name: COMPONENT_BACKEND
     value: backend
-  - name: PORT_BACKEND
-    value: '3000'
-  - name: APP_NAMESPACE
+  - name: NAMESPACE
     value: csnr-devops-lab-deploy
   - name: DOMAIN
     value: pathfinder.gov.bc.ca
@@ -26,6 +24,17 @@ parameters:
   - name: IMG_NAMESPACE
     value: csnr-devops-lab-deploy
 objects:
+  - apiVersion: v1
+    kind: ConfigMap
+    data:
+      config.json: |
+        {
+          "backendUrl": "https://${APP}-${COMPONENT_BACKEND}-${NAMESPACE}.${DOMAIN}"
+        }
+    metadata:
+      labels:
+        app: ${APP}
+      name: ${APP}-${COMPONENT}
   - apiVersion: v1
     kind: DeploymentConfig
     metadata:
@@ -47,20 +56,25 @@ objects:
             component: ${COMPONENT}
         spec:
           containers:
-            - env:
-                - name: BACKEND_URL
-                  value: https://${APP}-${COMPONENT_BACKEND}-${APP_NAMESPACE}.${DOMAIN}
+            - name: ${APP}-${COMPONENT}
               image: ${APP}-${COMPONENT}
-              name: ${APP}-${COMPONENT}
               ports:
                 - containerPort: ${{PORT}}
               resources: {}
+              volumeMounts:
+                - name: cem-frontend
+                  mountPath: /app/dist/config.json
+                  subPath: config.json
+                  readOnly: true
               workingDir: /app
               namespace: ${IMG_NAMESPACE}
-              name: ${APP}-${COMPONENT}
               ports:
                 - containerPort: ${{PORT}}
           restartPolicy: Always
+          volumes:
+            - name: cem-frontend
+              configMap:
+                name: cem-frontend
       test: false
       triggers:
         - type: ConfigChange
@@ -96,7 +110,7 @@ objects:
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
     spec:
-      host: ${APP}-${COMPONENT}-${APP_NAMESPACE}.${DOMAIN}
+      host: ${APP}-${COMPONENT}-${NAMESPACE}.${DOMAIN}
       port:
         targetPort: ${PORT}
       to:

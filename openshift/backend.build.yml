@@ -14,7 +14,7 @@ parameters:
   - name: CLONE_GIT_URL
     value: https://github.com/derekroberts/cem.git
   - name: CLONE_GIT_RELEASE
-    value: openshift
+    required: true
   - name: BUILD_TAG
     value: latest
   - name: IMG_SRC_TAG
