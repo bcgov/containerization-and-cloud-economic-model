@@ -14,7 +14,6 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
 
 // Envars - optional
 const FILE_NAME = process.env.FILE_NAME || 'results.xlsx';
-const EMAIL_SENDER = process.env.EMAIL_SENDER || 'noreply@gov.bc.ca';
 const TEMPLATE = process.env.PATH_TEMPLATE || './src/config/template.xlsx';
 
 // URLs default to Common Services' dev APIs
@@ -106,7 +105,7 @@ async function sendFile(file, recipient, optionalToken) {
     bodyType: email.bodyType,
     body: email.body,
     delayTS: email.delayTS,
-    from: EMAIL_SENDER,
+    from: email.sender,
     subject: email.subject,
     to: [recipient],
   };
