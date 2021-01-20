@@ -11,10 +11,6 @@ parameters:
     value: cem
   - name: COMPONENT
     value: backend
-  - name: GIT_URL
-    value: https://github.com/derekroberts/cem.git
-  - name: GIT_BRANCH
-    required: true
   - name: BUILD_TAG
     value: latest
   - name: IMG_SRC_TAG
@@ -25,6 +21,10 @@ parameters:
     value: openshift
   - name: IMG_SRC_REPO
     value: docker-registry.default.svc:5000
+  - name: GIT_URL
+    required: true
+  - name: GIT_BRANCH
+    required: true
 objects:
   - apiVersion: v1
     kind: ImageStream
