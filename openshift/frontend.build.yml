@@ -15,11 +15,6 @@ parameters:
     value: backend
   - name: PORT_BACKEND
     value: '3000'
-  - name: GIT_URL
-    value: https://github.com/derekroberts/cem.git
-  - name: GIT_BRANCH
-    required: true
-  - name: BUILD_TAG
     value: latest
   - name: IMG_SRC_TAG
     value: '10'
@@ -33,6 +28,11 @@ parameters:
     value: csnr-devops-lab-deploy
   - name: DOMAIN
     value: pathfinder.gov.bc.ca
+  - name: GIT_URL
+    required: true
+  - name: GIT_BRANCH
+    required: true
+  - name: BUILD_TAG
 objects:
   - apiVersion: v1
     kind: ImageStream
