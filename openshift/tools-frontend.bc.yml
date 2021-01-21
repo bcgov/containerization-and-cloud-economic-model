@@ -24,7 +24,7 @@ parameters:
     value: openshift
   - name: IMG_SRC_REPO
     value: docker-registry.default.svc:5000
-  - name: APP_NAMESPACE
+  - name: NAMESPACE_DEPLOY
     value: csnr-devops-lab-deploy
   - name: DOMAIN
     value: pathfinder.gov.bc.ca

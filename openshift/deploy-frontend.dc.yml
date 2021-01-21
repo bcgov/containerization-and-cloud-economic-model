@@ -15,21 +15,21 @@ parameters:
     value: '8080'
   - name: COMPONENT_BACKEND
     value: backend
-  - name: NAMESPACE
-    value: csnr-devops-lab-deploy
   - name: DOMAIN
     value: pathfinder.gov.bc.ca
   - name: IMG_TAG
     value: latest
-  - name: IMG_NAMESPACE
+  - name: NAMESPACE_DEPLOY
     value: csnr-devops-lab-deploy
+  - name: NAMESPACE_TOOLS
+    value: csnr-devops-lab-tools
 objects:
   - apiVersion: v1
     kind: ConfigMap
     data:
       config.json: |
         {
-          "backendUrl": "https://${APP}-${COMPONENT_BACKEND}-${NAMESPACE}.${DOMAIN}"
+          "backendUrl": "https://${APP}-${COMPONENT_BACKEND}-${NAMESPACE_DEPLOY}.${DOMAIN}"
         }
     metadata:
       labels:
@@ -42,6 +42,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
     spec:
       replicas: 1
       selector:
@@ -57,24 +58,27 @@ objects:
         spec:
           containers:
             - name: ${APP}-${COMPONENT}
+              namespace: ${NAMESPACE_TOOLS}
               image: ${APP}-${COMPONENT}
               ports:
                 - containerPort: ${{PORT}}
               resources: {}
               volumeMounts:
                 - name: cem-frontend
+                  namespace: ${NAMESPACE_DEPLOY}
                   mountPath: /app/dist/config.json
                   subPath: config.json
                   readOnly: true
               workingDir: /app
-              namespace: ${IMG_NAMESPACE}
               ports:
                 - containerPort: ${{PORT}}
           restartPolicy: Always
           volumes:
             - name: cem-frontend
+              namespace: ${NAMESPACE_DEPLOY}
               configMap:
                 name: cem-frontend
+                namespace: ${NAMESPACE_DEPLOY}
       test: false
       triggers:
         - type: ConfigChange
@@ -85,7 +89,7 @@ objects:
             from:
               kind: ImageStreamTag
               name: ${APP}-${COMPONENT}:${IMG_TAG}
-              namespace: ${IMG_NAMESPACE}
+              namespace: ${NAMESPACE_TOOLS}
           type: ImageChange
   - apiVersion: v1
     kind: Service
@@ -94,6 +98,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
     spec:
       ports:
       - name: "${PORT}"
@@ -109,12 +114,14 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
     spec:
-      host: ${APP}-${COMPONENT}-${NAMESPACE}.${DOMAIN}
+      host: ${APP}-${COMPONENT}-${NAMESPACE_DEPLOY}.${DOMAIN}
       port:
         targetPort: ${PORT}
       to:
         kind: Service
         name: ${APP}-${COMPONENT}
+        namespace: ${NAMESPACE_DEPLOY}
       tls:
         termination: edge

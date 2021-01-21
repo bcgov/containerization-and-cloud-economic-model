@@ -19,14 +19,14 @@ parameters:
     value: frontend
   - name: PORT_FRONTEND
     value: '8080'
-  - name: APP_NAMESPACE
-    value: csnr-devops-lab-deploy
   - name: DOMAIN
     value: pathfinder.gov.bc.ca
   - name: IMG_TAG
     value: latest
-  - name: IMG_NAMESPACE
+  - name: NAMESPACE_DEPLOY
     value: csnr-devops-lab-deploy
+  - name: NAMESPACE_TOOLS
+    value: csnr-devops-lab-tools
 objects:
   - apiVersion: v1
     kind: DeploymentConfig
@@ -35,6 +35,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
     spec:
       replicas: 1
       selector:
@@ -58,7 +59,7 @@ objects:
               workingDir: /app
               env:
                 - name: FRONTEND_URL
-                  value: https://${APP}-${COMPONENT_FRONTEND}-${APP_NAMESPACE}.${DOMAIN}
+                  value: https://${APP}-${COMPONENT_FRONTEND}-${NAMESPACE_DEPLOY}.${DOMAIN}
                 - name: CLIENT_ID
                   valueFrom:
                     secretKeyRef:
@@ -69,8 +70,8 @@ objects:
                     secretKeyRef:
                       key: CLIENT_SECRET
                       name: cem-backend
-              namespace: ${IMG_NAMESPACE}
               name: ${APP}-${COMPONENT}
+              namespace: ${NAMESPACE_TOOLS}
               ports:
                 - containerPort: ${{PORT}}
           restartPolicy: Always
@@ -84,7 +85,7 @@ objects:
             from:
               kind: ImageStreamTag
               name:  ${APP}-${COMPONENT}:${IMG_TAG}
-              namespace: ${IMG_NAMESPACE}
+              namespace: ${NAMESPACE_TOOLS}
           type: ImageChange
   - apiVersion: v1
     kind: Service
@@ -93,6 +94,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
     spec:
       ports:
       - name: "${PORT}"
@@ -108,8 +110,9 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
     spec:
-      host: ${APP}-${COMPONENT}-${APP_NAMESPACE}.${DOMAIN}
+      host: ${APP}-${COMPONENT}-${NAMESPACE_DEPLOY}.${DOMAIN}
       port:
         targetPort: ${PORT}
       to:
