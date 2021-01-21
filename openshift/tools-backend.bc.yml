@@ -21,6 +21,8 @@ parameters:
     value: openshift
   - name: IMG_SRC_REPO
     value: docker-registry.default.svc:5000
+  - name: TOOLS_NAMESPACE
+    value: csnr-devops-lab-tools
   - name: GIT_URL
     required: true
   - name: GIT_BRANCH
@@ -33,6 +35,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${TOOLS_NAMESPACE}
   - apiVersion: v1
     kind: BuildConfig
     metadata:
@@ -40,6 +43,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
+      namespace: ${TOOLS_NAMESPACE}
     spec:
       output:
         to:
