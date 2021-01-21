@@ -13,13 +13,7 @@ parameters:
     required: true
   - name: TAG
     required: true
-  - name: IMG_SRC_TAG
-    required: true
-  - name: IMG_SRC_NAME
-    required: true
-  - name: IMG_SRC_NAMESPACE
-    required: true
-  - name: IMG_SRC_REPO
+  - name: DOCKER_SRC
     required: true
   - name: TOOLS_NAMESPACE
     required: true
@@ -51,7 +45,7 @@ objects:
           name: ${APP}-${COMPONENT}:${TAG}
       source:
         dockerfile: |
-          FROM ${IMG_SRC_REPO}/${IMG_SRC_NAMESPACE}/${IMG_SRC_NAME}:${IMG_SRC_TAG}
+          FROM ${DOCKER_SRC}
 
           EXPOSE "${PORT:-3000}"
 
