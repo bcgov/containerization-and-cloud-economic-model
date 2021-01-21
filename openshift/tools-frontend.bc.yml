@@ -8,33 +8,27 @@ labels:
   component: ${COMPONENT}
 parameters:
   - name: APP
-    value: cem
+    required: true
   - name: COMPONENT
-    value: frontend
+    required: true
   - name: COMPONENT_BACKEND
-    value: backend
-  - name: PORT_BACKEND
-    value: '3000'
-    value: latest
-  - name: IMG_SRC_TAG
-    value: '10'
-  - name: IMG_SRC_NAME
-    value: nodejs
-  - name: IMG_SRC_NAMESPACE
-    value: openshift
-  - name: IMG_SRC_REPO
-    value: docker-registry.default.svc:5000
-  - name: NAMESPACE_DEPLOY
-    value: csnr-devops-lab-deploy
+    required: true
+  - name: TAG
+    required: true
+  - name: DOCKER_SRC
+    required: true
   - name: DOMAIN
-    value: pathfinder.gov.bc.ca
-  - name: TOOLS_NAMESPACE
-    value: csnr-devops-lab-tools
+    required: true
+  - name: NAMESPACE_DEPLOY
+    required: true
+  - name: NAMESPACE_TOOLS
+    required: true
   - name: GIT_URL
     required: true
   - name: GIT_BRANCH
     required: true
-  - name: BUILD_TAG
+  - name: PORT
+    required: true
 objects:
   - apiVersion: v1
     kind: ImageStream
@@ -43,7 +37,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
-      namespace: ${TOOLS_NAMESPACE}
+      namespace: ${NAMESPACE_TOOLS}
   - apiVersion: v1
     kind: BuildConfig
     metadata:
@@ -51,12 +45,12 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
-      namespace: ${TOOLS_NAMESPACE}
+      namespace: ${NAMESPACE_TOOLS}
     spec:
       output:
         to:
           kind: ImageStreamTag
-          name: ${APP}-${COMPONENT}:${BUILD_TAG}
+          name: ${APP}-${COMPONENT}:${TAG}
       resources:
         limits:
           cpu: '2'
@@ -66,7 +60,7 @@ objects:
           memory: 1Gi
       source:
         dockerfile: |
-          FROM ${IMG_SRC_REPO}/${IMG_SRC_NAMESPACE}/${IMG_SRC_NAME}:${IMG_SRC_TAG}
+          FROM ${DOCKER_SRC}
           ENV PORT=${PORT:-8080}
           EXPOSE "${PORT}"
 
@@ -85,3 +79,104 @@ objects:
       triggers:
         - imageChange: {}
           type: ImageChange
+  - apiVersion: v1
+    kind: ConfigMap
+    data:
+      config.json: |
+        {
+          "backendUrl": "https://${APP}-${COMPONENT_BACKEND}-${NAMESPACE_DEPLOY}.${DOMAIN}"
+        }
+    metadata:
+      labels:
+        app: ${APP}
+      name: ${APP}-${COMPONENT}
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      replicas: 1
+      selector:
+        app: ${APP}
+        component: ${COMPONENT}
+      strategy:
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            app: ${APP}
+            component: ${COMPONENT}
+        spec:
+          containers:
+            - name: ${APP}-${COMPONENT}
+              namespace: ${NAMESPACE_TOOLS}
+              image: ${APP}-${COMPONENT}
+              ports:
+                - containerPort: ${{PORT}}
+              resources: {}
+              volumeMounts:
+                - name: cem-frontend
+                  namespace: ${NAMESPACE_DEPLOY}
+                  mountPath: /app/dist/config.json
+                  subPath: config.json
+                  readOnly: true
+              workingDir: /app
+              ports:
+                - containerPort: ${{PORT}}
+          restartPolicy: Always
+          volumes:
+            - name: cem-frontend
+              namespace: ${NAMESPACE_DEPLOY}
+              configMap:
+                name: cem-frontend
+                namespace: ${NAMESPACE_DEPLOY}
+      test: false
+      triggers:
+        - type: ConfigChange
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - ${APP}-${COMPONENT}
+            from:
+              kind: ImageStreamTag
+              name: ${APP}-${COMPONENT}:${TAG}
+              namespace: ${NAMESPACE_TOOLS}
+          type: ImageChange
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      ports:
+      - name: "${PORT}"
+        port: ${{PORT}}
+        targetPort: ${{PORT}}
+      selector:
+        app: ${APP}
+        component: ${COMPONENT}
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      host: ${APP}-${COMPONENT}-${NAMESPACE_DEPLOY}.${DOMAIN}
+      port:
+        targetPort: ${PORT}
+      to:
+        kind: Service
+        name: ${APP}-${COMPONENT}
+        namespace: ${NAMESPACE_DEPLOY}
+      tls:
+        termination: edge
