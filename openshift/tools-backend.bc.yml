@@ -11,15 +11,25 @@ parameters:
     required: true
   - name: COMPONENT
     required: true
+  - name: PORT
+    required: true
   - name: TAG
     required: true
   - name: DOCKER_SRC
     required: true
-  - name: TOOLS_NAMESPACE
+  - name: NAMESPACE_TOOLS
     required: true
   - name: GIT_URL
     required: true
   - name: GIT_BRANCH
+    required: true
+  - name: COMPONENT_FRONTEND
+    required: true
+  - name: PORT_FRONTEND
+    required: true
+  - name: DOMAIN
+    required: true
+  - name: NAMESPACE_DEPLOY
     required: true
 objects:
   - apiVersion: v1
@@ -29,7 +39,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
-      namespace: ${TOOLS_NAMESPACE}
+      namespace: ${NAMESPACE_TOOLS}
   - apiVersion: v1
     kind: BuildConfig
     metadata:
@@ -37,7 +47,7 @@ objects:
         app: ${APP}
         component: ${COMPONENT}
       name: ${APP}-${COMPONENT}
-      namespace: ${TOOLS_NAMESPACE}
+      namespace: ${NAMESPACE_TOOLS}
     spec:
       output:
         to:
@@ -63,3 +73,95 @@ objects:
       triggers:
         - imageChange: {}
           type: ImageChange
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      replicas: 1
+      selector:
+        app: ${APP}
+        component: ${COMPONENT}
+      strategy:
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            app: ${APP}
+            component: ${COMPONENT}
+        spec:
+          containers:
+            - env:
+              image: ${APP}-${COMPONENT}
+              name: ${APP}-${COMPONENT}
+              ports:
+                - containerPort: ${{PORT}}
+              resources: {}
+              workingDir: /app
+              env:
+                - name: FRONTEND_URL
+                  value: https://${APP}-${COMPONENT_FRONTEND}-${NAMESPACE_DEPLOY}.${DOMAIN}
+                - name: CLIENT_ID
+                  valueFrom:
+                    secretKeyRef:
+                      key: CLIENT_ID
+                      name: cem-backend
+                - name: CLIENT_SECRET
+                  valueFrom:
+                    secretKeyRef:
+                      key: CLIENT_SECRET
+                      name: cem-backend
+              name: ${APP}-${COMPONENT}
+              namespace: ${NAMESPACE_TOOLS}
+              ports:
+                - containerPort: ${{PORT}}
+          restartPolicy: Always
+      test: false
+      triggers:
+        - type: ConfigChange
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - ${APP}-${COMPONENT}
+            from:
+              kind: ImageStreamTag
+              name:  ${APP}-${COMPONENT}:${TAG}
+              namespace: ${NAMESPACE_TOOLS}
+          type: ImageChange
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      ports:
+      - name: "${PORT}"
+        port: ${{PORT}}
+        targetPort: ${{PORT}}
+      selector:
+        app: ${APP}
+        component: ${COMPONENT}
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${COMPONENT}
+      name: ${APP}-${COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      host: ${APP}-${COMPONENT}-${NAMESPACE_DEPLOY}.${DOMAIN}
+      port:
+        targetPort: ${PORT}
+      to:
+        kind: Service
+        name: ${APP}-${COMPONENT}
+      tls:
+        termination: edge
