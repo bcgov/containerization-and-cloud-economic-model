@@ -26,9 +26,8 @@ oc get secret cem-backend -o name -n ${NAMESPACE_DEPLOY} ||(
 )
 
 # Create builds and deployments
-oc process -f backend.yml -p GIT_URL=${GIT_URL} -p GIT_BRANCH=${GIT_BRANCH} | oc apply -f -
-oc process -f tools-frontend.bc.yml -p GIT_URL=${GIT_URL} -p GIT_BRANCH=${GIT_BRANCH} | oc apply -f -
-oc process -f deploy-frontend.dc.yml | oc apply -f -
+oc process -f backend.yml -p GIT_BRANCH=${GIT_BRANCH} --param-file=backend.env | oc apply -f -
+oc process -f frontend.yml -p GIT_BRANCH=${GIT_BRANCH} --param-file=frontend.env | oc apply -f -
 
 # Start builds, following the longest (deployments triggered by build completions)
 oc start-build cem-backend -n ${NAMESPACE_TOOLS}
