@@ -8,21 +8,21 @@ labels:
   component: ${COMPONENT}
 parameters:
   - name: APP
-    value: cem
+    required: true
   - name: COMPONENT
-    value: backend
-  - name: BUILD_TAG
-    value: latest
+    required: true
+  - name: TAG
+    required: true
   - name: IMG_SRC_TAG
-    value: '10'
+    required: true
   - name: IMG_SRC_NAME
-    value: nodejs
+    required: true
   - name: IMG_SRC_NAMESPACE
-    value: openshift
+    required: true
   - name: IMG_SRC_REPO
-    value: docker-registry.default.svc:5000
+    required: true
   - name: TOOLS_NAMESPACE
-    value: csnr-devops-lab-tools
+    required: true
   - name: GIT_URL
     required: true
   - name: GIT_BRANCH
@@ -48,7 +48,7 @@ objects:
       output:
         to:
           kind: ImageStreamTag
-          name: ${APP}-${COMPONENT}:${BUILD_TAG}
+          name: ${APP}-${COMPONENT}:${TAG}
       source:
         dockerfile: |
           FROM ${IMG_SRC_REPO}/${IMG_SRC_NAMESPACE}/${IMG_SRC_NAME}:${IMG_SRC_TAG}
