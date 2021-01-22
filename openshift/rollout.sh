@@ -1,29 +1,12 @@
 #!/bin/sh -l
-set -euxo nounset
+set -euo nounset
 
-# Repo details
-GIT_URL="${GIT_URL:-$(git remote get-url origin)}"
-GIT_BRANCH="${GIT_BRANCH:-$(git symbolic-ref --short -q HEAD)}"
-
-# URL form https://github.com/<organization>/<repository>
-GIT_URL=https://github.com/${GIT_URL#*github.com[:/]} # replace all prefixes
-GIT_URL=${GIT_URL%.git}                               # trim trailing .git
-
-# OpenShift details
-NAMESPACE_DEPLOY=csnr-devops-lab-deploy
+# Vars (git branch, tools namespace)
+GIT_BRANCH="${GIT_BRANCH:-$(git symbolic-ref --short -q HEAD)}"                              # trim trailing .git
 NAMESPACE_TOOLS=csnr-devops-lab-tools
 
-# Create secret, if necessary
-oc get secret cem-backend -o name -n ${NAMESPACE_DEPLOY} ||(
-  echo -e "\nSecret not present.  CLIENT_ID and CLIENT_SECRET not found."
-  echo -e "\nSign up for credentials at https://getok.nrs.gov.bc.ca.\n"
-
-  read -p "CLIENT_ID [CEM_SERVICE_CLIENT]:" CLIENT_ID
-  CLIENT_ID="${CLIENT_ID:-CEM_SERVICE_CLIENT}"
-  read -p "CLIENT_SECRET:" CLIENT_SECRET
-  echo
-  oc process -f deploy-backend.secret.yml -p CLIENT_ID=${CLIENT_ID} -p CLIENT_SECRET=${CLIENT_SECRET} --param-file=config.env | oc apply -f -
-)
+# Initialize with secret, if necessary
+./init.sh
 
 # Create builds and deployments
 oc process -f backend.yml -p GIT_BRANCH=${GIT_BRANCH} --param-file=config.env | oc apply -f -
