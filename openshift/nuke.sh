@@ -10,8 +10,8 @@ read -p "Enter 'y' to continue: " -n 1 -r RESPONSE
 echo
 
 # If confirmed, delete everything (except secrets and config maps)
-if [[ ${RESPONSE} =~ [Yy]$ ]]
+if [[ "${RESPONSE}" =~ [Yy]$ ]]
 then
-  oc delete all -l app=${APP} -n "${NAMESPACE_DEPLOY}"
-  oc delete all -l app=${APP} -n "${NAMESPACE_TOOLS}"
+  oc delete all -l app="${APP}" -n "${NAMESPACE_DEPLOY}"
+  oc delete all -l app="${APP}" -n "${NAMESPACE_TOOLS}"
 fi

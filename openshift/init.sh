@@ -5,7 +5,7 @@ set -euo nounset
 source ./config.env
 
 # Create secret, if necessary
-if(oc get secret cem-backend -o name -n ${NAMESPACE_DEPLOY})
+if(oc get secret cem-backend -o name -n "${NAMESPACE_DEPLOY}")
 then
   echo -e "\nAlready initialized.  Secret exists.\n"
 else
@@ -16,5 +16,6 @@ else
   CLIENT_ID="${CLIENT_ID:-CEM_SERVICE_CLIENT}"
   read -p "CLIENT_SECRET:" CLIENT_SECRET
   echo
-  oc process -f init.yml -p CLIENT_ID=${CLIENT_ID} -p CLIENT_SECRET=${CLIENT_SECRET} --param-file=config.env | oc apply -f -
+  oc process -f init.yml -p CLIENT_ID="${CLIENT_ID}" -p CLIENT_SECRET="${CLIENT_SECRET}" \
+    --param-file=config.env | oc apply -f -
 fi
