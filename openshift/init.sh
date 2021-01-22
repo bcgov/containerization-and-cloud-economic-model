@@ -1,8 +1,8 @@
 #!/bin/sh -l
 set -euo nounset
 
-# OpenShift details
-NAMESPACE_DEPLOY=csnr-devops-lab-deploy
+# Vars (deploy namespace)
+source ./config.env
 
 # Create secret, if necessary
 if(oc get secret cem-backend -o name -n ${NAMESPACE_DEPLOY})

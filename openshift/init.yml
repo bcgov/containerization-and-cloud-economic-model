@@ -33,8 +33,6 @@ parameters:
     required: true
   - name: GIT_URL
     required: true
-  - name: GIT_BRANCH
-    required: true
 objects:
   - apiVersion: v1
     kind: Secret

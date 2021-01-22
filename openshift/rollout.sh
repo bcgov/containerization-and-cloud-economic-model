@@ -1,9 +1,9 @@
 #!/bin/sh -l
-set -euo nounset
+set -euxo nounset
 
 # Vars (git branch, tools namespace)
-GIT_BRANCH="${GIT_BRANCH:-$(git symbolic-ref --short -q HEAD)}"                              # trim trailing .git
-NAMESPACE_TOOLS=csnr-devops-lab-tools
+GIT_BRANCH="$(git symbolic-ref --short -q HEAD)"
+source ./config.env
 
 # Initialize with secret, if necessary
 ./init.sh
