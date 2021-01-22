@@ -16,6 +16,6 @@ else
   CLIENT_ID="${CLIENT_ID:-CEM_SERVICE_CLIENT}"
   read -p "CLIENT_SECRET:" CLIENT_SECRET
   echo
-  oc process -f init.yml -p CLIENT_ID="${CLIENT_ID}" -p CLIENT_SECRET="${CLIENT_SECRET}" \
+  oc process -f ./templates/init.yml -p CLIENT_ID="${CLIENT_ID}" -p CLIENT_SECRET="${CLIENT_SECRET}" \
     --param-file=config.env | oc apply -f -
 fi
