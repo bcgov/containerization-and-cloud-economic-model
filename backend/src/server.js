@@ -2,17 +2,14 @@ const express = require('express');
 const cors = require('cors');
 const cstk = require('./utils/commonServicesToolkit');
 
+// Envars
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:8080';
+const PORT = process.env.PORT || 3000;
+
 // Express
 const app = express();
 app.use(express.json());
 app.use(cors({ origin: FRONTEND_URL }));
-
-// Envars
-const TITLE =
-  process.env.TITLE ||
-  'Wrapper and Credential Handler for Common Services APIs';
-const PORT = process.env.PORT || 3000;
 
 // Receive contexts and email recipient, create and send file
 app.post('/render', async (req, res) => {
@@ -27,8 +24,7 @@ app.post('/render', async (req, res) => {
 
 // Minimal routing for landing, health check and 404
 app.get(['/_health', '/health'], ({ res }) => res.status(200).send('OK'));
-app.get('/', ({ res }) => res.status(200).send(TITLE));
-app.get('*', ({ res }) => res.status(404).send('Not Found'));
+app.get('*', ({ res }) => res.redirect(FRONTEND_URL));
 
 // Run server
 app.listen(PORT, () => console.log(`Listening on port ${PORT}...`));
