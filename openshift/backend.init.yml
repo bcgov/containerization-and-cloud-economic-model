@@ -2,20 +2,38 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: ${APP}-${COMPONENT}
+  name: ${APP}-${BACKEND_COMPONENT}
 labels:
   app: ${APP}
-  component: ${COMPONENT}
+  component: ${BACKEND_COMPONENT}
 parameters:
-  - name: APP
-    value: cem
-  - name: COMPONENT
-    value: backend
-  - name: NAMESPACE_DEPLOY
-    value: csnr-devops-lab-deploy
   - name: CLIENT_ID
     value: CEM_SERVICE_CLIENT
   - name: CLIENT_SECRET
+    required: true
+  - name: APP
+    required: true
+  - name: BACKEND_COMPONENT
+    required: true
+  - name: BACKEND_PORT
+    required: true
+  - name: FRONTEND_COMPONENT
+    required: true
+  - name: FRONTEND_PORT
+    required: true
+  - name: NAMESPACE_DEPLOY
+    required: true
+  - name: NAMESPACE_TOOLS
+    required: true
+  - name: DOMAIN
+    required: true
+  - name: DOCKER_SRC
+    required: true
+  - name: BUILD_TAG
+    required: true
+  - name: GIT_URL
+    required: true
+  - name: GIT_BRANCH
     required: true
 objects:
   - apiVersion: v1
@@ -23,7 +41,7 @@ objects:
     metadata:
       labels:
         app: ${APP}
-      name: ${APP}-${COMPONENT}
+      name: ${APP}-${BACKEND_COMPONENT}
       namespace: ${NAMESPACE_DEPLOY}
     stringData:
       CLIENT_ID: ${CLIENT_ID}

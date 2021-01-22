@@ -22,7 +22,7 @@ oc get secret cem-backend -o name -n ${NAMESPACE_DEPLOY} ||(
   CLIENT_ID="${CLIENT_ID:-CEM_SERVICE_CLIENT}"
   read -p "CLIENT_SECRET:" CLIENT_SECRET
   echo
-  oc process -f deploy-backend.secret.yml -p CLIENT_ID=${CLIENT_ID} -p CLIENT_SECRET=${CLIENT_SECRET} | oc apply -f -
+  oc process -f deploy-backend.secret.yml -p CLIENT_ID=${CLIENT_ID} -p CLIENT_SECRET=${CLIENT_SECRET} --param-file=config.env | oc apply -f -
 )
 
 # Create builds and deployments

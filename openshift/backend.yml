@@ -13,23 +13,23 @@ parameters:
     required: true
   - name: BACKEND_PORT
     required: true
-  - name: TAG
-    required: true
-  - name: DOCKER_SRC
-    required: true
-  - name: NAMESPACE_TOOLS
-    required: true
-  - name: GIT_URL
-    required: true
-  - name: GIT_BRANCH
-    required: true
   - name: FRONTEND_COMPONENT
     required: true
   - name: FRONTEND_PORT
     required: true
+  - name: NAMESPACE_DEPLOY
+    required: true
+  - name: NAMESPACE_TOOLS
+    required: true
   - name: DOMAIN
     required: true
-  - name: NAMESPACE_DEPLOY
+  - name: DOCKER_SRC
+    required: true
+  - name: BUILD_TAG
+    required: true
+  - name: GIT_URL
+    required: true
+  - name: GIT_BRANCH
     required: true
 objects:
   - apiVersion: v1
@@ -52,7 +52,7 @@ objects:
       output:
         to:
           kind: ImageStreamTag
-          name: ${APP}-${BACKEND_COMPONENT}:${TAG}
+          name: ${APP}-${BACKEND_COMPONENT}:${BUILD_TAG}
       source:
         dockerfile: |
           FROM ${DOCKER_SRC}
@@ -129,7 +129,7 @@ objects:
               - ${APP}-${BACKEND_COMPONENT}
             from:
               kind: ImageStreamTag
-              name:  ${APP}-${BACKEND_COMPONENT}:${TAG}
+              name:  ${APP}-${BACKEND_COMPONENT}:${BUILD_TAG}
               namespace: ${NAMESPACE_TOOLS}
           type: ImageChange
   - apiVersion: v1

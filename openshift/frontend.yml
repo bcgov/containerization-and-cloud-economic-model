@@ -9,27 +9,27 @@ labels:
 parameters:
   - name: APP
     required: true
-  - name: FRONTEND_COMPONENT
-    required: true
   - name: BACKEND_COMPONENT
     required: true
   - name: BACKEND_PORT
     required: true
-  - name: TAG
+  - name: FRONTEND_COMPONENT
     required: true
-  - name: DOCKER_SRC
-    required: true
-  - name: DOMAIN
+  - name: FRONTEND_PORT
     required: true
   - name: NAMESPACE_DEPLOY
     required: true
   - name: NAMESPACE_TOOLS
     required: true
+  - name: DOMAIN
+    required: true
+  - name: DOCKER_SRC
+    required: true
+  - name: BUILD_TAG
+    required: true
   - name: GIT_URL
     required: true
   - name: GIT_BRANCH
-    required: true
-  - name: FRONTEND_PORT
     required: true
 objects:
   - apiVersion: v1
@@ -52,7 +52,7 @@ objects:
       output:
         to:
           kind: ImageStreamTag
-          name: ${APP}-${FRONTEND_COMPONENT}:${TAG}
+          name: ${APP}-${FRONTEND_COMPONENT}:${BUILD_TAG}
       resources:
         limits:
           cpu: '2'
@@ -145,7 +145,7 @@ objects:
               - ${APP}-${FRONTEND_COMPONENT}
             from:
               kind: ImageStreamTag
-              name: ${APP}-${FRONTEND_COMPONENT}:${TAG}
+              name: ${APP}-${FRONTEND_COMPONENT}:${BUILD_TAG}
               namespace: ${NAMESPACE_TOOLS}
           type: ImageChange
   - apiVersion: v1
