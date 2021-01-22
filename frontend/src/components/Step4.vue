@@ -17,7 +17,7 @@ export default {
   mounted() {
     if (!this.reviewMode) {
       // Enable "leave site" native browser warning
-      window.onbeforeunload = () => false;
+      window.onbeforeunload = null;
     }
   },
 };
