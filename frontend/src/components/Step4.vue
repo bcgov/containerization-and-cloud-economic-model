@@ -10,15 +10,3 @@
     </div>
   </v-container>
 </template>
-
-<script>
-export default {
-  name: 'CloudEconomicModelStep2',
-  mounted() {
-    if (!this.reviewMode) {
-      // Enable "leave site" native browser warning
-      window.onbeforeunload = null;
-    }
-  },
-};
-</script>
