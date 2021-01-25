@@ -62,19 +62,21 @@ objects:
           memory: 1Gi
       source:
         dockerfile: |
-          FROM ${DOCKER_SRC}
+          FROM ${DOCKER_SRC} AS build
           ENV PORT=${FRONTEND_PORT:-8080}
           EXPOSE "${FRONTEND_PORT}"
 
           USER root
-          WORKDIR /app
-          RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
-              cp -rT /tmp/app/frontend . && \
-              rm -rf /tmp/app
-          RUN npm install
-          RUN npm run build
+          RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app
+          WORKDIR /tmp/app/frontend
+          RUN npm install && \
+              npm run build
 
-          CMD ./node_modules/.bin/serve -s dist/ -p ${FRONTEND_PORT}
+          FROM ${DOCKER_SRC} AS release
+          WORKDIR /app
+          COPY --from=build /tmp/app/frontend/dist /tmp/app/frontend/node_modules/serve/bin/serve.js .
+
+          CMD ./serve.js -s . -p ${FRONTEND_PORT}
         type: Dockerfile
       strategy:
         type: Docker
