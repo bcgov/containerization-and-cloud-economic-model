@@ -63,10 +63,9 @@ objects:
       source:
         dockerfile: |
           FROM ${DOCKER_SRC} AS build
-          USER root
-          RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app
-          WORKDIR /tmp/app/frontend
-          RUN npm install && \
+          RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
+              cd /tmp/app/frontend && \
+              npm install && \
               npm run build
 
           FROM ${DOCKER_SRC} AS release

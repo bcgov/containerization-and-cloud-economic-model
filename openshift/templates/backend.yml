@@ -61,8 +61,8 @@ objects:
           WORKDIR /app
           RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
               cp -rT /tmp/app/backend . && \
-              rm -rf /tmp/app
-          RUN npm install
+              rm -rf /tmp/app && \
+              npm install
 
           CMD npm start
         type: Dockerfile
