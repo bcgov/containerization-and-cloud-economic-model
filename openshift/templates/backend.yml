@@ -57,8 +57,6 @@ objects:
         dockerfile: |
           FROM ${DOCKER_SRC}
 
-          EXPOSE "${BACKEND_PORT:-3000}"
-
           USER root
           WORKDIR /app
           RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \

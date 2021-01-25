@@ -63,9 +63,6 @@ objects:
       source:
         dockerfile: |
           FROM ${DOCKER_SRC} AS build
-          ENV PORT=${FRONTEND_PORT:-8080}
-          EXPOSE "${FRONTEND_PORT}"
-
           USER root
           RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app
           WORKDIR /tmp/app/frontend
@@ -76,7 +73,7 @@ objects:
           WORKDIR /app
           COPY --from=build /tmp/app/frontend/dist .
 
-          CMD npx serve -s . -p ${FRONTEND_PORT}
+          CMD npx serve -s . -p ${FRONTEND_PORT:-8080}
         type: Dockerfile
       strategy:
         type: Docker
