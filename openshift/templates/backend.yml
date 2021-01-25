@@ -55,14 +55,14 @@ objects:
           name: ${APP}-${BACKEND_COMPONENT}:${BUILD_TAG}
       source:
         dockerfile: |
-          FROM ${DOCKER_SRC}
-
-          USER root
-          WORKDIR /app
+          FROM ${DOCKER_SRC} AS build
           RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
-              cp -rT /tmp/app/backend . && \
-              rm -rf /tmp/app && \
+              cd /tmp/app/backend && \
               npm install
+
+          FROM ${DOCKER_SRC} AS release
+          WORKDIR /app
+          COPY --from=build /tmp/app/backend .
 
           CMD npm start
         type: Dockerfile
