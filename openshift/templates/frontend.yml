@@ -74,9 +74,9 @@ objects:
 
           FROM ${DOCKER_SRC} AS release
           WORKDIR /app
-          COPY --from=build /tmp/app/frontend/dist /tmp/app/frontend/node_modules/serve/bin/serve.js .
+          COPY --from=build /tmp/app/frontend/dist .
 
-          CMD ./serve.js -s . -p ${FRONTEND_PORT}
+          CMD npx serve -s . -p ${FRONTEND_PORT}
         type: Dockerfile
       strategy:
         type: Docker
