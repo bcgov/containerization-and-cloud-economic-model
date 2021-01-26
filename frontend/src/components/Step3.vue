@@ -130,6 +130,9 @@ export default {
     ]),
     ...mapActions('form', ['submitForm']),
     renderToEmail: function () {
+      // Once the form is done disable the native browser "leave site" message so they can quit without getting whined at
+      window.onbeforeunload = null;
+
       const body = {
         recipient: this.contact.sendEmail,
         contexts: {

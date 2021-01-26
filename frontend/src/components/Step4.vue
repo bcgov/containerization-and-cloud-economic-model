@@ -6,9 +6,7 @@
         Thank you for using this forecasting tool. Please expect to receive an
         email shortly.
       </p>
-      <p class="mb-8">
-        Please close this window at any time.
-      </p>
+      <p class="mb-8">Please close this window at any time.</p>
     </div>
   </v-container>
 </template>
