@@ -92,8 +92,7 @@ objects:
             component: ${BACKEND_COMPONENT}
         spec:
           containers:
-            - env:
-              image: ${APP}-${BACKEND_COMPONENT}
+            - image: ${APP}-${BACKEND_COMPONENT}
               name: ${APP}-${BACKEND_COMPONENT}
               ports:
                 - containerPort: ${{BACKEND_PORT}}
@@ -116,6 +115,26 @@ objects:
               namespace: ${NAMESPACE_TOOLS}
               ports:
                 - containerPort: ${{BACKEND_PORT}}
+              livenessProbe:
+                httpGet:
+                  path: "/health"
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 10
+                timeoutSeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                failureThreshold: 3
+              readinessProbe:
+                httpGet:
+                  path: "/health"
+                  port: 3000
+                  scheme: HTTP
+                initialDelaySeconds: 10
+                timeoutSeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                failureThreshold: 3
           restartPolicy: Always
       test: false
       triggers:
