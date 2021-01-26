@@ -15,8 +15,6 @@ parameters:
     required: true
   - name: FRONTEND_COMPONENT
     required: true
-  - name: FRONTEND_PORT
-    required: true
   - name: NAMESPACE_DEPLOY
     required: true
   - name: NAMESPACE_TOOLS
@@ -31,6 +29,7 @@ parameters:
     required: true
   - name: GIT_BRANCH
     required: true
+  - name: FRONTEND_PORT
 objects:
   - apiVersion: v1
     kind: ImageStream

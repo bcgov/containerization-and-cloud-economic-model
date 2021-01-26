@@ -11,8 +11,6 @@ parameters:
     required: true
   - name: BACKEND_COMPONENT
     required: true
-  - name: BACKEND_PORT
-    required: true
   - name: FRONTEND_COMPONENT
     required: true
   - name: FRONTEND_PORT
@@ -31,6 +29,7 @@ parameters:
     required: true
   - name: GIT_BRANCH
     required: true
+  - name: BACKEND_PORT
 objects:
   - apiVersion: v1
     kind: ImageStream
