@@ -1,5 +1,5 @@
 {
-  "name": "cem-backend",
+  "name": "backend",
   "version": "1.0.0",
   "description": "Communicates with Common Services' APIs (CDOGS, CHES, Auth)",
   "main": "/src/server.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/derekroberts/cem.git"
+    "url": "git+https://github.com/ActionAnalytics/containerization-and-cloud-economic-model.git"
   },
   "author": "Derek Roberts",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/derekroberts/cem/issues"
+    "url": "https://github.com/ActionAnalytics/containerization-and-cloud-economic-model/issues"
   },
-  "homepage": "https://github.com/derekroberts/cem",
+  "homepage": "https://github.com/ActionAnalytics/containerization-and-cloud-economic-model",
   "devDependencies": {
     "eslint": "^7.18.0",
     "eslint-config-airbnb-base": "^14.2.1",
