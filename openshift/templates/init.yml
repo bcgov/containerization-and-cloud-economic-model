@@ -1,0 +1,46 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: ${APP}-${BACKEND_COMPONENT}
+labels:
+  app: ${APP}
+  component: ${BACKEND_COMPONENT}
+parameters:
+  - name: CLIENT_ID
+    value: CEM_SERVICE_CLIENT
+  - name: CLIENT_SECRET
+    required: true
+  - name: APP
+    required: true
+  - name: BACKEND_COMPONENT
+    required: true
+  - name: BACKEND_PORT
+    required: true
+  - name: FRONTEND_COMPONENT
+    required: true
+  - name: FRONTEND_PORT
+    required: true
+  - name: NAMESPACE_DEPLOY
+    required: true
+  - name: NAMESPACE_TOOLS
+    required: true
+  - name: DOMAIN
+    required: true
+  - name: DOCKER_SRC
+    required: true
+  - name: BUILD_TAG
+    required: true
+  - name: GIT_URL
+    required: true
+objects:
+  - apiVersion: v1
+    kind: Secret
+    metadata:
+      labels:
+        app: ${APP}
+      name: ${APP}-${BACKEND_COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    stringData:
+      CLIENT_ID: ${CLIENT_ID}
+      CLIENT_SECRET: '${CLIENT_SECRET}'

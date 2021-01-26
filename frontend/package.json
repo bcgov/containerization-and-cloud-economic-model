@@ -1,0 +1,63 @@
+{
+  "name": "cem-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "node ./bin/www",
+    "debug": "nodemon --inspect ./bin/www",
+    "build": "node --max_old_space_size=6144 node_modules/@vue/cli-service/bin/vue-cli-service.js build",
+    "clean": "rm -rf coverage dist",
+    "lint": "vue-cli-service lint",
+    "lint:fix": "vue-cli-service lint --fix",
+    "rebuild": "npm run clean && npm run build",
+    "reinstall": "npm run purge && npm install",
+    "dev": "vue-cli-service serve --mode development",
+    "serve": "vue-cli-service serve",
+    "test": "npm run test:unit",
+    "test:unit": "vue-cli-service test:unit --verbose --forceExit --detectOpenHandles --maxWorkers=10",
+    "test:unit:short": "vue-cli-service test:unit --forceExit --detectOpenHandles --maxWorkers=10",
+    "pretest": "npm run lint",
+    "purge": "rm -rf node_modules"
+  },
+  "dependencies": {
+    "@bcgov/bc-sans": "^1.0.1",
+    "axios": "^0.21.1",
+    "base-64": "^1.0.0",
+    "core-js": "^3.6.5",
+    "form-data": "^3.0.0",
+    "nodemon": "^2.0.6",
+    "serve": "^11.3.2",
+    "utf8": "^3.0.0",
+    "validator": "^13.1.1",
+    "vue": "^2.6.11",
+    "vue-router": "^3.3.4",
+    "vuetify": "^2.3.6",
+    "vuex": "^3.5.1"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^4.5.11",
+    "@vue/cli-plugin-eslint": "^4.5.11",
+    "@vue/cli-plugin-router": "^4.5.11",
+    "@vue/cli-plugin-unit-jest": "^4.5.11",
+    "@vue/cli-service": "^4.5.11",
+    "@vue/eslint-config-prettier": "^6.0.0",
+    "@vue/test-utils": "^1.1.2",
+    "axios-mock-adapter": "^1.19.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.18.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-vue": "^7.5.0",
+    "eslint-plugin-vuetify": "^1.0.0-beta.7",
+    "jest-sonar-reporter": "^2.0.0",
+    "prettier": "^2.2.1",
+    "sass": "^1.32.5",
+    "sass-loader": "^10.1.1",
+    "vue-cli-plugin-vuetify": "^2.0.9",
+    "vue-template-compiler": "^2.6.12",
+    "vuetify-loader": "^1.6.0"
+  },
+  "jestSonar": {
+    "reportPath": "coverage"
+  }
+}
