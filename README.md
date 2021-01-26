@@ -212,8 +212,8 @@ Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for more infor
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 
-[contributors-shield]: https://img.shields.io/github/contributors/DerekRoberts/cem.svg?style=for-the-badge
-[forks-shield]: https://img.shields.io/github/forks/DerekRoberts/cem.svg?style=for-the-badge
-[stars-shield]: https://img.shields.io/github/stars/DerekRoberts/cem.svg?style=for-the-badge
-[issues-shield]: https://img.shields.io/github/issues/DerekRoberts/cem.svg?style=for-the-badge
-[license-shield]: https://img.shields.io/github/license/DerekRoberts/cem.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
+[forks-shield]: https://img.shields.io/github/forks/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
+[stars-shield]: https://img.shields.io/github/stars/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
+[issues-shield]: https://img.shields.io/github/issues/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/github/license/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
