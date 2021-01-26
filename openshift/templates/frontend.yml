@@ -64,7 +64,7 @@ objects:
           FROM ${DOCKER_SRC} AS build
           RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
               cd /tmp/app/frontend && \
-              npm install && \
+              npm install --quiet && \
               npm run build
 
           FROM ${DOCKER_SRC} AS release
