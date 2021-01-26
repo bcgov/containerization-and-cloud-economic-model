@@ -41,3 +41,9 @@
 # =============
 [tT][eE][rR][rR][aA][fF][oO][rR][mM]-[pP][rR][oO][vV][iI][dD][eE][rR]-* binary
 *.[pP][eE][mM] binary
+
+# Force images/fonts to be handled as binaries
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.png binary

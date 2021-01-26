@@ -1,0 +1,191 @@
+---
+apiVersion: v1
+kind: Template
+metadata:
+  name: ${APP}-${FRONTEND_COMPONENT}
+labels:
+  app: ${APP}
+  component: ${FRONTEND_COMPONENT}
+parameters:
+  - name: APP
+    required: true
+  - name: BACKEND_COMPONENT
+    required: true
+  - name: FRONTEND_COMPONENT
+    required: true
+  - name: FRONTEND_PORT
+    required: true
+  - name: NAMESPACE_DEPLOY
+    required: true
+  - name: NAMESPACE_TOOLS
+    required: true
+  - name: DOMAIN
+    required: true
+  - name: DOCKER_SRC
+    required: true
+  - name: BUILD_TAG
+    required: true
+  - name: GIT_URL
+    required: true
+  - name: GIT_BRANCH
+    required: true
+  - name: BACKEND_PORT
+objects:
+  - apiVersion: v1
+    kind: ImageStream
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${FRONTEND_COMPONENT}
+      name: ${APP}-${FRONTEND_COMPONENT}
+      namespace: ${NAMESPACE_TOOLS}
+  - apiVersion: v1
+    kind: BuildConfig
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${FRONTEND_COMPONENT}
+      name: ${APP}-${FRONTEND_COMPONENT}
+      namespace: ${NAMESPACE_TOOLS}
+    spec:
+      output:
+        to:
+          kind: ImageStreamTag
+          name: ${APP}-${FRONTEND_COMPONENT}:${BUILD_TAG}
+      resources:
+        limits:
+          cpu: '2'
+          memory: 2Gi
+        requests:
+          cpu: '1'
+          memory: 1Gi
+      source:
+        dockerfile: |
+          FROM ${DOCKER_SRC} AS build
+          RUN git clone ${GIT_URL} -b ${GIT_BRANCH} /tmp/app && \
+              cd /tmp/app/frontend && \
+              npm install --quiet && \
+              npm run build
+
+          FROM ${DOCKER_SRC} AS release
+          WORKDIR /app
+          COPY --from=build /tmp/app/frontend/dist .
+
+          CMD npx serve -s . -p ${FRONTEND_PORT:-8080}
+        type: Dockerfile
+      strategy:
+        type: Docker
+      triggers:
+        - imageChange: {}
+          type: ImageChange
+  - apiVersion: v1
+    kind: ConfigMap
+    data:
+      config.json: |
+        {
+          "backendUrl": "https://${APP}-${BACKEND_COMPONENT}-${NAMESPACE_DEPLOY}.${DOMAIN}"
+        }
+    metadata:
+      labels:
+        app: ${APP}
+      name: ${APP}-${FRONTEND_COMPONENT}
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${FRONTEND_COMPONENT}
+      name: ${APP}-${FRONTEND_COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      replicas: 1
+      selector:
+        app: ${APP}
+        component: ${FRONTEND_COMPONENT}
+      strategy:
+        type: Rolling
+      template:
+        metadata:
+          labels:
+            app: ${APP}
+            component: ${FRONTEND_COMPONENT}
+        spec:
+          containers:
+            - name: ${APP}-${FRONTEND_COMPONENT}
+              namespace: ${NAMESPACE_TOOLS}
+              image: ${APP}-${FRONTEND_COMPONENT}
+              ports:
+                - containerPort: ${{FRONTEND_PORT}}
+              resources: {}
+              volumeMounts:
+                - name: cem-frontend
+                  namespace: ${NAMESPACE_DEPLOY}
+                  mountPath: /app/dist/config.json
+                  subPath: config.json
+                  readOnly: true
+              workingDir: /app
+              ports:
+                - containerPort: ${{FRONTEND_PORT}}
+              readinessProbe:
+                httpGet:
+                  path: "/"
+                  port: 8080
+                  scheme: HTTP
+                initialDelaySeconds: 10
+                timeoutSeconds: 10
+                periodSeconds: 10
+                successThreshold: 1
+                failureThreshold: 2
+          restartPolicy: Always
+          volumes:
+            - name: cem-frontend
+              namespace: ${NAMESPACE_DEPLOY}
+              configMap:
+                name: cem-frontend
+                namespace: ${NAMESPACE_DEPLOY}
+      test: false
+      triggers:
+        - type: ConfigChange
+        - imageChangeParams:
+            automatic: true
+            containerNames:
+              - ${APP}-${FRONTEND_COMPONENT}
+            from:
+              kind: ImageStreamTag
+              name: ${APP}-${FRONTEND_COMPONENT}:${BUILD_TAG}
+              namespace: ${NAMESPACE_TOOLS}
+          type: ImageChange
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${FRONTEND_COMPONENT}
+      name: ${APP}-${FRONTEND_COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      ports:
+      - name: "${FRONTEND_PORT}"
+        port: ${{FRONTEND_PORT}}
+        targetPort: ${{FRONTEND_PORT}}
+      selector:
+        app: ${APP}
+        component: ${FRONTEND_COMPONENT}
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      labels:
+        app: ${APP}
+        component: ${FRONTEND_COMPONENT}
+      name: ${APP}-${FRONTEND_COMPONENT}
+      namespace: ${NAMESPACE_DEPLOY}
+    spec:
+      host: ${APP}-${FRONTEND_COMPONENT}-${NAMESPACE_DEPLOY}.${DOMAIN}
+      port:
+        targetPort: ${{FRONTEND_PORT}}
+      to:
+        kind: Service
+        name: ${APP}-${FRONTEND_COMPONENT}
+        namespace: ${NAMESPACE_DEPLOY}
+      tls:
+        termination: edge

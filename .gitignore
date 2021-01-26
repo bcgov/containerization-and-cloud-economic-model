@@ -32,10 +32,25 @@ yarn.lock
 debug.log
 output.txt
 
-# System Files
+# System files
 .DS_Store
 Thumbs.db
 ~*
 
-# Settings Files
+# Potentially generated formats, temp files
+*.docx
+*.doc
+*.odt
+*.xlsx
+*.xls
+*.ods
+*.pptx
+*.ppt
+*.odp
+*.pdf
+~$*
+*.*.bak
 
+# Temporary files
+tmp_*.*
+.tmp_*.*
