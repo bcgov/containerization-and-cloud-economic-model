@@ -118,7 +118,7 @@ objects:
                 - containerPort: ${{FRONTEND_PORT}}
               resources: {}
               volumeMounts:
-                - name: cem-frontend
+                - name: ${APP}-${FRONTEND_COMPONENT}
                   namespace: ${NAMESPACE_DEPLOY}
                   mountPath: /app/dist/config.json
                   subPath: config.json
@@ -138,10 +138,10 @@ objects:
                 failureThreshold: 2
           restartPolicy: Always
           volumes:
-            - name: cem-frontend
+            - name: ${APP}-${FRONTEND_COMPONENT}
               namespace: ${NAMESPACE_DEPLOY}
               configMap:
-                name: cem-frontend
+                name: ${APP}-${FRONTEND_COMPONENT}
                 namespace: ${NAMESPACE_DEPLOY}
       test: false
       triggers:

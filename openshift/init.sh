@@ -5,7 +5,7 @@ set -euo nounset
 source ./config.env
 
 # Create secret, if necessary
-if(oc get secret cem-backend -o name -n "${NAMESPACE_DEPLOY}")
+if(oc get secret ${APP}-${BACKEND_COMPONENT} -o name -n "${NAMESPACE_DEPLOY}")
 then
   echo -e "\nAlready initialized.  Secret exists.\n"
 else
