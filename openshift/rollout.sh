@@ -13,5 +13,5 @@ oc process -f ./templates/backend.yml -p GIT_BRANCH="${GIT_BRANCH}" --param-file
 oc process -f ./templates/frontend.yml -p GIT_BRANCH="${GIT_BRANCH}" --param-file=config.env | oc apply -f -
 
 # Start builds, following the longest (deployments triggered by build completions)
-oc start-build cem-backend -n "${NAMESPACE_TOOLS}"
-oc start-build cem-frontend -n "${NAMESPACE_TOOLS}" --follow
+oc start-build ${APP}-${BACKEND_COMPONENT} -n "${NAMESPACE_TOOLS}"
+oc start-build ${APP}-${FRONTEND_COMPONENT} -n "${NAMESPACE_TOOLS}" --follow

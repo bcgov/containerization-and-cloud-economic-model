@@ -105,12 +105,12 @@ objects:
                   valueFrom:
                     secretKeyRef:
                       key: CLIENT_ID
-                      name: cem-backend
+                      name: ${APP}-${BACKEND_COMPONENT}
                 - name: CLIENT_SECRET
                   valueFrom:
                     secretKeyRef:
                       key: CLIENT_SECRET
-                      name: cem-backend
+                      name: ${APP}-${BACKEND_COMPONENT}
               name: ${APP}-${BACKEND_COMPONENT}
               namespace: ${NAMESPACE_TOOLS}
               ports:
