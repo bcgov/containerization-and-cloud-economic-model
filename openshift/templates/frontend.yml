@@ -120,7 +120,7 @@ objects:
               volumeMounts:
                 - name: ${APP}-${FRONTEND_COMPONENT}
                   namespace: ${NAMESPACE_DEPLOY}
-                  mountPath: /app/dist/config.json
+                  mountPath: /app/config.json
                   subPath: config.json
                   readOnly: true
               workingDir: /app
