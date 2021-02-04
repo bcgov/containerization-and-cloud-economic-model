@@ -2,7 +2,7 @@
 set -euo nounset
 
 # Vars (git branch, tools namespace)
-GIT_BRANCH="$(git symbolic-ref --short -q HEAD)"
+GIT_BRANCH="${GIT_BRANCH:-$(git symbolic-ref --short -q HEAD)}"
 source ./config.env
 
 # Initialize with secret, if necessary
