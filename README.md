@@ -1,16 +1,15 @@
 <!-- PROJECT SHIELDS -->
-<!--
-*** https://www.markdownguide.org/basic-syntax/#reference-style-links
--->
 
-[![Contributors][contributors-shield]](/../../graphs/contributors)
-[![Forks][forks-shield]](/../../network/members)
-[![Stargazers][stars-shield]](/../../stargazers)
-[![Issues][issues-shield]](/../../issues)
-[![MIT License][license-shield]](/LICENSE.txt)
-[![Lifecycle][lifecycle-shield]](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+[![Contributors](https://img.shields.io/github/contributors/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../graphs/contributors)
+[![Forks](https://img.shields.io/github/forks/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../network/members)
+[![Stargazers](https://img.shields.io/github/stars/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../stargazers)
+[![Issues](https://img.shields.io/github/issues/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../issues)
+[![MIT License](https://img.shields.io/github/license/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/LICENSE.txt)
+[![Lifecycle](https://img.shields.io/badge/Lifecycle-Stable-97ca00?style=for-the-badge)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+
 
 <!-- PROJECT LOGO -->
+
 <br />
 <p align="center">
   <a href="https://gov.bc.ca">
@@ -24,7 +23,9 @@
   </p>
 </p>
 
+
 <!-- TABLE OF CONTENTS -->
+
 <details open="open">
   <summary><h2 style="display: inline-block">Table of Contents</h2></summary>
   <ol>
@@ -50,6 +51,7 @@
   </ol>
 </details>
 
+
 ## About The Project
 
 A model for analyzing the business case to move from a legacy waterfall on-premise application hosting model to an agile open-source pipeline moving from a staging ground that is containerized on-premise to eventual commercial cloud hosted.
@@ -58,13 +60,16 @@ A Vue Frontend (single page application) asks questions which are used to comple
 
 This project started as a fork of the Common Services Team's [Common Forms Toolkit](https://github.com/bcgov/common-forms-toolkit).
 
+
 ### Sample: DEV Mode Sensitivity Analysis Options
 
 ![Questions](.images/questions.png)
 
+
 ### Architecture
 
 ![CEM Architecture](.images/overview.png)
+
 
 ### Built With
 
@@ -80,7 +85,6 @@ Services:
 - [Common Document Generation Service (CDOGS)](https://bcgov.github.io/common-document-generation-service)
 - [Common Hosted Email Service (CHES)](https://bcgov.github.io/common-hosted-email-service)
 
-<!-- GETTING STARTED -->
 
 ## Getting Started
 
@@ -92,6 +96,7 @@ Windows Substem for Linux v2 is **strongly recommended** for Windows development
 
 - [Windows Subsystem for Linux Installation (Windows Only)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
 
+
 ### Common Services Access Token (GETOK)
 
 Common Services provides various APIs for used by the Government of British Columbia. Please see their project documentation to receive a client ID and secret.
@@ -99,6 +104,7 @@ Common Services provides various APIs for used by the Government of British Colu
 - [Onboarding/About](https://getok.nrs.gov.bc.ca/app/about)
 - [Request Account](https://getok.nrs.gov.bc.ca/app/requestAccount)
 - [My Applications](https://getok.nrs.gov.bc.ca/app/myApps)
+
 
 ### Run in Docker Compose
 
@@ -132,6 +138,7 @@ This is the recommended development method. When running Vue and nodemon will li
 - [Frontend (localhost:8080)](http://localhost:8080)
 - [Backend (localhost:3000)](http://localhost:3000)
 
+
 ### Alternative Installation - Local
 
 Although a much less consistent and predictable development experience the application can be run on bare-metal with Node.js. Vue and nodemon live reloading remains present. In place of the `docker-compose up` step:
@@ -154,13 +161,11 @@ Although a much less consistent and predictable development experience the appli
    npm run serve
    ```
 
-<!-- USAGE EXAMPLES -->
 
 ## Roadmap
 
 See the [open issues](/../../issues) for a list of proposed features (and known issues).
 
-<!-- CONTRIBUTING -->
 
 ## Contributing
 
@@ -189,19 +194,16 @@ Contributions are what make the open source community such an amazing place to b
 
 5. Open a Pull Request online
 
-<!-- CONDUCT -->
 
 ## Code of Conduct
 
 Be inclusive and respectful. More information is available in [CONDUCT.md](CONDUCT.md).
 
-<!-- LICENSE -->
 
 ## License
 
 Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for more information.
 
-<!-- ACKNOWLEDGEMENTS -->
 
 ## Acknowledgements
 
@@ -209,13 +211,3 @@ Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for more infor
 - [Common Forms Toolkit (ComForT)](https://github.com/bcgov/common-forms-toolkit)
 - [othneildrew's Best README Template](https://github.com/othneildrew/Best-README-Template)
 - [shields.io](https://shields.io)
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-
-[contributors-shield]: https://img.shields.io/github/contributors/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
-[forks-shield]: https://img.shields.io/github/forks/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
-[stars-shield]: https://img.shields.io/github/stars/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
-[issues-shield]: https://img.shields.io/github/issues/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
-[license-shield]: https://img.shields.io/github/license/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge
-[lifecycle-shield]: https://img.shields.io/badge/Lifecycle-Stable-97ca00?style=for-the-badge
