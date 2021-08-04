@@ -1,11 +1,11 @@
 <!-- PROJECT SHIELDS -->
 
-[![Contributors](https://img.shields.io/github/contributors/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../graphs/contributors)
-[![Forks](https://img.shields.io/github/forks/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../network/members)
-[![Stargazers](https://img.shields.io/github/stars/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../stargazers)
-[![Issues](https://img.shields.io/github/issues/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/../../issues)
-[![MIT License](https://img.shields.io/github/license/ActionAnalytics/containerization-and-cloud-economic-model.svg?style=for-the-badge)](/LICENSE.txt)
-[![Lifecycle](https://img.shields.io/badge/Lifecycle-Stable-97ca00?style=for-the-badge)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
+[![Contributors](https://img.shields.io/github/contributors/bcgov/containerization-and-cloud-economic-model.svg)](/../../graphs/contributors)
+[![Forks](https://img.shields.io/github/forks/bcgov/containerization-and-cloud-economic-model.svg)](/../../network/members)
+[![Stargazers](https://img.shields.io/github/stars/bcgov/containerization-and-cloud-economic-model.svg)](/../../stargazers)
+[![Issues](https://img.shields.io/github/issues/bcgov/containerization-and-cloud-economic-model.svg)](/../../issues)
+[![MIT License](https://img.shields.io/github/license/bcgov/containerization-and-cloud-economic-model.svg)](/LICENSE.txt)
+[![Lifecycle](https://img.shields.io/badge/Lifecycle-Stable-97ca00)](https://github.com/bcgov/repomountie/blob/master/doc/lifecycle-badges.md)
 
 
 <!-- PROJECT LOGO -->
