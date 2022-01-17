@@ -29,7 +29,7 @@
     "nodemon": "^2.0.6",
     "serve": "^11.3.2",
     "utf8": "^3.0.0",
-    "validator": "^13.1.1",
+    "validator": "^13.7.0",
     "vue": "^2.6.11",
     "vue-router": "^3.3.4",
     "vuetify": "^2.3.6",
