@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "@bcgov/bc-sans": "^1.0.1",
-    "axios": "^0.21.1",
+    "axios": "^0.21.4",
     "base-64": "^1.0.0",
     "core-js": "^3.6.5",
     "form-data": "^3.0.0",
@@ -40,7 +40,7 @@
     "@vue/cli-plugin-eslint": "^4.5.11",
     "@vue/cli-plugin-router": "^4.5.11",
     "@vue/cli-plugin-unit-jest": "^4.5.11",
-    "@vue/cli-service": "^4.5.11",
+    "@vue/cli-service": "^4.5.15",
     "@vue/eslint-config-prettier": "^6.0.0",
     "@vue/test-utils": "^1.1.2",
     "axios-mock-adapter": "^1.19.0",
